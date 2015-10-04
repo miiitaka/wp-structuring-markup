@@ -1,0 +1,16 @@
+.schema-admin-table {
+
+}
+.schema-admin-table th {
+	text-align: right;
+	width: 100px;
+}
+.schema-admin-table td label{
+	margin: 0 10px 0 0;
+}
+.schema-admin-table small {
+	margin: 0 0 0 10px;
+}
+.schema-admin-table input[type="checkbox"] {
+	margin: 0 5px 0 0;
+}
