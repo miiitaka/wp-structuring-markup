@@ -1,8 +1,4 @@
 <?php
-require_once( 'wp-structuring-admin-db.php' );
-
-new Structuring_Markup_Admin_Post();
-
 /**
  * Schema.org Admin Post
  *
@@ -11,7 +7,6 @@ new Structuring_Markup_Admin_Post();
  * @since   1.0.0
  */
 class Structuring_Markup_Admin_Post {
-	private $type_array = array();
 
 	/**
 	 * Constructor Define.
@@ -19,32 +14,117 @@ class Structuring_Markup_Admin_Post {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$this->type_array = array(
-			array("type"=>"website",      "display"=>"Web Site"),
-			array("type"=>"organization", "display"=>"Organization")
+		/**
+		 * Input Mode
+		 *
+		 * ""       : Input Start
+		 * "edit"   : Edit Mode
+		 */
+		$mode = isset( $_GET['mode'] ) ? esc_html( $_GET['mode'] ) : "";
+
+		/**
+		 * Update Status
+		 *
+		 * "ok"     : Successful update
+		 * "output" : Output No Check
+		 */
+		$status = "";
+
+		/** DB Connect */
+		$db = new Structuring_Markup_Admin_Db();
+
+		/** Set Default Parameter for Array */
+		$options = array(
+			"id"     => "",
+			"type"   => "website",
+			"output" => array(),
+			"option" => array()
 		);
 
-		$this->page_render();
+		/** Key Set */
+		if ( isset( $_GET['schema_post_id'] ) && is_numeric( $_GET['schema_post_id'] ) ) {
+			$options['id'] = $_GET['schema_post_id'];
+		}
+
+		/** DataBase Update & Insert Mode */
+		if ( isset( $_POST['id'] ) && is_numeric( $_POST['id'] ) ) {
+			if ( isset( $_POST['output'] ) ) {
+				$db->update_options( $_POST );
+				$options['id'] = $_POST['id'];
+				$status = "ok";
+			} else {
+				$status = "output";
+			}
+		} else {
+			if ( isset( $_POST['id'] ) && $_POST['id'] === '' ) {
+				if ( isset( $_POST['output'] ) ) {
+					$options['id'] = $db->insert_options( $_POST );
+					$status = "ok";
+					$mode = "edit";
+				} else {
+					$status = "output";
+				}
+			}
+		}
+
+		/** Mode Judgment */
+		if ( isset( $options['id'] ) && is_numeric( $options['id'] ) ) {
+			$options = $db->get_options( $options['id'] );
+		}
+
+		$this->page_render( $options, $mode, $status );
 	}
 
 	/**
 	 * Setting Page of the Admin Screen.
 	 *
 	 * @since 1.0.0
+	 * @param array  $options
+	 * @param string $mode
+	 * @param string $status
 	 */
-	private function page_render() {
+	private function page_render( array $options, $mode, $status ) {
+		/** Schema.org Type defined. */
+		$type_array = array(
+			array("type"=>"website",      "display"=>"Web Site"),
+			array("type"=>"organization", "display"=>"Organization")
+		);
+
 		$html  = '';
-		$html .= '<link rel="stylesheet" href="' . plugin_dir_url( __FILE__ ) . '/css/style.css">';
+		$html .= '<link rel="stylesheet" href="' . plugin_dir_url( __FILE__ ) . 'css/style.css">';
 		$html .= '<div class="wrap">';
 		$html .= '<h1>Schema.org Post</h1>';
-		$html .= '<hr>';
+		echo $html;
+
+		switch ( $status ) {
+			case "ok":
+				$this->information_render();
+				break;
+			case "output":
+				$this->output_error_render();
+				break;
+			default:
+				break;
+		}
+
+		$html  = '<hr>';
 		$html .= '<form method="post" action="">';
+		$html .= '<input type="hidden" name="id" value="' . esc_attr( $options['id'] ) . '">';
 		$html .= '<table class="schema-admin-table">';
 		$html .= '<tr><th><label for="type">Type :</label></th><td>';
+
 		$html .= '<select id="type" name="type">';
 
-		for ( $i = 0; $i < count( $this->type_array ); $i++ ) {
-			$html .= '<option value="' . $this->type_array[$i]['type'] . '">' . $this->type_array[$i]['display'] . '</option>';
+		foreach ( $type_array as $value ) {
+			if ( $value['type'] === $options['type'] ) {
+				$html .= '<option value="' . $value['type'] . '" selected>' . $value['display'] . '</option>';
+			} else {
+				if ( $mode === "" ) {
+					$html .= '<option value="' . $value['type'] . '">' . $value['display'] . '</option>';
+				} else {
+					$html .= '<option value="' . $value['type'] . '" disabled>' . $value['display'] . '</option>';
+				}
+			}
 		}
 
 		$html .= '</select>';
@@ -52,16 +132,63 @@ class Structuring_Markup_Admin_Post {
 		echo $html;
 
 		$html  = '<tr><th>Output :</th><td>';
-		$html .= '<label><input type="checkbox" name="output[' . "home" . ']" value="Top">Top Page</label>';
-		$html .= '<label><input type="checkbox" name="output[' . "post" . ']" value="Post">Post Page</label>';
-		$html .= '<label><input type="checkbox" name="output[' . "page" . ']" value="Fixed">Fixed Page</label>';
+
+		if ( isset( $options['output']['home'] ) ) {
+			$html .= '<label><input type="checkbox" name="output[' . "home" . ']" value="Top" checked>Top Page</label>';
+		} else {
+			$html .= '<label><input type="checkbox" name="output[' . "home" . ']" value="Top">Top Page</label>';
+		}
+		if ( isset( $options['output']['post'] ) ) {
+			$html .= '<label><input type="checkbox" name="output[' . "post" . ']" value="Post" checked>Post Page</label>';
+		} else {
+			$html .= '<label><input type="checkbox" name="output[' . "post" . ']" value="Post">Post Page</label>';
+		}
+		if ( isset( $options['output']['page'] ) ) {
+			$html .= '<label><input type="checkbox" name="output[' . "page" . ']" value="Fixed" checked>Fixed Page</label>';
+		} else {
+			$html .= '<label><input type="checkbox" name="output[' . "page" . ']" value="Fixed">Fixed Page</label>';
+		}
+
 		$html .= '</td></tr></table><hr>';
 		echo $html;
 
 		require_once( 'wp-structuring-admin-type-website.php' );
+		new Structuring_Markup_Type_Website( $options['option'] );
 
 		$html  = '</form>';
 		$html .= '</div>';
+		echo $html;
+	}
+
+	/**
+	 * Information Message Render
+	 *
+	 * @since 1.0.0
+	 */
+	private function information_render() {
+		$html  = '<div id="message" class="updated notice notice-success is-dismissible below-h2">';
+		$html .= '<p>Schema.org Information Update.</p>';
+		$html .= '<button type="button" class="notice-dismiss">';
+		$html .= '<span class="screen-reader-text">Dismiss this notice.</span>';
+		$html .= '</button>';
+		$html .= '</div>';
+
+		echo $html;
+	}
+
+	/**
+	 * Error Message Render
+	 *
+	 * @since 1.0.0
+	 */
+	private function output_error_render() {
+		$html  = '<div id="notice" class="notice notice-error is-dismissible below-h2">';
+		$html .= '<p>Output No Select.</p>';
+		$html .= '<button type="button" class="notice-dismiss">';
+		$html .= '<span class="screen-reader-text">Dismiss this notice.</span>';
+		$html .= '</button>';
+		$html .= '</div>';
+
 		echo $html;
 	}
 }

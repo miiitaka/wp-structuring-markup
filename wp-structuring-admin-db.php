@@ -26,7 +26,7 @@ class Structuring_Markup_Admin_Db {
 	 *
 	 * @since 1.0.0
 	 */
-	public function  create_table() {
+	public function create_table() {
 		global $wpdb;
 
 		$prepared     = $wpdb->prepare( "SHOW TABLES LIKE %s", $this->table_name );
@@ -66,11 +66,12 @@ class Structuring_Markup_Admin_Db {
 		$results  = array();
 
 		if ( $args ) {
-			$results['id']   = $args->id;
-			$results['type'] = $args->type;
-			$results = array_merge( $results, unserialize( $args->options ) );
+			$results['id']     = $args->id;
+			$results['type']   = $args->type;
+			$results['output'] = unserialize( $args->output );
+			$results['option'] = unserialize( $args->options );
 		}
-		return $results;
+		return (array) $results;
 	}
 
 	/**
@@ -84,7 +85,7 @@ class Structuring_Markup_Admin_Db {
 
 		$query = "SELECT * FROM " . $this->table_name . " ORDER BY update_date DESC";
 
-		return $wpdb->get_results( $query );
+		return (array) $wpdb->get_results( $query );
 	}
 
 	/**
@@ -92,23 +93,23 @@ class Structuring_Markup_Admin_Db {
 	 *
 	 * @since  1.0.0
 	 * @param  array $post($_POST)
-	 * @param  array $args
 	 * @return integer $id
 	 */
-	public function insert_options( $post, $args ) {
+	public function insert_options( array $post ) {
 		global $wpdb;
 
 		$data = array(
 			'type'          => $post['type'],
 			'output'        => serialize( $post['output'] ),
-			'options'       => serialize( $args ),
-			'register_date' => date( "Y-m-d H:i:s" )
+			'options'       => serialize( $post['option'] ),
+			'register_date' => date( "Y-m-d H:i:s" ),
+			'update_date'   => date( "Y-m-d H:i:s" )
 		);
 		$prepared = array( '%s', '%s', '%s' );
 
 		$wpdb->insert( $this->table_name, $data, $prepared );
 
-		return $wpdb->insert_id;
+		return (int) $wpdb->insert_id;
 	}
 
 	/**
@@ -116,15 +117,14 @@ class Structuring_Markup_Admin_Db {
 	 *
 	 * @since 1.0.0
 	 * @param array $post($_POST)
-	 * @param array $args
 	 */
-	public function update_options( $post, $args ) {
+	public function update_options( array $post ) {
 		global $wpdb;
 
 		$data = array(
 			'type'        => $post['type'],
 			'output'      => serialize( $post['output'] ),
-			'options'     => serialize( $args ),
+			'options'     => serialize( $post['option'] ),
 			'update_date' => date( "Y-m-d H:i:s" )
 		);
 		$key = array( 'id' => $post['id'] );
@@ -135,34 +135,17 @@ class Structuring_Markup_Admin_Db {
 	}
 
 	/**
-	 * Information Message Render
+	 * Delete Data.
 	 *
 	 * @since 1.0.0
+	 * @param integer $id
 	 */
-	public function information_render() {
-		$html  = '<div id="message" class="updated notice notice-success is-dismissible below-h2">';
-		$html .= '<p>Schema.org Information Update.</p>';
-		$html .= '<button type="button" class="notice-dismiss">';
-		$html .= '<span class="screen-reader-text">Dismiss this notice.</span>';
-		$html .= '</button>';
-		$html .= '</div>';
+	public function delete_options( $id ) {
+		global $wpdb;
 
-		echo $html;
-	}
+		$key = array( 'id' => $id );
+		$key_prepared = array( '%d' );
 
-	/**
-	 * Error Message Render
-	 *
-	 * @since 1.0.0
-	 */
-	public function error_render() {
-		$html  = '<div id="notice" class="notice notice-error is-dismissible below-h2">';
-		$html .= '<p>Output No Select.</p>';
-		$html .= '<button type="button" class="notice-dismiss">';
-		$html .= '<span class="screen-reader-text">Dismiss this notice.</span>';
-		$html .= '</button>';
-		$html .= '</div>';
-
-		echo $html;
+		$wpdb->delete( $this->table_name, $key, $key_prepared );
 	}
 }
