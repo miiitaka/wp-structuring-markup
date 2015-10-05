@@ -61,7 +61,7 @@ class Structuring_Markup_Admin_List {
 		$html .= '</tr>';
 		echo $html;
 
-		$results = $db->getAll_options();
+		$results = $db->get_list_options();
 
 		if ( $results ) {
 			foreach ( $results as $row ) {

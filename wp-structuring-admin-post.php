@@ -132,24 +132,13 @@ class Structuring_Markup_Admin_Post {
 		echo $html;
 
 		$html  = '<tr><th>Output :</th><td>';
+		echo $html;
 
-		if ( isset( $options['output']['home'] ) ) {
-			$html .= '<label><input type="checkbox" name="output[' . "home" . ']" value="Top" checked>Top Page</label>';
-		} else {
-			$html .= '<label><input type="checkbox" name="output[' . "home" . ']" value="Top">Top Page</label>';
-		}
-		if ( isset( $options['output']['post'] ) ) {
-			$html .= '<label><input type="checkbox" name="output[' . "post" . ']" value="Post" checked>Post Page</label>';
-		} else {
-			$html .= '<label><input type="checkbox" name="output[' . "post" . ']" value="Post">Post Page</label>';
-		}
-		if ( isset( $options['output']['page'] ) ) {
-			$html .= '<label><input type="checkbox" name="output[' . "page" . ']" value="Fixed" checked>Fixed Page</label>';
-		} else {
-			$html .= '<label><input type="checkbox" name="output[' . "page" . ']" value="Fixed">Fixed Page</label>';
-		}
+		$this->output_checkbox_render( $options['output'], "home", "Top", "Top Page" );
+		$this->output_checkbox_render( $options['output'], "post", "Post", "Post Page" );
+		$this->output_checkbox_render( $options['output'], "page", "Fixed", "Fixed Page" );
 
-		$html .= '</td></tr></table><hr>';
+		$html  = '</td></tr></table><hr>';
 		echo $html;
 
 		require_once( 'wp-structuring-admin-type-website.php' );
@@ -157,6 +146,30 @@ class Structuring_Markup_Admin_Post {
 
 		$html  = '</form>';
 		$html .= '</div>';
+		echo $html;
+	}
+
+	/**
+	 * CheckBox Build Render
+	 *
+	 * @since  1.0.0
+	 * @param  array  $option['output']
+	 * @param  string $output
+	 * @param  string $value
+	 * @param  string $display
+	 * @return string $html
+	 */
+	private function output_checkbox_render( array $option, $output, $value, $display ) {
+		$html  = '<label>';
+		$html .= '<input type="checkbox" name="output[' . $output . ']" value="' . $value . '""';
+
+		if ( isset( $option[$output] ) ) {
+			$html .=  ' checked>';
+		} else {
+			$html .=  '>';
+		}
+		$html .= $display . '</label>';
+
 		echo $html;
 	}
 

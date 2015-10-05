@@ -80,12 +80,29 @@ class Structuring_Markup_Admin_Db {
 	 * @since  1.0.0
 	 * @return array results
 	 */
-	public function getAll_options() {
+	public function get_list_options() {
 		global $wpdb;
 
 		$query = "SELECT * FROM " . $this->table_name . " ORDER BY update_date DESC";
 
 		return (array) $wpdb->get_results( $query );
+	}
+
+	/**
+	 * Get Select Data.
+	 *
+	 * @since  1.0.0
+	 * @return array results
+	 */
+	public function get_select_options( $output ) {
+		global $wpdb;
+
+		$query    = "SELECT * FROM " . $this->table_name . " WHERE output LIKE '%%%s%%'";
+		$data     = array( $output );
+		$prepared = $wpdb->prepare( $query, $data );
+		$results  = $wpdb->get_results( $prepared );
+
+		return (array) $results;
 	}
 
 	/**

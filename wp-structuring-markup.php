@@ -34,7 +34,7 @@ class Structuring_Markup {
 		if ( is_admin() ) {
 			add_action( 'admin_menu', array( $this, 'set_menu' ) );
 		} else {
-			require_once( 'wp-structuring-display.php' );
+			add_action( 'wp_head', array( $this, 'display_page_render' ) );
 		}
 	}
 
@@ -87,5 +87,15 @@ class Structuring_Markup {
 	public function post_page_render() {
 		require_once( 'wp-structuring-admin-post.php' );
 		new Structuring_Markup_Admin_Post();
+	}
+
+	/**
+	 * Display Page Template Require.
+	 *
+	 * @since 1.0.0
+	 */
+	public function display_page_render() {
+		require_once( 'wp-structuring-display.php' );
+		new Structuring_Markup_Display();
 	}
 }
