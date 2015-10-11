@@ -1,8 +1,8 @@
 === Markup (JSON-LD) structured in schema.org ===
 Contributors: miiitaka
 Tags: schema, json, seo
-Requires at least: 4.3
-Tested up to: 4.3
+Requires at least: 4.3.1
+Tested up to: 4.3.1
 Stable tag: 1.0.0
 
 It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an article or the fixed page.
@@ -10,6 +10,7 @@ It is plug in to implement structured markup (JSON-LD syntax) by schema.org defi
 == Description ==
 
 It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an article or the fixed page.
+Base knowledge is "https://developers.google.com/structured-data/"
 
 == Installation ==
 

@@ -25,8 +25,15 @@ class Structuring_Markup_Display {
 	 * @param Structuring_Markup_Admin_Db $db
 	 */
 	private function set_schema( Structuring_Markup_Admin_Db $db ) {
+		$this->get_schema_data( $db, 'all' );
 		if ( is_home() ) {
 			$this->get_schema_data( $db, 'home' );
+		}
+		if ( is_single() ) {
+			$this->get_schema_data( $db, 'post' );
+		}
+		if ( is_page() ) {
+			$this->get_schema_data( $db, 'page' );
 		}
 	}
 
@@ -52,6 +59,11 @@ class Structuring_Markup_Display {
 						case 'organization':
 							if ( isset( $row->options ) ) {
 								$this->set_schema_organization( unserialize( $row->options ) );
+							}
+							break;
+						case 'news_article':
+							if ( isset( $row->options ) ) {
+								$this->set_schema_news_article( unserialize( $row->options ) );
 							}
 							break;
 					}
@@ -136,25 +148,22 @@ class Structuring_Markup_Display {
 					$socials["sameAs"][] = ( esc_html( $value ) );
 				}
 			}
-
 			$args = array_merge( $args, $socials );
 		}
-
 		$this->set_schema_json( $args );
 	}
 
 	/**
-	 * Setting schema.org Article( Article | NewsArticle | BlogPosting )
+	 * Setting schema.org NewsArticle
 	 *
 	 * @since 1.0.0
-	 * @param array $options
 	 */
-	private function set_schema_article( array $options ) {
+	private function set_schema_news_article() {
 		global $post;
 		if ( has_post_thumbnail( $post->ID ) ) {
 			$args = array(
 				"@context"      => "http://schema.org",
-				"@type"         => "BlogPosting",
+				"@type"         => "NewsArticle",
 				"headline"      => esc_html( $post->post_title ),
 				"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
 				"image"         => array( esc_html( wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), "full" )[0] ) ),

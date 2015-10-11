@@ -118,7 +118,7 @@ class Structuring_Markup_Admin_Db {
 		$data = array(
 			'type'          => $post['type'],
 			'output'        => serialize( $post['output'] ),
-			'options'       => serialize( $post['option'] ),
+			'options'       => isset( $post['option'] ) ? serialize( $post['option'] ) : "",
 			'register_date' => date( "Y-m-d H:i:s" ),
 			'update_date'   => date( "Y-m-d H:i:s" )
 		);

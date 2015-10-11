@@ -11,7 +11,8 @@ class Structuring_Markup_Admin_Post {
 	/** Schema.org Type defined. */
 	private $type_array = array(
 		array("type" => "website",      "display" => "Web Site"),
-		array("type" => "organization", "display" => "Organization")
+		array("type" => "organization", "display" => "Organization"),
+		array("type" => "news_article", "display" => "News Article")
 	);
 
 	/**
@@ -123,7 +124,6 @@ class Structuring_Markup_Admin_Post {
 		$html .= '<table class="schema-admin-table">';
 		$html .= '<tr><th><label for="type">Schema Type :</label></th><td>';
 		$html .= '<select id="type" name="type" onchange="this.form.submit();">';
-
 		foreach ( $this->type_array as $value ) {
 			$html .= '<option value="' . $value['type'] . '"';
 			if ( $value['type'] === $options['type'] ) {
@@ -135,7 +135,6 @@ class Structuring_Markup_Admin_Post {
 			}
 			$html .= '>' . $value['display'] . '</option>';
 		}
-
 		$html .= '</select>';
 		$html .= '</td></tr></table>';
 		$html .= '</form>';
@@ -149,22 +148,36 @@ class Structuring_Markup_Admin_Post {
 		$html .= '<tr><th>Output :</th><td>';
 		echo $html;
 
-		$this->output_checkbox_render( $options['output'], "all", "All", "All Page" );
-		$this->output_checkbox_render( $options['output'], "home", "Top", "Top Page" );
-		$this->output_checkbox_render( $options['output'], "post", "Post", "Post Page" );
-		$this->output_checkbox_render( $options['output'], "page", "Fixed", "Fixed Page" );
-
-		$html  = '</td></tr></table><hr>';
-		echo $html;
-
 		switch ( $options['type'] ) {
 			case 'website':
+				$this->output_checkbox_render( $options['output'], "all", "All", "All Page" );
+				$this->output_checkbox_render( $options['output'], "home", "Top", "Top Page" );
+				$this->output_checkbox_render( $options['output'], "post", "Post", "Post Page" );
+				$this->output_checkbox_render( $options['output'], "page", "Fixed", "Fixed Page" );
+				$html  = '</td></tr></table><hr>';
+				echo $html;
+
 				require_once( 'wp-structuring-admin-type-website.php' );
 				new Structuring_Markup_Type_Website( $options['option'] );
 				break;
 			case 'organization':
+				$this->output_checkbox_render( $options['output'], "all", "All", "All Page" );
+				$this->output_checkbox_render( $options['output'], "home", "Top", "Top Page" );
+				$this->output_checkbox_render( $options['output'], "post", "Post", "Post Page" );
+				$this->output_checkbox_render( $options['output'], "page", "Fixed", "Fixed Page" );
+				$html  = '</td></tr></table><hr>';
+				echo $html;
+
 				require_once ( 'wp-structuring-admin-type-organization.php' );
 				new Structuring_Markup_Type_Organization( $options['option'] );
+				break;
+			case 'news_article':
+				$this->output_checkbox_render( $options['output'], "post", "Post", "Post Page" );
+				$html  = '</td></tr></table><hr>';
+				echo $html;
+
+				require_once ( 'wp-structuring-admin-type-news-article.php' );
+				new Structuring_Markup_Type_NewsArticle();
 				break;
 		}
 
