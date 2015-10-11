@@ -8,6 +8,12 @@
  * @see     wp-structuring-admin-db.php
  */
 class Structuring_Markup_Admin_List {
+	/** Schema.org Type defined. */
+	private $type_array = array(
+		"website"      => "Web Site",
+		"organization" => "Organization",
+		"news_article" => "News Article"
+	);
 
 	/**
 	 * Constructor Define.
@@ -68,7 +74,7 @@ class Structuring_Markup_Admin_List {
 				$html  = '';
 				$html .= '<tr>';
 				$html .= '<td>';
-				$html .= '<a href="' . $post_url . '&mode=edit&schema_post_id=' . esc_html( $row->id ) . '">' . esc_html( $row->type ) . '</a>';
+				$html .= '<a href="' . $post_url . '&mode=edit&schema_post_id=' . esc_html( $row->id ) . '">' . $this->type_array[esc_html( $row->type )] . '</a>';
 				$html .= '</td>';
 				$html .= '<td>' . $this->unserialize_output( $row->output ) . '</td>';
 				$html .= '<td>' . esc_html( $row->register_date ) . '</td>';

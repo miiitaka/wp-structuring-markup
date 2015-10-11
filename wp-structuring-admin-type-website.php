@@ -68,6 +68,7 @@ class Structuring_Markup_Type_Website {
 		$html .= '</table>';
 		echo $html;
 
+		echo '<p>Setting Knowledge : <a href="https://developers.google.com/structured-data/slsb-overview" target="_blank">https://developers.google.com/structured-data/slsb-overview</a></p>';
 		submit_button();
 	}
 
