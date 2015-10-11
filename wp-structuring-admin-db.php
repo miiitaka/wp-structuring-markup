@@ -54,7 +54,7 @@ class Structuring_Markup_Admin_Db {
 	 *
 	 * @since  1.0.0
 	 * @param  integer $id
-	 * @return array results
+	 * @return array   $results
 	 */
 	public function get_options( $id ) {
 		global $wpdb;
@@ -78,7 +78,7 @@ class Structuring_Markup_Admin_Db {
 	 * Get All Data.
 	 *
 	 * @since  1.0.0
-	 * @return array results
+	 * @return array $results
 	 */
 	public function get_list_options() {
 		global $wpdb;
@@ -92,7 +92,8 @@ class Structuring_Markup_Admin_Db {
 	 * Get Select Data.
 	 *
 	 * @since  1.0.0
-	 * @return array results
+	 * @param  array $output
+	 * @return array $results
 	 */
 	public function get_select_options( $output ) {
 		global $wpdb;
