@@ -49,6 +49,11 @@ class Structuring_Markup_Display {
 								$this->set_schema_website( unserialize( $row->options ) );
 							}
 							break;
+						case 'organization':
+							if ( isset( $row->options ) ) {
+								$this->set_schema_organization( unserialize( $row->options ) );
+							}
+							break;
 					}
 				}
 			}
@@ -98,14 +103,43 @@ class Structuring_Markup_Display {
 	 * Setting schema.org Organization
 	 *
 	 * @since 1.0.0
+	 * @param array $options
 	 */
-	private function set_schema_organization() {
+	private function set_schema_organization( array $options ) {
+		/** Logos */
 		$args = array(
 			"@context" => "http://schema.org",
 			"@type"    => "Organization",
-			"url"      => "",
-			"logo"     => ""
+			"name"     => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
+			"url"      => isset( $options['url'] ) ? esc_html( $options['url'] ) : "",
+			"logo"     => isset( $options['logo'] ) ? esc_html( $options['logo'] ) : ""
 		);
+
+		/** Corporate Contact */
+		if ( isset( $options['contact_point'] ) && $options['contact_point'] === 'on' ) {
+			$contact_point["contactPoint"] = array(
+				array(
+					"@type"       => "ContactPoint",
+					"telephone"   => isset( $options['telephone'] ) ? esc_html( $options['telephone'] ) : "",
+					"contactType" => isset( $options['contact_type'] ) ? esc_html( $options['contact_type'] ) : ""
+				)
+			);
+			$args = array_merge( $args, $contact_point );
+		}
+
+		/** Social Profiles */
+		if ( isset( $options['social'] ) ) {
+			$socials["sameAs"] = array();
+
+			foreach ( $options['social'] as $value ) {
+				if ( !empty( $value ) ) {
+					$socials["sameAs"][] = ( esc_html( $value ) );
+				}
+			}
+
+			$args = array_merge( $args, $socials );
+		}
+
 		$this->set_schema_json( $args );
 	}
 
@@ -113,8 +147,9 @@ class Structuring_Markup_Display {
 	 * Setting schema.org Article( Article | NewsArticle | BlogPosting )
 	 *
 	 * @since 1.0.0
+	 * @param array $options
 	 */
-	private function set_schema_article() {
+	private function set_schema_article( array $options ) {
 		global $post;
 		if ( has_post_thumbnail( $post->ID ) ) {
 			$args = array(

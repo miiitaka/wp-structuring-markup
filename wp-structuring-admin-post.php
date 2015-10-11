@@ -8,6 +8,12 @@
  */
 class Structuring_Markup_Admin_Post {
 
+	/** Schema.org Type defined. */
+	private $type_array = array(
+		array("type" => "website",      "display" => "Web Site"),
+		array("type" => "organization", "display" => "Organization")
+	);
+
 	/**
 	 * Constructor Define.
 	 *
@@ -17,8 +23,8 @@ class Structuring_Markup_Admin_Post {
 		/**
 		 * Input Mode
 		 *
-		 * ""       : Input Start
-		 * "edit"   : Edit Mode
+		 * ""     : Input Start
+		 * "edit" : Edit Mode
 		 */
 		$mode = isset( $_GET['mode'] ) ? esc_html( $_GET['mode'] ) : "";
 
@@ -43,7 +49,17 @@ class Structuring_Markup_Admin_Post {
 
 		/** Key Set */
 		if ( isset( $_GET['schema_post_id'] ) && is_numeric( $_GET['schema_post_id'] ) ) {
-			$options['id'] = $_GET['schema_post_id'];
+			$options['id'] = esc_html( $_GET['schema_post_id'] );
+		}
+
+		/** Type Set */
+		if ( isset( $_GET['type'] ) ) {
+			foreach ( $this->type_array as $value ) {
+				if ( $_GET['type'] === $value['type'] ) {
+					$options['type'] = esc_html( $_GET['type'] );
+					break;
+				}
+			}
 		}
 
 		/** DataBase Update & Insert Mode */
@@ -84,12 +100,6 @@ class Structuring_Markup_Admin_Post {
 	 * @param string $status
 	 */
 	private function page_render( array $options, $mode, $status ) {
-		/** Schema.org Type defined. */
-		$type_array = array(
-			array("type"=>"website",      "display"=>"Web Site"),
-			array("type"=>"organization", "display"=>"Organization")
-		);
-
 		$html  = '';
 		$html .= '<link rel="stylesheet" href="' . plugin_dir_url( __FILE__ ) . 'css/style.css">';
 		$html .= '<div class="wrap">';
@@ -108,32 +118,38 @@ class Structuring_Markup_Admin_Post {
 		}
 
 		$html  = '<hr>';
-		$html .= '<form method="post" action="">';
-		$html .= '<input type="hidden" name="id" value="' . esc_attr( $options['id'] ) . '">';
+		$html .= '<form method="get" action="">';
+		$html .= '<input type="hidden" name="page" value="wp-structuring-admin-post.php">';
 		$html .= '<table class="schema-admin-table">';
-		$html .= '<tr><th><label for="type">Type :</label></th><td>';
+		$html .= '<tr><th><label for="type">Schema Type :</label></th><td>';
+		$html .= '<select id="type" name="type" onchange="this.form.submit();">';
 
-		$html .= '<select id="type" name="type">';
-
-		foreach ( $type_array as $value ) {
+		foreach ( $this->type_array as $value ) {
+			$html .= '<option value="' . $value['type'] . '"';
 			if ( $value['type'] === $options['type'] ) {
-				$html .= '<option value="' . $value['type'] . '" selected>' . $value['display'] . '</option>';
+				$html .= ' selected';
 			} else {
-				if ( $mode === "" ) {
-					$html .= '<option value="' . $value['type'] . '">' . $value['display'] . '</option>';
-				} else {
-					$html .= '<option value="' . $value['type'] . '" disabled>' . $value['display'] . '</option>';
+				if ( $mode === "edit" ) {
+					$html .= ' disabled';
 				}
 			}
+			$html .= '>' . $value['display'] . '</option>';
 		}
 
 		$html .= '</select>';
-		$html .= '</td></tr>';
+		$html .= '</td></tr></table>';
+		$html .= '</form>';
 		echo $html;
 
-		$html  = '<tr><th>Output :</th><td>';
+		/** Output Page Select */
+		$html  = '<form method="post" action="">';
+		$html .= '<input type="hidden" name="id" value="' . esc_attr( $options['id'] ) . '">';
+		$html .= '<input type="hidden" name="type" value="' . esc_attr( $options['type'] ) . '">';
+		$html .= '<table class="schema-admin-table">';
+		$html .= '<tr><th>Output :</th><td>';
 		echo $html;
 
+		$this->output_checkbox_render( $options['output'], "all", "All", "All Page" );
 		$this->output_checkbox_render( $options['output'], "home", "Top", "Top Page" );
 		$this->output_checkbox_render( $options['output'], "post", "Post", "Post Page" );
 		$this->output_checkbox_render( $options['output'], "page", "Fixed", "Fixed Page" );
@@ -141,8 +157,16 @@ class Structuring_Markup_Admin_Post {
 		$html  = '</td></tr></table><hr>';
 		echo $html;
 
-		require_once( 'wp-structuring-admin-type-website.php' );
-		new Structuring_Markup_Type_Website( $options['option'] );
+		switch ( $options['type'] ) {
+			case 'website':
+				require_once( 'wp-structuring-admin-type-website.php' );
+				new Structuring_Markup_Type_Website( $options['option'] );
+				break;
+			case 'organization':
+				require_once ( 'wp-structuring-admin-type-organization.php' );
+				new Structuring_Markup_Type_Organization( $options['option'] );
+				break;
+		}
 
 		$html  = '</form>';
 		$html .= '</div>';
@@ -164,11 +188,9 @@ class Structuring_Markup_Admin_Post {
 		$html .= '<input type="checkbox" name="output[' . $output . ']" value="' . $value . '""';
 
 		if ( isset( $option[$output] ) ) {
-			$html .=  ' checked>';
-		} else {
-			$html .=  '>';
+			$html .=  ' checked';
 		}
-		$html .= $display . '</label>';
+		$html .= '>' . $display . '</label>';
 
 		echo $html;
 	}
