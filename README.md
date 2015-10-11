@@ -1,2 +1,2 @@
 # wp-structuring-markup
-WordPress: Plug-in Schema.org JSON-LD 
+WordPress: Plug-in Schema.org JSON-LD
