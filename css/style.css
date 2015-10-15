@@ -1,0 +1,22 @@
+.schema-admin-table {
+	margin: 15px 0 15px 0;
+}
+.schema-admin-table caption {
+	border-left: solid 4px #00a0d2;
+	margin: 0 0 10px 0;
+	padding: 3px 0 3px 7px;
+	text-align: left;
+}
+.schema-admin-table th {
+	text-align: right;
+	width: 100px;
+}
+.schema-admin-table td label{
+	margin: 0 10px 0 0;
+}
+.schema-admin-table small {
+	margin: 0 0 0 10px;
+}
+.schema-admin-table input[type="checkbox"] {
+	margin: 0 5px 0 0;
+}
