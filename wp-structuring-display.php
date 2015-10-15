@@ -40,9 +40,10 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting JSON-LD Template
 	 *
-	 * @since 1.0.0
-	 * @param string $output
-	 * @param Structuring_Markup_Admin_Db $db
+	 * @since   1.0.0
+	 * @version 1.1.0
+	 * @param   Structuring_Markup_Admin_Db $db
+	 * @param   string $output
 	 */
 	private function get_schema_data( Structuring_Markup_Admin_Db $db, $output ) {
 		$results = $db->get_select_options( $output );
@@ -59,6 +60,11 @@ class Structuring_Markup_Display {
 						case 'organization':
 							if ( isset( $row->options ) ) {
 								$this->set_schema_organization( unserialize( $row->options ) );
+							}
+							break;
+						case 'article':
+							if ( isset( $row->options ) ) {
+								$this->set_schema_article( unserialize( $row->options ) );
 							}
 							break;
 						case 'news_article':
@@ -149,6 +155,34 @@ class Structuring_Markup_Display {
 				}
 			}
 			$args = array_merge( $args, $socials );
+		}
+		$this->set_schema_json( $args );
+	}
+
+	/**
+	 * Setting schema.org Article
+	 *
+	 * @since   1.1.0
+	 * @version 1.1.0
+	 */
+	private function set_schema_article() {
+		global $post;
+
+		$args = array(
+			"@context"      => "http://schema.org",
+			"@type"         => "Article",
+			"headline"      => esc_html( $post->post_title ),
+			"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
+			"author"        => esc_html( get_the_author_meta( 'display_name', $post->post_author ) ),
+			"description"   => esc_html( $post->post_excerpt ),
+			"articleBody"   => esc_html( $post->post_content )
+		);
+
+		if ( has_post_thumbnail( $post->ID ) ) {
+			list( $thumbnail_url, $thumbnail_width, $thumbnail_height ) = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+			$args = array(
+				"image" => array( $thumbnail_url ),
+			);
 		}
 		$this->set_schema_json( $args );
 	}

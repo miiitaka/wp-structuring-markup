@@ -3,7 +3,7 @@
 Plugin Name: Markup (JSON-LD) structured in schema.org
 Plugin URI: https://github.com/miiitaka/wp-structuring-markup
 Description: It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an article or the fixed page.
-Version: 1.0.8
+Version: 1.1.0
 Author: Kazuya Takami
 Author URI: http://programp.com/
 License: GPLv2 or later
@@ -27,7 +27,7 @@ class Structuring_Markup {
 	 *
 	 * @since 1.0.0
 	 */
-	function __construct() {
+	public function __construct() {
 		$db = new Structuring_Markup_Admin_Db();
 		$db->create_table();
 
