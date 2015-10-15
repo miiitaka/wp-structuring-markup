@@ -4,6 +4,10 @@ WordPress: Plug-in Schema.org JSON-LD
 ## WordPress Plug-in Release Status
 https://wordpress.org/plugins/wp-structuring-markup/
 
+- 1.1.1
+
+Schema.org type "Article" image add.
+
 - 1.1.0
 Schema.org Type "Article" Add.
 
