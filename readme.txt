@@ -21,9 +21,13 @@ Base knowledge is "https://developers.google.com/structured-data/"
 
 == Changelog ==
 
-= 1.1.0
+= 1.1.1 =
 
-* Schema.org Type "Article" Add.
+* Schema.org type "Article" image add.
+
+= 1.1.0 =
+
+* Schema.org type "Article" add.
 
 = 1.0.1 - 1.0.8 =
 
