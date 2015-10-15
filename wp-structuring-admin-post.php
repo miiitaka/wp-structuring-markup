@@ -102,7 +102,7 @@ class Structuring_Markup_Admin_Post {
 	 */
 	private function page_render( array $options, $mode, $status ) {
 		$html  = '';
-		$html .= '<link rel="stylesheet" href="' . plugin_dir_url( __FILE__ ) . 'css/style.css">';
+		$html .= '<link rel="stylesheet" href="' . plugins_url() . '/wp-structuring-markup/css/style.css">';
 		$html .= '<div class="wrap">';
 		$html .= '<h1>Schema.org Post</h1>';
 		echo $html;
@@ -120,7 +120,7 @@ class Structuring_Markup_Admin_Post {
 
 		$html  = '<hr>';
 		$html .= '<form method="get" action="">';
-		$html .= '<input type="hidden" name="page" value="wp-structuring-admin-post.php">';
+		$html .= '<input type="hidden" name="page" value="wp-structuring-markup/wp-structuring-admin-post.php">';
 		$html .= '<table class="schema-admin-table">';
 		$html .= '<tr><th><label for="type">Schema Type :</label></th><td>';
 		$html .= '<select id="type" name="type" onchange="this.form.submit();">';
@@ -157,7 +157,7 @@ class Structuring_Markup_Admin_Post {
 				$html  = '</td></tr></table><hr>';
 				echo $html;
 
-				require_once( 'wp-structuring-admin-type-website.php' );
+				require_once( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-website.php' );
 				new Structuring_Markup_Type_Website( $options['option'] );
 				break;
 			case 'organization':
@@ -168,7 +168,7 @@ class Structuring_Markup_Admin_Post {
 				$html  = '</td></tr></table><hr>';
 				echo $html;
 
-				require_once ( 'wp-structuring-admin-type-organization.php' );
+				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-organization.php' );
 				new Structuring_Markup_Type_Organization( $options['option'] );
 				break;
 			case 'news_article':
@@ -176,7 +176,7 @@ class Structuring_Markup_Admin_Post {
 				$html  = '</td></tr></table><hr>';
 				echo $html;
 
-				require_once ( 'wp-structuring-admin-type-news-article.php' );
+				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-news-article.php' );
 				new Structuring_Markup_Type_NewsArticle();
 				break;
 		}

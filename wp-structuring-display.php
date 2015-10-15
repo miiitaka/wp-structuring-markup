@@ -161,12 +161,13 @@ class Structuring_Markup_Display {
 	private function set_schema_news_article() {
 		global $post;
 		if ( has_post_thumbnail( $post->ID ) ) {
+			list( $thumbnail_url, $thumbnail_width, $thumbnail_height ) = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 			$args = array(
 				"@context"      => "http://schema.org",
 				"@type"         => "NewsArticle",
 				"headline"      => esc_html( $post->post_title ),
 				"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
-				"image"         => array( esc_html( wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), "full" )[0] ) ),
+				"image"         => array( $thumbnail_url ),
 				"description"   => esc_html( $post->post_excerpt ),
 				"articleBody"   => esc_html( $post->post_content )
 			);
