@@ -3,7 +3,7 @@ Contributors: miiitaka
 Tags: schema, json, seo, posts
 Requires at least: 4.3.1
 Tested up to: 4.3.1
-Stable tag: 1.0.8
+Stable tag: 1.1.0
 
 It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an article or the fixed page.
 
@@ -21,11 +21,17 @@ Base knowledge is "https://developers.google.com/structured-data/"
 
 == Changelog ==
 
+= 1.1.0
+
+* Schema.org Type "Article" Add.
+
 = 1.0.1 - 1.0.8 =
-* Bug Fix.
+
+* Bug Fix. Missing plugin path setting.
 
 = 1.0.0 =
-* The first release.
+
+* First release of this plugin.
 
 == Contact ==
 
