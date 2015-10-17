@@ -3,7 +3,7 @@
  * Schema.org Display
  *
  * @author  Kazuya Takami
- * @version 1.0.0
+ * @version 1.1.3
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -41,7 +41,7 @@ class Structuring_Markup_Display {
 	 * Setting JSON-LD Template
 	 *
 	 * @since   1.0.0
-	 * @version 1.1.0
+	 * @version 1.1.3
 	 * @param   Structuring_Markup_Admin_Db $db
 	 * @param   string $output
 	 */
@@ -64,12 +64,12 @@ class Structuring_Markup_Display {
 							break;
 						case 'article':
 							if ( isset( $row->options ) ) {
-								$this->set_schema_article( unserialize( $row->options ) );
+								$this->set_schema_article();
 							}
 							break;
 						case 'news_article':
 							if ( isset( $row->options ) ) {
-								$this->set_schema_news_article( unserialize( $row->options ) );
+								$this->set_schema_news_article();
 							}
 							break;
 					}
@@ -88,6 +88,17 @@ class Structuring_Markup_Display {
 		echo '<script type="application/ld+json">' , PHP_EOL;
 		echo json_encode( $args, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ) , PHP_EOL;
 		echo '</script>' , PHP_EOL;
+	}
+
+	/**
+	 * Setting JSON-LD Template
+	 *
+	 * @since  1.1.3
+	 * @param  string $text
+	 * @return string $text
+	 */
+	private function escape_text_tags( $text ) {
+		return str_replace( array( "\r", "\n" ), '', strip_tags( $text ) );
 	}
 
 	/**
@@ -163,21 +174,21 @@ class Structuring_Markup_Display {
 	 * Setting schema.org Article
 	 *
 	 * @since   1.1.0
-	 * @version 1.1.1
+	 * @version 1.1.3
 	 */
 	private function set_schema_article() {
 		global $post;
 		if ( has_post_thumbnail( $post->ID ) ) {
-			list( $thumbnail_url, $thumbnail_width, $thumbnail_height ) = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 			$args = array(
 				"@context"      => "http://schema.org",
 				"@type"         => "Article",
-				"headline"      => esc_html( $post->post_title ),
+				"headline"      => $this->escape_text_tags( $post->post_title ),
 				"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
-				"author"        => esc_html( get_the_author_meta( 'display_name', $post->post_author ) ),
-				"image"         => array( $thumbnail_url ),
-				"description"   => esc_html( $post->post_excerpt ),
-				"articleBody"   => esc_html( $post->post_content )
+				"author"        => $this->escape_text_tags( get_the_author_meta( 'display_name', $post->post_author ) ),
+				"image"         => array( $images[0] ),
+				"description"   => $this->escape_text_tags( $post->post_excerpt ),
+				"articleBody"   => $this->escape_text_tags( $post->post_content )
 			);
 			$this->set_schema_json( $args );
 		}
@@ -186,20 +197,21 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org NewsArticle
 	 *
-	 * @since 1.0.0
+	 * @since   1.0.0
+	 * @version 1.1.3
 	 */
 	private function set_schema_news_article() {
 		global $post;
 		if ( has_post_thumbnail( $post->ID ) ) {
-			list( $thumbnail_url, $thumbnail_width, $thumbnail_height ) = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 			$args = array(
 				"@context"      => "http://schema.org",
 				"@type"         => "NewsArticle",
-				"headline"      => esc_html( $post->post_title ),
+				"headline"      => $this->escape_text_tags( $post->post_title ),
 				"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
-				"image"         => array( $thumbnail_url ),
-				"description"   => esc_html( $post->post_excerpt ),
-				"articleBody"   => esc_html( $post->post_content )
+				"image"         => array( $images[0] ),
+				"description"   => $this->escape_text_tags( $post->post_excerpt ),
+				"articleBody"   => $this->escape_text_tags( $post->post_content )
 			);
 			$this->set_schema_json( $args );
 		}

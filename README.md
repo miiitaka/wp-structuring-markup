@@ -18,6 +18,9 @@ http://schema.org/NewsArticle
 ## WordPress Plug-in Release Status
 https://wordpress.org/plugins/wp-structuring-markup/
 
+- 1.1.3 -
+Fixed : To escape a newline code and the tag of the body attribute in Type "Article" and "NewsArticle".
+
 - 1.1.2 -
 Updated : Schema.org type "Article" image attribute.
 
