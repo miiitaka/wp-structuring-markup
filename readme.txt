@@ -39,6 +39,10 @@ Base knowledge is "https://developers.google.com/structured-data/"
 
 == Changelog ==
 
+= 1.1.3 =
+
+* Fixed : To escape a newline code and the tag of the body attribute in Type "Article" and "NewsArticle".
+
 = 1.1.2 =
 
 * Updated : Schema.org type "Article" image attribute.
