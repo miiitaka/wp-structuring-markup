@@ -12,6 +12,24 @@ It is plug in to implement structured markup (JSON-LD syntax) by schema.org defi
 It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an article or the fixed page.
 Base knowledge is "https://developers.google.com/structured-data/"
 
+[ Schema.org Type ]
+
+= Website =
+
+* https://schema.org/WebSite
+
+= Organization =
+
+* https://schema.org/Organization
+
+= Article =
+
+* http://schema.org/Article
+
+= NewsArticle =
+
+* http://schema.org/NewsArticle
+
 == Installation ==
 
 * A plug-in installation screen is displayed in the WordPress admin panel.
@@ -23,15 +41,15 @@ Base knowledge is "https://developers.google.com/structured-data/"
 
 = 1.1.2 =
 
-* Schema.org type "Article" image add.
+* Updated : Schema.org type "Article" image attribute.
 
 = 1.1.0 =
 
-* Schema.org type "Article" add.
+* Added : Schema.org type "Article".
 
 = 1.0.1 - 1.0.8 =
 
-* Bug Fix. Missing plugin path setting.
+* Fixed : Missing plugin path setting.
 
 = 1.0.0 =
 
