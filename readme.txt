@@ -3,7 +3,7 @@ Contributors: miiitaka
 Tags: schema, json, seo, posts
 Requires at least: 4.3.1
 Tested up to: 4.3.1
-Stable tag: 1.1.2
+Stable tag: 1.1.3
 
 It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an article or the fixed page.
 
