@@ -1,18 +1,18 @@
 # wp-structuring-markup
 WordPress: Plug-in Schema.org JSON-LD
 
-[ Schema.org Type ]
+## Schema.org Type
 
-- Website
+- Website -
 https://schema.org/WebSite
 
-- Organization
+- Organization -
 https://schema.org/Organization
 
-- Article
+- Article -
 http://schema.org/Article
 
-- NewsArticle
+- NewsArticle -
 http://schema.org/NewsArticle
 
 ## WordPress Plug-in Release Status
