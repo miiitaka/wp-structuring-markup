@@ -3,7 +3,7 @@
  * Schema.org Admin List
  *
  * @author  Kazuya Takami
- * @version 1.1.0
+ * @version 1.2.0
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  */
@@ -13,6 +13,7 @@ class Structuring_Markup_Admin_List {
 		"website"      => "Web Site",
 		"organization" => "Organization",
 		"article"      => "Article",
+		"blog_posting" => "Blog Posting",
 		"news_article" => "News Article"
 	);
 
