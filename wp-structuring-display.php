@@ -41,7 +41,7 @@ class Structuring_Markup_Display {
 	 * Setting JSON-LD Template
 	 *
 	 * @since   1.0.0
-	 * @version 1.1.3
+	 * @version 1.2.0
 	 * @param   Structuring_Markup_Admin_Db $db
 	 * @param   string $output
 	 */
@@ -65,6 +65,11 @@ class Structuring_Markup_Display {
 						case 'article':
 							if ( isset( $row->options ) ) {
 								$this->set_schema_article();
+							}
+							break;
+						case 'blog_posting':
+							if ( isset( $row->options ) ) {
+								$this->set_schema_blog_posting();
 							}
 							break;
 						case 'news_article':
@@ -185,6 +190,31 @@ class Structuring_Markup_Display {
 				"@type"         => "Article",
 				"headline"      => $this->escape_text_tags( $post->post_title ),
 				"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
+				"author"        => $this->escape_text_tags( get_the_author_meta( 'display_name', $post->post_author ) ),
+				"image"         => array( $images[0] ),
+				"description"   => $this->escape_text_tags( $post->post_excerpt ),
+				"articleBody"   => $this->escape_text_tags( $post->post_content )
+			);
+			$this->set_schema_json( $args );
+		}
+	}
+
+	/**
+	 * Setting schema.org BlogPosting
+	 *
+	 * @since   1.2.0
+	 * @version 1.2.0
+	 */
+	private function set_schema_blog_posting() {
+		global $post;
+		if ( has_post_thumbnail( $post->ID ) ) {
+			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+			$args = array(
+				"@context"      => "http://schema.org",
+				"@type"         => "BlogPosting",
+				"headline"      => $this->escape_text_tags( $post->post_title ),
+				"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
+				"dateModified"  => get_the_modified_time( DATE_ISO8601, $post->ID ),
 				"author"        => $this->escape_text_tags( get_the_author_meta( 'display_name', $post->post_author ) ),
 				"image"         => array( $images[0] ),
 				"description"   => $this->escape_text_tags( $post->post_excerpt ),
