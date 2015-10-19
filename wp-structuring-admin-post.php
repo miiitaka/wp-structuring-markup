@@ -3,7 +3,7 @@
  * Schema.org Admin Post
  *
  * @author  Kazuya Takami
- * @version 1.1.0
+ * @version 1.2.0
  * @since   1.0.0
  */
 class Structuring_Markup_Admin_Post {
@@ -13,6 +13,7 @@ class Structuring_Markup_Admin_Post {
 		array("type" => "website",      "display" => "Web Site"),
 		array("type" => "organization", "display" => "Organization"),
 		array("type" => "article",      "display" => "Article"),
+		array("type" => "blog_posting", "display" => "Blog Posting"),
 		array("type" => "news_article", "display" => "News Article")
 	);
 
@@ -97,7 +98,7 @@ class Structuring_Markup_Admin_Post {
 	 * Setting Page of the Admin Screen.
 	 *
 	 * @since   1.0.0
-	 * @version 1.1.0
+	 * @version 1.2.0
 	 * @param array  $options
 	 * @param string $mode
 	 * @param string $status
@@ -180,6 +181,14 @@ class Structuring_Markup_Admin_Post {
 
 				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-article.php' );
 				new Structuring_Markup_Type_Article();
+				break;
+			case 'blog_posting':
+				$this->output_checkbox_render( $options['output'], "post", "Post", "Post Page" );
+				$html  = '</td></tr></table><hr>';
+				echo $html;
+
+				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-blog-posting.php' );
+				new Structuring_Markup_Type_Blog_Posting();
 				break;
 			case 'news_article':
 				$this->output_checkbox_render( $options['output'], "post", "Post", "Post Page" );
