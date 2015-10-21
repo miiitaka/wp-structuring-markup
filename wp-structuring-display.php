@@ -3,7 +3,7 @@
  * Schema.org Display
  *
  * @author  Kazuya Takami
- * @version 1.1.3
+ * @version 1.2.1
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -136,7 +136,8 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org Organization
 	 *
-	 * @since 1.0.0
+	 * @since    1.0.0
+	 * ＠version 1.2.1
 	 * @param array $options
 	 */
 	private function set_schema_organization( array $options ) {
@@ -167,7 +168,7 @@ class Structuring_Markup_Display {
 
 			foreach ( $options['social'] as $value ) {
 				if ( !empty( $value ) ) {
-					$socials["sameAs"][] = ( esc_html( $value ) );
+					$socials["sameAs"][] = esc_html( $value );
 				}
 			}
 			$args = array_merge( $args, $socials );
