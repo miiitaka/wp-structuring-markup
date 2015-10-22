@@ -98,14 +98,13 @@ class Structuring_Markup_Admin_Post {
 	 * Setting Page of the Admin Screen.
 	 *
 	 * @since   1.0.0
-	 * @version 1.2.0
+	 * @version 1.2.1
 	 * @param array  $options
 	 * @param string $mode
 	 * @param string $status
 	 */
 	private function page_render( array $options, $mode, $status ) {
 		$html  = '';
-		$html .= '<link rel="stylesheet" href="' . plugins_url() . '/wp-structuring-markup/css/style.css">';
 		$html .= '<div class="wrap">';
 		$html .= '<h1>Schema.org Post</h1>';
 		echo $html;

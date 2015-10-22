@@ -24,20 +24,24 @@ http://schema.org/NewsArticle
 
 ## Change Log
 
+### 1.2.1
+- Updated : Read admin menu css -> wp_register_style setting
+- Fixed : Typo Missing.
+
 ### 1.2.0
-Added : Schema.org type "BlogPosting".
+- Added : Schema.org type "BlogPosting".
 
 ### 1.1.3
-Fixed : To escape a newline code and the tag of the body attribute in Type "Article" and "NewsArticle".
+- Fixed : To escape a newline code and the tag of the body attribute in Type "Article" and "NewsArticle".
 
 ### 1.1.2
-Updated : Schema.org type "Article" image attribute.
+- Updated : Schema.org type "Article" image attribute.
 
 ### 1.1.0
-Added : Schema.org type "Article".
+- Added : Schema.org type "Article".
 
 ### 1.0.8
-Fixed : Missing plugin path setting.
+- Fixed : Missing plugin path setting.
 
 ### 1.0.0
-First release of this plugin.
+- First release of this plugin.
