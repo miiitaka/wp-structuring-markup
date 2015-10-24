@@ -3,7 +3,7 @@
 Plugin Name: Markup (JSON-LD) structured in schema.org
 Plugin URI: https://github.com/miiitaka/wp-structuring-markup
 Description: It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an article or the fixed page.
-Version: 1.3.0
+Version: 1.3.1
 Author: Kazuya Takami
 Author URI: http://programp.com/
 License: GPLv2 or later
@@ -19,7 +19,7 @@ new Structuring_Markup();
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 1.3.0
+ * @version 1.3.1
  */
 class Structuring_Markup {
 
@@ -43,14 +43,21 @@ class Structuring_Markup {
 		$db->create_table();
 
 		if ( is_admin() ) {
-			/** Register Plug-in CSS */
-			add_action( 'admin_init', function () {
-				wp_register_style( 'wp-structuring-markup-admin-style', plugins_url( 'css/style.css', __FILE__ ) );
-			});
+			add_action( 'admin_init', array( $this, 'admin_init' ) );
 			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		} else {
 			add_action( 'wp_head', array( $this, 'wp_head' ) );
 		}
+	}
+
+	/**
+	 * admin init.
+	 *
+	 * @since   1.3.1
+	 * @version 1.3.1
+	 */
+	public function admin_init() {
+		wp_register_style( 'wp-structuring-markup-admin-style', plugins_url( 'css/style.css', __FILE__ ) );
 	}
 
 	/**
@@ -99,9 +106,17 @@ class Structuring_Markup {
 		);
 
 		/* Using registered $page handle to hook stylesheet loading */
-		add_action( 'admin_print_styles-' . $page, function () {
-			wp_enqueue_style( 'wp-structuring-markup-admin-style' );
-		});
+		add_action( 'admin_print_styles-' . $page, array( $this, 'add_style' ) );
+	}
+
+	/**
+	 * CSS admin add.
+	 *
+	 * @since   1.3.1
+	 * @version 1.3.1
+	 */
+	public function add_style() {
+		wp_enqueue_style( 'wp-structuring-markup-admin-style' );
 	}
 
 	/**
