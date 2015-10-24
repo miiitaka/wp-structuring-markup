@@ -18,6 +18,12 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 
 ## Change Log
 
+### 1.3.1
+- Fixed : none-function fixed.
+
+### 1.3.0
+- Added : Localizing into Japanese.
+
 ### 1.2.1
 - Updated : Read admin menu css -> wp_register_style setting
 - Fixed : Typo Missing.
