@@ -8,6 +8,14 @@
  * @see     wp-structuring-admin-db.php
  */
 class Structuring_Markup_Admin_List {
+
+	/**
+	 * Variable definition.
+	 *
+	 * @since 1.3.0
+	 */
+	private $text_domain;
+
 	/** Schema.org Type defined. */
 	private $type_array = array(
 		"website"      => "Web Site",
@@ -20,9 +28,13 @@ class Structuring_Markup_Admin_List {
 	/**
 	 * Constructor Define.
 	 *
-	 * @since 1.0.0
+	 * @since   1.0.0
+	 * @version 1.3.0
+	 * @param   String $text_domain
 	 */
-	function __construct() {
+	function __construct( $text_domain ) {
+		$this->text_domain = $text_domain;
+
 		$db = new Structuring_Markup_Admin_Db();
 		$mode = "";
 
@@ -39,18 +51,19 @@ class Structuring_Markup_Admin_List {
 	/**
 	 * LIST Page HTML Render.
 	 *
-	 * @since 1.0.0
-	 * @param Structuring_Markup_Admin_Db $db
-	 * @param String $mode
+	 * @since   1.0.0
+	 * @version 1.3.0
+	 * @param   Structuring_Markup_Admin_Db $db
+	 * @param   String $mode
 	 */
 	private function page_render( Structuring_Markup_Admin_Db $db, $mode = "" ) {
-		$post_url = admin_url() . "admin.php?page=wp-structuring-markup/wp-structuring-admin-post.php";
+		$post_url = admin_url() . 'admin.php?page=' . $this->text_domain . '/includes/wp-structuring-admin-post.php';
 		$self_url = $_SERVER['PHP_SELF'] . '?' . esc_html( $_SERVER['QUERY_STRING'] );
 
 		$html  = '';
 		$html .= '<div class="wrap">';
-		$html .= '<h1>Schema.org Setting List';
-		$html .= '<a href="' . $post_url . '" class="page-title-action">新規追加</a>';
+		$html .= '<h1>' . esc_html__( 'Schema.org Setting List', $this->text_domain );
+		$html .= '<a href="' . $post_url . '" class="page-title-action">' . esc_html__( 'Add New',   $this->text_domain ) . '</a>';
 		$html .= '</h1>';
 		echo $html;
 
@@ -61,10 +74,10 @@ class Structuring_Markup_Admin_List {
 		$html  = '<hr>';
 		$html .= '<table class="wp-list-table widefat fixed striped posts">';
 		$html .= '<tr>';
-		$html .= '<th scope="row">Schema&nbsp;Type</th>';
-		$html .= '<th scope="row">Output&nbsp;Page</th>';
-		$html .= '<th scope="row">Register&nbsp;Date</th>';
-		$html .= '<th scope="row">Update&nbsp;Date</th>';
+		$html .= '<th scope="row">' . esc_html__( 'Schema Type',   $this->text_domain ) . '</th>';
+		$html .= '<th scope="row">' . esc_html__( 'Output Page',   $this->text_domain ) . '</th>';
+		$html .= '<th scope="row">' . esc_html__( 'Register Date', $this->text_domain ) . '</th>';
+		$html .= '<th scope="row">' . esc_html__( 'Update Date',   $this->text_domain ) . '</th>';
 		$html .= '<th scope="row">&nbsp;</th>';
 		$html .= '</tr>';
 		echo $html;
@@ -82,14 +95,18 @@ class Structuring_Markup_Admin_List {
 				$html .= '<td>' . esc_html( $row->register_date ) . '</td>';
 				$html .= '<td>' . esc_html( $row->update_date ) . '</td>';
 				$html .= '<td>';
-				$html .= '<a href="' . $post_url . '&mode=edit&schema_post_id=' . esc_html( $row->id ) . '">Edit</a>&nbsp;&nbsp;';
-				$html .= '<a href="' . $self_url . '&mode=delete&schema_post_id=' . esc_html( $row->id ) . '">Delete</a>';
+				$html .= '<a href="' . $post_url . '&mode=edit&schema_post_id='   . esc_html( $row->id ) . '">';
+				$html .= esc_html__( 'Edit', $this->text_domain );
+				$html .= '</a>&nbsp;&nbsp;&nbsp;&nbsp;';
+				$html .= '<a href="' . $self_url . '&mode=delete&schema_post_id=' . esc_html( $row->id ) . '">';
+				$html .= esc_html__( 'Delete', $this->text_domain );
+				$html .= '</a>';
 				$html .= '</td>';
 				$html .= '</tr>';
 				echo $html;
 			}
 		} else {
-			echo '<td colspan="3">NOT FOUND</td>';
+			echo '<td colspan="3">' . esc_html__( 'Without registration.', $this->text_domain ) . '</td>';
 		}
 
 		$html  = '</table>';
@@ -102,13 +119,12 @@ class Structuring_Markup_Admin_List {
 	 *
 	 * @since 1.0.0
 	 * @param  object $obj
-	 * @return string
+	 * @return string $args
 	 */
 	private function unserialize_output( $obj ) {
 		$args = unserialize( $obj );
 		return (string) implode( ",", $args );
 	}
-
 
 	/**
 	 * Information Message Render

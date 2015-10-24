@@ -8,6 +8,13 @@
  */
 class Structuring_Markup_Admin_Post {
 
+	/**
+	 * Variable definition.
+	 *
+	 * @since 1.3.0
+	 */
+	private $text_domain;
+
 	/** Schema.org Type defined. */
 	private $type_array = array(
 		array("type" => "website",      "display" => "Web Site"),
@@ -20,9 +27,13 @@ class Structuring_Markup_Admin_Post {
 	/**
 	 * Constructor Define.
 	 *
-	 * @since 1.0.0
+	 * @since   1.0.0
+	 * @version 1.3.0
+	 * @param   String $text_domain
 	 */
-	public function __construct() {
+	public function __construct( $text_domain ) {
+		$this->text_domain = $text_domain;
+
 		/**
 		 * Input Mode
 		 *
@@ -98,7 +109,7 @@ class Structuring_Markup_Admin_Post {
 	 * Setting Page of the Admin Screen.
 	 *
 	 * @since   1.0.0
-	 * @version 1.2.1
+	 * @version 1.3.0
 	 * @param array  $options
 	 * @param string $mode
 	 * @param string $status
@@ -106,7 +117,7 @@ class Structuring_Markup_Admin_Post {
 	private function page_render( array $options, $mode, $status ) {
 		$html  = '';
 		$html .= '<div class="wrap">';
-		$html .= '<h1>Schema.org Post</h1>';
+		$html .= '<h1>' . esc_html__( 'Schema.org Register', $this->text_domain ) . '</h1>';
 		echo $html;
 
 		switch ( $status ) {
@@ -122,7 +133,7 @@ class Structuring_Markup_Admin_Post {
 
 		$html  = '<hr>';
 		$html .= '<form method="get" action="">';
-		$html .= '<input type="hidden" name="page" value="wp-structuring-markup/wp-structuring-admin-post.php">';
+		$html .= '<input type="hidden" name="page" value="wp-structuring-markup/includes/wp-structuring-admin-post.php">';
 		$html .= '<table class="schema-admin-table">';
 		$html .= '<tr><th><label for="type">Schema Type :</label></th><td>';
 		$html .= '<select id="type" name="type" onchange="this.form.submit();">';
@@ -147,15 +158,15 @@ class Structuring_Markup_Admin_Post {
 		$html .= '<input type="hidden" name="id" value="' . esc_attr( $options['id'] ) . '">';
 		$html .= '<input type="hidden" name="type" value="' . esc_attr( $options['type'] ) . '">';
 		$html .= '<table class="schema-admin-table">';
-		$html .= '<tr><th>Output :</th><td>';
+		$html .= '<tr><th>' . esc_html__( 'Output Page', $this->text_domain ) . ':</th><td>';
 		echo $html;
 
 		switch ( $options['type'] ) {
 			case 'website':
-				$this->output_checkbox_render( $options['output'], "all", "All", "All Page" );
-				$this->output_checkbox_render( $options['output'], "home", "Top", "Top Page" );
-				$this->output_checkbox_render( $options['output'], "post", "Post", "Post Page" );
-				$this->output_checkbox_render( $options['output'], "page", "Fixed", "Fixed Page" );
+				$this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Page',   $this->text_domain ) );
+				$this->output_checkbox_render( $options['output'], "home", "Top",   esc_html__( 'Top Page',   $this->text_domain ) );
+				$this->output_checkbox_render( $options['output'], "post", "Post",  esc_html__( 'Post Page',  $this->text_domain ) );
+				$this->output_checkbox_render( $options['output'], "page", "Fixed", esc_html__( 'Fixed Page', $this->text_domain ) );
 				$html  = '</td></tr></table><hr>';
 				echo $html;
 
@@ -163,10 +174,10 @@ class Structuring_Markup_Admin_Post {
 				new Structuring_Markup_Type_Website( $options['option'] );
 				break;
 			case 'organization':
-				$this->output_checkbox_render( $options['output'], "all", "All", "All Page" );
-				$this->output_checkbox_render( $options['output'], "home", "Top", "Top Page" );
-				$this->output_checkbox_render( $options['output'], "post", "Post", "Post Page" );
-				$this->output_checkbox_render( $options['output'], "page", "Fixed", "Fixed Page" );
+				$this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Page',   $this->text_domain ) );
+				$this->output_checkbox_render( $options['output'], "home", "Top",   esc_html__( 'Top Page',   $this->text_domain ) );
+				$this->output_checkbox_render( $options['output'], "post", "Post",  esc_html__( 'Post Page',  $this->text_domain ) );
+				$this->output_checkbox_render( $options['output'], "page", "Fixed", esc_html__( 'Fixed Page', $this->text_domain ) );
 				$html  = '</td></tr></table><hr>';
 				echo $html;
 
@@ -174,7 +185,7 @@ class Structuring_Markup_Admin_Post {
 				new Structuring_Markup_Type_Organization( $options['option'] );
 				break;
 			case 'article':
-				$this->output_checkbox_render( $options['output'], "post", "Post", "Post Page" );
+				$this->output_checkbox_render( $options['output'], "post", "Post", esc_html__( 'Post Page', $this->text_domain ) );
 				$html  = '</td></tr></table><hr>';
 				echo $html;
 
@@ -182,7 +193,7 @@ class Structuring_Markup_Admin_Post {
 				new Structuring_Markup_Type_Article();
 				break;
 			case 'blog_posting':
-				$this->output_checkbox_render( $options['output'], "post", "Post", "Post Page" );
+				$this->output_checkbox_render( $options['output'], "post", "Post", esc_html__( 'Post Page', $this->text_domain ) );
 				$html  = '</td></tr></table><hr>';
 				echo $html;
 
@@ -190,7 +201,7 @@ class Structuring_Markup_Admin_Post {
 				new Structuring_Markup_Type_Blog_Posting();
 				break;
 			case 'news_article':
-				$this->output_checkbox_render( $options['output'], "post", "Post", "Post Page" );
+				$this->output_checkbox_render( $options['output'], "post", "Post", esc_html__( 'Post Page', $this->text_domain ) );
 				$html  = '</td></tr></table><hr>';
 				echo $html;
 

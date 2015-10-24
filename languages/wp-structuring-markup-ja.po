@@ -1,0 +1,113 @@
+# Copyright (C) 2015 Markup (JSON-LD) structured in schema.org
+# This file is distributed under the same license as the Markup (JSON-LD) structured in schema.org package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Markup (JSON-LD) structured in schema.org 1.3.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-structuring-"
+"markup\n"
+"POT-Creation-Date: 2015-10-24 10:02:34+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: includes/wp-structuring-admin-list.php:65
+msgid "Schema.org Setting List"
+msgstr "Schema.org 設定一覧"
+
+#: includes/wp-structuring-admin-list.php:66 wp-structuring-markup.php:95
+msgid "Add New"
+msgstr "新規追加"
+
+#: includes/wp-structuring-admin-list.php:77
+msgid "Schema Type"
+msgstr ""
+
+#: includes/wp-structuring-admin-list.php:78
+#: includes/wp-structuring-admin-post.php:161
+msgid "Output Page"
+msgstr "出力ページ"
+
+#: includes/wp-structuring-admin-list.php:79
+msgid "Register Date"
+msgstr "登録日"
+
+#: includes/wp-structuring-admin-list.php:80
+msgid "Update Date"
+msgstr "更新日"
+
+#: includes/wp-structuring-admin-list.php:99
+msgid "Edit"
+msgstr "編集"
+
+#: includes/wp-structuring-admin-list.php:102
+msgid "Delete"
+msgstr "削除"
+
+#: includes/wp-structuring-admin-list.php:109
+msgid "Without registration."
+msgstr "登録されていません。"
+
+#: includes/wp-structuring-admin-post.php:120
+msgid "Schema.org Register"
+msgstr "Scheme.org 登録"
+
+#: includes/wp-structuring-admin-post.php:166
+#: includes/wp-structuring-admin-post.php:177
+msgid "All Page"
+msgstr "全てのページ"
+
+#: includes/wp-structuring-admin-post.php:167
+#: includes/wp-structuring-admin-post.php:178
+msgid "Top Page"
+msgstr "トップページ"
+
+#: includes/wp-structuring-admin-post.php:168
+#: includes/wp-structuring-admin-post.php:179
+#: includes/wp-structuring-admin-post.php:188
+#: includes/wp-structuring-admin-post.php:196
+#: includes/wp-structuring-admin-post.php:204
+msgid "Post Page"
+msgstr "投稿ページ"
+
+#: includes/wp-structuring-admin-post.php:169
+#: includes/wp-structuring-admin-post.php:180
+msgid "Fixed Page"
+msgstr "固定ページ"
+
+#: wp-structuring-markup.php:78 wp-structuring-markup.php:79
+msgid "Scheme.org Setting"
+msgstr "Scheme.org 設定"
+
+#: wp-structuring-markup.php:86 wp-structuring-markup.php:87
+msgid "Setting All"
+msgstr "設定一覧"
+
+#: wp-structuring-markup.php:94
+msgid "Scheme.org Setting Post"
+msgstr "新規登録"
+
+#. Plugin Name of the plugin/theme
+msgid "Markup (JSON-LD) structured in schema.org"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/miiitaka/wp-structuring-markup"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid ""
+"It is plug in to implement structured markup (JSON-LD syntax) by schema.org "
+"definition on an article or the fixed page."
+msgstr ""
+"このプラグインは、投稿ページ、固定ページなどにschema.org定義の構造化マークアップ（ JSON -LDの構文）を実装するプラグインです。"
+
+#. Author of the plugin/theme
+msgid "Kazuya Takami"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://programp.com/"
+msgstr ""
