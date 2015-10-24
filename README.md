@@ -2,25 +2,19 @@
 WordPress: Plug-in Schema.org JSON-LD  
 https://wordpress.org/plugins/wp-structuring-markup/
 
-It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an article or the fixed page.  
+It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an post page, fixed page and etc. 
 Base knowledge is "https://schema.org/" and "https://developers.google.com/structured-data/"
+
+このプラグインは、投稿ページ、固定ページなどにschema.org定義の構造化マークアップ（ JSON -LDの構文）を実装するプラグインです。  
+基本知識は、https://schema.org/ や https://developers.google.com/structured-data/ を参考にしてください。
 
 ## Schema.org Type
 
-- Website -
-https://schema.org/WebSite
-
-- Organization -
-https://schema.org/Organization
-
-- Article -
-http://schema.org/Article
-
-- BlogPosting -
-http://schema.org/BlogPosting
-
-- NewsArticle -
-http://schema.org/NewsArticle
+- Website: https://schema.org/WebSite
+- Organization: https://schema.org/Organization
+- Article: http://schema.org/Article
+- BlogPosting: http://schema.org/BlogPosting
+- NewsArticle: http://schema.org/NewsArticle
 
 ## Change Log
 

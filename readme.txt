@@ -1,37 +1,27 @@
 === Markup (JSON-LD) structured in schema.org ===
 Contributors: miiitaka
-Tags: schema, json, seo, post, posts, google,
+Tags: schema, schema.org, json, json-ld, seo, post, posts, google
 Requires at least: 4.3.1
 Tested up to: 4.3.1
-Stable tag: 1.2.1
+Stable tag: 1.3.0
 
-It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an article or the fixed page.
+It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an post page, fixed page and etc.
 
 == Description ==
 
-It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an article or the fixed page.
+It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an post page, fixed page and etc.
 Base knowledge is "https://schema.org/" and "https://developers.google.com/structured-data/"
 
-[ Schema.org Type ]
+このプラグインは、投稿ページ、固定ページなどにschema.org定義の構造化マークアップ（ JSON -LDの構文）を実装するプラグインです。
+基本知識は、https://schema.org/ や https://developers.google.com/structured-data/ を参考にしてください。
 
-= Website =
+= Schema.org Type =
 
-* https://schema.org/WebSite
-
-= Organization =
-
-* https://schema.org/Organization
-
-= Article =
-
-* http://schema.org/Article
-
-= BlogPosting =
-
-* http://schema.org/BlogPosting
-
-== Installation ==
-* http://schema.org/NewsArticle
+* Website: https://schema.org/WebSite
+* Organization: https://schema.org/Organization
+* Article: http://schema.org/Article
+* BlogPosting: http://schema.org/BlogPosting
+* NewsArticle: http://schema.org/NewsArticle
 
 == Installation ==
 
@@ -41,6 +31,10 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 * Open 'Schema.org Setting' menu.
 
 == Changelog ==
+
+= 1.3.0 =
+
+* Added : Localizing into Japanese.
 
 = 1.2.1 =
 
