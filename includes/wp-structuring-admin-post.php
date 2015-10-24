@@ -122,7 +122,7 @@ class Structuring_Markup_Admin_Post {
 
 		$html  = '<hr>';
 		$html .= '<form method="get" action="">';
-		$html .= '<input type="hidden" name="page" value="wp-structuring-markup/wp-structuring-admin-post.php">';
+		$html .= '<input type="hidden" name="page" value="wp-structuring-markup/includes/wp-structuring-admin-post.php">';
 		$html .= '<table class="schema-admin-table">';
 		$html .= '<tr><th><label for="type">Schema Type :</label></th><td>';
 		$html .= '<select id="type" name="type" onchange="this.form.submit();">';

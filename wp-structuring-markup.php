@@ -9,7 +9,7 @@ Author URI: http://programp.com/
 License: GPLv2 or later
 Text Domain: wp-structuring-markup
 */
-require_once( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-db.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-admin-db.php' );
 
 new Structuring_Markup();
 
@@ -70,7 +70,7 @@ class Structuring_Markup {
 			'Scheme.org Setting Post',
 			'Add New',
 			'manage_options',
-			plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-post.php',
+			plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-admin-post.php',
 			array( $this, 'post_page_render' )
 		);
 
@@ -86,7 +86,7 @@ class Structuring_Markup {
 	 * @since 1.0.0
 	 */
 	public function list_page_render() {
-		require_once( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-list.php' );
+		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-admin-list.php' );
 		new Structuring_Markup_Admin_List();
 	}
 
@@ -96,7 +96,7 @@ class Structuring_Markup {
 	 * @since 1.0.0
 	 */
 	public function post_page_render() {
-		require_once( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-post.php' );
+		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-admin-post.php' );
 		new Structuring_Markup_Admin_Post();
 	}
 
@@ -106,7 +106,7 @@ class Structuring_Markup {
 	 * @since 1.0.0
 	 */
 	public function display_page_render() {
-		require_once( plugin_dir_path( __FILE__ ) . 'wp-structuring-display.php' );
+		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-display.php' );
 		new Structuring_Markup_Display();
 	}
 }

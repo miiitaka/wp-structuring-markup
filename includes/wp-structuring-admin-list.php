@@ -44,13 +44,13 @@ class Structuring_Markup_Admin_List {
 	 * @param String $mode
 	 */
 	private function page_render( Structuring_Markup_Admin_Db $db, $mode = "" ) {
-		$post_url = admin_url() . "admin.php?page=wp-structuring-markup/wp-structuring-admin-post.php";
+		$post_url = admin_url() . "admin.php?page=wp-structuring-markup/includes/wp-structuring-admin-post.php";
 		$self_url = $_SERVER['PHP_SELF'] . '?' . esc_html( $_SERVER['QUERY_STRING'] );
 
 		$html  = '';
 		$html .= '<div class="wrap">';
 		$html .= '<h1>Schema.org Setting List';
-		$html .= '<a href="' . $post_url . '" class="page-title-action">新規追加</a>';
+		$html .= '<a href="' . $post_url . '" class="page-title-action">Add New</a>';
 		$html .= '</h1>';
 		echo $html;
 
