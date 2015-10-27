@@ -82,16 +82,16 @@ class Structuring_Markup {
 	 */
 	public function admin_menu() {
 		add_menu_page(
-			esc_html__( 'Scheme.org Setting', $this->text_domain ),
-			esc_html__( 'Scheme.org Setting', $this->text_domain ),
+			esc_html__( 'Scheme.org Settings', $this->text_domain ),
+			esc_html__( 'Scheme.org Settings', $this->text_domain ),
 			'manage_options',
 			plugin_basename( __FILE__ ),
 			array( $this, 'list_page_render' )
 		);
 		add_submenu_page(
 			__FILE__,
-			esc_html__( 'Setting All', $this->text_domain ),
-			esc_html__( 'Setting All', $this->text_domain ),
+			esc_html__( 'All Settings', $this->text_domain ),
+			esc_html__( 'All Settings', $this->text_domain ),
 			'manage_options',
 			plugin_basename( __FILE__ ),
 			array( $this, 'list_page_render' )
