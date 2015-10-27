@@ -52,7 +52,7 @@ class Structuring_Markup_Admin_List {
 	 * LIST Page HTML Render.
 	 *
 	 * @since   1.0.0
-	 * @version 1.3.0
+	 * @version 1.3.2
 	 * @param   Structuring_Markup_Admin_Db $db
 	 * @param   String $mode
 	 */
