@@ -105,7 +105,7 @@ class Structuring_Markup {
 			array( $this, 'post_page_render' )
 		);
 
-		/* Using registered $page handle to hook stylesheet loading */
+		/** Using registered $page handle to hook stylesheet loading */
 		add_action( 'admin_print_styles-' . $page, array( $this, 'add_style' ) );
 	}
 
