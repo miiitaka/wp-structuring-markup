@@ -52,7 +52,7 @@ class Structuring_Markup_Admin_List {
 	 * LIST Page HTML Render.
 	 *
 	 * @since   1.0.0
-	 * @version 1.3.0
+	 * @version 1.3.2
 	 * @param   Structuring_Markup_Admin_Db $db
 	 * @param   String $mode
 	 */
@@ -62,8 +62,8 @@ class Structuring_Markup_Admin_List {
 
 		$html  = '';
 		$html .= '<div class="wrap">';
-		$html .= '<h1>' . esc_html__( 'Schema.org Setting List', $this->text_domain );
-		$html .= '<a href="' . $post_url . '" class="page-title-action">' . esc_html__( 'Add New',   $this->text_domain ) . '</a>';
+		$html .= '<h1>' . esc_html__( 'Schema.org Settings List', $this->text_domain );
+		$html .= '<a href="' . $post_url . '" class="page-title-action">' . esc_html__( 'Add New', $this->text_domain ) . '</a>';
 		$html .= '</h1>';
 		echo $html;
 

@@ -21,10 +21,12 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org
 	 *
-	 * @since 1.0.0
-	 * @param Structuring_Markup_Admin_Db $db
+	 * @since   1.0.0
+	 * @version 1.3.2
+	 * @param   Structuring_Markup_Admin_Db $db
 	 */
 	private function set_schema( Structuring_Markup_Admin_Db $db ) {
+		echo '<!-- WP Markup (JSON-LD) structured in schema.org START -->' , PHP_EOL;
 		$this->get_schema_data( $db, 'all' );
 		if ( is_home() ) {
 			$this->get_schema_data( $db, 'home' );
@@ -35,6 +37,7 @@ class Structuring_Markup_Display {
 		if ( is_page() ) {
 			$this->get_schema_data( $db, 'page' );
 		}
+		echo '<!-- WP Markup (JSON-LD) structured in schema.org END -->' , PHP_EOL;
 	}
 
 	/**

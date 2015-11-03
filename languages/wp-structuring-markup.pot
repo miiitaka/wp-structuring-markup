@@ -14,7 +14,7 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
 #: includes/wp-structuring-admin-list.php:65
-msgid "Schema.org Setting List"
+msgid "Schema.org Settings List"
 msgstr ""
 
 #: includes/wp-structuring-admin-list.php:66 wp-structuring-markup.php:95
@@ -78,11 +78,11 @@ msgid "Fixed Page"
 msgstr ""
 
 #: wp-structuring-markup.php:78 wp-structuring-markup.php:79
-msgid "Scheme.org Setting"
+msgid "Scheme.org Settings"
 msgstr ""
 
 #: wp-structuring-markup.php:86 wp-structuring-markup.php:87
-msgid "Setting All"
+msgid "All Settings"
 msgstr ""
 
 #: wp-structuring-markup.php:94

@@ -14,7 +14,7 @@ msgstr ""
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
 #: includes/wp-structuring-admin-list.php:65
-msgid "Schema.org Setting List"
+msgid "Schema.org Settings List"
 msgstr "Schema.org 設定一覧"
 
 #: includes/wp-structuring-admin-list.php:66 wp-structuring-markup.php:95
@@ -78,15 +78,15 @@ msgid "Fixed Page"
 msgstr "固定ページ"
 
 #: wp-structuring-markup.php:78 wp-structuring-markup.php:79
-msgid "Scheme.org Setting"
+msgid "Scheme.org Settings"
 msgstr "Scheme.org 設定"
 
 #: wp-structuring-markup.php:86 wp-structuring-markup.php:87
-msgid "Setting All"
+msgid "All Settings"
 msgstr "設定一覧"
 
 #: wp-structuring-markup.php:94
-msgid "Scheme.org Setting Post"
+msgid "Scheme.org Settings Post"
 msgstr "新規登録"
 
 #. Plugin Name of the plugin/theme

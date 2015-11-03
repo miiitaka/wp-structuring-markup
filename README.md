@@ -18,6 +18,10 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 
 ## Change Log
 
+### 1.3.2
+- Fixed : Fixed translation.
+- Added : Additional output comment.
+
 ### 1.3.1
 - Fixed : none-function fixed.
 
