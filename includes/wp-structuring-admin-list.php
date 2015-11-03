@@ -63,7 +63,7 @@ class Structuring_Markup_Admin_List {
 		$html  = '';
 		$html .= '<div class="wrap">';
 		$html .= '<h1>' . esc_html__( 'Schema.org Settings List', $this->text_domain );
-		$html .= '<a href="' . $post_url . '" class="page-title-action">' . esc_html__( 'Add New',   $this->text_domain ) . '</a>';
+		$html .= '<a href="' . $post_url . '" class="page-title-action">' . esc_html__( 'Add New', $this->text_domain ) . '</a>';
 		$html .= '</h1>';
 		echo $html;
 
