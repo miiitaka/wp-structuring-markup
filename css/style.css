@@ -8,8 +8,10 @@
 	text-align: left;
 }
 .schema-admin-table th {
+	padding: 3px 5px 0 0;
 	text-align: right;
-	width: 100px;
+	vertical-align: top;
+	width: 120px;
 }
 .schema-admin-table td label{
 	margin: 0 10px 0 0;
