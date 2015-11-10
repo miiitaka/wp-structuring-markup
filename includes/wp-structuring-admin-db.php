@@ -52,15 +52,16 @@ class Structuring_Markup_Admin_Db {
 	/**
 	 * Get Data.
 	 *
-	 * @since  1.0.0
-	 * @param  integer $id
-	 * @return array   $results
+	 * @since   1.0.0
+	 * @version 1.3.2
+	 * @param   integer $id
+	 * @return  array   $results
 	 */
 	public function get_options( $id ) {
 		global $wpdb;
 
 		$query    = "SELECT * FROM " . $this->table_name . " WHERE id = %d";
-		$data     = array( $id );
+		$data     = array( esc_html( $id ) );
 		$prepared = $wpdb->prepare( $query, $data );
 		$args     = $wpdb->get_row( $prepared );
 		$results  = array();
@@ -133,8 +134,9 @@ class Structuring_Markup_Admin_Db {
 	/**
 	 * Update Data.
 	 *
-	 * @since 1.0.0
-	 * @param array $post($_POST)
+	 * @since   1.0.0
+	 * @version 1.3.2
+	 * @param   array $post($_POST)
 	 */
 	public function update_options( array $post ) {
 		global $wpdb;
@@ -145,7 +147,7 @@ class Structuring_Markup_Admin_Db {
 			'options'     => isset( $post['option'] ) ? serialize( $post['option'] ) : "",
 			'update_date' => date( "Y-m-d H:i:s" )
 		);
-		$key = array( 'id' => $post['id'] );
+		$key = array( 'id' => esc_html( $post['id'] ) );
 		$prepared = array( '%s', '%s', '%s' );
 		$key_prepared = array( '%d' );
 
@@ -155,13 +157,14 @@ class Structuring_Markup_Admin_Db {
 	/**
 	 * Delete Data.
 	 *
-	 * @since 1.0.0
-	 * @param integer $id
+	 * @since   1.0.0
+	 * @version 1.3.2
+	 * @param   integer $id
 	 */
 	public function delete_options( $id ) {
 		global $wpdb;
 
-		$key = array( 'id' => $id );
+		$key = array( 'id' => esc_html( $id ) );
 		$key_prepared = array( '%d' );
 
 		$wpdb->delete( $this->table_name, $key, $key_prepared );
