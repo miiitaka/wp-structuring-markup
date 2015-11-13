@@ -136,7 +136,7 @@ class Structuring_Markup_Admin_Post {
 		$html .= '<input type="hidden" name="page" value="wp-structuring-markup/includes/wp-structuring-admin-post.php">';
 		$html .= '<table class="schema-admin-table">';
 		$html .= '<tr><th><label for="type">Schema Type :</label></th><td>';
-		$html .= '<select id="type" name="type" onchange="this.form.submit();">';
+		$html .= '<select id="type" name="type" autofocus onchange="this.form.submit();">';
 		foreach ( $this->type_array as $value ) {
 			$html .= '<option value="' . $value['type'] . '"';
 			if ( $value['type'] === $options['type'] ) {
