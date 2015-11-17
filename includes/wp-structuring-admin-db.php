@@ -1,12 +1,10 @@
 <?php
-define( 'WP_STRUCTURING_MARKUP_DB', 'structuring_markup' );
-
 /**
  * Schema.org Admin DB Connection
  *
  * @author  Kazuya Takami
- * @version 1.0.0
  * @since   1.0.0
+ * @version 1.0.0
  */
 class Structuring_Markup_Admin_Db {
 	private $table_name;
@@ -14,11 +12,12 @@ class Structuring_Markup_Admin_Db {
 	/**
 	 * Constructor Define.
 	 *
-	 * @since 1.0.0
+	 * @since   1.0.0
+	 * @version 1.3.2
 	 */
 	public function __construct() {
 		global $wpdb;
-		$this->table_name = $wpdb->prefix . WP_STRUCTURING_MARKUP_DB;
+		$this->table_name = $wpdb->prefix . 'structuring_markup';
 	}
 
 	/**
