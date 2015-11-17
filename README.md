@@ -10,11 +10,11 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 
 ## Schema.org Type
 
-- Website: https://schema.org/WebSite
-- Organization: https://schema.org/Organization
 - Article: http://schema.org/Article
 - BlogPosting: http://schema.org/BlogPosting
 - NewsArticle: http://schema.org/NewsArticle
+- Organization: https://schema.org/Organization
+- Website: https://schema.org/WebSite
 
 ## Change Log
 
