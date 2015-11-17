@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: Markup (JSON-LD) structured in schema.org
-Plugin URI: https://github.com/miiitaka/wp-structuring-markup
+Plugin URI: https://wordpress.org/plugins/wp-structuring-markup/
 Description: It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an article or the fixed page.
-Version: 1.3.1
+Version: 1.3.2
 Author: Kazuya Takami
 Author URI: http://programp.com/
 License: GPLv2 or later
@@ -19,7 +19,7 @@ new Structuring_Markup();
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 1.3.1
+ * @version 1.3.2
  */
 class Structuring_Markup {
 
@@ -78,20 +78,20 @@ class Structuring_Markup {
 	 * Add Menu to the Admin Screen.
 	 *
 	 * @since   1.0.0
-	 * @version 1.2.1
+	 * @version 1.3.2
 	 */
 	public function admin_menu() {
 		add_menu_page(
-			esc_html__( 'Scheme.org Setting', $this->text_domain ),
-			esc_html__( 'Scheme.org Setting', $this->text_domain ),
+			esc_html__( 'Scheme.org Settings', $this->text_domain ),
+			esc_html__( 'Scheme.org Settings', $this->text_domain ),
 			'manage_options',
 			plugin_basename( __FILE__ ),
 			array( $this, 'list_page_render' )
 		);
 		add_submenu_page(
 			__FILE__,
-			esc_html__( 'Setting All', $this->text_domain ),
-			esc_html__( 'Setting All', $this->text_domain ),
+			esc_html__( 'All Settings', $this->text_domain ),
+			esc_html__( 'All Settings', $this->text_domain ),
 			'manage_options',
 			plugin_basename( __FILE__ ),
 			array( $this, 'list_page_render' )
@@ -105,7 +105,7 @@ class Structuring_Markup {
 			array( $this, 'post_page_render' )
 		);
 
-		/* Using registered $page handle to hook stylesheet loading */
+		/** Using registered $page handle to hook stylesheet loading */
 		add_action( 'admin_print_styles-' . $page, array( $this, 'add_style' ) );
 	}
 
