@@ -16,10 +16,12 @@ class Structuring_Markup_Uninstall {
 	/**
 	 * Constructor Define.
 	 *
-	 * @since 1.0.0
+	 * @since   1.0.0
+	 * @version 2.0.0
 	 */
 	function __construct() {
 		$this->drop_table();
+		delete_option( 'wp_structuring_markup' );
 	}
 
 	/**

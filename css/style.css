@@ -1,3 +1,27 @@
+/** List Setting */
+.schema-admin-table-list th:nth-child(1) {
+  width: 10em;
+}
+.schema-admin-table-list td:nth-child(1) span {
+  display: inline-block;
+  padding: 0 1em 0 1em;
+  text-align: center;
+  width: 8em;
+}
+.schema-admin-table-list td:nth-child(1) span.active {
+  background: #00a0d2;
+	color: #ffffff;
+}
+.schema-admin-table-list td:nth-child(1) span.stop {
+  background: #CCCCCC;
+}
+
+/** Posts page */
+.schema-admin-h1-span {
+  display: inline-block;
+  font-size: 80%;
+  margin: 0 0 0 10px;
+}
 .schema-admin-table {
 	margin: 15px 0 15px 0;
 }

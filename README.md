@@ -18,7 +18,10 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 
 ## Change Log
 
-### 1.3.2
+### 2.0.0
+- Updated : Schema.org definition immobilization.
+
+### 1.3.2 (2015/11/17)
 - Fixed : Fixed translation.
 - Added : Additional output comment.
 
