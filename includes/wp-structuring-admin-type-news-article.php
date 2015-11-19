@@ -16,8 +16,7 @@ class Structuring_Markup_Type_NewsArticle {
 	 *
 	 * @since 1.0.0
 	 */
-	public function __construct()
-	{
+	public function __construct() {
 		$this->page_render();
 	}
 
@@ -26,8 +25,7 @@ class Structuring_Markup_Type_NewsArticle {
 	 *
 	 * @since 1.0.0
 	 */
-	private function page_render()
-	{
+	private function page_render() {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Basic Setting( Post Page Only )</caption>';
 		$html .= '<tr><th>headline :</th><td><small>Default : post_title</small></td></tr>';

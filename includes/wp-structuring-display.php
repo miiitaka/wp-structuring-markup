@@ -22,11 +22,10 @@ class Structuring_Markup_Display {
 	 * Setting schema.org
 	 *
 	 * @since   1.0.0
-	 * @version 1.3.2
+	 * @version 2.0.0
 	 * @param   Structuring_Markup_Admin_Db $db
 	 */
 	private function set_schema( Structuring_Markup_Admin_Db $db ) {
-		echo '<!-- WP Markup (JSON-LD) structured in schema.org START -->' , PHP_EOL;
 		$this->get_schema_data( $db, 'all' );
 		if ( is_home() ) {
 			$this->get_schema_data( $db, 'home' );
@@ -37,14 +36,13 @@ class Structuring_Markup_Display {
 		if ( is_page() ) {
 			$this->get_schema_data( $db, 'page' );
 		}
-		echo '<!-- WP Markup (JSON-LD) structured in schema.org END -->' , PHP_EOL;
 	}
 
 	/**
 	 * Setting JSON-LD Template
 	 *
 	 * @since   1.0.0
-	 * @version 1.2.0
+	 * @version 2.0.0
 	 * @param   Structuring_Markup_Admin_Db $db
 	 * @param   string $output
 	 */
@@ -53,31 +51,25 @@ class Structuring_Markup_Display {
 
 		if ( isset( $results ) ) {
 			foreach ( $results as $row ) {
-				if ( isset( $row->type ) ) {
+				if ( isset( $row->type ) && $row->activate === 'on' ) {
 					switch ( $row->type ) {
-						case 'website':
-							if ( isset( $row->options ) ) {
-								$this->set_schema_website( unserialize( $row->options ) );
-							}
+						case 'article':
+							$this->set_schema_article();
+							break;
+						case 'blog_posting':
+							$this->set_schema_blog_posting();
+							break;
+						case 'news_article':
+							$this->set_schema_news_article();
 							break;
 						case 'organization':
 							if ( isset( $row->options ) ) {
 								$this->set_schema_organization( unserialize( $row->options ) );
 							}
 							break;
-						case 'article':
+						case 'website':
 							if ( isset( $row->options ) ) {
-								$this->set_schema_article();
-							}
-							break;
-						case 'blog_posting':
-							if ( isset( $row->options ) ) {
-								$this->set_schema_blog_posting();
-							}
-							break;
-						case 'news_article':
-							if ( isset( $row->options ) ) {
-								$this->set_schema_news_article();
+								$this->set_schema_website( unserialize( $row->options ) );
 							}
 							break;
 					}
@@ -101,82 +93,13 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting JSON-LD Template
 	 *
-	 * @since  1.1.3
-	 * @param  string $text
-	 * @return string $text
+	 * @since   1.1.3
+	 * @version 2.0.0
+	 * @param   string $text
+	 * @return  string $text
 	 */
 	private function escape_text_tags( $text ) {
-		return str_replace( array( "\r", "\n" ), '', strip_tags( $text ) );
-	}
-
-	/**
-	 * Setting schema.org WebSite
-	 *
-	 * @since 1.0.0
-	 * @param array $options
-	 */
-	private function set_schema_website( array $options ) {
-		$args = array(
-			"@context"      => "http://schema.org",
-			"@type"         => "WebSite",
-			"name"          => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
-			"alternateName" => isset( $options['alternateName'] ) ? esc_html( $options['alternateName'] ) : "",
-			"url"           => isset( $options['url'] ) ? esc_html( $options['url'] ) : ""
-		);
-
-		if ( isset( $options['potential_action'] ) && $options['potential_action'] === 'on' ) {
-			$potential_action["potentialAction"] = array(
-				"@type"       => "SearchAction",
-				"target"      => isset( $options['target'] ) ? esc_html( $options['target'] ) . "{search_term_string}" : "",
-				"query-input" => isset( $options['target'] ) ? "required name=search_term_string" : ""
-			);
-			$args = array_merge( $args, $potential_action );
-		}
-
-		$this->set_schema_json( $args );
-	}
-
-	/**
-	 * Setting schema.org Organization
-	 *
-	 * @since    1.0.0
-	 * ＠version 1.2.1
-	 * @param array $options
-	 */
-	private function set_schema_organization( array $options ) {
-		/** Logos */
-		$args = array(
-			"@context" => "http://schema.org",
-			"@type"    => "Organization",
-			"name"     => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
-			"url"      => isset( $options['url'] ) ? esc_html( $options['url'] ) : "",
-			"logo"     => isset( $options['logo'] ) ? esc_html( $options['logo'] ) : ""
-		);
-
-		/** Corporate Contact */
-		if ( isset( $options['contact_point'] ) && $options['contact_point'] === 'on' ) {
-			$contact_point["contactPoint"] = array(
-				array(
-					"@type"       => "ContactPoint",
-					"telephone"   => isset( $options['telephone'] ) ? esc_html( $options['telephone'] ) : "",
-					"contactType" => isset( $options['contact_type'] ) ? esc_html( $options['contact_type'] ) : ""
-				)
-			);
-			$args = array_merge( $args, $contact_point );
-		}
-
-		/** Social Profiles */
-		if ( isset( $options['social'] ) ) {
-			$socials["sameAs"] = array();
-
-			foreach ( $options['social'] as $value ) {
-				if ( !empty( $value ) ) {
-					$socials["sameAs"][] = esc_html( $value );
-				}
-			}
-			$args = array_merge( $args, $socials );
-		}
-		$this->set_schema_json( $args );
+		return (string) str_replace( array( "\r", "\n" ), '', strip_tags( $text ) );
 	}
 
 	/**
@@ -249,5 +172,75 @@ class Structuring_Markup_Display {
 			);
 			$this->set_schema_json( $args );
 		}
+	}
+
+	/**
+	 * Setting schema.org Organization
+	 *
+	 * @since    1.0.0
+	 * ＠version 1.2.1
+	 * @param array $options
+	 */
+	private function set_schema_organization( array $options ) {
+		/** Logos */
+		$args = array(
+			"@context" => "http://schema.org",
+			"@type"    => "Organization",
+			"name"     => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
+			"url"      => isset( $options['url'] ) ? esc_html( $options['url'] ) : "",
+			"logo"     => isset( $options['logo'] ) ? esc_html( $options['logo'] ) : ""
+		);
+
+		/** Corporate Contact */
+		if ( isset( $options['contact_point'] ) && $options['contact_point'] === 'on' ) {
+			$contact_point["contactPoint"] = array(
+				array(
+					"@type"       => "ContactPoint",
+					"telephone"   => isset( $options['telephone'] ) ? esc_html( $options['telephone'] ) : "",
+					"contactType" => isset( $options['contact_type'] ) ? esc_html( $options['contact_type'] ) : ""
+				)
+			);
+			$args = array_merge( $args, $contact_point );
+		}
+
+		/** Social Profiles */
+		if ( isset( $options['social'] ) ) {
+			$socials["sameAs"] = array();
+
+			foreach ( $options['social'] as $value ) {
+				if ( !empty( $value ) ) {
+					$socials["sameAs"][] = esc_html( $value );
+				}
+			}
+			$args = array_merge( $args, $socials );
+		}
+		$this->set_schema_json( $args );
+	}
+
+	/**
+	 * Setting schema.org WebSite
+	 *
+	 * @since 1.0.0
+	 * @param array $options
+	 */
+	private function set_schema_website( array $options ) {
+		$args = array(
+			"@context"      => "http://schema.org",
+			"@type"         => "WebSite",
+			"name"          => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
+			"alternateName" => isset( $options['alternateName'] ) ? esc_html( $options['alternateName'] ) : "",
+			"url"           => isset( $options['url'] ) ? esc_html( $options['url'] ) : ""
+		);
+
+		if ( isset( $options['potential_action'] ) && $options['potential_action'] === 'on' ) {
+			$potential_action["potentialAction"] = array(
+				"@type"       => "SearchAction",
+				"target"      => isset( $options['target'] ) ? esc_html( $options['target'] ) . "{search_term_string}" : "",
+				"query-input" => isset( $options['target'] ) ? "required name=search_term_string" : ""
+			);
+			$args = array_merge( $args, $potential_action );
+		}
+
+		$this->set_schema_json( $args );
 	}
 }

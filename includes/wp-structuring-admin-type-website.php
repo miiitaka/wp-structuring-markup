@@ -18,8 +18,7 @@ class Structuring_Markup_Type_Website {
 	 * @since 1.0.0
 	 * @param array $option
 	 */
-	public function __construct( array $option )
-	{
+	public function __construct( array $option ) {
 		/** Default Value Set */
 		if ( empty( $option ) ) {
 			$option = $this->get_default_options( $option );
@@ -33,8 +32,7 @@ class Structuring_Markup_Type_Website {
 	 * @since 1.0.0
 	 * @param array $option
 	 */
-	private function page_render( array $option )
-	{
+	private function page_render( array $option ) {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Basic Setting</caption>';
 		$html .= '<tr><th><label for="name">name :</label></th><td>';

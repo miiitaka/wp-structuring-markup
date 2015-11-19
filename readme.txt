@@ -3,7 +3,7 @@ Contributors: miiitaka
 Tags: schema, schema.org, json, json-ld, seo, post, posts, google
 Requires at least: 4.3.1
 Tested up to: 4.3.1
-Stable tag: 1.3.2
+Stable tag: 2.0.0
 
 It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an post page, fixed page and etc.
 
@@ -32,7 +32,10 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 
 == Changelog ==
 
-= 1.3.2 =
+= 2.0.0 =
+* Updated : Schema.org definition immobilization.
+
+= 1.3.2 (2015/11/17) =
 
 * Fixed : Fixed translation.
 * Added : Additional output comment.
