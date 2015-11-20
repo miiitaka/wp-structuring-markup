@@ -50,8 +50,7 @@ class Structuring_Markup_Admin_List {
 		$html .= '<th scope="row">' . esc_html__( 'Status',        $this->text_domain ) . '</th>';
 		$html .= '<th scope="row">' . esc_html__( 'Schema Type',   $this->text_domain ) . '</th>';
 		$html .= '<th scope="row">' . esc_html__( 'Output Page',   $this->text_domain ) . '</th>';
-		$html .= '<th scope="row">' . esc_html__( 'Register Date', $this->text_domain ) . '</th>';
-		$html .= '<th scope="row">' . esc_html__( 'Update Date',   $this->text_domain ) . '</th>';
+		$html .= '<th scope="row">' . esc_html__( 'ShortCode',     $this->text_domain ) . '</th>';
 		$html .= '<th scope="row">&nbsp;</th>';
 		$html .= '</tr>';
 		echo $html;
@@ -69,8 +68,15 @@ class Structuring_Markup_Admin_List {
 				$html .= $post_url . '&type=' . esc_html( $row->type ) . '&schema_post_id=' . esc_html( $row->id ) . '">' . $type_array[esc_html( $row->type )];
 				$html .= '</a></td>';
 				$html .= '<td>' . $this->unserialize_output( $row->output ) . '</td>';
-				$html .= '<td>' . esc_html( $row->register_date ) . '</td>';
-				$html .= '<td>' . esc_html( $row->update_date ) . '</td>';
+				$html .= '<td>';
+
+				if ( $row->type === 'breadcrumb' ) {
+					$html .= '<input type="text" onfocus="this.select();" readonly="readonly" value="[wp-structuring-markup-breadcrumb]" class="large-text code">';
+				} else {
+					$html .= '-';
+				}
+				$html .= '</td>';
+
 				$html .= '<td><a href="';
 				$html .= $post_url . '&type=' . esc_html( $row->type ) . '&schema_post_id=' . esc_html( $row->id ) . '">' . esc_html__( 'Edit', $this->text_domain );
 				$html .= '</a></td>';
@@ -78,7 +84,7 @@ class Structuring_Markup_Admin_List {
 				echo $html;
 			}
 		} else {
-			echo '<td colspan="6">' . esc_html__( 'Without registration.', $this->text_domain ) . '</td>';
+			echo '<td colspan="5">' . esc_html__( 'Without registration.', $this->text_domain ) . '</td>';
 		}
 
 		$html  = '</table>';

@@ -38,6 +38,7 @@ class Structuring_Markup {
 	 */
 	public function __construct() {
 		register_activation_hook( __FILE__, array( $this, 'create_table' ) );
+		add_shortcode( $this->text_domain . '-breadcrumb', array( $this, 'short_code_init_breadcrumb' ) );
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
 
 		if ( is_admin() ) {
@@ -56,6 +57,23 @@ class Structuring_Markup {
 	public function create_table() {
 		$db = new Structuring_Markup_Admin_Db();
 		$db->create_table();
+	}
+
+	/**
+	 * Breadcrumb ShortCode Register.
+	 *
+	 * @since  2.0.0
+	 * @return string $html
+	 */
+	public function short_code_init_breadcrumb () {
+		/** DB Connect */
+		$db = new Structuring_Markup_Admin_Db();
+		$results = $db->get_type_options( 'breadcrumb' );
+		$options = $results['option'];
+
+		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-short-code-breadcrumb.php' );
+		$obj = new Structuring_Markup_ShortCode_Breadcrumb();
+		return $obj->short_code_display( $options );
 	}
 
 	/**
