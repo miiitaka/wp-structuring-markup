@@ -20,6 +20,7 @@ class Structuring_Markup_Admin_Db {
 	public $type_array = array(
 		"article"      => "Article",
 		"blog_posting" => "Blog Posting",
+		"breadcrumb"   => "Breadcrumb",
 		"news_article" => "News Article",
 		"organization" => "Organization",
 		"website"      => "Web Site"
@@ -160,6 +161,33 @@ class Structuring_Markup_Admin_Db {
 		$prepared = $wpdb->prepare( $query, $data );
 		$results  = $wpdb->get_results( $prepared );
 
+		return (array) $results;
+	}
+
+	/**
+	 * Get Type Data.
+	 *
+	 * @since   2.0.0
+	 * @version 2.0.0
+	 * @param   string $type
+	 * @return  array  $results
+	 */
+	public function get_type_options( $type ) {
+		global $wpdb;
+
+		$query    = "SELECT * FROM " . $this->table_name . " WHERE type = %s";
+		$data     = array( esc_html( $type ) );
+		$prepared = $wpdb->prepare( $query, $data );
+		$args     = $wpdb->get_row( $prepared );
+		$results  = array();
+
+		if ( $args ) {
+			$results['id']       = $args->id;
+			$results['activate'] = $args->activate;
+			$results['type']     = $args->type;
+			$results['output']   = unserialize( $args->output );
+			$results['option']   = unserialize( $args->options );
+		}
 		return (array) $results;
 	}
 

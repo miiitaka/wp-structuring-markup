@@ -26,6 +26,7 @@ class Structuring_Markup_Display {
 	 * @param   Structuring_Markup_Admin_Db $db
 	 */
 	private function set_schema( Structuring_Markup_Admin_Db $db ) {
+		echo '<!-- Markup (JSON-LD) structured in schema.org START -->' . PHP_EOL;
 		$this->get_schema_data( $db, 'all' );
 		if ( is_home() ) {
 			$this->get_schema_data( $db, 'home' );
@@ -36,6 +37,7 @@ class Structuring_Markup_Display {
 		if ( is_page() ) {
 			$this->get_schema_data( $db, 'page' );
 		}
+		echo '<!-- Markup (JSON-LD) structured in schema.org END -->' . PHP_EOL;
 	}
 
 	/**
@@ -58,6 +60,11 @@ class Structuring_Markup_Display {
 							break;
 						case 'blog_posting':
 							$this->set_schema_blog_posting();
+							break;
+						case 'breadcrumb':
+							if ( isset( $row->options ) ) {
+								$this->set_schema_breadcrumb(unserialize($row->options));
+							}
 							break;
 						case 'news_article':
 							$this->set_schema_news_article();
@@ -148,6 +155,42 @@ class Structuring_Markup_Display {
 				"articleBody"   => $this->escape_text_tags( $post->post_content )
 			);
 			$this->set_schema_json( $args );
+		}
+	}
+
+	/**
+	 * Setting schema.org Breadcrumb
+	 *
+	 * @since    2.0.0
+	 * ＠version 2.0.0
+	 * @param    array $options
+	 */
+	private function set_schema_breadcrumb( array $options ) {
+		require_once( plugin_dir_path( __FILE__ ) . 'wp-structuring-short-code-breadcrumb.php' );
+		$obj = new Structuring_Markup_ShortCode_Breadcrumb();
+		$item_array = $obj->breadcrumb_array_setting( $options );
+
+		if ( $item_array ) {
+			/** itemListElement build */
+			$item_list_element = array();
+			$position = 1;
+			foreach ($item_array as $item) {
+				$item_list_element[] = array(
+					"@type" => "ListItem",
+					"position" => $position,
+					"item" => $item
+				);
+				$position++;
+			}
+
+			/** Breadcrumb Schema build */
+			$args = array(
+				"@context" => "http://schema.org",
+				"@type" => "BreadcrumbList",
+				"itemListElement" => $item_list_element
+			);
+
+			$this->set_schema_json($args);
 		}
 	}
 

@@ -2,6 +2,9 @@
 .schema-admin-table-list th:nth-child(1) {
   width: 10em;
 }
+.schema-admin-table-list td {
+	vertical-align: middle;
+}
 .schema-admin-table-list td:nth-child(1) span {
   display: inline-block;
   padding: 0 1em 0 1em;

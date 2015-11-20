@@ -36,6 +36,7 @@ class Structuring_Markup_Type_Article {
 		$html .= '</table>';
 		echo $html;
 
+		echo '<p>Setting Knowledge : <a href="https://developers.google.com/structured-data/rich-snippets/articles" target="_blank">https://developers.google.com/structured-data/rich-snippets/articles</a></p>';
 		submit_button();
 	}
 }
