@@ -103,27 +103,19 @@ class Structuring_Markup {
 	 * @version 2.0.0
 	 */
 	public function admin_menu() {
-		add_menu_page(
+		$list_page = add_menu_page(
 			esc_html__( 'Scheme.org Settings', $this->text_domain ),
 			esc_html__( 'Scheme.org Settings', $this->text_domain ),
-			'manage_options',
-			plugin_basename( __FILE__ ),
-			array( $this, 'list_page_render' )
-		);
-		$list_page = add_submenu_page(
-			__FILE__,
-			esc_html__( 'All Settings', $this->text_domain ),
-			esc_html__( 'All Settings', $this->text_domain ),
 			'manage_options',
 			plugin_basename( __FILE__ ),
 			array( $this, 'list_page_render' )
 		);
 		$post_page = add_submenu_page(
-			__FILE__,
+			$this->text_domain . '-post',
 			esc_html__( 'Scheme.org Setting Post', $this->text_domain ),
-			esc_html__( 'Add New', $this->text_domain ),
+			esc_html__( 'Edit', $this->text_domain ),
 			'manage_options',
-			plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-admin-post.php',
+			$this->text_domain . '-post',
 			array( $this, 'post_page_render' )
 		);
 

@@ -36,7 +36,7 @@ class Structuring_Markup_Admin_List {
 	 * @version 2.0.0
 	 */
 	private function page_render( ) {
-		$post_url = admin_url() . 'admin.php?page=' . $this->text_domain . '/includes/wp-structuring-admin-post.php';
+		$post_url = 'admin.php?page=' . $this->text_domain . '-post';
 
 		$html  = '';
 		$html .= '<div class="wrap">';
@@ -65,7 +65,7 @@ class Structuring_Markup_Admin_List {
 				$html .= ( $row->activate === 'on' ) ? '<span class="active">Activate' : '<span class="stop">Stop';
 				$html .= '</span></td>';
 				$html .= '<td><a href="';
-				$html .= $post_url . '&type=' . esc_html( $row->type ) . '&schema_post_id=' . esc_html( $row->id ) . '">' . $type_array[esc_html( $row->type )];
+				$html .= admin_url( $post_url . '&type=' . esc_html( $row->type ) . '&schema_post_id=' . esc_html( $row->id ) ). '">' . $type_array[esc_html( $row->type )];
 				$html .= '</a></td>';
 				$html .= '<td>' . $this->unserialize_output( $row->output ) . '</td>';
 				$html .= '<td>';
