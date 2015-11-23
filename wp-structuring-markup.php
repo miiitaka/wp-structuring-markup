@@ -104,15 +104,15 @@ class Structuring_Markup {
 	 */
 	public function admin_menu() {
 		$list_page = add_menu_page(
-			esc_html__( 'Scheme.org Settings', $this->text_domain ),
-			esc_html__( 'Scheme.org Settings', $this->text_domain ),
+			esc_html__( 'Schema.org Settings', $this->text_domain ),
+			esc_html__( 'Schema.org Settings', $this->text_domain ),
 			'manage_options',
 			plugin_basename( __FILE__ ),
 			array( $this, 'list_page_render' )
 		);
 		$post_page = add_submenu_page(
 			$this->text_domain . '-post',
-			esc_html__( 'Scheme.org Setting Post', $this->text_domain ),
+			esc_html__( 'Schema.org Setting Edit', $this->text_domain ),
 			esc_html__( 'Edit', $this->text_domain ),
 			'manage_options',
 			$this->text_domain . '-post',

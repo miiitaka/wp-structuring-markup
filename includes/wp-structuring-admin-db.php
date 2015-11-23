@@ -243,7 +243,7 @@ class Structuring_Markup_Admin_Db {
 
 		$data = array(
 			'type'        => $post['type'],
-			'activate'    => $post['activate'],
+			'activate'    => isset( $post['activate'] ) ? $post['activate'] : "",
 			'output'      => serialize( $post['output'] ),
 			'options'     => isset( $post['option'] ) ? serialize( $post['option'] ) : "",
 			'update_date' => date( "Y-m-d H:i:s" )
