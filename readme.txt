@@ -41,7 +41,7 @@ You can display the breadcrumbs in the short code. Breadcrumb definition is avai
 
 == Changelog ==
 
-= 2.0.0 (2015/11/) =
+= 2.0.0 (2015/11/23) =
 
 * Added : Schema.org type "BreadcrumbList" Breadcrumbs schema.org definition Add breadcrumbs short code output that works
 * Updated : Schema.org definition immobilization.
