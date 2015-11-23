@@ -12,13 +12,27 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 
 - Article: http://schema.org/Article
 - BlogPosting: http://schema.org/BlogPosting
+- BreadcrumbList: https://schema.org/BreadcrumbList
 - NewsArticle: http://schema.org/NewsArticle
 - Organization: https://schema.org/Organization
 - Website: https://schema.org/WebSite
 
+## ShortCode
+You can display the breadcrumbs in the short code. Breadcrumb definition is available even if not active.
+
+ショートコードでパンくずリストを表示することができます。Breadcrumb定義がアクティブでなくても使用可能です。
+
+```
+[wp-structuring-markup-breadcrumb]
+```
+
 ## Change Log
 
-### 1.3.2
+### 2.0.0 (2015/11/23)
+- Added : Schema.org type "BreadcrumbList" Breadcrumbs schema.org definition Add breadcrumbs short code output that works
+- Updated : Schema.org definition immobilization.
+
+### 1.3.2 (2015/11/17)
 - Fixed : Fixed translation.
 - Added : Additional output comment.
 

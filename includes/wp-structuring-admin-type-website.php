@@ -18,8 +18,7 @@ class Structuring_Markup_Type_Website {
 	 * @since 1.0.0
 	 * @param array $option
 	 */
-	public function __construct( array $option )
-	{
+	public function __construct( array $option ) {
 		/** Default Value Set */
 		if ( empty( $option ) ) {
 			$option = $this->get_default_options( $option );
@@ -33,8 +32,7 @@ class Structuring_Markup_Type_Website {
 	 * @since 1.0.0
 	 * @param array $option
 	 */
-	private function page_render( array $option )
-	{
+	private function page_render( array $option ) {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Basic Setting</caption>';
 		$html .= '<tr><th><label for="name">name :</label></th><td>';
@@ -75,12 +73,12 @@ class Structuring_Markup_Type_Website {
 	/**
 	 * Return the default options array
 	 *
-	 * @since  1.0.0
-	 * @param  array $args
-	 * @return array $args
+	 * @since   1.0.0
+	 * @version 2.0.0
+	 * @param   array $args
+	 * @return  array $args
 	 */
 	private function get_default_options( array $args ) {
-		$args['id']               = '';
 		$args['name']             = get_bloginfo('name');
 		$args['alternateName']    = $args['name'];
 		$args['url']              = get_bloginfo('url');

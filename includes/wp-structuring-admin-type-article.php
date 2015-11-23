@@ -15,8 +15,7 @@ class Structuring_Markup_Type_Article {
 	 *
 	 * @since 1.1.0
 	 */
-	public function __construct()
-	{
+	public function __construct() {
 		$this->page_render();
 	}
 
@@ -25,8 +24,7 @@ class Structuring_Markup_Type_Article {
 	 *
 	 * @since 1.1.0
 	 */
-	private function page_render()
-	{
+	private function page_render() {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Basic Setting( Post Page Only )</caption>';
 		$html .= '<tr><th>headline :</th><td><small>Default : post_title</small></td></tr>';
@@ -38,6 +36,7 @@ class Structuring_Markup_Type_Article {
 		$html .= '</table>';
 		echo $html;
 
+		echo '<p>Setting Knowledge : <a href="https://developers.google.com/structured-data/rich-snippets/articles" target="_blank">https://developers.google.com/structured-data/rich-snippets/articles</a></p>';
 		submit_button();
 	}
 }

@@ -48,8 +48,7 @@ class Structuring_Markup_Type_Organization {
 	 * @since 1.0.0
 	 * @param array $option
 	 */
-	public function __construct( array $option )
-	{
+	public function __construct( array $option ) {
 		/** Default Value Set */
 		if ( empty( $option ) ) {
 			$option = $this->get_default_options( $option );
@@ -63,8 +62,7 @@ class Structuring_Markup_Type_Organization {
 	 * @since 1.0.0
 	 * @param array $option
 	 */
-	private function page_render( array $option )
-	{
+	private function page_render( array $option ) {
 		/** Logos */
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Logos</caption>';
@@ -150,12 +148,12 @@ class Structuring_Markup_Type_Organization {
 	/**
 	 * Return the default options array
 	 *
-	 * @since  1.0.0
-	 * @param  array $args
-	 * @return array $args
+	 * @since   1.0.0
+	 * @version 2.0.0
+	 * @param   array $args
+	 * @return  array $args
 	 */
 	private function get_default_options( array $args ) {
-		$args['id']                 = '';
 		$args['name']               = get_bloginfo('name');
 		$args['url']                = get_bloginfo('url');
 		$args['logo']               = get_bloginfo('url') . '/images/logo.png';
