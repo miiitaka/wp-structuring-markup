@@ -3,7 +3,7 @@
  * Schema.org Display
  *
  * @author  Kazuya Takami
- * @version 1.2.1
+ * @version 2.0.1
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -44,7 +44,7 @@ class Structuring_Markup_Display {
 	 * Setting JSON-LD Template
 	 *
 	 * @since   1.0.0
-	 * @version 2.0.0
+	 * @version 2.0.1
 	 * @param   Structuring_Markup_Admin_Db $db
 	 * @param   string $output
 	 */
@@ -53,7 +53,7 @@ class Structuring_Markup_Display {
 
 		if ( isset( $results ) ) {
 			foreach ( $results as $row ) {
-				if ( isset( $row->type ) && $row->activate === 'on' ) {
+				if ( isset( $row->type ) && isset( $row->activate ) && $row->activate === 'on' ) {
 					switch ( $row->type ) {
 						case 'article':
 							$this->set_schema_article();
