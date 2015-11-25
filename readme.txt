@@ -3,7 +3,7 @@ Contributors: miiitaka
 Tags: schema, schema.org, json, json-ld, seo, post, posts, google
 Requires at least: 4.3.1
 Tested up to: 4.3.1
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 
 It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an post page, fixed page and etc.
 
@@ -24,14 +24,7 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 * Organization: https://schema.org/Organization
 * Website: https://schema.org/WebSite
 
-== Installation ==
-
-* A plug-in installation screen is displayed in the WordPress admin panel.
-* It installs in `wp-content/plugins`.
-* The plug-in is activated.
-* Open 'Schema.org Setting' menu.
-
-**Breadcrumb**
+= Breadcrumb =
 
 You can display the breadcrumbs in the short code. Breadcrumb definition is available even if not active.
 
@@ -39,7 +32,18 @@ You can display the breadcrumbs in the short code. Breadcrumb definition is avai
 
 `[wp-structuring-markup-breadcrumb]`
 
+== Installation ==
+
+* A plug-in installation screen is displayed in the WordPress admin panel.
+* It installs in `wp-content/plugins`.
+* The plug-in is activated.
+* Open 'Schema.org Setting' menu.
+
 == Changelog ==
+
+= 2.0.1 (2015/11/25) =
+
+* Fixed : Notice error fixed.
 
 = 2.0.0 (2015/11/23) =
 
