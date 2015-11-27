@@ -3,7 +3,7 @@
  * Breadcrumb ShortCode Settings
  *
  * @author  Kazuya Takami
- * @version 2.0.0
+ * @version 2.0.2
  * @since   2.0.0
  */
 class Structuring_Markup_ShortCode_Breadcrumb {
@@ -40,10 +40,11 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	/**
 	 * Breadcrumb array setting.
 	 *
-	 * @since  2.0.0
-	 * @access public
-	 * @param  array $options
-	 * @return array $item_array
+	 * @version 2.0.2
+	 * @since   2.0.0
+	 * @access  public
+	 * @param   array $options
+	 * @return  array $item_array
 	 */
 	public function breadcrumb_array_setting( array $options ) {
 		global $post;
@@ -53,7 +54,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 		$current_url = esc_url( home_url() . $_SERVER['REQUEST_URI'] );
 
 		if ( isset( $options['home_on'] ) &&  $options['home_on'] === 'on' ) {
-			if ( isset( $options['home_name'] ) ) {
+			if ( isset( $options['home_name'] ) && $options['home_name'] !== '' ) {
 				$item_array[] = $this->set_schema_breadcrumb_item( home_url(), $options['home_name'] );
 			} else {
 				$item_array[] = $this->set_schema_breadcrumb_item( home_url(), get_bloginfo('name') );

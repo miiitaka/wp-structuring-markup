@@ -28,6 +28,9 @@ You can display the breadcrumbs in the short code. Breadcrumb definition is avai
 
 ## Change Log
 
+### 2.0.2 (2015/11/27)
+- Fixed : Breadcrumb ShortCode minor bug fixed.
+
 ### 2.0.1 (2015/11/25)
 - Fixed : Notice error fixed.
 

@@ -3,7 +3,7 @@
  * Schema.org Type Breadcrumb
  *
  * @author  Kazuya Takami
- * @version 2.0.0
+ * @version 2.0.2
  * @since   2.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/BreadcrumbList
@@ -56,12 +56,13 @@ class Structuring_Markup_Type_Breadcrumb {
 	/**
 	 * Return the default options array
 	 *
-	 * @since  2.0.0
-	 * @param  array $args
-	 * @return array $args
+	 * @version 2.0.2
+	 * @since   2.0.0
+	 * @param   array $args
+	 * @return  array $args
 	 */
 	private function get_default_options( array $args ) {
-		$args['home_on']   = 'on';
+		$args['home_on']   = '';
 		$args['home_name'] = '';
 
 		return (array) $args;
