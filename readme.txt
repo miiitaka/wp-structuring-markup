@@ -41,7 +41,7 @@ You can display the breadcrumbs in the short code. Breadcrumb definition is avai
 
 == Changelog ==
 
-= 2.0.2 (2015/11/27)=
+= 2.0.2 (2015/11/27) =
 
 * Fixed : Breadcrumb ShortCode minor bug fixed.
 
