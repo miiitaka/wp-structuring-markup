@@ -12,7 +12,7 @@ class Structuring_Markup_Admin_Db {
 	 * Variable definition.
 	 *
 	 * @since   1.0.0
-	 * @version 2.0.0
+	 * @version 2.1.0
 	 */
 	private $table_name;
 
@@ -21,6 +21,7 @@ class Structuring_Markup_Admin_Db {
 		"article"      => "Article",
 		"blog_posting" => "Blog Posting",
 		"breadcrumb"   => "Breadcrumb",
+		"event"        => "Event",
 		"news_article" => "News Article",
 		"organization" => "Organization",
 		"website"      => "Web Site"
@@ -41,7 +42,7 @@ class Structuring_Markup_Admin_Db {
 	 * Create Table.
 	 *
 	 * @since   1.0.0
-	 * @version 2.0.0
+	 * @version 2.1.0
 	 */
 	public function create_table() {
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
@@ -68,12 +69,13 @@ class Structuring_Markup_Admin_Db {
 			}
 		} else {
 			/**
-			 * version 1.x.x -> 2.0.0 migration process.
+			 * version 1.x.x -> 2.1.0 migration process.
 			 *
-			 * @since 2.0.0
+			 * @since   2.0.0
+			 * @version 2.1.0
 			 * */
 			$options = get_option( 'wp_structuring_markup' );
-			if ( !isset( $options['version'] ) ) {
+			if ( !isset( $options['version'] ) || $options['version'] !== '2.0.0' ) {
 				$lists = $this->get_list_options();
 
 				$wpdb->query( "DROP TABLE " . $this->table_name );
@@ -110,7 +112,7 @@ class Structuring_Markup_Admin_Db {
 	 * Create table execute
 	 *
 	 * @since   2.0.0
-	 * @version 2.0.0
+	 * @version 2.1.0
 	 * @param   string $charset_collate
 	 */
 	private function create_table_execute( $charset_collate ) {
@@ -126,7 +128,7 @@ class Structuring_Markup_Admin_Db {
 
 		dbDelta( $query );
 
-		$options = array( 'version' => '2.0.0' );
+		$options = array( 'version' => '2.1.0' );
 		add_option( 'wp_structuring_markup', $options, false, 'yes' );
 	}
 
