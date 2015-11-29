@@ -34,12 +34,14 @@ class Structuring_Markup {
 	 * Constructor Define.
 	 *
 	 * @since   1.0.0
-	 * @version 2.0.0
+	 * @version 2.1.0
 	 */
 	public function __construct() {
 		register_activation_hook( __FILE__, array( $this, 'create_table' ) );
 		add_shortcode( $this->text_domain . '-breadcrumb', array( $this, 'short_code_init_breadcrumb' ) );
+
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
+		add_action( 'init',           array( $this, 'create_post_type_event' ) );
 
 		if ( is_admin() ) {
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
@@ -84,6 +86,17 @@ class Structuring_Markup {
 	 */
 	public function plugins_loaded() {
 		load_plugin_textdomain( $this->text_domain, false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+	}
+
+	/**
+	 * Create custom post type "event".
+	 *
+	 * @since   2.1.0
+	 * @version 2.1.0
+	 */
+	function create_post_type_event() {
+		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-custom-post-event.php' );
+		new Structuring_Markup_Custom_Post_Event( $this->text_domain );
 	}
 
 	/**
