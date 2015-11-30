@@ -3,7 +3,7 @@
  * Schema.org Display
  *
  * @author  Kazuya Takami
- * @version 2.0.1
+ * @version 2.1.0
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -22,7 +22,7 @@ class Structuring_Markup_Display {
 	 * Setting schema.org
 	 *
 	 * @since   1.0.0
-	 * @version 2.0.0
+	 * @version 2.1.0
 	 * @param   Structuring_Markup_Admin_Db $db
 	 */
 	private function set_schema( Structuring_Markup_Admin_Db $db ) {
@@ -31,8 +31,11 @@ class Structuring_Markup_Display {
 		if ( is_home() ) {
 			$this->get_schema_data( $db, 'home' );
 		}
-		if ( is_single() ) {
+		if ( is_single( 'post' ) ) {
 			$this->get_schema_data( $db, 'post' );
+		}
+		if ( is_single( 'schema_event_post' ) ) {
+			$this->get_schema_data( $db, 'event' );
 		}
 		if ( is_page() ) {
 			$this->get_schema_data( $db, 'page' );
@@ -44,7 +47,7 @@ class Structuring_Markup_Display {
 	 * Setting JSON-LD Template
 	 *
 	 * @since   1.0.0
-	 * @version 2.0.1
+	 * @version 2.1.0
 	 * @param   Structuring_Markup_Admin_Db $db
 	 * @param   string $output
 	 */
@@ -65,6 +68,9 @@ class Structuring_Markup_Display {
 							if ( isset( $row->options ) ) {
 								$this->set_schema_breadcrumb(unserialize($row->options));
 							}
+							break;
+						case 'event':
+							$this->set_schema_event();
 							break;
 						case 'news_article':
 							$this->set_schema_news_article();
@@ -155,6 +161,43 @@ class Structuring_Markup_Display {
 				"articleBody"   => $this->escape_text_tags( $post->post_content )
 			);
 			$this->set_schema_json( $args );
+		}
+	}
+
+	/**
+	 * Setting schema.org Event
+	 *
+	 * @since   2.1.0
+	 * @version 2.1.0
+	 */
+	private function set_schema_event() {
+		global $post;
+		$meta = get_post_meta( $post->ID, 'schema_event_post', false );
+		if ( isset( $meta[0] ) ) {
+			$meta = unserialize($meta[0]);
+
+			if (!isset($meta['schema_event_name'])) $meta['schema_event_name'] = '';
+			if (!isset($meta['schema_event_date'])) $meta['schema_event_date'] = date('Y-m-d');
+			if (!isset($meta['schema_event_time'])) $meta['schema_event_time'] = date('h:i');
+			if (!isset($meta['schema_event_url'])) $meta['schema_event_url'] = '';
+			if (!isset($meta['schema_event_place_name'])) $meta['schema_event_place_name'] = '';
+			if (!isset($meta['schema_event_place_url'])) $meta['schema_event_place_url'] = '';
+			if (!isset($meta['schema_event_place_address'])) $meta['schema_event_place_address'] = '';
+
+			$args = array(
+					"@context"  => "http://schema.org",
+					"@type"     => "Event",
+					"name"      => $this->escape_text_tags($meta['schema_event_name']),
+					"startDate" => $this->escape_text_tags($meta['schema_event_date']) . 'T' . $this->escape_text_tags($meta['schema_event_time']),
+					"url"       => esc_url($meta['schema_event_url']),
+					"location"  => array(
+						"@type"   => "Place",
+						"sameAs"  => esc_url($meta['schema_event_place_url']),
+						"name"    => $this->escape_text_tags($meta['schema_event_place_name']),
+						"address" => $this->escape_text_tags($meta['schema_event_place_address'])
+					)
+			);
+			$this->set_schema_json($args);
 		}
 	}
 

@@ -75,7 +75,8 @@ class Structuring_Markup_Admin_Db {
 			 * @version 2.1.0
 			 * */
 			$options = get_option( 'wp_structuring_markup' );
-			if ( !isset( $options['version'] ) || $options['version'] !== '2.0.0' ) {
+
+			if ( !isset( $options['version'] ) || $options['version'] === '2.0.0' ) {
 				$lists = $this->get_list_options();
 
 				$wpdb->query( "DROP TABLE " . $this->table_name );
@@ -92,9 +93,11 @@ class Structuring_Markup_Admin_Db {
 					);
 					foreach ( $lists as $list ) {
 						if ( $list->type === $key ) {
+							$activate = isset( $list->activate ) ? $list->activate : "";
+
 							$args = array(
 								'type'          => $key,
-								'activate'      => "on",
+								'activate'      => $activate,
 								'output'        => $list->output,
 								'options'       => $list->options,
 								'register_date' => date( "Y-m-d H:i:s" ),
@@ -129,14 +132,14 @@ class Structuring_Markup_Admin_Db {
 		dbDelta( $query );
 
 		$options = array( 'version' => '2.1.0' );
-		add_option( 'wp_structuring_markup', $options, false, 'yes' );
+		update_option( 'wp_structuring_markup', $options, 'yes' );
 	}
 
 	/**
 	 * Get Data.
 	 *
 	 * @since   1.0.0
-	 * @version 1.3.2
+	 * @version 2.1.0
 	 * @param   integer $id
 	 * @return  array   $results
 	 */
@@ -151,7 +154,7 @@ class Structuring_Markup_Admin_Db {
 
 		if ( $args ) {
 			$results['id']       = $args->id;
-			$results['activate'] = $args->activate;
+			$results['activate'] = isset( $args->activate ) ? $args->activate : "";
 			$results['type']     = $args->type;
 			$results['output']   = unserialize( $args->output );
 			$results['option']   = unserialize( $args->options );
@@ -195,7 +198,7 @@ class Structuring_Markup_Admin_Db {
 	 * Get Type Data.
 	 *
 	 * @since   2.0.0
-	 * @version 2.0.0
+	 * @version 2.1.0
 	 * @param   string $type
 	 * @return  array  $results
 	 */
@@ -210,7 +213,7 @@ class Structuring_Markup_Admin_Db {
 
 		if ( $args ) {
 			$results['id']       = $args->id;
-			$results['activate'] = $args->activate;
+			$results['activate'] = isset( $args->activate ) ? $args->activate : "";
 			$results['type']     = $args->type;
 			$results['output']   = unserialize( $args->output );
 			$results['option']   = unserialize( $args->options );
