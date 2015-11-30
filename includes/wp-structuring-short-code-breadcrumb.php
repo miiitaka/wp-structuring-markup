@@ -3,7 +3,7 @@
  * Breadcrumb ShortCode Settings
  *
  * @author  Kazuya Takami
- * @version 2.0.2
+ * @version 2.1.0
  * @since   2.0.0
  */
 class Structuring_Markup_ShortCode_Breadcrumb {
@@ -40,7 +40,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	/**
 	 * Breadcrumb array setting.
 	 *
-	 * @version 2.0.2
+	 * @version 2.1.0
 	 * @since   2.0.0
 	 * @access  public
 	 * @param   array $options
@@ -99,15 +99,17 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 			$item_array[] = $this->set_schema_breadcrumb_item( $current_url, $post->post_title );
 		} elseif ( is_single() ) {
 			$categories = get_the_category($post->ID);
-			$cat = $categories[0];
+			if ( isset($categories[0]) ) {
+				$cat = $categories[0];
 
-			if( $cat->parent !== 0){
-				$ancestors = array_reverse( get_ancestors( $cat->cat_ID, 'category' ) );
-				foreach( $ancestors as $ancestor ){
-					$item_array[] = $this->set_schema_breadcrumb_item( get_category_link( $ancestor ), get_cat_name( $ancestor ) );
+				if ( $cat->parent !== 0 ) {
+					$ancestors = array_reverse( get_ancestors( $cat->cat_ID, 'category' ) );
+					foreach ( $ancestors as $ancestor ) {
+						$item_array[] = $this->set_schema_breadcrumb_item( get_category_link( $ancestor ), get_cat_name( $ancestor ) );
+					}
 				}
+				$item_array[] = $this->set_schema_breadcrumb_item( get_category_link( $cat->term_id ), $cat->name);
 			}
-			$item_array[] = $this->set_schema_breadcrumb_item( get_category_link( $cat->term_id ), $cat->name );
 			$item_array[] = $this->set_schema_breadcrumb_item( $current_url, $post->post_title );
 		}
 

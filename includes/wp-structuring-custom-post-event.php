@@ -34,10 +34,11 @@ class Structuring_Markup_Custom_Post_Event {
 					'name'          => esc_html__( 'Event Posts' ),
 					'singular_name' => esc_html__( 'Event Posts' )
 				),
-				'public'      => true,
-				'has_archive' => true,
-				'supports'    => array( 'title', 'editor', 'author' ),
-				'rewrite'     => array( 'slug' => 'events' ),
+				'public'        => true,
+				'menu_position' => 5,
+				'has_archive'   => true,
+				'supports'      => array( 'title', 'editor', 'author' ),
+				'rewrite'       => array( 'slug' => 'events' ),
 			)
 		);
 
@@ -78,46 +79,46 @@ class Structuring_Markup_Custom_Post_Event {
 		$args = get_post_meta( get_the_ID(), $this->custom_type, false );
 		$args = isset( $args[0] ) ? unserialize( $args[0] ) : "";
 
-		if ( !isset( $args['name'] ) ) $args['name'] = '';
-		if ( !isset( $args['date'] ) ) $args['date'] = date( 'Y-m-d' );
-		if ( !isset( $args['time'] ) ) $args['time'] = date( 'h:i' );
-		if ( !isset( $args['url'] ) )  $args['url']  = '';
-		if ( !isset( $args['place_name'] ) )    $args['place_name']    = '';
-		if ( !isset( $args['place_url'] ) )     $args['place_url']     = '';
-		if ( !isset( $args['place_address'] ) ) $args['place_address'] = '';
+		if ( !isset( $args['schema_event_name'] ) ) $args['schema_event_name'] = '';
+		if ( !isset( $args['schema_event_date'] ) ) $args['schema_event_date'] = date( 'Y-m-d' );
+		if ( !isset( $args['schema_event_time'] ) ) $args['schema_event_time'] = date( 'h:i' );
+		if ( !isset( $args['schema_event_url'] ) )  $args['schema_event_url']  = '';
+		if ( !isset( $args['schema_event_place_name'] ) )    $args['schema_event_place_name']    = '';
+		if ( !isset( $args['schema_event_place_url'] ) )     $args['schema_event_place_url']     = '';
+		if ( !isset( $args['schema_event_place_address'] ) ) $args['schema_event_place_address'] = '';
 
 		$html  = '';
 		$html .= '<table>';
 		$html .= '<tr><th>';
 		$html .= esc_html__( 'Event Name', $this->text_domain );
 		$html .= '</th><td>';
-		$html .= '<input type="text" name="option[' . "name" . ']" id="name" class="regular-text" required value="' . esc_attr( $args['name'] ) . '">';
+		$html .= '<input type="text" name="option[' . "schema_event_name" . ']" id="schema_event_name" class="regular-text" required value="' . esc_attr( $args['schema_event_name'] ) . '">';
 		$html .= '</td></tr>';
 		$html .= '<tr><th>';
 		$html .= esc_html__( 'Start Date', $this->text_domain );
 		$html .= '</th><td>';
-		$html .= '<input type="date" name="option[' . "date" . ']" id="date" required value="' . esc_attr( $args['date'] ) . '">';
-		$html .= '<input type="time" name="option[' . "time" . ']" id="time" required value="' . esc_attr( $args['time'] ) . '">';
+		$html .= '<input type="date" name="option[' . "schema_event_date" . ']" id="schema_event_date" required value="' . esc_attr( $args['schema_event_date'] ) . '">';
+		$html .= '<input type="time" name="option[' . "schema_event_time" . ']" id="schema_event_time" required value="' . esc_attr( $args['schema_event_time'] ) . '">';
 		$html .= '</td></tr>';
 		$html .= '<tr><th>';
 		$html .= esc_html__( 'Event URL', $this->text_domain );
 		$html .= '</th><td>';
-		$html .= '<input type="text" name="option[' . "url" . ']" id="url" class="regular-text" required value="' . esc_attr( $args['url'] ) . '">';
+		$html .= '<input type="text" name="option[' . "schema_event_url" . ']" id="schema_event_url" class="regular-text" required value="' . esc_attr( $args['schema_event_url'] ) . '">';
 		$html .= '</td></tr>';
 		$html .= '<tr><th>';
 		$html .= esc_html__( 'Place Name', $this->text_domain );
 		$html .= '</th><td>';
-		$html .= '<input type="text" name="option[' . "place_name" . ']" id="place_name" class="regular-text" required value="' . esc_attr( $args['place_name'] ) . '">';
+		$html .= '<input type="text" name="option[' . "schema_event_place_name" . ']" id="schema_event_place_name" class="regular-text" required value="' . esc_attr( $args['schema_event_place_name'] ) . '">';
 		$html .= '</td></tr>';
 		$html .= '<tr><th>';
 		$html .= esc_html__( 'Place URL', $this->text_domain );
 		$html .= '</th><td>';
-		$html .= '<input type="text" name="option[' . "place_url" . ']" id="place_url" class="regular-text" required value="' . esc_attr( $args['place_url'] ) . '">';
+		$html .= '<input type="text" name="option[' . "schema_event_place_url" . ']" id="schema_event_place_url" class="regular-text" required value="' . esc_attr( $args['schema_event_place_url'] ) . '">';
 		$html .= '</td></tr>';
 		$html .= '<tr><th>';
 		$html .= esc_html__( 'Place Address', $this->text_domain );
 		$html .= '</th><td>';
-		$html .= '<input type="text" name="option[' . "place_address" . ']" id="place_address" class="regular-text" required value="' . esc_attr( $args['place_address'] ) . '">';
+		$html .= '<input type="text" name="option[' . "schema_event_place_address" . ']" id="schema_event_place_address" class="regular-text" required value="' . esc_attr( $args['schema_event_place_address'] ) . '">';
 		$html .= '</td></tr>';
 		$html .= '</table>';
 
@@ -133,9 +134,7 @@ class Structuring_Markup_Custom_Post_Event {
 	 */
 	public function save_post( $post_id ) {
 		if ( isset( $_POST['option'] ) ) {
-			if ( !add_post_meta( $post_id, $this->custom_type, serialize( $_POST['option'] ), true ) ) {
-				update_post_meta( $post_id, $this->custom_type, serialize( $_POST['option'] ) );
-			}
+			update_post_meta( $post_id, $this->custom_type, serialize( $_POST['option'] ) );
 		}
 	}
 }

@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 2.0.0
+ * @version 2.1.0
  */
 class Structuring_Markup_Admin_Post {
 
@@ -76,9 +76,9 @@ class Structuring_Markup_Admin_Post {
 	 * Setting Page of the Admin Screen.
 	 *
 	 * @since   1.0.0
-	 * @version 2.0.0
-	 * @param array  $options
-	 * @param string $status
+	 * @version 2.1.0
+	 * @param   array  $options
+	 * @param   string $status
 	 */
 	private function page_render( array $options, $status ) {
 		$html  = '';
@@ -135,6 +135,14 @@ class Structuring_Markup_Admin_Post {
 
 				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-breadcrumb.php' );
 				new Structuring_Markup_Type_Breadcrumb( $options['option'] );
+				break;
+			case 'event':
+				$html  = $this->output_checkbox_render( $options['output'], "event",  "Event Post",   esc_html__( 'Event Post Page',   $this->text_domain ) );
+				$html .= '</td></tr></table><hr>';
+				echo $html;
+
+				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-event.php' );
+				new Structuring_Markup_Type_Event( $options['option'] );
 				break;
 			case 'news_article':
 				$html  = $this->output_checkbox_render( $options['output'], "post", "Post", esc_html__( 'Post Page', $this->text_domain ) );
