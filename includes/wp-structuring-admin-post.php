@@ -69,6 +69,7 @@ class Structuring_Markup_Admin_Post {
 		}
 
 		$options = $db->get_options( $options['id'] );
+
 		$this->page_render( $options, $status );
 	}
 
@@ -106,7 +107,7 @@ class Structuring_Markup_Admin_Post {
 		$html .= '<table class="schema-admin-table">';
 		$html .= '<tr><th>Activate : </th><td><label>';
 		$html .= '<input type="checkbox" name="activate" value="on"';
-		$html .= ( $options['activate'] === "on" ) ? ' checked' : '';
+		$html .= ( isset( $options['activate'] ) && $options['activate'] === "on" ) ? ' checked' : '';
 		$html .= '>Activate</label></td></tr>';
 		$html .= '<tr><th>' . esc_html__( 'Output Page', $this->text_domain ) . ' : </th><td>';
 		echo $html;
@@ -142,7 +143,7 @@ class Structuring_Markup_Admin_Post {
 				echo $html;
 
 				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-event.php' );
-				new Structuring_Markup_Type_Event( $options['option'] );
+				new Structuring_Markup_Type_Event();
 				break;
 			case 'news_article':
 				$html  = $this->output_checkbox_render( $options['output'], "post", "Post", esc_html__( 'Post Page', $this->text_domain ) );

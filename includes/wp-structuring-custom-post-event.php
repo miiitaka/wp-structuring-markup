@@ -31,8 +31,8 @@ class Structuring_Markup_Custom_Post_Event {
 			$this->custom_type,
 			array(
 				'labels' => array(
-					'name'          => esc_html__( 'Event Posts' ),
-					'singular_name' => esc_html__( 'Event Posts' )
+					'name'          => esc_html__( 'Event Posts', $this->text_domain ),
+					'singular_name' => esc_html__( 'Event Posts', $this->text_domain )
 				),
 				'public'        => true,
 				'menu_position' => 5,
@@ -43,8 +43,8 @@ class Structuring_Markup_Custom_Post_Event {
 		);
 
 		if ( is_admin() ) {
-			add_action( 'admin_init', array( $this, 'admin_init' ) );
-			add_action( 'admin_menu', array( $this, 'add_custom_fields' ));
+			add_action( 'admin_init',       array( $this, 'admin_init' ) );
+			add_action( 'admin_meta_boxes', array( $this, 'admin_meta_boxes' ));
 		}
 	}
 
@@ -59,12 +59,12 @@ class Structuring_Markup_Custom_Post_Event {
 	}
 
 	/**
-	 * Add custom fields.
+	 * admin meta boxes.
 	 *
 	 * @since   2.1.0
 	 * @version 2.1.0
 	 */
-	function add_custom_fields() {
+	function admin_meta_boxes() {
 		$custom_field_title = esc_html__( 'Schema.org Type Event', $this->text_domain );
 		add_meta_box( $this->custom_type, $custom_field_title, array( $this, 'set_custom_fields' ), $this->custom_type, 'normal' );
 	}

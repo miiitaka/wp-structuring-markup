@@ -26,7 +26,7 @@ class Structuring_Markup_Admin_List {
 	 */
 	function __construct( $text_domain ) {
 		$this->text_domain = $text_domain;
-		$this->page_render( );
+		$this->page_render();
 	}
 
 	/**
@@ -62,10 +62,10 @@ class Structuring_Markup_Admin_List {
 		if ( $results ) {
 			foreach ( $results as $row ) {
 				$html  = '<tr><td>';
-				$html .= ( $row->activate === 'on' ) ? '<span class="active">Activate' : '<span class="stop">Stop';
+				$html .= $row->activate === 'on' ? '<span class="active">Activate' : '<span class="stop">Deactivate';
 				$html .= '</span></td>';
 				$html .= '<td><a href="';
-				$html .= admin_url( $post_url . '&type=' . esc_html( $row->type ) . '&schema_post_id=' . esc_html( $row->id ) ). '">' . $type_array[esc_html( $row->type )];
+				$html .= admin_url( $post_url . '&type=' . esc_html( $row->type ) . '&schema_post_id=' . esc_html( $row->id ) ) . '">' . $type_array[esc_html( $row->type )];
 				$html .= '</a></td>';
 				$html .= '<td>' . $this->unserialize_output( $row->output ) . '</td>';
 				$html .= '<td>';
@@ -78,7 +78,7 @@ class Structuring_Markup_Admin_List {
 				$html .= '</td>';
 
 				$html .= '<td><a href="';
-				$html .= $post_url . '&type=' . esc_html( $row->type ) . '&schema_post_id=' . esc_html( $row->id ) . '">' . esc_html__( 'Edit', $this->text_domain );
+				$html .= admin_url( $post_url . '&type=' . esc_html( $row->type ) . '&schema_post_id=' . esc_html( $row->id ) ) . '">' . esc_html__( 'Edit', $this->text_domain );
 				$html .= '</a></td>';
 				$html .= '</tr>';
 				echo $html;
