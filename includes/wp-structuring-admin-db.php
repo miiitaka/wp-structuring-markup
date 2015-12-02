@@ -258,6 +258,7 @@ class Structuring_Markup_Admin_Db {
 		$key_prepared = array( '%d' );
 
 		$wpdb->update( $this->table_name, $data, $key, $prepared, $key_prepared );
+
 		return (integer) $post['id'];
 	}
 }

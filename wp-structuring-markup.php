@@ -38,6 +38,7 @@ class Structuring_Markup {
 	 */
 	public function __construct() {
 		register_activation_hook( __FILE__, array( $this, 'create_table' ) );
+
 		add_shortcode( $this->text_domain . '-breadcrumb', array( $this, 'short_code_init_breadcrumb' ) );
 
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
@@ -54,7 +55,8 @@ class Structuring_Markup {
 	/**
 	 * Create table.
 	 *
-	 * @since 2.0.0
+	 * @since   2.0.0
+	 * @version 2.0.0
 	 */
 	public function create_table() {
 		$db = new Structuring_Markup_Admin_Db();
@@ -68,14 +70,16 @@ class Structuring_Markup {
 	 * @return string $html
 	 */
 	public function short_code_init_breadcrumb () {
-		/** DB Connect */
 		$db = new Structuring_Markup_Admin_Db();
 		$results = $db->get_type_options( 'breadcrumb' );
-		$options = $results['option'];
 
-		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-short-code-breadcrumb.php' );
-		$obj = new Structuring_Markup_ShortCode_Breadcrumb();
-		return $obj->short_code_display( $options );
+		if ( isset( $results['option'] ) ) {
+			$options = $results['option'];
+
+			require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-short-code-breadcrumb.php');
+			$obj = new Structuring_Markup_ShortCode_Breadcrumb();
+			return $obj->short_code_display( $options );
+		}
 	}
 
 	/**
@@ -95,14 +99,8 @@ class Structuring_Markup {
 	 * @version 2.1.0
 	 */
 	function create_post_type_event() {
-		/** DB Connect */
-		$db = new Structuring_Markup_Admin_Db();
-		$results = $db->get_type_options( 'event' );
-
-		if ( isset( $results['activate'] ) && $results['activate'] === 'on' ) {
-			require_once(plugin_dir_path(__FILE__) . 'includes/wp-structuring-custom-post-event.php');
-			new Structuring_Markup_Custom_Post_Event($this->text_domain);
-		}
+		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-custom-post-event.php' );
+		new Structuring_Markup_Custom_Post_Event( $this->text_domain );
 	}
 
 	/**
@@ -141,6 +139,29 @@ class Structuring_Markup {
 		/** Using registered $page handle to hook stylesheet loading */
 		add_action( 'admin_print_styles-' . $list_page, array( $this, 'add_style' ) );
 		add_action( 'admin_print_styles-' . $post_page, array( $this, 'add_style' ) );
+
+		/** Custom post menu controls */
+		if ( isset( $_GET['type'] ) && $_GET['type'] === 'event' ) {
+			if ( isset( $_POST['activate'] ) && $_POST['activate'] === 'on') {
+				flush_rewrite_rules();
+			}
+			if ( isset( $_GET['schema_post_id'] ) ) {
+				/** DB Connect */
+				$db = new Structuring_Markup_Admin_Db();
+				$results = $db->get_options( $_GET['schema_post_id'] );
+				if ( !isset( $results['activate'] ) || $results['activate'] !== 'on' ) {
+					remove_menu_page( 'edit.php?post_type=schema_event_post' );
+				}
+			}
+		} else {
+			/** DB Connect */
+			$db = new Structuring_Markup_Admin_Db();
+			$results = $db->get_type_options('event');
+
+			if ( !isset( $results['activate'] ) || $results['activate'] !== 'on' ) {
+				remove_menu_page( 'edit.php?post_type=schema_event_post' );
+			}
+		}
 	}
 
 	/**
