@@ -24,7 +24,7 @@ class Structuring_Markup_Admin_Post {
 	 * @version 2.0.0
 	 * @param   String $text_domain
 	 */
-	public function __construct( $text_domain ) {
+	public function __construct ( $text_domain ) {
 		$this->text_domain = $text_domain;
 
 		/**
@@ -81,7 +81,7 @@ class Structuring_Markup_Admin_Post {
 	 * @param   array  $options
 	 * @param   string $status
 	 */
-	private function page_render( array $options, $status ) {
+	private function page_render ( array $options, $status ) {
 		$html  = '';
 		$html .= '<div class="wrap">';
 		$html .= '<h1>' . esc_html__( 'Schema.org Register', $this->text_domain );
@@ -193,7 +193,7 @@ class Structuring_Markup_Admin_Post {
 	 * @param   string $display
 	 * @return  string $html
 	 */
-	private function output_checkbox_render( array $option, $output, $value, $display ) {
+	private function output_checkbox_render ( array $option, $output, $value, $display ) {
 		$html  = '<label>';
 		$html .= '<input type="checkbox" name="output[' . $output . ']" value="' . $value . '""';
 		$html .= isset( $option[$output] ) ? ' checked' : '';
@@ -209,7 +209,7 @@ class Structuring_Markup_Admin_Post {
 	 * @version 2.0.0
 	 * @return  string $html
 	 */
-	private function information_render() {
+	private function information_render () {
 		$html  = '<div id="message" class="updated notice notice-success is-dismissible below-h2">';
 		$html .= '<p>Schema.org Information Update.</p>';
 		$html .= '<button type="button" class="notice-dismiss">';
@@ -227,7 +227,7 @@ class Structuring_Markup_Admin_Post {
 	 * @version 2.0.0
 	 * @return  string $html
 	 */
-	private function output_error_render() {
+	private function output_error_render () {
 		$html  = '<div id="notice" class="notice notice-error is-dismissible below-h2">';
 		$html .= '<p>Output No Select.</p>';
 		$html .= '<button type="button" class="notice-dismiss">';

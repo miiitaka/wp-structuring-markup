@@ -14,15 +14,23 @@ new Structuring_Markup_Uninstall();
 class Structuring_Markup_Uninstall {
 
 	/**
+	 * Variable definition.
+	 *
+	 * @since   2.1.0
+	 * @version 2.1.0
+	 */
+	private $custom_type = 'schema_event_post';
+
+	/**
 	 * Constructor Define.
 	 *
 	 * @since   1.0.0
 	 * @version 2.0.0
 	 */
-	function __construct() {
+	public function __construct () {
 		$this->drop_table( 'structuring_markup' );
-		$this->delete_custom_post( 'schema_event_post' );
-		$this->delete_post_meta( 'schema_event_post' );
+		$this->delete_custom_post( $this->custom_type );
+		$this->delete_post_meta( $this->custom_type );
 		delete_option( 'wp_structuring_markup' );
 	}
 
@@ -33,7 +41,7 @@ class Structuring_Markup_Uninstall {
 	 * @version 2.1.0
 	 * @param   string $table_name
 	 */
-	private function drop_table( $table_name = null ) {
+	private function drop_table ( $table_name = null ) {
 		global $wpdb;
 		$table_name = $wpdb->prefix . $table_name;
 		$wpdb->query( "DROP TABLE IF EXISTS " . $table_name );
@@ -46,7 +54,7 @@ class Structuring_Markup_Uninstall {
 	 * @version 2.1.0
 	 * @param   string $custom_type
 	 */
-	private function delete_custom_post( $custom_type = null ) {
+	private function delete_custom_post ( $custom_type = null ) {
 		global $wpdb;
 		$table_name = $wpdb->prefix . "post";
 
@@ -63,7 +71,7 @@ class Structuring_Markup_Uninstall {
 	 * @version 2.1.0
 	 * @param   string $custom_type
 	 */
-	private function delete_post_meta( $custom_type = null ) {
+	private function delete_post_meta ( $custom_type = null ) {
 		global $wpdb;
 		$table_name = $wpdb->prefix . "postmeta";
 

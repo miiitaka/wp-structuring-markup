@@ -24,7 +24,7 @@ class Structuring_Markup_Admin_List {
 	 * @version 2.0.0
 	 * @param   String $text_domain
 	 */
-	function __construct( $text_domain ) {
+	public function __construct ( $text_domain ) {
 		$this->text_domain = $text_domain;
 		$this->page_render();
 	}
@@ -35,7 +35,7 @@ class Structuring_Markup_Admin_List {
 	 * @since   1.0.0
 	 * @version 2.0.0
 	 */
-	private function page_render( ) {
+	private function page_render () {
 		$post_url = 'admin.php?page=' . $this->text_domain . '-post';
 
 		$html  = '';
@@ -100,7 +100,7 @@ class Structuring_Markup_Admin_List {
 	 * @param   string $obj
 	 * @return  string $output
 	 */
-	private function unserialize_output( $obj ) {
+	private function unserialize_output ( $obj ) {
 		$output = implode( ",", unserialize( $obj ) );
 		return (string) $output;
 	}

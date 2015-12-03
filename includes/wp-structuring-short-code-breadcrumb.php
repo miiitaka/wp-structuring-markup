@@ -16,7 +16,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	 * @param  array  $options
 	 * @return string $html
 	 */
-	public function short_code_display( array $options ) {
+	public function short_code_display ( array $options ) {
 		$item_array = $this->breadcrumb_array_setting( $options );
 		$html = '';
 
@@ -46,7 +46,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	 * @param   array $options
 	 * @return  array $item_array
 	 */
-	public function breadcrumb_array_setting( array $options ) {
+	public function breadcrumb_array_setting ( array $options ) {
 		global $post;
 
 		/** item build */
@@ -125,7 +125,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	 * @param   string $name
 	 * @return  array  $args
 	 */
-	private function set_schema_breadcrumb_item( $id, $name ) {
+	private function set_schema_breadcrumb_item ( $id, $name ) {
 		$args = array(
 			"@id"  => esc_html( $id ),
 			"name" => esc_html( $name )
