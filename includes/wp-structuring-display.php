@@ -221,7 +221,7 @@ class Structuring_Markup_Display {
 			if ( !isset( $meta['schema_event_place_url'] ) )       $meta['schema_event_place_url']       = '';
 			if ( !isset( $meta['schema_event_place_address'] ) )   $meta['schema_event_place_address']   = '';
 			if ( !isset( $meta['schema_event_offers_price'] ) )    $meta['schema_event_offers_price']    = 0;
-			if ( !isset( $meta['schema_event_offers_currency'] ) ) $meta['schema_event_offers_currency'] = esc_html__( 'USD' );
+			if ( !isset( $meta['schema_event_offers_currency'] ) ) $meta['schema_event_offers_currency'] = '';
 
 			$args = array(
 					"@context"  => "http://schema.org",
