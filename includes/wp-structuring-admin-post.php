@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 2.0.0
+ * @version 2.1.0
  */
 class Structuring_Markup_Admin_Post {
 
@@ -24,7 +24,7 @@ class Structuring_Markup_Admin_Post {
 	 * @version 2.0.0
 	 * @param   String $text_domain
 	 */
-	public function __construct( $text_domain ) {
+	public function __construct ( $text_domain ) {
 		$this->text_domain = $text_domain;
 
 		/**
@@ -69,6 +69,7 @@ class Structuring_Markup_Admin_Post {
 		}
 
 		$options = $db->get_options( $options['id'] );
+
 		$this->page_render( $options, $status );
 	}
 
@@ -76,11 +77,11 @@ class Structuring_Markup_Admin_Post {
 	 * Setting Page of the Admin Screen.
 	 *
 	 * @since   1.0.0
-	 * @version 2.0.0
-	 * @param array  $options
-	 * @param string $status
+	 * @version 2.1.0
+	 * @param   array  $options
+	 * @param   string $status
 	 */
-	private function page_render( array $options, $status ) {
+	private function page_render ( array $options, $status ) {
 		$html  = '';
 		$html .= '<div class="wrap">';
 		$html .= '<h1>' . esc_html__( 'Schema.org Register', $this->text_domain );
@@ -106,7 +107,7 @@ class Structuring_Markup_Admin_Post {
 		$html .= '<table class="schema-admin-table">';
 		$html .= '<tr><th>Activate : </th><td><label>';
 		$html .= '<input type="checkbox" name="activate" value="on"';
-		$html .= ( $options['activate'] === "on" ) ? ' checked' : '';
+		$html .= ( isset( $options['activate'] ) && $options['activate'] === "on" ) ? ' checked' : '';
 		$html .= '>Activate</label></td></tr>';
 		$html .= '<tr><th>' . esc_html__( 'Output Page', $this->text_domain ) . ' : </th><td>';
 		echo $html;
@@ -135,6 +136,14 @@ class Structuring_Markup_Admin_Post {
 
 				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-breadcrumb.php' );
 				new Structuring_Markup_Type_Breadcrumb( $options['option'] );
+				break;
+			case 'event':
+				$html  = $this->output_checkbox_render( $options['output'], "event",  "Event Post",   esc_html__( 'Event Post Page',   $this->text_domain ) );
+				$html .= '</td></tr></table><hr>';
+				echo $html;
+
+				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-event.php' );
+				new Structuring_Markup_Type_Event();
 				break;
 			case 'news_article':
 				$html  = $this->output_checkbox_render( $options['output'], "post", "Post", esc_html__( 'Post Page', $this->text_domain ) );
@@ -184,7 +193,7 @@ class Structuring_Markup_Admin_Post {
 	 * @param   string $display
 	 * @return  string $html
 	 */
-	private function output_checkbox_render( array $option, $output, $value, $display ) {
+	private function output_checkbox_render ( array $option, $output, $value, $display ) {
 		$html  = '<label>';
 		$html .= '<input type="checkbox" name="output[' . $output . ']" value="' . $value . '""';
 		$html .= isset( $option[$output] ) ? ' checked' : '';
@@ -200,7 +209,7 @@ class Structuring_Markup_Admin_Post {
 	 * @version 2.0.0
 	 * @return  string $html
 	 */
-	private function information_render() {
+	private function information_render () {
 		$html  = '<div id="message" class="updated notice notice-success is-dismissible below-h2">';
 		$html .= '<p>Schema.org Information Update.</p>';
 		$html .= '<button type="button" class="notice-dismiss">';
@@ -218,7 +227,7 @@ class Structuring_Markup_Admin_Post {
 	 * @version 2.0.0
 	 * @return  string $html
 	 */
-	private function output_error_render() {
+	private function output_error_render () {
 		$html  = '<div id="notice" class="notice notice-error is-dismissible below-h2">';
 		$html .= '<p>Output No Select.</p>';
 		$html .= '<button type="button" class="notice-dismiss">';

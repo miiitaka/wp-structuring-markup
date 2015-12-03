@@ -17,7 +17,7 @@ class Structuring_Markup_Type_Breadcrumb {
 	 * @since 2.0.0
 	 * @param array $option
 	 */
-	public function __construct( array $option ) {
+	public function __construct ( array $option ) {
 		/** Default Value Set */
 		if ( empty( $option ) ) {
 			$option = $this->get_default_options( $option );
@@ -31,7 +31,7 @@ class Structuring_Markup_Type_Breadcrumb {
 	 * @since 2.0.0
 	 * @param array $option
 	 */
-	private function page_render( array $option ) {
+	private function page_render ( array $option ) {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Basic Setting</caption>';
 		$html .= '<tr><th><label for="home_on">Home Display :</label></th><td>';
@@ -61,7 +61,7 @@ class Structuring_Markup_Type_Breadcrumb {
 	 * @param   array $args
 	 * @return  array $args
 	 */
-	private function get_default_options( array $args ) {
+	private function get_default_options ( array $args ) {
 		$args['home_on']   = '';
 		$args['home_name'] = '';
 

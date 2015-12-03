@@ -3,7 +3,7 @@ Contributors: miiitaka
 Tags: schema, schema.org, json, json-ld, seo, post, posts, google
 Requires at least: 4.3.1
 Tested up to: 4.3.1
-Stable tag: 2.0.2
+Stable tag: 2.1.0
 
 It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an post page, fixed page and etc.
 
@@ -12,14 +12,12 @@ It is plug in to implement structured markup (JSON-LD syntax) by schema.org defi
 It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an post page, fixed page and etc.
 Base knowledge is "https://schema.org/" and "https://developers.google.com/structured-data/"
 
-このプラグインは、投稿ページ、固定ページなどにschema.org定義の構造化マークアップ（JSON-LDの構文）を実装するプラグインです。
-基本知識は、https://schema.org/ や https://developers.google.com/structured-data/ を参考にしてください。
-
 = Schema.org Type =
 
 * Article: http://schema.org/Article
 * BlogPosting: http://schema.org/BlogPosting
 * BreadcrumbList: https://schema.org/BreadcrumbList
+* Event: https://schema.org/Event
 * NewsArticle: http://schema.org/NewsArticle
 * Organization: https://schema.org/Organization
 * Website: https://schema.org/WebSite
@@ -27,8 +25,6 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 = Breadcrumb =
 
 You can display the breadcrumbs in the short code. Breadcrumb definition is available even if not active.
-
-ショートコードでパンくずリストを表示することができます。Breadcrumb定義がアクティブでなくても使用可能です。
 
 `[wp-structuring-markup-breadcrumb]`
 
@@ -41,20 +37,24 @@ You can display the breadcrumbs in the short code. Breadcrumb definition is avai
 
 == Changelog ==
 
-= 2.0.2 (2015/11/27)=
+= 2.1.0 (2015-12-03) =
+
+* Added : Schema.org type "Event" schema.org definition Add "Event" custom post output that works
+
+= 2.0.2 (2015-11-27) =
 
 * Fixed : Breadcrumb ShortCode minor bug fixed.
 
-= 2.0.1 (2015/11/25) =
+= 2.0.1 (2015-11-25) =
 
 * Fixed : Notice error fixed.
 
-= 2.0.0 (2015/11/23) =
+= 2.0.0 (2015-11-23) =
 
-* Added : Schema.org type "BreadcrumbList" Breadcrumbs schema.org definition Add breadcrumbs short code output that works
+* Added : Schema.org type "BreadcrumbList" schema.org definition Add breadcrumbs short code output that works
 * Updated : Schema.org definition immobilization.
 
-= 1.3.2 (2015/11/17) =
+= 1.3.2 (2015-11-17) =
 
 * Fixed : Fixed translation.
 * Added : Additional output comment.

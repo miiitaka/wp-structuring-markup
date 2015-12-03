@@ -7,6 +7,7 @@
  * @since   1.2.0
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/BlogPosting
+ * @link    https://developers.google.com/structured-data/rich-snippets/articles
  */
 class Structuring_Markup_Type_Blog_Posting {
 
@@ -15,7 +16,7 @@ class Structuring_Markup_Type_Blog_Posting {
 	 *
 	 * @since 1.2.0
 	 */
-	public function __construct() {
+	public function __construct () {
 		$this->page_render();
 	}
 
@@ -24,7 +25,7 @@ class Structuring_Markup_Type_Blog_Posting {
 	 *
 	 * @since 1.2.0
 	 */
-	private function page_render() {
+	private function page_render () {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Basic Setting( Post Page Only )</caption>';
 		$html .= '<tr><th>headline :</th><td><small>Default : post_title</small></td></tr>';
