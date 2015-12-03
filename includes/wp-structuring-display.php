@@ -13,7 +13,7 @@ class Structuring_Markup_Display {
 	 *
 	 * @since 1.0.0
 	 */
-	public function __construct() {
+	public function __construct () {
 		$db = new Structuring_Markup_Admin_Db();
 		$this->set_schema( $db );
 	}
@@ -25,16 +25,16 @@ class Structuring_Markup_Display {
 	 * @version 2.1.0
 	 * @param   Structuring_Markup_Admin_Db $db
 	 */
-	private function set_schema( Structuring_Markup_Admin_Db $db ) {
+	private function set_schema ( Structuring_Markup_Admin_Db $db ) {
 		echo '<!-- Markup (JSON-LD) structured in schema.org START -->' . PHP_EOL;
 		$this->get_schema_data( $db, 'all' );
 		if ( is_home() ) {
 			$this->get_schema_data( $db, 'home' );
 		}
-		if ( is_single( 'post' ) ) {
+		if ( is_single() && get_post_type() === 'post' ) {
 			$this->get_schema_data( $db, 'post' );
 		}
-		if ( is_single( 'schema_event_post' ) ) {
+		if ( is_singular( 'schema_event_post' ) ) {
 			$this->get_schema_data( $db, 'event' );
 		}
 		if ( is_page() ) {
@@ -51,7 +51,7 @@ class Structuring_Markup_Display {
 	 * @param   Structuring_Markup_Admin_Db $db
 	 * @param   string $output
 	 */
-	private function get_schema_data( Structuring_Markup_Admin_Db $db, $output ) {
+	private function get_schema_data ( Structuring_Markup_Admin_Db $db, $output ) {
 		$results = $db->get_select_options( $output );
 
 		if ( isset( $results ) ) {
@@ -97,7 +97,7 @@ class Structuring_Markup_Display {
 	 * @since 1.0.0
 	 * @param array $args
 	 */
-	private function set_schema_json( array $args ) {
+	private function set_schema_json ( array $args ) {
 		echo '<script type="application/ld+json">' , PHP_EOL;
 		echo json_encode( $args, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ) , PHP_EOL;
 		echo '</script>' , PHP_EOL;
@@ -111,7 +111,7 @@ class Structuring_Markup_Display {
 	 * @param   string $text
 	 * @return  string $text
 	 */
-	private function escape_text_tags( $text ) {
+	private function escape_text_tags ( $text ) {
 		return (string) str_replace( array( "\r", "\n" ), '', strip_tags( $text ) );
 	}
 
@@ -121,7 +121,7 @@ class Structuring_Markup_Display {
 	 * @since   1.1.0
 	 * @version 1.1.3
 	 */
-	private function set_schema_article() {
+	private function set_schema_article () {
 		global $post;
 		if ( has_post_thumbnail( $post->ID ) ) {
 			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
@@ -145,7 +145,7 @@ class Structuring_Markup_Display {
 	 * @since   1.2.0
 	 * @version 1.2.0
 	 */
-	private function set_schema_blog_posting() {
+	private function set_schema_blog_posting () {
 		global $post;
 		if ( has_post_thumbnail( $post->ID ) ) {
 			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
@@ -165,50 +165,13 @@ class Structuring_Markup_Display {
 	}
 
 	/**
-	 * Setting schema.org Event
-	 *
-	 * @since   2.1.0
-	 * @version 2.1.0
-	 */
-	private function set_schema_event() {
-		global $post;
-		$meta = get_post_meta( $post->ID, 'schema_event_post', false );
-		if ( isset( $meta[0] ) ) {
-			$meta = unserialize($meta[0]);
-
-			if (!isset($meta['schema_event_name'])) $meta['schema_event_name'] = '';
-			if (!isset($meta['schema_event_date'])) $meta['schema_event_date'] = date('Y-m-d');
-			if (!isset($meta['schema_event_time'])) $meta['schema_event_time'] = date('h:i');
-			if (!isset($meta['schema_event_url'])) $meta['schema_event_url'] = '';
-			if (!isset($meta['schema_event_place_name'])) $meta['schema_event_place_name'] = '';
-			if (!isset($meta['schema_event_place_url'])) $meta['schema_event_place_url'] = '';
-			if (!isset($meta['schema_event_place_address'])) $meta['schema_event_place_address'] = '';
-
-			$args = array(
-					"@context"  => "http://schema.org",
-					"@type"     => "Event",
-					"name"      => $this->escape_text_tags($meta['schema_event_name']),
-					"startDate" => $this->escape_text_tags($meta['schema_event_date']) . 'T' . $this->escape_text_tags($meta['schema_event_time']),
-					"url"       => esc_url($meta['schema_event_url']),
-					"location"  => array(
-						"@type"   => "Place",
-						"sameAs"  => esc_url($meta['schema_event_place_url']),
-						"name"    => $this->escape_text_tags($meta['schema_event_place_name']),
-						"address" => $this->escape_text_tags($meta['schema_event_place_address'])
-					)
-			);
-			$this->set_schema_json($args);
-		}
-	}
-
-	/**
 	 * Setting schema.org Breadcrumb
 	 *
 	 * @since    2.0.0
 	 * ＠version 2.0.0
 	 * @param    array $options
 	 */
-	private function set_schema_breadcrumb( array $options ) {
+	private function set_schema_breadcrumb ( array $options ) {
 		require_once( plugin_dir_path( __FILE__ ) . 'wp-structuring-short-code-breadcrumb.php' );
 		$obj = new Structuring_Markup_ShortCode_Breadcrumb();
 		$item_array = $obj->breadcrumb_array_setting( $options );
@@ -238,12 +201,58 @@ class Structuring_Markup_Display {
 	}
 
 	/**
+	 * Setting schema.org Event
+	 *
+	 * @since   2.1.0
+	 * @version 2.1.0
+	 */
+	private function set_schema_event () {
+		global $post;
+		$meta = get_post_meta( $post->ID, 'schema_event_post', false );
+
+		if ( isset( $meta[0] ) ) {
+			$meta = unserialize( $meta[0] );
+
+			if ( !isset( $meta['schema_event_name']) ) $meta['schema_event_name'] = '';
+			if ( !isset( $meta['schema_event_date']) ) $meta['schema_event_date'] = date('Y-m-d');
+			if ( !isset( $meta['schema_event_time']) ) $meta['schema_event_time'] = date('h:i');
+			if ( !isset( $meta['schema_event_url']) )  $meta['schema_event_url']  = '';
+			if ( !isset( $meta['schema_event_place_name'] ) )      $meta['schema_event_place_name']      = '';
+			if ( !isset( $meta['schema_event_place_url'] ) )       $meta['schema_event_place_url']       = '';
+			if ( !isset( $meta['schema_event_place_address'] ) )   $meta['schema_event_place_address']   = '';
+			if ( !isset( $meta['schema_event_offers_price'] ) )    $meta['schema_event_offers_price']    = 0;
+			if ( !isset( $meta['schema_event_offers_currency'] ) ) $meta['schema_event_offers_currency'] = esc_html__( 'USD' );
+
+			$args = array(
+					"@context"  => "http://schema.org",
+					"@type"     => "Event",
+					"name"      => $this->escape_text_tags( $meta['schema_event_name'] ),
+					"startDate" => $this->escape_text_tags( $meta['schema_event_date'] ) . 'T' . $this->escape_text_tags( $meta['schema_event_time'] ),
+					"url"       => esc_url( $meta['schema_event_url'] ),
+					"location"  => array(
+						"@type"   => "Place",
+						"sameAs"  => esc_url( $meta['schema_event_place_url'] ),
+						"name"    => $this->escape_text_tags( $meta['schema_event_place_name'] ),
+						"address" => $this->escape_text_tags( $meta['schema_event_place_address'] )
+					),
+					"offers"    => array(
+						"@type"         => "Offer",
+						"price"         => $this->escape_text_tags( $meta['schema_event_offers_price'] ),
+						"priceCurrency" => $this->escape_text_tags( $meta['schema_event_offers_currency'] ),
+						"url"           => esc_url( $meta['schema_event_url'] )
+					)
+			);
+			$this->set_schema_json( $args );
+		}
+	}
+
+	/**
 	 * Setting schema.org NewsArticle
 	 *
 	 * @since   1.0.0
 	 * @version 1.1.3
 	 */
-	private function set_schema_news_article() {
+	private function set_schema_news_article () {
 		global $post;
 		if ( has_post_thumbnail( $post->ID ) ) {
 			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
@@ -267,7 +276,7 @@ class Structuring_Markup_Display {
 	 * ＠version 1.2.1
 	 * @param array $options
 	 */
-	private function set_schema_organization( array $options ) {
+	private function set_schema_organization ( array $options ) {
 		/** Logos */
 		$args = array(
 			"@context" => "http://schema.org",
@@ -309,7 +318,7 @@ class Structuring_Markup_Display {
 	 * @since 1.0.0
 	 * @param array $options
 	 */
-	private function set_schema_website( array $options ) {
+	private function set_schema_website ( array $options ) {
 		$args = array(
 			"@context"      => "http://schema.org",
 			"@type"         => "WebSite",

@@ -24,7 +24,7 @@ class Structuring_Markup_Custom_Post_Event {
 	 * @version 2.1.0
 	 * @param   String $text_domain
 	 */
-	public function __construct( $text_domain ) {
+	public function __construct ( $text_domain ) {
 		$this->text_domain = $text_domain;
 
 		register_post_type(
@@ -37,14 +37,14 @@ class Structuring_Markup_Custom_Post_Event {
 				'public'        => true,
 				'menu_position' => 5,
 				'has_archive'   => true,
-				'supports'      => array( 'title', 'editor', 'author' ),
+				'supports'      => array( 'title', 'editor', 'author', 'thumbnail' ),
 				'rewrite'       => array( 'slug' => 'events' ),
 			)
 		);
 
 		if ( is_admin() ) {
-			add_action( 'admin_init',       array( $this, 'admin_init' ) );
-			add_action( 'admin_meta_boxes', array( $this, 'admin_meta_boxes' ));
+			add_action( 'admin_init', array( $this, 'admin_init' ) );
+			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		}
 	}
 
@@ -54,7 +54,7 @@ class Structuring_Markup_Custom_Post_Event {
 	 * @since   2.1.0
 	 * @version 2.1.0
 	 */
-	public function admin_init() {
+	public function admin_init () {
 		add_action( 'save_post_' . $this->custom_type, array( $this, 'save_post' ) );
 	}
 
@@ -64,7 +64,7 @@ class Structuring_Markup_Custom_Post_Event {
 	 * @since   2.1.0
 	 * @version 2.1.0
 	 */
-	function admin_meta_boxes() {
+	public function admin_menu () {
 		$custom_field_title = esc_html__( 'Schema.org Type Event', $this->text_domain );
 		add_meta_box( $this->custom_type, $custom_field_title, array( $this, 'set_custom_fields' ), $this->custom_type, 'normal' );
 	}
@@ -75,7 +75,7 @@ class Structuring_Markup_Custom_Post_Event {
 	 * @since   2.1.0
 	 * @version 2.1.0
 	 */
-	function set_custom_fields() {
+	public function set_custom_fields () {
 		$args = get_post_meta( get_the_ID(), $this->custom_type, false );
 		$args = isset( $args[0] ) ? unserialize( $args[0] ) : "";
 
@@ -83,9 +83,11 @@ class Structuring_Markup_Custom_Post_Event {
 		if ( !isset( $args['schema_event_date'] ) ) $args['schema_event_date'] = date( 'Y-m-d' );
 		if ( !isset( $args['schema_event_time'] ) ) $args['schema_event_time'] = date( 'h:i' );
 		if ( !isset( $args['schema_event_url'] ) )  $args['schema_event_url']  = '';
-		if ( !isset( $args['schema_event_place_name'] ) )    $args['schema_event_place_name']    = '';
-		if ( !isset( $args['schema_event_place_url'] ) )     $args['schema_event_place_url']     = '';
-		if ( !isset( $args['schema_event_place_address'] ) ) $args['schema_event_place_address'] = '';
+		if ( !isset( $args['schema_event_place_name'] ) )      $args['schema_event_place_name']    = '';
+		if ( !isset( $args['schema_event_place_url'] ) )       $args['schema_event_place_url']     = '';
+		if ( !isset( $args['schema_event_place_address'] ) )   $args['schema_event_place_address'] = '';
+		if ( !isset( $args['schema_event_offers_price'] ) )    $args['schema_event_offers_price'] = 0;
+		if ( !isset( $args['schema_event_offers_currency'] ) ) $args['schema_event_offers_currency'] = esc_html__( 'USD' );
 
 		$html  = '';
 		$html .= '<table>';
@@ -120,6 +122,17 @@ class Structuring_Markup_Custom_Post_Event {
 		$html .= '</th><td>';
 		$html .= '<input type="text" name="option[' . "schema_event_place_address" . ']" id="schema_event_place_address" class="regular-text" required value="' . esc_attr( $args['schema_event_place_address'] ) . '">';
 		$html .= '</td></tr>';
+		$html .= '<tr><th>';
+		$html .= esc_html__( 'Price', $this->text_domain );
+		$html .= '</th><td>';
+		$html .= '<input type="number" name="option[' . "schema_event_offers_price" . ']" id="schema_event_offers_price" required value="' . esc_attr( $args['schema_event_offers_price'] ) . '">';
+		$html .= '</td></tr>';
+		$html .= '<tr><th>';
+		$html .= esc_html__( 'Currency', $this->text_domain );
+		$html .= '</th><td>';
+		$html .= '<input type="text" name="option[' . "schema_event_offers_currency" . ']" id="schema_event_offers_currency" maxlength="3" required value="' . esc_attr( $args['schema_event_offers_currency'] ) . '">';
+		$html .= '&nbsp;&nbsp;<small>( with <a hre="https://en.wikipedia.org/wiki/ISO_4217#Active_codes" target="_blank">ISO 4217 codes</a> e.g. "USD" )</small>';
+		$html .= '</td></tr>';
 		$html .= '</table>';
 
 		echo $html;
@@ -132,7 +145,7 @@ class Structuring_Markup_Custom_Post_Event {
 	 * @version 2.1.0
 	 * @param   integer $post_id The post ID.
 	 */
-	public function save_post( $post_id ) {
+	public function save_post ( $post_id ) {
 		if ( isset( $_POST['option'] ) ) {
 			update_post_meta( $post_id, $this->custom_type, serialize( $_POST['option'] ) );
 		}

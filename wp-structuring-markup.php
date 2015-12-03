@@ -66,8 +66,9 @@ class Structuring_Markup {
 	/**
 	 * Breadcrumb ShortCode Register.
 	 *
-	 * @since  2.0.0
-	 * @return string $html
+	 * @since   2.0.0
+	 * @version 2.0.0
+	 * @return  string $html
 	 */
 	public function short_code_init_breadcrumb () {
 		$db = new Structuring_Markup_Admin_Db();
@@ -88,7 +89,7 @@ class Structuring_Markup {
 	 * @since   1.3.0
 	 * @version 1.3.0
 	 */
-	public function plugins_loaded() {
+	public function plugins_loaded () {
 		load_plugin_textdomain( $this->text_domain, false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 	}
 
@@ -98,7 +99,7 @@ class Structuring_Markup {
 	 * @since   2.1.0
 	 * @version 2.1.0
 	 */
-	function create_post_type_event() {
+	function create_post_type_event () {
 		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-custom-post-event.php' );
 		new Structuring_Markup_Custom_Post_Event( $this->text_domain );
 	}
@@ -109,7 +110,7 @@ class Structuring_Markup {
 	 * @since   1.3.1
 	 * @version 1.3.1
 	 */
-	public function admin_init() {
+	public function admin_init () {
 		wp_register_style( 'wp-structuring-markup-admin-style', plugins_url( 'css/style.css', __FILE__ ) );
 	}
 
@@ -119,7 +120,7 @@ class Structuring_Markup {
 	 * @since   1.0.0
 	 * @version 2.0.0
 	 */
-	public function admin_menu() {
+	public function admin_menu () {
 		$list_page = add_menu_page(
 			esc_html__( 'Schema.org Settings', $this->text_domain ),
 			esc_html__( 'Schema.org Settings', $this->text_domain ),
@@ -141,17 +142,12 @@ class Structuring_Markup {
 		add_action( 'admin_print_styles-' . $post_page, array( $this, 'add_style' ) );
 
 		/** Custom post menu controls */
-		if ( isset( $_GET['type'] ) && $_GET['type'] === 'event' ) {
-			if ( isset( $_POST['activate'] ) && $_POST['activate'] === 'on') {
+		if ( isset( $_GET['page'] ) && $_GET['page'] === $this->text_domain . '-post' && !empty( $_POST ) ) {
+			if ( isset( $_POST['activate'] ) && $_POST['activate'] === 'on' ) {
 				flush_rewrite_rules();
 			}
-			if ( isset( $_GET['schema_post_id'] ) ) {
-				/** DB Connect */
-				$db = new Structuring_Markup_Admin_Db();
-				$results = $db->get_options( $_GET['schema_post_id'] );
-				if ( !isset( $results['activate'] ) || $results['activate'] !== 'on' ) {
-					remove_menu_page( 'edit.php?post_type=schema_event_post' );
-				}
+			if ( !isset( $_POST['activate'] ) ) {
+				remove_menu_page('edit.php?post_type=schema_event_post');
 			}
 		} else {
 			/** DB Connect */
@@ -170,7 +166,7 @@ class Structuring_Markup {
 	 * @since   1.3.1
 	 * @version 1.3.1
 	 */
-	public function add_style() {
+	public function add_style () {
 		wp_enqueue_style( 'wp-structuring-markup-admin-style' );
 	}
 
@@ -180,7 +176,7 @@ class Structuring_Markup {
 	 * @since   1.0.0
 	 * @version 1.3.0
 	 */
-	public function list_page_render() {
+	public function list_page_render () {
 		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-admin-list.php' );
 		new Structuring_Markup_Admin_List( $this->text_domain );
 	}
@@ -191,7 +187,7 @@ class Structuring_Markup {
 	 * @since   1.0.0
 	 * @version 1.3.0
 	 */
-	public function post_page_render() {
+	public function post_page_render () {
 		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-admin-post.php' );
 		new Structuring_Markup_Admin_Post( $this->text_domain );
 	}
@@ -202,7 +198,7 @@ class Structuring_Markup {
 	 * @since   1.3.0
 	 * @version 1.3.0
 	 */
-	public function wp_head() {
+	public function wp_head () {
 		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-display.php' );
 		new Structuring_Markup_Display();
 	}

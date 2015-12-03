@@ -13,6 +13,7 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 - Article: http://schema.org/Article
 - BlogPosting: http://schema.org/BlogPosting
 - BreadcrumbList: https://schema.org/BreadcrumbList
+- Event: https://schema.org/Event
 - NewsArticle: http://schema.org/NewsArticle
 - Organization: https://schema.org/Organization
 - Website: https://schema.org/WebSite
@@ -28,17 +29,20 @@ You can display the breadcrumbs in the short code. Breadcrumb definition is avai
 
 ## Change Log
 
-### 2.0.2 (2015/11/27)
+### 2.1.0 (2015-12-03)
+- Added : Schema.org type "Event" schema.org definition Add "Event" custom post output that works
+
+### 2.0.2 (2015-11-27)
 - Fixed : Breadcrumb ShortCode minor bug fixed.
 
-### 2.0.1 (2015/11/25)
+### 2.0.1 (2015-11-25)
 - Fixed : Notice error fixed.
 
-### 2.0.0 (2015/11/23)
-- Added : Schema.org type "BreadcrumbList" Breadcrumbs schema.org definition Add breadcrumbs short code output that works
+### 2.0.0 (2015-11-23)
+- Added : Schema.org type "BreadcrumbList" schema.org definition Add breadcrumbs short code output that works
 - Updated : Schema.org definition immobilization.
 
-### 1.3.2 (2015/11/17)
+### 1.3.2 (2015-11-17)
 - Fixed : Fixed translation.
 - Added : Additional output comment.
 
