@@ -56,7 +56,7 @@ class Structuring_Markup_Uninstall {
 	 */
 	private function delete_custom_post ( $custom_type = null ) {
 		global $wpdb;
-		$table_name = $wpdb->prefix . "post";
+		$table_name = $wpdb->prefix . "posts";
 
 		$key = array( 'post_type' => $custom_type );
 		$key_prepared = array( '%s' );
