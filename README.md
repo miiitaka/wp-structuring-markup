@@ -29,6 +29,9 @@ You can display the breadcrumbs in the short code. Breadcrumb definition is avai
 
 ## Change Log
 
+### 2.1.1 (2015-12-04)
+- Added : Add the table update processing at the time of version up
+
 ### 2.1.0 (2015-12-03)
 - Added : Schema.org type "Event" schema.org definition Add "Event" custom post output that works
 

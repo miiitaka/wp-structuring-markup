@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 2.1.0
+ * @version 2.1.1
  */
 class Structuring_Markup_Admin_Db {
 
@@ -42,9 +42,11 @@ class Structuring_Markup_Admin_Db {
 	 * Create Table.
 	 *
 	 * @since   1.0.0
-	 * @version 2.1.0
+	 * @version 2.1.1
+	 * @param   string $text_domain
+	 * @param   string $version
 	 */
-	public function create_table () {
+	public function create_table ( $text_domain, $version ) {
 		require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
 		global $wpdb;
@@ -54,7 +56,7 @@ class Structuring_Markup_Admin_Db {
 		$charset_collate = $wpdb->get_charset_collate();
 
 		if ( is_null( $is_db_exists ) ) {
-			$this->create_table_execute( $charset_collate );
+			$this->create_table_execute( $charset_collate, $text_domain, $version );
 
 			foreach ( $this->type_array as $key => $value ) {
 				$args = array(
@@ -69,18 +71,18 @@ class Structuring_Markup_Admin_Db {
 			}
 		} else {
 			/**
-			 * version 1.x.x -> 2.1.0 migration process.
+			 * version up process.
 			 *
 			 * @since   2.0.0
-			 * @version 2.1.0
+			 * @version 2.1.1
 			 * */
-			$options = get_option( 'wp_structuring_markup' );
+			$options = get_option( $text_domain );
 
-			if ( !isset( $options['version'] ) || $options['version'] === '2.0.0' ) {
+			if ( !isset( $options['version'] ) || $options['version'] !== $version ) {
 				$lists = $this->get_list_options();
 
 				$wpdb->query( "DROP TABLE " . $this->table_name );
-				$this->create_table_execute( $charset_collate );
+				$this->create_table_execute( $charset_collate, $text_domain, $version );
 
 				foreach ( $this->type_array as $key => $value ) {
 					$args = array(
@@ -115,10 +117,12 @@ class Structuring_Markup_Admin_Db {
 	 * Create table execute
 	 *
 	 * @since   2.0.0
-	 * @version 2.1.0
+	 * @version 2.1.1
 	 * @param   string $charset_collate
+	 * @param   string $text_domain
+	 * @param   string $version
 	 */
-	private function create_table_execute ( $charset_collate ) {
+	private function create_table_execute ( $charset_collate, $text_domain, $version ) {
 		$query  = " CREATE TABLE " . $this->table_name;
 		$query .= " (id MEDIUMINT(9) NOT NULL AUTO_INCREMENT PRIMARY KEY";
 		$query .= ",type TINYTEXT NOT NULL";
@@ -131,8 +135,8 @@ class Structuring_Markup_Admin_Db {
 
 		dbDelta( $query );
 
-		$options = array( 'version' => '2.1.0' );
-		update_option( 'wp_structuring_markup', $options, 'yes' );
+		$options = array( 'version' => $version );
+		update_option( $text_domain, $options, 'yes' );
 	}
 
 	/**
