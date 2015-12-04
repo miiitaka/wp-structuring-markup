@@ -1,6 +1,6 @@
 === Markup (JSON-LD) structured in schema.org ===
 Contributors: miiitaka
-Tags: schema, schema.org, json, json-ld, seo, post, posts, google
+Tags: schema, schema.org, json, json-ld, seo, post, posts, google, shortcode, breadcrumb
 Requires at least: 4.3.1
 Tested up to: 4.3.1
 Stable tag: 2.1.1
