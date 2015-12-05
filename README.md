@@ -30,10 +30,10 @@ You can display the breadcrumbs in the short code. Breadcrumb definition is avai
 ## Change Log
 
 ### 2.1.1 (2015-12-04)
-- Added : Add the table update processing at the time of version up
+- Added : Add the table update processing at the time of version up.
 
 ### 2.1.0 (2015-12-03)
-- Added : Schema.org type "Event" schema.org definition Add "Event" custom post output that works
+- Added : Schema.org type "Event" schema.org definition Add "Event" custom post output that works.
 
 ### 2.0.2 (2015-11-27)
 - Fixed : Breadcrumb ShortCode minor bug fixed.
@@ -42,7 +42,7 @@ You can display the breadcrumbs in the short code. Breadcrumb definition is avai
 - Fixed : Notice error fixed.
 
 ### 2.0.0 (2015-11-23)
-- Added : Schema.org type "BreadcrumbList" schema.org definition Add breadcrumbs short code output that works
+- Added : Schema.org type "BreadcrumbList" schema.org definition Add breadcrumbs short code output that works.
 - Updated : Schema.org definition immobilization.
 
 ### 1.3.2 (2015-11-17)
