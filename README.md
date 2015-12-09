@@ -23,11 +23,21 @@ You can display the breadcrumbs in the short code. Breadcrumb definition is avai
 
 ショートコードでパンくずリストを表示することができます。Breadcrumb定義がアクティブでなくても使用可能です。
 
+
+[ Example ]
+
 ```
-[wp-structuring-markup-breadcrumb]
+<?php
+if (shortcode_exists('wp-structuring-markup-breadcrumb')) {
+	echo do_shortcode('[wp-structuring-markup-breadcrumb]');
+}
+?>
 ```
 
 ## Change Log
+
+### 2.1.2 (2015-12-09)
+- Check : WordPress version 4.4 operation check.
 
 ### 2.1.1 (2015-12-04)
 - Added : Add the table update processing at the time of version up.
