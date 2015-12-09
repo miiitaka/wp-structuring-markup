@@ -1,9 +1,9 @@
 === Markup (JSON-LD) structured in schema.org ===
 Contributors: miiitaka
-Tags: schema, schema.org, json, json-ld, seo, post, posts, google
+Tags: schema, schema.org, json, json-ld, seo, post, posts, google, shortcode, breadcrumb
 Requires at least: 4.3.1
-Tested up to: 4.3.1
-Stable tag: 2.1.1
+Tested up to: 4.4.0
+Stable tag: 2.1.2
 
 It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an post page, fixed page and etc.
 
@@ -26,7 +26,15 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 
 You can display the breadcrumbs in the short code. Breadcrumb definition is available even if not active.
 
-`[wp-structuring-markup-breadcrumb]`
+[ Example ]
+
+```
+<?php
+if (shortcode_exists('wp-structuring-markup-breadcrumb')) {
+	echo do_shortcode('[wp-structuring-markup-breadcrumb]');
+}
+?>
+```
 
 == Installation ==
 
@@ -37,13 +45,17 @@ You can display the breadcrumbs in the short code. Breadcrumb definition is avai
 
 == Changelog ==
 
+= 2.1.2 (2015-12-09) =
+
+* Check : WordPress version 4.4 operation check.
+
 = 2.1.1 (2015-12-04) =
 
-* Added : Add the table update processing at the time of version up
+* Added : Add the table update processing at the time of version up.
 
 = 2.1.0 (2015-12-03) =
 
-* Added : Schema.org type "Event" schema.org definition Add "Event" custom post output that works
+* Added : Schema.org type "Event" schema.org definition Add "Event" custom post output that works.
 
 = 2.0.2 (2015-11-27) =
 
@@ -55,7 +67,7 @@ You can display the breadcrumbs in the short code. Breadcrumb definition is avai
 
 = 2.0.0 (2015-11-23) =
 
-* Added : Schema.org type "BreadcrumbList" schema.org definition Add breadcrumbs short code output that works
+* Added : Schema.org type "BreadcrumbList" schema.org definition Add breadcrumbs short code output that works.
 * Updated : Schema.org definition immobilization.
 
 = 1.3.2 (2015-11-17) =
