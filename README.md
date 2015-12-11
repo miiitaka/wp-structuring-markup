@@ -36,6 +36,10 @@ if (shortcode_exists('wp-structuring-markup-breadcrumb')) {
 
 ## Change Log
 
+### 2.1.3 (2015-12-11)
+
+- Fixed : Minor bug fixed.
+
 ### 2.1.2 (2015-12-09)
 - Check : WordPress version 4.4 operation check.
 
