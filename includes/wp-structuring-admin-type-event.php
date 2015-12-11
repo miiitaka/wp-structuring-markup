@@ -3,7 +3,7 @@
  * Schema.org Type Event
  *
  * @author  Kazuya Takami
- * @version 2.1.0
+ * @version 2.1.3
  * @since   2.1.0
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/Event
@@ -54,6 +54,7 @@ class Structuring_Markup_Type_Event {
 		echo $html;
 
 		echo '<p>Custom post name "schema_event_post"</p>';
+		echo '<p>Archive rewrite name "events"</p>';
 		echo '<p>Setting Knowledge : <a href="https://developers.google.com/structured-data/rich-snippets/events" target="_blank">https://developers.google.com/structured-data/rich-snippets/events</a></p>';
 
 		submit_button();

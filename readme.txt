@@ -2,8 +2,8 @@
 Contributors: miiitaka
 Tags: schema, schema.org, json, json-ld, seo, post, posts, google, shortcode, breadcrumb
 Requires at least: 4.3.1
-Tested up to: 4.4.0
-Stable tag: 2.1.2
+Tested up to: 4.4
+Stable tag: 2.1.3
 
 It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an post page, fixed page and etc.
 
@@ -28,13 +28,13 @@ You can display the breadcrumbs in the short code. Breadcrumb definition is avai
 
 [ Example ]
 
-```
+`
 <?php
 if (shortcode_exists('wp-structuring-markup-breadcrumb')) {
 	echo do_shortcode('[wp-structuring-markup-breadcrumb]');
 }
 ?>
-```
+`
 
 == Installation ==
 
@@ -44,6 +44,10 @@ if (shortcode_exists('wp-structuring-markup-breadcrumb')) {
 * Open 'Schema.org Setting' menu.
 
 == Changelog ==
+
+= 2.1.3 (2015-12-11) =
+
+* Fixed : Minor bug fixed.
 
 = 2.1.2 (2015-12-09) =
 
