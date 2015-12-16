@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 2.1.0
+ * @version 2.2.0
  */
 class Structuring_Markup_Admin_Post {
 
@@ -21,7 +21,7 @@ class Structuring_Markup_Admin_Post {
 	 * Constructor Define.
 	 *
 	 * @since   1.0.0
-	 * @version 2.0.0
+	 * @version 2.2.0
 	 * @param   String $text_domain
 	 */
 	public function __construct ( $text_domain ) {
@@ -69,6 +69,9 @@ class Structuring_Markup_Admin_Post {
 		}
 
 		$options = $db->get_options( $options['id'] );
+		if ( $options['option'] === false ) {
+			$options['option'] = array();
+		}
 
 		$this->page_render( $options, $status );
 	}
@@ -77,7 +80,7 @@ class Structuring_Markup_Admin_Post {
 	 * Setting Page of the Admin Screen.
 	 *
 	 * @since   1.0.0
-	 * @version 2.1.0
+	 * @version 2.2.0
 	 * @param   array  $options
 	 * @param   string $status
 	 */
@@ -119,7 +122,7 @@ class Structuring_Markup_Admin_Post {
 				echo $html;
 
 				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-article.php' );
-				new Structuring_Markup_Type_Article();
+				new Structuring_Markup_Type_Article( $options['option'] );
 				break;
 			case 'blog_posting':
 				$html  = $this->output_checkbox_render( $options['output'], "post", "Post", esc_html__( 'Post Page', $this->text_domain ) );
@@ -127,7 +130,7 @@ class Structuring_Markup_Admin_Post {
 				echo $html;
 
 				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-blog-posting.php' );
-				new Structuring_Markup_Type_Blog_Posting();
+				new Structuring_Markup_Type_Blog_Posting( $options['option'] );
 				break;
 			case 'breadcrumb':
 				$html  = $this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Page',   $this->text_domain ) );
@@ -151,7 +154,7 @@ class Structuring_Markup_Admin_Post {
 				echo $html;
 
 				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-news-article.php' );
-				new Structuring_Markup_Type_NewsArticle();
+				new Structuring_Markup_Type_NewsArticle( $options['option'] );
 				break;
 			case 'organization':
 				$html  = $this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Page',   $this->text_domain ) );

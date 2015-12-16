@@ -36,6 +36,10 @@ if (shortcode_exists('wp-structuring-markup-breadcrumb')) {
 
 ## Change Log
 
+### 2.2.0 (2015-12-16)
+
+- Updated : Updated on December 14, 2015 was structured data (Article) AMP correspondence. https://developers.google.com/structured-data/rich-snippets/articles?hl=ja
+
 ### 2.1.3 (2015-12-11)
 
 - Fixed : Minor bug fixed.

@@ -47,7 +47,7 @@ class Structuring_Markup_Display {
 	 * Setting JSON-LD Template
 	 *
 	 * @since   1.0.0
-	 * @version 2.1.0
+	 * @version 2.2.0
 	 * @param   Structuring_Markup_Admin_Db $db
 	 * @param   string $output
 	 */
@@ -59,29 +59,35 @@ class Structuring_Markup_Display {
 				if ( isset( $row->type ) && isset( $row->activate ) && $row->activate === 'on' ) {
 					switch ( $row->type ) {
 						case 'article':
-							$this->set_schema_article();
+							if ( isset( $row->options ) && $row->options ) {
+								$this->set_schema_article( unserialize( $row->options ) );
+							}
 							break;
 						case 'blog_posting':
-							$this->set_schema_blog_posting();
+							if ( isset( $row->options ) && $row->options ) {
+								$this->set_schema_blog_posting( unserialize( $row->options ) );
+							}
 							break;
 						case 'breadcrumb':
-							if ( isset( $row->options ) ) {
-								$this->set_schema_breadcrumb(unserialize($row->options));
+							if ( isset( $row->options ) && $row->options ) {
+								$this->set_schema_breadcrumb( unserialize( $row->options ) );
 							}
 							break;
 						case 'event':
 							$this->set_schema_event();
 							break;
 						case 'news_article':
-							$this->set_schema_news_article();
+							if ( isset( $row->options ) && $row->options ) {
+								$this->set_schema_news_article( unserialize( $row->options ) );
+							}
 							break;
 						case 'organization':
-							if ( isset( $row->options ) ) {
+							if ( isset( $row->options ) && $row->options ) {
 								$this->set_schema_organization( unserialize( $row->options ) );
 							}
 							break;
 						case 'website':
-							if ( isset( $row->options ) ) {
+							if ( isset( $row->options ) && $row->options ) {
 								$this->set_schema_website( unserialize( $row->options ) );
 							}
 							break;
@@ -119,21 +125,51 @@ class Structuring_Markup_Display {
 	 * Setting schema.org Article
 	 *
 	 * @since   1.1.0
-	 * @version 1.1.3
+	 * @version 2.2.0
+	 * @param   array $options
 	 */
-	private function set_schema_article () {
+	private function set_schema_article ( array $options ) {
 		global $post;
-		if ( has_post_thumbnail( $post->ID ) ) {
+
+		$options['logo'] = isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "";
+
+		if ( has_post_thumbnail( $post->ID ) && @getimagesize( $options['logo'] ) ) {
 			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+			$logo   = getimagesize( $options['logo'] );
+			$excerpt = $this->escape_text_tags( $post->post_excerpt );
+			$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
+
 			$args = array(
-				"@context"      => "http://schema.org",
-				"@type"         => "Article",
-				"headline"      => $this->escape_text_tags( $post->post_title ),
+				"@context" => "http://schema.org",
+				"@type"    => "Article",
+				"mainEntityOfPage" => array(
+					"@type" => "WebPage",
+					"@id"   => get_permalink( $post->ID )
+				),
+				"headline" => $this->escape_text_tags( $post->post_title ),
+				"image"    => array(
+					"@type"  => "ImageObject",
+					"url"    => $images[0],
+					"width"  => $images[1],
+					"height" => $images[2]
+				),
 				"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
-				"author"        => $this->escape_text_tags( get_the_author_meta( 'display_name', $post->post_author ) ),
-				"image"         => array( $images[0] ),
-				"description"   => $this->escape_text_tags( $post->post_excerpt ),
-				"articleBody"   => $this->escape_text_tags( $post->post_content )
+				"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
+				"author" => array(
+					"@type" => "Person",
+					"name"  => $this->escape_text_tags( get_the_author_meta( 'display_name', $post->post_author ) )
+				),
+				"publisher" => array(
+					"@type" => "Organization",
+					"name"  => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
+					"logo"  => array(
+						"@type"  => "ImageObject",
+						"url"    => isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "",
+						"width"  => $logo[0],
+						"height" => $logo[1]
+					)
+				),
+				"description" => $content
 			);
 			$this->set_schema_json( $args );
 		}
@@ -143,22 +179,51 @@ class Structuring_Markup_Display {
 	 * Setting schema.org BlogPosting
 	 *
 	 * @since   1.2.0
-	 * @version 1.2.0
+	 * @version 2.2.0
+	 * @param   array $options
 	 */
-	private function set_schema_blog_posting () {
+	private function set_schema_blog_posting ( array $options ) {
 		global $post;
-		if ( has_post_thumbnail( $post->ID ) ) {
+
+		$options['logo'] = isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "";
+
+		if ( has_post_thumbnail( $post->ID ) && @getimagesize( $options['logo'] ) ) {
 			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+			$logo   = getimagesize( $options['logo'] );
+			$excerpt = $this->escape_text_tags( $post->post_excerpt );
+			$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
+
 			$args = array(
-				"@context"      => "http://schema.org",
-				"@type"         => "BlogPosting",
-				"headline"      => $this->escape_text_tags( $post->post_title ),
+				"@context" => "http://schema.org",
+				"@type"    => "BlogPosting",
+				"mainEntityOfPage" => array(
+					"@type" => "WebPage",
+					"@id"   => get_permalink( $post->ID )
+				),
+				"headline" => $this->escape_text_tags( $post->post_title ),
+				"image"    => array(
+					"@type"  => "ImageObject",
+					"url"    => $images[0],
+					"width"  => $images[1],
+					"height" => $images[2]
+				),
 				"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
-				"dateModified"  => get_the_modified_time( DATE_ISO8601, $post->ID ),
-				"author"        => $this->escape_text_tags( get_the_author_meta( 'display_name', $post->post_author ) ),
-				"image"         => array( $images[0] ),
-				"description"   => $this->escape_text_tags( $post->post_excerpt ),
-				"articleBody"   => $this->escape_text_tags( $post->post_content )
+				"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
+				"author" => array(
+					"@type" => "Person",
+					"name"  => $this->escape_text_tags( get_the_author_meta( 'display_name', $post->post_author ) )
+				),
+				"publisher" => array(
+					"@type" => "Organization",
+					"name"  => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
+					"logo"  => array(
+						"@type"  => "ImageObject",
+						"url"    => isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "",
+						"width"  => $logo[0],
+						"height" => $logo[1]
+					)
+				),
+				"description" => $content
 			);
 			$this->set_schema_json( $args );
 		}
@@ -182,9 +247,9 @@ class Structuring_Markup_Display {
 			$position = 1;
 			foreach ($item_array as $item) {
 				$item_list_element[] = array(
-					"@type" => "ListItem",
+					"@type"    => "ListItem",
 					"position" => $position,
-					"item" => $item
+					"item"     => $item
 				);
 				$position++;
 			}
@@ -192,7 +257,7 @@ class Structuring_Markup_Display {
 			/** Breadcrumb Schema build */
 			$args = array(
 				"@context" => "http://schema.org",
-				"@type" => "BreadcrumbList",
+				"@type"    => "BreadcrumbList",
 				"itemListElement" => $item_list_element
 			);
 
@@ -250,20 +315,51 @@ class Structuring_Markup_Display {
 	 * Setting schema.org NewsArticle
 	 *
 	 * @since   1.0.0
-	 * @version 1.1.3
+	 * @version 2.2.0
+	 * @param   array $options
 	 */
-	private function set_schema_news_article () {
+	private function set_schema_news_article ( array $options ) {
 		global $post;
-		if ( has_post_thumbnail( $post->ID ) ) {
-			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+
+		$options['logo'] = isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "";
+
+		if ( has_post_thumbnail( $post->ID ) && @getimagesize( $options['logo'] ) ) {
+			$images  = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+			$logo    = getimagesize( $options['logo'] );
+			$excerpt = $this->escape_text_tags( $post->post_excerpt );
+			$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
+
 			$args = array(
-				"@context"      => "http://schema.org",
-				"@type"         => "NewsArticle",
-				"headline"      => $this->escape_text_tags( $post->post_title ),
+				"@context" => "http://schema.org",
+				"@type"    => "NewsArticle",
+				"mainEntityOfPage" => array(
+					"@type" => "WebPage",
+					"@id"   => get_permalink( $post->ID )
+				),
+				"headline" => $this->escape_text_tags( $post->post_title ),
+				"image"    => array(
+					"@type"  => "ImageObject",
+					"url"    => $images[0],
+					"width"  => $images[1],
+					"height" => $images[2]
+				),
 				"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
-				"image"         => array( $images[0] ),
-				"description"   => $this->escape_text_tags( $post->post_excerpt ),
-				"articleBody"   => $this->escape_text_tags( $post->post_content )
+				"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
+				"author" => array(
+					"@type" => "Person",
+					"name"  => $this->escape_text_tags( get_the_author_meta( 'display_name', $post->post_author ) )
+				),
+				"publisher" => array(
+					"@type" => "Organization",
+					"name"  => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
+					"logo"  => array(
+						"@type"  => "ImageObject",
+						"url"    => isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "",
+						"width"  => $logo[0],
+      					"height" => $logo[1]
+					)
+				),
+				"description" => $content
 			);
 			$this->set_schema_json( $args );
 		}
@@ -273,7 +369,7 @@ class Structuring_Markup_Display {
 	 * Setting schema.org Organization
 	 *
 	 * @since    1.0.0
-	 * ＠version 1.2.1
+	 * ＠version 2.2.0
 	 * @param array $options
 	 */
 	private function set_schema_organization ( array $options ) {
@@ -282,8 +378,8 @@ class Structuring_Markup_Display {
 			"@context" => "http://schema.org",
 			"@type"    => "Organization",
 			"name"     => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
-			"url"      => isset( $options['url'] ) ? esc_html( $options['url'] ) : "",
-			"logo"     => isset( $options['logo'] ) ? esc_html( $options['logo'] ) : ""
+			"url"      => isset( $options['url'] )  ? esc_url( $options['url'] ) : "",
+			"logo"     => isset( $options['logo'] ) ? esc_url( $options['logo'] ) : ""
 		);
 
 		/** Corporate Contact */
@@ -315,8 +411,9 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org WebSite
 	 *
-	 * @since 1.0.0
-	 * @param array $options
+	 * @since   1.0.0
+	 * @version 2.2.0
+	 * @param   array $options
 	 */
 	private function set_schema_website ( array $options ) {
 		$args = array(
@@ -324,13 +421,13 @@ class Structuring_Markup_Display {
 			"@type"         => "WebSite",
 			"name"          => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
 			"alternateName" => isset( $options['alternateName'] ) ? esc_html( $options['alternateName'] ) : "",
-			"url"           => isset( $options['url'] ) ? esc_html( $options['url'] ) : ""
+			"url"           => isset( $options['url'] ) ? esc_url( $options['url'] ) : ""
 		);
 
 		if ( isset( $options['potential_action'] ) && $options['potential_action'] === 'on' ) {
 			$potential_action["potentialAction"] = array(
 				"@type"       => "SearchAction",
-				"target"      => isset( $options['target'] ) ? esc_html( $options['target'] ) . "{search_term_string}" : "",
+				"target"      => isset( $options['target'] ) ? esc_url( $options['target'] ) . "{search_term_string}" : "",
 				"query-input" => isset( $options['target'] ) ? "required name=search_term_string" : ""
 			);
 			$args = array_merge( $args, $potential_action );
