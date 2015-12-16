@@ -3,7 +3,7 @@
  * Schema.org Type Organization
  *
  * @author  Kazuya Takami
- * @version 1.0.0
+ * @version 2.2.0
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/Organization
@@ -14,9 +14,16 @@
  */
 class Structuring_Markup_Type_Organization {
 
+
+	/**
+	 * Variable definition.
+	 *
+	 * @since   1.0.0
+	 * @version 2.2.0
+	 */
 	/** contactType defined. */
 	private $contact_type_array = array(
-		array("type" => "customer_support",    "display" => "customer support"),
+		array("type" => "customer service",    "display" => "customer service"),
 		array("type" => "technical_support",   "display" => "technical support"),
 		array("type" => "billing_support",     "display" => "billing support"),
 		array("type" => "bill_payment",        "display" => "bill payment"),
@@ -59,8 +66,9 @@ class Structuring_Markup_Type_Organization {
 	/**
 	 * Form Layout Render
 	 *
-	 * @since 1.0.0
-	 * @param array $option
+	 * @since   1.0.0
+	 * @version 2.2.0
+	 * @param   array $option
 	 */
 	private function page_render ( array $option ) {
 		/** Logos */
@@ -105,7 +113,7 @@ class Structuring_Markup_Type_Organization {
 			$html .= '>' . $value['display'] . '</option>';
 		}
 		$html .= '</select>';
-		$html .= '<small>Default : "customer support"</small>';
+		$html .= '<small>Default : "customer service"</small>';
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="area_served">areaServed :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "area_served" . ']" id="area_served" class="regular-text" value="' . esc_attr( $option['area_served'] ) . '">';
