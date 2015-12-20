@@ -19,7 +19,7 @@ new Structuring_Markup();
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 2.1.1
+ * @version 2.2.0
  */
 class Structuring_Markup {
 
@@ -27,10 +27,10 @@ class Structuring_Markup {
 	 * Variable definition.
 	 *
 	 * @since   1.3.0
-	 * @version 2.1.1
+	 * @version 2.2.0
 	 */
 	private $text_domain = 'wp-structuring-markup';
-	private $version     = '2.1.1';
+	private $version     = '2.2.0';
 
 	/**
 	 * Constructor Define.
