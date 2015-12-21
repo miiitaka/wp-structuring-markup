@@ -3,7 +3,7 @@
  * Breadcrumb ShortCode Settings
  *
  * @author  Kazuya Takami
- * @version 2.1.0
+ * @version 2.2.1
  * @since   2.0.0
  */
 class Structuring_Markup_ShortCode_Breadcrumb {
@@ -40,7 +40,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	/**
 	 * Breadcrumb array setting.
 	 *
-	 * @version 2.1.0
+	 * @version 2.2.1
 	 * @since   2.0.0
 	 * @access  public
 	 * @param   array $options
@@ -97,9 +97,23 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 				$item_array[] = $this->set_schema_breadcrumb_item( get_permalink( $post->post_parent ), get_the_title( $post->post_parent ) );
 			}
 			$item_array[] = $this->set_schema_breadcrumb_item( $current_url, $post->post_title );
-		} elseif ( is_single() ) {
+		} elseif ( is_404() ) {
+			$item_array[] = $this->set_schema_breadcrumb_item( $current_url, '404 Not Found' );
+		} elseif ( is_post_type_archive() ) {
+			$item_array[] = $this->set_schema_breadcrumb_item( get_post_type_archive_link( get_post_type() ), post_type_archive_title( '', false ) );
+		} elseif ( is_archive() ) {
+			$taxonomies = get_the_taxonomies( $post->ID );
+			if ( !empty( $taxonomies ) ) {
+				foreach ( array_keys( $taxonomies ) as $key ) {
+					$terms = get_the_terms( $post->ID, $key );
+					for ( $i = 0; $i < count( $terms ); $i++) {
+						$item_array[] = $this->set_schema_breadcrumb_item( get_term_link( $terms[$i]->term_id, $key ), $terms[$i]->name );
+					}
+				}
+			}
+		} elseif ( is_singular( 'post' ) ) {
 			$categories = get_the_category($post->ID);
-			if ( isset($categories[0]) ) {
+			if ( isset( $categories[0] ) ) {
 				$cat = $categories[0];
 
 				if ( $cat->parent !== 0 ) {
@@ -108,7 +122,19 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 						$item_array[] = $this->set_schema_breadcrumb_item( get_category_link( $ancestor ), get_cat_name( $ancestor ) );
 					}
 				}
-				$item_array[] = $this->set_schema_breadcrumb_item( get_category_link( $cat->term_id ), $cat->name);
+				$item_array[] = $this->set_schema_breadcrumb_item( get_category_link( $cat->term_id ), $cat->name );
+			}
+			$item_array[] = $this->set_schema_breadcrumb_item( $current_url, $post->post_title );
+		} elseif ( is_single() ) {
+			$item_array[] = $this->set_schema_breadcrumb_item( get_post_type_archive_link( get_post_type() ), get_post_type_object( get_post_type() )->label );
+			$taxonomies = get_the_taxonomies( $post->ID );
+			if ( !empty( $taxonomies ) ) {
+				foreach ( array_keys( $taxonomies ) as $key ) {
+					$terms = get_the_terms( $post->ID, $key );
+					for ( $i = 0; $i < count( $terms ); $i++) {
+						$item_array[] = $this->set_schema_breadcrumb_item( get_term_link( $terms[$i]->term_id, $key ), $terms[$i]->name );
+					}
+				}
 			}
 			$item_array[] = $this->set_schema_breadcrumb_item( $current_url, $post->post_title );
 		}
@@ -127,7 +153,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	 */
 	private function set_schema_breadcrumb_item ( $id, $name ) {
 		$args = array(
-			"@id"  => esc_html( $id ),
+			"@id"  => esc_url( $id ),
 			"name" => esc_html( $name )
 		);
 		return (array) $args;

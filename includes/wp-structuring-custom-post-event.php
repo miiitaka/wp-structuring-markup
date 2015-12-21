@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @since   2.1.0
- * @version 2.1.3
+ * @version 2.2.1
  */
 class Structuring_Markup_Custom_Post_Event {
 
@@ -21,7 +21,7 @@ class Structuring_Markup_Custom_Post_Event {
 	 * Constructor Define.
 	 *
 	 * @since   2.1.0
-	 * @version 2.1.3
+	 * @version 2.2.1
 	 * @param   String $text_domain
 	 */
 	public function __construct ( $text_domain ) {
@@ -40,7 +40,7 @@ class Structuring_Markup_Custom_Post_Event {
 				'menu_position'   => 5,
 				'public'          => true,
 				'query_var'       => false,
-				'rewrite'         => array( 'slug' => 'events' ),
+				'rewrite'         => array( 'with_front' => true, 'slug' => 'events' ),
 				'show_in_menu'    => true,
 				'show_ui'         => true,
 				'supports'        => array( 'title', 'editor', 'author', 'thumbnail' )
