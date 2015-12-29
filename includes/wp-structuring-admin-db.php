@@ -1,10 +1,10 @@
 <?php
 /**
- * Schema.org Admin DB Connection
+ * Schema.org Admin DB Connection.
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 2.1.1
+ * @version 2.3.0
  */
 class Structuring_Markup_Admin_Db {
 
@@ -12,19 +12,20 @@ class Structuring_Markup_Admin_Db {
 	 * Variable definition.
 	 *
 	 * @since   1.0.0
-	 * @version 2.1.0
+	 * @version 2.3.0
 	 */
 	private $table_name;
 
 	/** Schema.org Type defined. */
 	public $type_array = array(
-		"article"      => "Article",
-		"blog_posting" => "Blog Posting",
-		"breadcrumb"   => "Breadcrumb",
-		"event"        => "Event",
-		"news_article" => "News Article",
-		"organization" => "Organization",
-		"website"      => "Web Site"
+		"article"        => "Article",
+		"blog_posting"   => "Blog Posting",
+		"breadcrumb"     => "Breadcrumb",
+		"event"          => "Event",
+		"local_business" => "Local Business",
+		"news_article"   => "News Article",
+		"organization"   => "Organization",
+		"website"        => "Web Site"
 	);
 
 	/**

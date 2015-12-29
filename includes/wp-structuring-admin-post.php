@@ -148,6 +148,17 @@ class Structuring_Markup_Admin_Post {
 				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-event.php' );
 				new Structuring_Markup_Type_Event();
 				break;
+			case 'local_business':
+				$html  = $this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Page',   $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "home", "Top",   esc_html__( 'Top Page',   $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "post", "Post",  esc_html__( 'Post Page',  $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "page", "Fixed", esc_html__( 'Fixed Page', $this->text_domain ) );
+				$html .= '</td></tr></table><hr>';
+				echo $html;
+
+				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-local-business.php' );
+				new Structuring_Markup_Type_LocalBusiness( $options['option'] );
+				break;
 			case 'news_article':
 				$html  = $this->output_checkbox_render( $options['output'], "post", "Post", esc_html__( 'Post Page', $this->text_domain ) );
 				$html .= '</td></tr></table><hr>';
