@@ -3,7 +3,7 @@
  * Schema.org Type Organization
  *
  * @author  Kazuya Takami
- * @version 2.2.0
+ * @version 2.3.0
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/Organization
@@ -14,7 +14,6 @@
  */
 class Structuring_Markup_Type_Organization {
 
-
 	/**
 	 * Variable definition.
 	 *
@@ -23,7 +22,7 @@ class Structuring_Markup_Type_Organization {
 	 */
 	/** contactType defined. */
 	private $contact_type_array = array(
-		array("type" => "customer service",    "display" => "customer service"),
+		array("type" => "customer_service",    "display" => "customer service"),
 		array("type" => "technical_support",   "display" => "technical support"),
 		array("type" => "billing_support",     "display" => "billing support"),
 		array("type" => "bill_payment",        "display" => "bill payment"),
@@ -67,7 +66,7 @@ class Structuring_Markup_Type_Organization {
 	 * Form Layout Render
 	 *
 	 * @since   1.0.0
-	 * @version 2.2.0
+	 * @version 2.3.0
 	 * @param   array $option
 	 */
 	private function page_render ( array $option ) {
@@ -101,7 +100,7 @@ class Structuring_Markup_Type_Organization {
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="telephone">telephone :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "telephone" . ']" id="telephone" class="regular-text" value="' . esc_attr( $option['telephone'] ) . '">';
-		$html .= '<small>Default : +1-880-555-1212</small>';
+		$html .= '<small>e.g. : +1-880-555-1212</small>';
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="contact_type">contactType :</label></th><td>';
 		$html .= '<select id="contact_type" name="option[' . "contact_type" . ']">';
@@ -157,7 +156,7 @@ class Structuring_Markup_Type_Organization {
 	 * Return the default options array
 	 *
 	 * @since   1.0.0
-	 * @version 2.0.0
+	 * @version 2.3.0
 	 * @param   array $args
 	 * @return  array $args
 	 */
@@ -166,8 +165,8 @@ class Structuring_Markup_Type_Organization {
 		$args['url']                = get_bloginfo('url');
 		$args['logo']               = get_bloginfo('url') . '/images/logo.png';
 		$args['contact_point']      = '';
-		$args['telephone']          = '+1-880-555-1212';
-		$args['contact_type']       = 'customer_support';
+		$args['telephone']          = '';
+		$args['contact_type']       = 'customer_service';
 		$args['area_served']        = 'US';
 		$args['contact_option_1']   = '';
 		$args['contact_option_2']   = '';
