@@ -20,19 +20,6 @@ class Structuring_Markup_Type_LocalBusiness {
 		array("type" => "local_business", "display" => "Local Business"),
 		array("type" => "restaurant",     "display" => "Restaurant")
 	);
-	/** Social Profile */
-	private $social_array = array(
-		array("type" => "facebook",   "display" => "Facebook"),
-		array("type" => "twitter",    "display" => "Twitter"),
-		array("type" => "google",     "display" => "Google+"),
-		array("type" => "instagram",  "display" => "Instagram"),
-		array("type" => "youtube",    "display" => "Youtube"),
-		array("type" => "linkedin",   "display" => "LinkedIn"),
-		array("type" => "myspace",    "display" => "Myspace"),
-		array("type" => "pinterest",  "display" => "Pinterest"),
-		array("type" => "soundcloud", "display" => "SoundCloud"),
-		array("type" => "tumblr",     "display" => "Tumblr")
-	);
 
 	/**
 	 * Constructor Define.
@@ -58,41 +45,12 @@ class Structuring_Markup_Type_LocalBusiness {
 		/** Local Business Type */
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Local Business</caption>';
-		$html .= '<tr><th><label for="business_type">Local Business Type :</label></th><td>';
-		$html .= '<select id="business_type" name="option[' . "business_type" . ']">';
-		foreach ( $this->business_type_array as $value ) {
-			$html .= '<option value="' . $value['type'] . '"';
-			if ( $value['type'] === $option['business_type'] ) {
-				$html .= ' selected';
-			}
-			$html .= '>' . $value['display'] . '</option>';
-		}
-		$html .= '</select>';
-		$html .= '<small>Default : "Local Business"</small>';
-		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="name">Business Name :</label></th><td>';
-		$html .= '<input type="text" name="option[' . "name" . ']" id="name" class="regular-text" required value="' . esc_attr( $option['name'] ) . '">';
-		$html .= '<small>Default : bloginfo("name")</small>';
-		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="url">Url :</label></th><td>';
-		$html .= '<input type="text" name="option[' . "url" . ']" id="url" class="regular-text" required value="' . esc_attr( $option['url'] ) . '">';
-		$html .= '<small>Default : bloginfo("url")</small>';
-		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="telephone">Telephone :</label></th><td>';
-		$html .= '<input type="text" name="option[' . "telephone" . ']" id="telephone" class="regular-text" value="' . esc_attr( $option['telephone'] ) . '">';
-		$html .= '<small>e.g. : +1-880-555-1212</small>';
-		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="menu">Menu url :</label></th><td>';
-		$html .= '<input type="text" name="option[' . "menu" . ']" id="menu" class="regular-text" value="' . esc_attr( $option['menu'] ) . '">';
-		$html .= '<small>For food establishments, the fully-qualified URL of the menu.</small>';
-		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="accepts_reservations">Accepts Reservations :</label></th><td>';
-		$html .= '<input type="checkbox" name="option[' . "accepts_reservations" . ']" id="accepts_reservations" value="on"';
-		if ( isset( $option['accepts_reservations'] ) &&  $option['accepts_reservations'] === 'on' ) {
-			$html .= ' checked="checked"';
-		}
-		$html .= '><small>For food establishments, and whether it is possible to accept a reservation?</small>';
-		$html .= '</td></tr>';
+		$html .= $this->set_form_select( 'business_type', 'Local Business Type', $option['business_type'], 'Default : "Local Business"' );
+		$html .= $this->set_form_text( 'name', 'Business Name', $option['name'], true, 'Default : bloginfo("name")' );
+		$html .= $this->set_form_text( 'url', 'Url', $option['url'], true, 'Default : bloginfo("url")' );
+		$html .= $this->set_form_text( 'telephone', 'Telephone', $option['telephone'], true, 'e.g. : +1-880-555-1212' );
+		$html .= $this->set_form_text( 'menu', 'Menu url', $option['menu'], true, 'For food establishments, the fully-qualified URL of the menu.' );
+		$html .= $this->set_form_checkbox( 'accepts_reservations', 'Accepts Reservations', $option['accepts_reservations'], 'For food establishments, and whether it is possible to accept a reservation?' );
 		$html .= '</table>';
 		echo $html;
 
@@ -100,38 +58,32 @@ class Structuring_Markup_Type_LocalBusiness {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Postal Address</caption>';
 		$html .= '<tr><th>@type :</th><td><small>"PostalAddress"</small></td></tr>';
-		$html .= '<tr><th><label for="street_address">Street Address :</label></th><td>';
-		$html .= '<input type="text" name="option[' . "street_address" . ']" id="street_address" class="regular-text" value="' . esc_attr( $option['street_address'] ) . '">';
-		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="address_locality">Address Locality :</label></th><td>';
-		$html .= '<input type="text" name="option[' . "address_locality" . ']" id="address_locality" class="regular-text" value="' . esc_attr( $option['address_locality'] ) . '">';
-		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="address_region">Address Region :</label></th><td>';
-		$html .= '<input type="text" name="option[' . "address_region" . ']" id="address_region" class="regular-text" value="' . esc_attr( $option['address_region'] ) . '">';
-		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="postal_code">Postal Code :</label></th><td>';
-		$html .= '<input type="text" name="option[' . "postal_code" . ']" id="postal_code" class="regular-text" value="' . esc_attr( $option['postal_code'] ) . '">';
-		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="address_country">Address Country :</label></th><td>';
-		$html .= '<input type="text" name="option[' . "address_country" . ']" id="address_country" class="regular-text" value="' . esc_attr( $option['address_country'] ) . '">';
-		$html .= '</td></tr>';
+		$html .= $this->set_form_text( 'street_address', 'Street Address', $option['street_address'], false );
+		$html .= $this->set_form_text( 'address_locality', 'Address Locality', $option['address_locality'], false );
+		$html .= $this->set_form_text( 'address_region', 'Address Region', $option['address_region'], false );
+		$html .= $this->set_form_text( 'postal_code', 'Postal Code', $option['postal_code'], false );
+		$html .= $this->set_form_text( 'address_country', 'Address Country', $option['address_country'], false );
 		$html .= '</table>';
 		echo $html;
 
 		/** Geo Coordinates */
 		$html  = '<table class="schema-admin-table">';
-		$html .= '<tr><th>@type :</th><td><small>"GeoCoordinates"</small></td></tr>';
 		$html .= '<caption>Geo Coordinates</caption>';
-		$html .= '<tr><th><label for="latitude">Latitude :</label></th><td>';
-		$html .= '<input type="text" name="option[' . "latitude" . ']" id="latitude" class="regular-text" value="' . esc_attr( $option['latitude'] ) . '">';
-		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="longitude">Longitude :</label></th><td>';
-		$html .= '<input type="text" name="option[' . "longitude" . ']" id="longitude" class="regular-text" value="' . esc_attr( $option['longitude'] ) . '">';
-		$html .= '</td></tr>';
+		$html .= '<tr><th>@type :</th><td><small>"GeoCoordinates"</small></td></tr>';
+		$html .= $this->set_form_checkbox( 'geo_active', 'Geo Coordinates', $option['geo_active'], 'Active' );
+		$html .= $this->set_form_text( 'latitude', 'Latitude', $option['latitude'], false );
+		$html .= $this->set_form_text( 'longitude', 'Longitude', $option['latitude'], false );
 		$html .= '</table>';
 		echo $html;
 
-		echo '<p>Setting Knowledge : <a href="https://developers.google.com/structured-data/customize/overview" target="_blank">https://developers.google.com/structured-data/customize/overview</a></p>';
+		/** Opening Hours Specification */
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>Opening Hours Specification</caption>';
+		$html .= '<tr><th>@type :</th><td><small>"OpeningHoursSpecification"</small></td></tr>';
+		$html .= '</table>';
+		echo $html;
+
+		echo '<p>Setting Knowledge : <a href="https://developers.google.com/structured-data/local-businesses/" target="_blank">https://developers.google.com/structured-data/local-businesses/</a></p>';
 		submit_button();
 	}
 
@@ -154,13 +106,85 @@ class Structuring_Markup_Type_LocalBusiness {
 		$args['address_region']       = '';
 		$args['postal_code']          = '';
 		$args['address_country']      = '';
+		$args['geo_active']           = '';
 		$args['latitude']             = '';
 		$args['longitude']            = '';
 
-		foreach ( $this->social_array as $value ) {
-			$args['social'][$value['type']] = '';
-		}
-
 		return (array) $args;
+	}
+
+	/**
+	 * Return the form text
+	 *
+	 * @since   2.3.0
+	 * @param   string  $id
+	 * @param   string  $display
+	 * @param   string  $value
+	 * @param   boolean $required
+	 * @param   string  $note
+	 * @return  string  $html
+	 */
+	private function set_form_text ( $id, $display, $value, $required = false, $note = "" ) {
+		$value = esc_attr( $value );
+
+		$format  = '<tr><th><label for=%s>%s :</label></th><td>';
+		$format .= '<input type="text" name="option[%s]" id="%s" class="regular-text" value="%s"';
+		if ( $required ) {
+			$format .= ' required';
+		}
+		$format .= '><small>%s</small></td></tr>';
+
+		return (string) sprintf( $format, $id, $display, $id, $id, $value, $note );
+	}
+
+	/**
+	 * Return the form checkbox
+	 *
+	 * @since   2.3.0
+	 * @param   string  $id
+	 * @param   string  $display
+	 * @param   string  $value
+	 * @param   string  $note
+	 * @return  string  $html
+	 */
+	private function set_form_checkbox ( $id, $display, $value = "", $note = "" ) {
+		$value = esc_attr( $value );
+
+		$format  = '<tr><th><label for=%s>%s :</label></th><td>';
+		$format .= '<input type="checkbox" name="option[%s]" id="%s" value="on"';
+		if ( $value === 'on' ) {
+			$format .= ' checked="checked"';
+		}
+		$format .= '><small>%s</small></td></tr>';
+
+		return (string) sprintf( $format, $id, $display, $id, $id, $note );
+	}
+
+	/**
+	 * Return the form select
+	 *
+	 * @since   2.3.0
+	 * @param   string  $id
+	 * @param   string  $display
+	 * @param   string  $value
+	 * @param   string  $note
+	 * @return  string  $html
+	 */
+	private function set_form_select ( $id, $display, $value = "", $note = "" ) {
+		$value = esc_attr( $value );
+
+		$format  = '<tr><th><label for=%s>%s :</label></th><td>';
+		$format .= '<select id="%s" name="option[%s]">';
+		foreach ( $this->business_type_array as $args ) {
+			$format .= '<option value="' . $args['type'] . '"';
+			if ( $args['type'] === $value ) {
+				$format .= ' selected';
+			}
+			$format .= '>' . $args['display'] . '</option>';
+		}
+		$format .= '</select>';
+		$format .= '<small>%s</small></td></tr>';
+
+		return (string) sprintf( $format, $id, $display, $id, $id, $note );
 	}
 }
