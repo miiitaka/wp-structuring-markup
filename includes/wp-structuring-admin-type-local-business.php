@@ -57,7 +57,6 @@ class Structuring_Markup_Type_LocalBusiness {
 		/** Postal Address */
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Postal Address</caption>';
-		$html .= '<tr><th>@type :</th><td><small>"PostalAddress"</small></td></tr>';
 		$html .= $this->set_form_text( 'street_address', 'Street Address', $option['street_address'], false );
 		$html .= $this->set_form_text( 'address_locality', 'Address Locality', $option['address_locality'], false );
 		$html .= $this->set_form_text( 'address_region', 'Address Region', $option['address_region'], false );
@@ -69,8 +68,7 @@ class Structuring_Markup_Type_LocalBusiness {
 		/** Geo Coordinates */
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Geo Coordinates</caption>';
-		$html .= '<tr><th>@type :</th><td><small>"GeoCoordinates"</small></td></tr>';
-		$html .= $this->set_form_checkbox( 'geo_active', 'Geo Coordinates', $option['geo_active'], 'Active' );
+		$html .= $this->set_form_checkbox( 'geo_active', 'Setting', $option['geo_active'], 'Active' );
 		$html .= $this->set_form_text( 'latitude', 'Latitude', $option['latitude'], false );
 		$html .= $this->set_form_text( 'longitude', 'Longitude', $option['latitude'], false );
 		$html .= '</table>';
@@ -79,7 +77,7 @@ class Structuring_Markup_Type_LocalBusiness {
 		/** Opening Hours Specification */
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Opening Hours Specification</caption>';
-		$html .= '<tr><th>@type :</th><td><small>"OpeningHoursSpecification"</small></td></tr>';
+		$html .= $this->set_form_checkbox( 'opening_active', 'Setting', $option['opening_active'], 'Active' );
 		$html .= '</table>';
 		echo $html;
 
@@ -109,6 +107,7 @@ class Structuring_Markup_Type_LocalBusiness {
 		$args['geo_active']           = '';
 		$args['latitude']             = '';
 		$args['longitude']            = '';
+		$args['opening_active']       = '';
 
 		return (array) $args;
 	}
