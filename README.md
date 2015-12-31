@@ -14,6 +14,7 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 - BlogPosting: http://schema.org/BlogPosting
 - BreadcrumbList: https://schema.org/BreadcrumbList
 - Event: https://schema.org/Event
+- LocalBusiness: http://schema.org/LocalBusiness
 - NewsArticle: http://schema.org/NewsArticle
 - Organization: https://schema.org/Organization
 - Website: https://schema.org/WebSite
@@ -35,6 +36,11 @@ if (shortcode_exists('wp-structuring-markup-breadcrumb')) {
 ```
 
 ## Change Log
+
+### 2.3.0 (2016-xx-xx)
+
+- Added : Schema.org type "LocalBusiness".
+- Fixed : Organization Definition minor bug fixed.
 
 ### 2.2.1 (2015-12-21)
 
