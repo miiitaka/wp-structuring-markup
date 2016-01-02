@@ -15,10 +15,175 @@ class Structuring_Markup_Type_LocalBusiness {
 	 *
 	 * @since 2.3.0
 	 */
-	/** contactType defined. */
+	/** LoacalBusiness Type defined. */
 	private $business_type_array = array(
-		array("type" => "local_business", "display" => "Local Business"),
-		array("type" => "restaurant",     "display" => "Restaurant")
+		array( "type" => "LocalBusiness", "display" => "LocalBusiness" ),
+
+		array( "type" => "AnimalShelter", "display" => "- AnimalShelter" ),
+
+		array( "type" => "AutomotiveBusiness", "display" => "- AutomotiveBusiness" ),
+		array( "type" => "AutoBodyShop",       "display" => "-- AutoBodyShop" ),
+		array( "type" => "AutoDealer",         "display" => "-- AutoDealer" ),
+		array( "type" => "AutoPartsStore",     "display" => "-- AutoPartsStore" ),
+		array( "type" => "AutoRental",         "display" => "-- AutoRental" ),
+		array( "type" => "AutoRepair",         "display" => "-- AutoRepair" ),
+		array( "type" => "AutoWash",           "display" => "-- AutoWash" ),
+		array( "type" => "GasStation",         "display" => "-- GasStation" ),
+		array( "type" => "MotorcycleDealer",   "display" => "-- MotorcycleDealer" ),
+		array( "type" => "MotorcycleRepair",   "display" => "-- MotorcycleRepair" ),
+
+		array( "type" => "ChildCare", "display" => "- ChildCare" ),
+
+		array( "type" => "DryCleaningOrLaundry", "display" => "- DryCleaningOrLaundry" ),
+
+		array( "type" => "EmergencyService", "display" => "- EmergencyService" ),
+		array( "type" => "FireStation",      "display" => "-- FireStation" ),
+		array( "type" => "Hospital",         "display" => "-- Hospital" ),
+		array( "type" => "PoliceStation",    "display" => "-- PoliceStation" ),
+
+		array( "type" => "EmploymentAgency", "display" => "- EmploymentAgency" ),
+
+		array( "type" => "EntertainmentBusiness", "display" => "- EntertainmentBusiness" ),
+		array( "type" => "AdultEntertainment",    "display" => "-- AdultEntertainment" ),
+		array( "type" => "AmusementPark",         "display" => "-- AmusementPark" ),
+		array( "type" => "ArtGallery",            "display" => "-- ArtGallery" ),
+		array( "type" => "Casino",                "display" => "-- Casino" ),
+		array( "type" => "ComedyClub",            "display" => "-- ComedyClub" ),
+		array( "type" => "MovieTheater",          "display" => "-- MovieTheater" ),
+		array( "type" => "NightClub",             "display" => "-- NightClub" ),
+
+		array( "type" => "FinancialService",  "display" => "- FinancialService" ),
+		array( "type" => "AccountingService", "display" => "-- AccountingService" ),
+		array( "type" => "AutomatedTeller",   "display" => "-- AutomatedTeller" ),
+		array( "type" => "BankOrCreditUnion", "display" => "-- BankOrCreditUnion" ),
+		array( "type" => "InsuranceAgency",   "display" => "-- InsuranceAgency" ),
+
+		array( "type" => "FoodEstablishment",  "display" => "- FoodEstablishment" ),
+		array( "type" => "Bakery",             "display" => "-- Bakery" ),
+		array( "type" => "BarOrPub",           "display" => "-- BarOrPub" ),
+		array( "type" => "Brewery",            "display" => "-- Brewery" ),
+		array( "type" => "CafeOrCoffeeShop",   "display" => "-- CafeOrCoffeeShop" ),
+		array( "type" => "FastFoodRestaurant", "display" => "-- FastFoodRestaurant" ),
+		array( "type" => "IceCreamShop",       "display" => "-- IceCreamShop" ),
+		array( "type" => "Restaurant",         "display" => "-- Restaurant" ),
+		array( "type" => "Winery",             "display" => "-- Winery" ),
+
+		array( "type" => "GovernmentOffice", "display" => "- GovernmentOffice" ),
+		array( "type" => "PostOffice",       "display" => "-- PostOffice" ),
+
+		array( "type" => "HealthAndBeautyBusiness", "display" => "- HealthAndBeautyBusiness" ),
+		array( "type" => "BeautySalon",             "display" => "-- BeautySalon" ),
+		array( "type" => "DaySpa",                  "display" => "-- DaySpa" ),
+		array( "type" => "HairSalon",               "display" => "-- HairSalon" ),
+		array( "type" => "HealthClub",              "display" => "-- HealthClub" ),
+		array( "type" => "NailSalon",               "display" => "-- NailSalon" ),
+		array( "type" => "TattooParlor",            "display" => "-- TattooParlor" ),
+
+		array( "type" => "HomeAndConstructionBusiness", "display" => "- HomeAndConstructionBusiness" ),
+		array( "type" => "Electrician",                 "display" => "-- Electrician" ),
+		array( "type" => "GeneralContractor",           "display" => "-- GeneralContractor" ),
+		array( "type" => "HVACBusiness",                "display" => "-- HVACBusiness" ),
+		array( "type" => "HousePainter",                "display" => "-- HousePainter" ),
+		array( "type" => "Locksmith",                   "display" => "-- Locksmith" ),
+		array( "type" => "MovingCompany",               "display" => "-- MovingCompany" ),
+		array( "type" => "Plumber",                     "display" => "-- Plumber" ),
+		array( "type" => "RoofingContractor",           "display" => "-- RoofingContractor" ),
+
+		array( "type" => "InternetCafe", "display" => "- InternetCafe" ),
+
+		array( "type" => "LegalService", "display" => "- LegalService" ),
+		array( "type" => "Attorney",     "display" => "-- Attorney" ),
+		array( "type" => "Notary",       "display" => "-- Notary" ),
+
+		array( "type" => "Library",         "display" => "- Library" ),
+
+		array( "type" => "LodgingBusiness", "display" => "- LodgingBusiness" ),
+		array( "type" => "BedAndBreakfast", "display" => "-- BedAndBreakfast" ),
+		array( "type" => "Hostel",          "display" => "-- Hostel" ),
+		array( "type" => "Hotel",           "display" => "-- Hotel" ),
+		array( "type" => "Motel",           "display" => "-- Motel" ),
+
+		array( "type" => "MedicalOrganization", "display" => "- MedicalOrganization" ),
+		array( "type" => "Dentist",             "display" => "-- Dentist" ),
+		array( "type" => "DiagnosticLab",       "display" => "-- DiagnosticLab" ),
+		array( "type" => "Hospital",            "display" => "-- Hospital" ),
+		array( "type" => "MedicalClinic",       "display" => "-- MedicalClinic" ),
+		array( "type" => "Optician",            "display" => "-- Optician" ),
+		array( "type" => "Pharmacy",            "display" => "-- Pharmacy" ),
+		array( "type" => "Physician",           "display" => "-- Physician" ),
+		array( "type" => "VeterinaryCare",      "display" => "-- VeterinaryCare" ),
+
+		array( "type" => "ProfessionalService",  "display" => "- ProfessionalService" ),
+
+		array( "type" => "RadioStation", "display" => "- RadioStation" ),
+
+		array( "type" => "RealEstateAgent", "display" => "- RealEstateAgent" ),
+
+		array( "type" => "RecyclingCenter", "display" => "- RecyclingCenter" ),
+
+		array( "type" => "SelfStorage", "display" => "- SelfStorage" ),
+
+		array( "type" => "ShoppingCenter",     "display" => "- ShoppingCenter" ),
+
+		array( "type" => "SportsActivityLocation", "display" => "- SportsActivityLocation" ),
+		array( "type" => "BowlingAlley",           "display" => "-- BowlingAlley" ),
+		array( "type" => "ExerciseGym",            "display" => "-- ExerciseGym" ),
+		array( "type" => "GolfCourse",             "display" => "-- GolfCourse" ),
+		array( "type" => "HealthClub",             "display" => "-- HealthClub" ),
+		array( "type" => "PublicSwimmingPool",     "display" => "-- PublicSwimmingPool" ),
+		array( "type" => "SkiResort",              "display" => "-- SkiResort" ),
+		array( "type" => "SportsClub",             "display" => "-- SportsClub" ),
+		array( "type" => "StadiumOrArena",         "display" => "-- StadiumOrArena" ),
+		array( "type" => "TennisComplex",          "display" => "-- TennisComplex" ),
+
+		array( "type" => "Store",                "display" => "- Store" ),
+		array( "type" => "AutoPartsStore",       "display" => "-- AutoPartsStore" ),
+		array( "type" => "BikeStore",            "display" => "-- BikeStore" ),
+		array( "type" => "BookStore",            "display" => "-- BookStore" ),
+		array( "type" => "ClothingStore",        "display" => "-- ClothingStore" ),
+		array( "type" => "ComputerStore",        "display" => "-- ComputerStore" ),
+		array( "type" => "ConvenienceStore",     "display" => "-- ConvenienceStore" ),
+		array( "type" => "DepartmentStore",      "display" => "-- DepartmentStore" ),
+		array( "type" => "ElectronicsStore",     "display" => "-- ElectronicsStore" ),
+		array( "type" => "Florist",              "display" => "-- Florist" ),
+		array( "type" => "FurnitureStore",       "display" => "-- FurnitureStore" ),
+		array( "type" => "GardenStore",          "display" => "-- GardenStore" ),
+		array( "type" => "GroceryStore",         "display" => "-- GroceryStore" ),
+		array( "type" => "HardwareStore",        "display" => "-- HardwareStore" ),
+		array( "type" => "HobbyShop",            "display" => "-- HobbyShop" ),
+		array( "type" => "HomeGoodsStore",       "display" => "-- HomeGoodsStore" ),
+		array( "type" => "JewelryStore",         "display" => "-- JewelryStore" ),
+		array( "type" => "LiquorStore",          "display" => "-- LiquorStore" ),
+		array( "type" => "MensClothingStore",    "display" => "-- MensClothingStore" ),
+		array( "type" => "MobilePhoneStore",     "display" => "-- MobilePhoneStore" ),
+		array( "type" => "MovieRentalStore",     "display" => "-- MovieRentalStore" ),
+		array( "type" => "MusicStore",           "display" => "-- MusicStore" ),
+		array( "type" => "OfficeEquipmentStore", "display" => "-- OfficeEquipmentStore" ),
+		array( "type" => "OutletStore",          "display" => "-- OutletStore" ),
+		array( "type" => "PawnShop",             "display" => "-- PawnShop" ),
+		array( "type" => "PetStore",             "display" => "-- PetStore" ),
+		array( "type" => "ShoeStore",            "display" => "-- ShoeStore" ),
+		array( "type" => "SportingGoodsStore",   "display" => "-- SportingGoodsStore" ),
+		array( "type" => "TireShop",             "display" => "-- TireShop" ),
+		array( "type" => "ToyStore",             "display" => "-- ToyStore" ),
+		array( "type" => "WholesaleStore",       "display" => "-- WholesaleStore" ),
+
+		array( "type" => "TelevisionStation", "display" => "- TelevisionStation" ),
+
+		array( "type" => "TouristInformationCenter", "display" => "- TouristInformationCenter" ),
+
+		array( "type" => "TravelAgency", "display" => "- TravelAgency" )
+	);
+
+	/** weekType defined. */
+	private $week_array = array(
+		array("type" => "mon", "display" => "Monday"),
+		array("type" => "tue", "display" => "Tuesday"),
+		array("type" => "wed", "display" => "Wednesday"),
+		array("type" => "thu", "display" => "Thursday"),
+		array("type" => "fri", "display" => "Friday"),
+		array("type" => "sat", "display" => "Saturday"),
+		array("type" => "sun", "display" => "Sunday")
 	);
 
 	/**
@@ -48,8 +213,21 @@ class Structuring_Markup_Type_LocalBusiness {
 		$html .= $this->set_form_select( 'business_type', 'Local Business Type', $option['business_type'], 'Default : "Local Business"' );
 		$html .= $this->set_form_text( 'name', 'Business Name', $option['name'], true, 'Default : bloginfo("name")' );
 		$html .= $this->set_form_text( 'url', 'Url', $option['url'], true, 'Default : bloginfo("url")' );
-		$html .= $this->set_form_text( 'telephone', 'Telephone', $option['telephone'], true, 'e.g. : +1-880-555-1212' );
-		$html .= $this->set_form_text( 'menu', 'Menu url', $option['menu'], true, 'For food establishments, the fully-qualified URL of the menu.' );
+		$html .= $this->set_form_text( 'telephone', 'Telephone', $option['telephone'], false, 'e.g. : +1-880-555-1212' );
+		$html .= '</table>';
+		echo $html;
+
+		/** For food establishments */
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>For food establishments</caption>';
+		if ( !isset( $option['food_active'] ) ) {
+			$option['food_active'] = "";
+		}
+		$html .= $this->set_form_checkbox( 'food_active', 'Setting', $option['food_active'], 'Active' );
+		$html .= $this->set_form_text( 'menu', 'Menu url', $option['menu'], false, 'For food establishments, the fully-qualified URL of the menu.' );
+		if ( !isset( $option['accepts_reservations'] ) ) {
+			$option['accepts_reservations'] = "";
+		}
 		$html .= $this->set_form_checkbox( 'accepts_reservations', 'Accepts Reservations', $option['accepts_reservations'], 'For food establishments, and whether it is possible to accept a reservation?' );
 		$html .= '</table>';
 		echo $html;
@@ -57,17 +235,20 @@ class Structuring_Markup_Type_LocalBusiness {
 		/** Postal Address */
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Postal Address</caption>';
-		$html .= $this->set_form_text( 'street_address', 'Street Address', $option['street_address'], false );
-		$html .= $this->set_form_text( 'address_locality', 'Address Locality', $option['address_locality'], false );
+		$html .= $this->set_form_text( 'street_address', 'Street Address', $option['street_address'], true );
+		$html .= $this->set_form_text( 'address_locality', 'Address Locality', $option['address_locality'], true );
 		$html .= $this->set_form_text( 'address_region', 'Address Region', $option['address_region'], false );
-		$html .= $this->set_form_text( 'postal_code', 'Postal Code', $option['postal_code'], false );
-		$html .= $this->set_form_text( 'address_country', 'Address Country', $option['address_country'], false );
+		$html .= $this->set_form_text( 'postal_code', 'Postal Code', $option['postal_code'], true );
+		$html .= $this->set_form_text( 'address_country', 'Address Country', $option['address_country'], true, '<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2" target="_blank">The 2-letter ISO 3166-1 alpha-2 country code.</a>' );
 		$html .= '</table>';
 		echo $html;
 
 		/** Geo Coordinates */
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Geo Coordinates</caption>';
+		if ( !isset( $option['geo_active'] ) ) {
+			$option['geo_active'] = "";
+		}
 		$html .= $this->set_form_checkbox( 'geo_active', 'Setting', $option['geo_active'], 'Active' );
 		$html .= $this->set_form_text( 'latitude', 'Latitude', $option['latitude'], false );
 		$html .= $this->set_form_text( 'longitude', 'Longitude', $option['latitude'], false );
@@ -77,7 +258,15 @@ class Structuring_Markup_Type_LocalBusiness {
 		/** Opening Hours Specification */
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Opening Hours Specification</caption>';
-		$html .= $this->set_form_checkbox( 'opening_active', 'Setting', $option['opening_active'], 'Active' );
+
+		foreach ( $this->week_array as $value ) {
+			if ( !isset( $option[$value['type']] ) ) {
+				$option[$value['type']] = "";
+			}
+			$html .= $this->set_form_checkbox( $value['type'], $value['display'], $option[$value['type']], 'Active' );
+			$html .= $this->set_form_time( $value['type'], '', $option[$value['type'] . '-open'], $option[$value['type'] . '-close'], '' );
+		}
+
 		$html .= '</table>';
 		echo $html;
 
@@ -97,6 +286,7 @@ class Structuring_Markup_Type_LocalBusiness {
 		$args['name']                 = get_bloginfo('name');
 		$args['url']                  = get_bloginfo('url');
 		$args['telephone']            = '';
+		$args['food_active']          = '';
 		$args['menu']                 = '';
 		$args['accepts_reservations'] = '';
 		$args['street_address']       = '';
@@ -108,6 +298,12 @@ class Structuring_Markup_Type_LocalBusiness {
 		$args['latitude']             = '';
 		$args['longitude']            = '';
 		$args['opening_active']       = '';
+
+		foreach ( $this->week_array as $value ) {
+			$args[$value['type']]            = '';
+			$args[$value['type'] . '-open']  = '';
+			$args[$value['type'] . '-close'] = '';
+		}
 
 		return (array) $args;
 	}
@@ -123,7 +319,7 @@ class Structuring_Markup_Type_LocalBusiness {
 	 * @param   string  $note
 	 * @return  string  $html
 	 */
-	private function set_form_text ( $id, $display, $value, $required = false, $note = "" ) {
+	private function set_form_text ( $id, $display, $value = "", $required = false, $note = "" ) {
 		$value = esc_attr( $value );
 
 		$format  = '<tr><th><label for=%s>%s :</label></th><td>';
@@ -185,5 +381,28 @@ class Structuring_Markup_Type_LocalBusiness {
 		$format .= '<small>%s</small></td></tr>';
 
 		return (string) sprintf( $format, $id, $display, $id, $id, $note );
+	}
+
+	/**
+	 * Return the form time
+	 *
+	 * @since   2.3.0
+	 * @param   string  $id
+	 * @param   string  $display
+	 * @param   string  $value1
+	 * @param   string  $value2
+	 * @param   string  $note
+	 * @return  string  $html
+	 */
+	private function set_form_time ( $id, $display, $value1 = "", $value2 = "", $note = "" ) {
+		$value1 = esc_attr( $value1 );
+		$value2 = esc_attr( $value2 );
+
+		$format  = '<tr><th><label for=%s>%s :</label></th><td>';
+		$format .= 'Open Time : <input type="time" name="option[%s-open]" id="%s-open" value="%s">';
+		$format .= ' Close Time : <input type="time" name="option[%s-close]" id="%s-close" value="%s">';
+		$format .= '<small>%s</small></td></tr>';
+
+		return (string) sprintf( $format, $id, $display, $id, $id, $value1, $id, $id, $value2, $note );
 	}
 }
