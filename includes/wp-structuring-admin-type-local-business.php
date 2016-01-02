@@ -213,8 +213,21 @@ class Structuring_Markup_Type_LocalBusiness {
 		$html .= $this->set_form_select( 'business_type', 'Local Business Type', $option['business_type'], 'Default : "Local Business"' );
 		$html .= $this->set_form_text( 'name', 'Business Name', $option['name'], true, 'Default : bloginfo("name")' );
 		$html .= $this->set_form_text( 'url', 'Url', $option['url'], true, 'Default : bloginfo("url")' );
-		$html .= $this->set_form_text( 'telephone', 'Telephone', $option['telephone'], true, 'e.g. : +1-880-555-1212' );
-		$html .= $this->set_form_text( 'menu', 'Menu url', $option['menu'], true, 'For food establishments, the fully-qualified URL of the menu.' );
+		$html .= $this->set_form_text( 'telephone', 'Telephone', $option['telephone'], false, 'e.g. : +1-880-555-1212' );
+		$html .= '</table>';
+		echo $html;
+
+		/** For food establishments */
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>For food establishments</caption>';
+		if ( !isset( $option['food_active'] ) ) {
+			$option['food_active'] = "";
+		}
+		$html .= $this->set_form_checkbox( 'food_active', 'Setting', $option['food_active'], 'Active' );
+		$html .= $this->set_form_text( 'menu', 'Menu url', $option['menu'], false, 'For food establishments, the fully-qualified URL of the menu.' );
+		if ( !isset( $option['accepts_reservations'] ) ) {
+			$option['accepts_reservations'] = "";
+		}
 		$html .= $this->set_form_checkbox( 'accepts_reservations', 'Accepts Reservations', $option['accepts_reservations'], 'For food establishments, and whether it is possible to accept a reservation?' );
 		$html .= '</table>';
 		echo $html;
@@ -222,17 +235,20 @@ class Structuring_Markup_Type_LocalBusiness {
 		/** Postal Address */
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Postal Address</caption>';
-		$html .= $this->set_form_text( 'street_address', 'Street Address', $option['street_address'], false );
-		$html .= $this->set_form_text( 'address_locality', 'Address Locality', $option['address_locality'], false );
+		$html .= $this->set_form_text( 'street_address', 'Street Address', $option['street_address'], true );
+		$html .= $this->set_form_text( 'address_locality', 'Address Locality', $option['address_locality'], true );
 		$html .= $this->set_form_text( 'address_region', 'Address Region', $option['address_region'], false );
-		$html .= $this->set_form_text( 'postal_code', 'Postal Code', $option['postal_code'], false );
-		$html .= $this->set_form_text( 'address_country', 'Address Country', $option['address_country'], false );
+		$html .= $this->set_form_text( 'postal_code', 'Postal Code', $option['postal_code'], true );
+		$html .= $this->set_form_text( 'address_country', 'Address Country', $option['address_country'], true, '<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2" target="_blank">The 2-letter ISO 3166-1 alpha-2 country code.</a>' );
 		$html .= '</table>';
 		echo $html;
 
 		/** Geo Coordinates */
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Geo Coordinates</caption>';
+		if ( !isset( $option['geo_active'] ) ) {
+			$option['geo_active'] = "";
+		}
 		$html .= $this->set_form_checkbox( 'geo_active', 'Setting', $option['geo_active'], 'Active' );
 		$html .= $this->set_form_text( 'latitude', 'Latitude', $option['latitude'], false );
 		$html .= $this->set_form_text( 'longitude', 'Longitude', $option['latitude'], false );
@@ -244,8 +260,11 @@ class Structuring_Markup_Type_LocalBusiness {
 		$html .= '<caption>Opening Hours Specification</caption>';
 
 		foreach ( $this->week_array as $value ) {
-			$html .= $this->set_form_checkbox( $value['type'], $value['display'], $option['week'][$value['type']], 'Active' );
-			$html .= $this->set_form_time( $value['type'], '', $option['week'][$value['type']], '' );
+			if ( !isset( $option[$value['type']] ) ) {
+				$option[$value['type']] = "";
+			}
+			$html .= $this->set_form_checkbox( $value['type'], $value['display'], $option[$value['type']], 'Active' );
+			$html .= $this->set_form_time( $value['type'], '', $option[$value['type'] . '-open'], $option[$value['type'] . '-close'], '' );
 		}
 
 		$html .= '</table>';
@@ -267,6 +286,7 @@ class Structuring_Markup_Type_LocalBusiness {
 		$args['name']                 = get_bloginfo('name');
 		$args['url']                  = get_bloginfo('url');
 		$args['telephone']            = '';
+		$args['food_active']          = '';
 		$args['menu']                 = '';
 		$args['accepts_reservations'] = '';
 		$args['street_address']       = '';
@@ -280,7 +300,9 @@ class Structuring_Markup_Type_LocalBusiness {
 		$args['opening_active']       = '';
 
 		foreach ( $this->week_array as $value ) {
-			$args['week'][$value['type']] = '';
+			$args[$value['type']]            = '';
+			$args[$value['type'] . '-open']  = '';
+			$args[$value['type'] . '-close'] = '';
 		}
 
 		return (array) $args;
@@ -367,18 +389,20 @@ class Structuring_Markup_Type_LocalBusiness {
 	 * @since   2.3.0
 	 * @param   string  $id
 	 * @param   string  $display
-	 * @param   string  $value
+	 * @param   string  $value1
+	 * @param   string  $value2
 	 * @param   string  $note
 	 * @return  string  $html
 	 */
-	private function set_form_time ( $id, $display, $value = "", $note = "" ) {
-		$value = esc_attr( $value );
+	private function set_form_time ( $id, $display, $value1 = "", $value2 = "", $note = "" ) {
+		$value1 = esc_attr( $value1 );
+		$value2 = esc_attr( $value2 );
 
 		$format  = '<tr><th><label for=%s>%s :</label></th><td>';
-		$format .= 'Open Time : <input type="time" name="option[%s-start]" id="%s-start" value="%s">';
-		$format .= ' Close Time : <input type="time" name="option[%s-end]" id="%s-end" value="%s">';
+		$format .= 'Open Time : <input type="time" name="option[%s-open]" id="%s-open" value="%s">';
+		$format .= ' Close Time : <input type="time" name="option[%s-close]" id="%s-close" value="%s">';
 		$format .= '<small>%s</small></td></tr>';
 
-		return (string) sprintf( $format, $id, $display, $id, $id, $value, $id, $id, $value, $note );
+		return (string) sprintf( $format, $id, $display, $id, $id, $value1, $id, $id, $value2, $note );
 	}
 }
