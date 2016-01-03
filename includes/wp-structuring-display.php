@@ -3,7 +3,7 @@
  * Schema.org Display
  *
  * @author  Kazuya Takami
- * @version 2.1.0
+ * @version 2.3.0
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -47,7 +47,7 @@ class Structuring_Markup_Display {
 	 * Setting JSON-LD Template
 	 *
 	 * @since   1.0.0
-	 * @version 2.2.0
+	 * @version 2.3.0
 	 * @param   Structuring_Markup_Admin_Db $db
 	 * @param   string $output
 	 */
@@ -75,6 +75,11 @@ class Structuring_Markup_Display {
 							break;
 						case 'event':
 							$this->set_schema_event();
+							break;
+						case 'local_business':
+							if ( isset( $row->options ) && $row->options ) {
+								$this->set_schema_local_business( unserialize( $row->options ) );
+							}
 							break;
 						case 'news_article':
 							if ( isset( $row->options ) && $row->options ) {
@@ -309,6 +314,79 @@ class Structuring_Markup_Display {
 			);
 			$this->set_schema_json( $args );
 		}
+	}
+
+	/**
+	 * Setting schema.org LocalBusiness
+	 *
+	 * @since   2.3.0
+	 * @version 2.3.0
+	 * @param   array $options
+	 */
+	private function set_schema_local_business ( array $options ) {
+
+		/** weekType defined. */
+		$week_array = array(
+			array("type" => "mon", "display" => "Monday"),
+			array("type" => "tue", "display" => "Tuesday"),
+			array("type" => "wed", "display" => "Wednesday"),
+			array("type" => "thu", "display" => "Thursday"),
+			array("type" => "fri", "display" => "Friday"),
+			array("type" => "sat", "display" => "Saturday"),
+			array("type" => "sun", "display" => "Sunday")
+		);
+
+		$args = array(
+			"@context"  => "http://schema.org",
+			"@type"     => isset( $options['name'] ) ? esc_html( $options['business_type'] ) : "",
+			"name"      => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
+			"url"       => isset( $options['name'] ) ? esc_url( $options['url'] ) : "",
+			"telephone" => isset( $options['name'] ) ? esc_html( $options['telephone'] ) : ""
+		);
+
+		if ( isset( $options['food_active'] ) && $options['food_active'] === 'on' ) {
+			if ( isset( $options['menu'] ) && $options['menu'] !== '' ) {
+				$args['menu'] = esc_url( $options['menu'] );
+			}
+			if ( isset( $options['accepts_reservations'] ) && $options['accepts_reservations'] === 'on' ) {
+				$args['acceptsReservations'] = "True";
+			} else {
+				$args['acceptsReservations'] = "False";
+			}
+		}
+
+		$address_array["address"] = array(
+			"@type"           => "PostalAddress",
+			"streetAddress"   => isset( $options['name'] ) ? esc_html( $options['street_address'] ) : "",
+			"addressLocality" => isset( $options['name'] ) ? esc_html( $options['address_locality'] ) : "",
+			"addressRegion"   => isset( $options['name'] ) ? esc_html( $options['address_region'] ) : "",
+			"postalCode"      => isset( $options['name'] ) ? esc_html( $options['postal_code'] ) : "",
+			"addressCountry"  => isset( $options['name'] ) ? esc_html( $options['address_country'] ) : ""
+		);
+		$args = array_merge( $args, $address_array );
+
+		if ( isset( $options['geo_active'] ) && $options['geo_active'] === 'on' ) {
+			$geo_array["geo"] = array(
+				"@type"     => "GeoCoordinates",
+				"latitude"  => isset( $options['name'] ) ? esc_html( floatval( $options['latitude'] ) ) : "",
+				"longitude" => isset( $options['name'] ) ? esc_html( floatval( $options['longitude'] ) ) : ""
+			);
+			$args = array_merge( $args, $geo_array );
+		}
+
+		foreach ( $week_array as $value ) {
+			if ( isset( $options[$value['type']] ) && $options[$value['type']] === 'on' ) {
+				$opening_array["openingHoursSpecification"][] = array(
+					"@type"     => "OpeningHoursSpecification",
+					"dayOfWeek" => $value['display'],
+					"opens"     => isset( $options['name'] ) ? esc_html( $options[$value['type'] . '-open'] ) : "",
+					"closes"    => isset( $options['name'] ) ? esc_html( $options[$value['type'] . '-close'] ) : ""
+				);
+				$args = array_merge( $args, $opening_array );
+			}
+		}
+
+		$this->set_schema_json( $args );
 	}
 
 	/**
