@@ -209,7 +209,7 @@ class Structuring_Markup_Type_LocalBusiness {
 	private function page_render ( array $option ) {
 		/** Local Business Type */
 		$html  = '<table class="schema-admin-table">';
-		$html .= '<caption>Local Business</caption>';
+		$html .= '<caption>Local Business ( required )</caption>';
 		$html .= $this->set_form_select( 'business_type', 'Local Business Type', $option['business_type'], 'Default : "Local Business"' );
 		$html .= $this->set_form_text( 'name', 'Business Name', $option['name'], true, 'Default : bloginfo("name")' );
 		$html .= $this->set_form_text( 'url', 'Url', $option['url'], true, 'Default : bloginfo("url")' );
@@ -219,7 +219,7 @@ class Structuring_Markup_Type_LocalBusiness {
 
 		/** For food establishments */
 		$html  = '<table class="schema-admin-table">';
-		$html .= '<caption>For food establishments</caption>';
+		$html .= '<caption>For food establishments ( recommended )</caption>';
 		if ( !isset( $option['food_active'] ) ) {
 			$option['food_active'] = "";
 		}
@@ -234,7 +234,7 @@ class Structuring_Markup_Type_LocalBusiness {
 
 		/** Postal Address */
 		$html  = '<table class="schema-admin-table">';
-		$html .= '<caption>Postal Address</caption>';
+		$html .= '<caption>Postal Address ( required )</caption>';
 		$html .= $this->set_form_text( 'street_address', 'Street Address', $option['street_address'], true );
 		$html .= $this->set_form_text( 'address_locality', 'Address Locality', $option['address_locality'], true );
 		$html .= $this->set_form_text( 'address_region', 'Address Region', $option['address_region'], false );
@@ -245,7 +245,7 @@ class Structuring_Markup_Type_LocalBusiness {
 
 		/** Geo Coordinates */
 		$html  = '<table class="schema-admin-table">';
-		$html .= '<caption>Geo Coordinates</caption>';
+		$html .= '<caption>Geo Coordinates ( recommended )</caption>';
 		if ( !isset( $option['geo_active'] ) ) {
 			$option['geo_active'] = "";
 		}
@@ -257,7 +257,7 @@ class Structuring_Markup_Type_LocalBusiness {
 
 		/** Opening Hours Specification */
 		$html  = '<table class="schema-admin-table">';
-		$html .= '<caption>Opening Hours Specification</caption>';
+		$html .= '<caption>Opening Hours Specification ( recommended )</caption>';
 
 		foreach ( $this->week_array as $value ) {
 			if ( !isset( $option[$value['type']] ) ) {

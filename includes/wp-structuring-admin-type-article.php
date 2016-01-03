@@ -44,14 +44,14 @@ class Structuring_Markup_Type_Article {
 		echo $html;
 
 		$html  = '<table class="schema-admin-table">';
-		$html .= '<caption>mainEntityOfPage( recommended )</caption>';
+		$html .= '<caption>mainEntityOfPage ( recommended )</caption>';
 		$html .= '<tr><th>@type :</th><td><small>"WebPage"</small></td></tr>';
 		$html .= '<tr><th>@id :</th><td><small>Default : get_permalink( ID )</small></td></tr>';
 		$html .= '</table>';
 		echo $html;
 
 		$html  = '<table class="schema-admin-table">';
-		$html .= '<caption>image( required )</caption>';
+		$html .= '<caption>image ( required )</caption>';
 		$html .= '<tr><th>@type :</th><td><small>"ImageObject"</small></td></tr>';
 		$html .= '<tr><th>url :</th><td><small>Default : thumbnail</small></td></tr>';
 		$html .= '<tr><th>height :</th><td><small>Auto : The height of the image, in pixels.</small></td></tr>';
@@ -70,7 +70,7 @@ class Structuring_Markup_Type_Article {
 		echo $html;
 
 		$html  = '<table class="schema-admin-table">';
-		$html .= '<caption>logo( required )</caption>';
+		$html .= '<caption>logo ( required )</caption>';
 		$html .= '<tr><th>@type :</th><td><small>"ImageObject"</small></td></tr>';
 		$html .= '<tr><th><label for="logo">url :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "logo" . ']" id="logo" class="regular-text" required value="' . esc_attr( $option['logo'] ) . '">';
