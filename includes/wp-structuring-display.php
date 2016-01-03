@@ -338,10 +338,10 @@ class Structuring_Markup_Display {
 
 		$args = array(
 			"@context"  => "http://schema.org",
-			"@type"     => esc_html( $options['business_type'] ),
-			"name"      => esc_html( $options['name'] ),
-			"url"       => esc_url( $options['url'] ),
-			"telephone" => esc_html( $options['telephone'] )
+			"@type"     => isset( $options['name'] ) ? esc_html( $options['business_type'] ) : "",
+			"name"      => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
+			"url"       => isset( $options['name'] ) ? esc_url( $options['url'] ) : "",
+			"telephone" => isset( $options['name'] ) ? esc_html( $options['telephone'] ) : ""
 		);
 
 		if ( isset( $options['food_active'] ) && $options['food_active'] === 'on' ) {
@@ -357,19 +357,19 @@ class Structuring_Markup_Display {
 
 		$address_array["address"] = array(
 			"@type"           => "PostalAddress",
-			"streetAddress"   => esc_html( $options['street_address'] ),
-			"addressLocality" => esc_html( $options['address_locality'] ),
-			"addressRegion"   => esc_html( $options['address_region'] ),
-			"postalCode"      => esc_html( $options['postal_code'] ),
-			"addressCountry"  => esc_html( $options['address_country'] )
+			"streetAddress"   => isset( $options['name'] ) ? esc_html( $options['street_address'] ) : "",
+			"addressLocality" => isset( $options['name'] ) ? esc_html( $options['address_locality'] ) : "",
+			"addressRegion"   => isset( $options['name'] ) ? esc_html( $options['address_region'] ) : "",
+			"postalCode"      => isset( $options['name'] ) ? esc_html( $options['postal_code'] ) : "",
+			"addressCountry"  => isset( $options['name'] ) ? esc_html( $options['address_country'] ) : ""
 		);
 		$args = array_merge( $args, $address_array );
 
 		if ( isset( $options['geo_active'] ) && $options['geo_active'] === 'on' ) {
 			$geo_array["geo"] = array(
 				"@type"     => "GeoCoordinates",
-				"latitude"  => esc_html( floatval( $options['latitude'] ) ),
-				"longitude" => esc_html( floatval( $options['longitude'] ) )
+				"latitude"  => isset( $options['name'] ) ? esc_html( floatval( $options['latitude'] ) ) : "",
+				"longitude" => isset( $options['name'] ) ? esc_html( floatval( $options['longitude'] ) ) : ""
 			);
 			$args = array_merge( $args, $geo_array );
 		}
@@ -379,8 +379,8 @@ class Structuring_Markup_Display {
 				$opening_array["openingHoursSpecification"][] = array(
 					"@type"     => "OpeningHoursSpecification",
 					"dayOfWeek" => $value['display'],
-					"opens"     => esc_html( $options[$value['type'] . '-open'] ),
-					"closes"    => esc_html( $options[$value['type'] . '-close'] )
+					"opens"     => isset( $options['name'] ) ? esc_html( $options[$value['type'] . '-open'] ) : "",
+					"closes"    => isset( $options['name'] ) ? esc_html( $options[$value['type'] . '-close'] ) : ""
 				);
 				$args = array_merge( $args, $opening_array );
 			}

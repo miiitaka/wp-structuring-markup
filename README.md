@@ -37,7 +37,7 @@ if (shortcode_exists('wp-structuring-markup-breadcrumb')) {
 
 ## Change Log
 
-### 2.3.0 (2016-xx-xx)
+### 2.3.0 (2016-01-03)
 
 - Added : Schema.org type "LocalBusiness".
 - Fixed : Organization Definition minor bug fixed.

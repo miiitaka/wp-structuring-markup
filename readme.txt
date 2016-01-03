@@ -36,10 +36,6 @@ if (shortcode_exists('wp-structuring-markup-breadcrumb')) {
 ?>
 `
 
-= LocalBusiness =
-
-
-
 == Installation ==
 
 * A plug-in installation screen is displayed in the WordPress admin panel.
@@ -49,7 +45,7 @@ if (shortcode_exists('wp-structuring-markup-breadcrumb')) {
 
 == Changelog ==
 
-= 2.3.0 (2016-xx-xx) =
+= 2.3.0 (2016-01-03) =
 
 * Added : Schema.org type "LocalBusiness".
 * Fixed : Organization Definition minor bug fixed.
