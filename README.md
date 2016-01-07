@@ -35,7 +35,17 @@ if (shortcode_exists('wp-structuring-markup-breadcrumb')) {
 ?>
 ```
 
+[ShortCode Option]
+
+* Option : id="id_name" -> <ol id="">
+* Option : class="class_name" -> <ol class="">
+
 ## Change Log
+
+### 2.3.1 (2016-01-07)
+
+- Check : WordPress version 4.4.1 operation check.
+- Added : Breadcrumb ShortCode option add.
 
 ### 2.3.0 (2016-01-03)
 
