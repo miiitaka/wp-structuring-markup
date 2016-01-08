@@ -35,7 +35,7 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 ?>
 ```
 
-[ShortCode Option]
+[ ShortCode Options ]
 
 - Option : id="id_name" attribute additional ol element.
 - Option : class="class_name" attribute additional ol element.
