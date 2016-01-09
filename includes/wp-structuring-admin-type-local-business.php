@@ -251,7 +251,7 @@ class Structuring_Markup_Type_LocalBusiness {
 		}
 		$html .= $this->set_form_checkbox( 'geo_active', 'Setting', $option['geo_active'], 'Active' );
 		$html .= $this->set_form_text( 'latitude', 'Latitude', $option['latitude'], false );
-		$html .= $this->set_form_text( 'longitude', 'Longitude', $option['latitude'], false );
+		$html .= $this->set_form_text( 'longitude', 'Longitude', $option['longitude'], false );
 		$html .= '</table>';
 		echo $html;
 

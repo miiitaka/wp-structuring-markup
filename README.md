@@ -29,13 +29,23 @@ You can display the breadcrumbs in the short code. Breadcrumb definition is avai
 
 ```
 <?php
-if (shortcode_exists('wp-structuring-markup-breadcrumb')) {
-	echo do_shortcode('[wp-structuring-markup-breadcrumb]');
+if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
+	echo do_shortcode( '[wp-structuring-markup-breadcrumb]' );
 }
 ?>
 ```
 
+[ ShortCode Options ]
+
+- Option : id="id_name" attribute additional ol element.
+- Option : class="class_name" attribute additional ol element.
+
 ## Change Log
+
+### 2.3.1 (2016-01-07)
+
+- Check : WordPress version 4.4.1 operation check.
+- Added : Breadcrumb ShortCode option add.
 
 ### 2.3.0 (2016-01-03)
 

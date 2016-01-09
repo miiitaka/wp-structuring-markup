@@ -3,7 +3,7 @@
 Plugin Name: Markup (JSON-LD) structured in schema.org
 Plugin URI: https://wordpress.org/plugins/wp-structuring-markup/
 Description: It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an article or the fixed page.
-Version: 2.3.0
+Version: 2.3.1
 Author: Kazuya Takami
 Author URI: http://programp.com/
 License: GPLv2 or later
@@ -19,7 +19,7 @@ new Structuring_Markup();
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 2.3.0
+ * @version 2.3.1
  */
 class Structuring_Markup {
 
@@ -27,10 +27,10 @@ class Structuring_Markup {
 	 * Variable definition.
 	 *
 	 * @since   1.3.0
-	 * @version 2.3.0
+	 * @version 2.3.1
 	 */
 	private $text_domain = 'wp-structuring-markup';
-	private $version     = '2.3.0';
+	private $version     = '2.3.1';
 
 	/**
 	 * Constructor Define.
@@ -69,10 +69,11 @@ class Structuring_Markup {
 	 * Breadcrumb ShortCode Register.
 	 *
 	 * @since   2.0.0
-	 * @version 2.0.0
+	 * @version 2.3.1
+	 * @param   string $args short code params
 	 * @return  string $html
 	 */
-	public function short_code_init_breadcrumb () {
+	public function short_code_init_breadcrumb ( $args ) {
 		$db = new Structuring_Markup_Admin_Db();
 		$results = $db->get_type_options( 'breadcrumb' );
 
@@ -81,7 +82,7 @@ class Structuring_Markup {
 
 			require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-short-code-breadcrumb.php');
 			$obj = new Structuring_Markup_ShortCode_Breadcrumb();
-			return $obj->short_code_display( $options );
+			return $obj->short_code_display( $options, $args );
 		}
 	}
 

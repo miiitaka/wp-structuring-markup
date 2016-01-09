@@ -3,7 +3,7 @@
  * Breadcrumb ShortCode Settings
  *
  * @author  Kazuya Takami
- * @version 2.2.1
+ * @version 2.3.1
  * @since   2.0.0
  */
 class Structuring_Markup_ShortCode_Breadcrumb {
@@ -11,22 +11,44 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	/**
 	 * ShortCode Display.
 	 *
-	 * @since  2.0.0
-	 * @access public
-	 * @param  array  $options
-	 * @return string $html
+	 * @since   2.0.0
+	 * @version 2.3.1
+	 * @access  public
+	 * @param   array  $options
+	 * @param   string $args
+	 * @return  string $html
 	 */
-	public function short_code_display ( array $options ) {
+	public function short_code_display ( array $options, $args ) {
+		extract( shortcode_atts( array (
+			'id'    => "",
+			'class' => ""
+		), $args ) );
+
+		$instance = array(
+			'id'    => esc_attr( $id ),
+			'class' => esc_attr( $class )
+		);
+
 		$item_array = $this->breadcrumb_array_setting( $options );
 		$html = '';
 
-		if ( $item_array ) {
+		if ( isset( $item_array ) && count( $item_array ) > 0 ) {
 			$html .= '<!-- Markup (JSON-LD) structured in schema.org Breadcrumb START -->' . PHP_EOL;
-			$html .= '<ol>' . PHP_EOL;
-			foreach ($item_array as $item) {
+
+			if ( $id !== '' && $class !== '' ) {
+				$html .= '<ol id="' . $id . '" class="' . $class . '">';
+			} else if ( $id !== '' && $class === '' ) {
+				$html .= '<ol id="' . $id . '">';
+			} else if ( $id === '' && $class !== '' ) {
+				$html .= '<ol class="' . $class . '">';
+			} else {
+				$html .= '<ol>';
+			}
+			$html .= PHP_EOL;
+			foreach ( $item_array as $item ) {
 				$html .= '<li>';
-				$html .= '<a href="' . esc_url($item['@id']) . '">';
-				$html .= esc_html($item['name']);
+				$html .= '<a href="' . esc_url( $item['@id'] ) . '">';
+				$html .= esc_html( $item['name'] );
 				$html .= '</a>';
 				$html .= '</li>' . PHP_EOL;
 			}
