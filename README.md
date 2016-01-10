@@ -42,6 +42,11 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 2.3.2 (2016-01-10)
+
+- Fixed : Fixed a bug that Organization type of display error of contactType comes out.
+- Fixed : Fixed a bug that can not save LocalBusiness type of latitude and longitude.
+
 ### 2.3.1 (2016-01-07)
 
 - Check : WordPress version 4.4.1 operation check.

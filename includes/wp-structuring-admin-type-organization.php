@@ -3,7 +3,7 @@
  * Schema.org Type Organization
  *
  * @author  Kazuya Takami
- * @version 2.3.0
+ * @version 2.3.2
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/Organization
@@ -18,21 +18,21 @@ class Structuring_Markup_Type_Organization {
 	 * Variable definition.
 	 *
 	 * @since   1.0.0
-	 * @version 2.2.0
+	 * @version 2.3.2
 	 */
 	/** contactType defined. */
 	private $contact_type_array = array(
-		array("type" => "customer_service",    "display" => "customer service"),
-		array("type" => "technical_support",   "display" => "technical support"),
-		array("type" => "billing_support",     "display" => "billing support"),
-		array("type" => "bill_payment",        "display" => "bill payment"),
+		array("type" => "customer service",    "display" => "customer service"),
+		array("type" => "technical support",   "display" => "technical support"),
+		array("type" => "billing support",     "display" => "billing support"),
+		array("type" => "bill payment",        "display" => "bill payment"),
 		array("type" => "sales",               "display" => "sales"),
 		array("type" => "reservations",        "display" => "reservations"),
-		array("type" => "credit_card_support", "display" => "credit card support"),
+		array("type" => "credit card_support", "display" => "credit card support"),
 		array("type" => "emergency",           "display" => "emergency"),
-		array("type" => "baggage_tracking",    "display" => "baggage tracking"),
-		array("type" => "roadside_assistance", "display" => "roadside assistance"),
-		array("type" => "package_tracking",    "display" => "package tracking")
+		array("type" => "baggage tracking",    "display" => "baggage tracking"),
+		array("type" => "roadside assistance", "display" => "roadside assistance"),
+		array("type" => "package tracking",    "display" => "package tracking")
 	);
 	/** Social Profile */
 	private $social_array = array(
