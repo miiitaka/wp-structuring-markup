@@ -126,7 +126,7 @@ class Structuring_Markup_Display {
 	private function escape_text_tags ( $text ) {
 		return (string) str_replace( array( "\r", "\n" ), '', strip_tags( $text ) );
 	}
-	
+
 	/**
 	 * Return image dimensions
 	 *
@@ -139,34 +139,34 @@ class Structuring_Markup_Display {
 	 	if( $image = wp_get_attachment_image_src( attachment_url_to_postid( $url ), 'full') ) {
 	 		return array( $image[1], $image[2] );
 	 	}
-	 	
+
 	 	if( function_exists('curl_version') ) {
 	 		$headers = array('Range: bytes=0-32768');
-	 		
+
 	 		$curl = curl_init( $url );
-	 		curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-	 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-	 		$data = curl_exec($curl);
-	 		curl_close($curl);
-	 		
-	 		$image = @imagecreatefromstring($data);
-	 		
-	 		if($image) {
-	 			$width  = imagesx($image);
-	 			$height = imagesy($image);
-	 			
+	 		curl_setopt( $curl, CURLOPT_HTTPHEADER, $headers );
+	 		curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
+	 		$data = curl_exec( $curl );
+	 		curl_close( $curl );
+
+	 		$image = @imagecreatefromstring( $data );
+
+	 		if( $image ) {
+	 			$width  = imagesx( $image );
+	 			$height = imagesy( $image );
+
 	 			return array( $width, $height );
 	 		}
 	 	}
-	 	
+
 	 	if( $image = @getimagesize( $url ) ) {
-	 		return array( $image[0], $image[1] );	
+	 		return array( $image[0], $image[1] );
 	 	}
-	 	
+
 	 	if( $image = @getimagesize( str_replace('https://', 'http://', $url) ) ) {
 	 		return array( $image[0], $image[1] );
 	 	}
-	 	
+
 	 	return false;
 	}
 
