@@ -3,6 +3,7 @@
  * Schema.org Display
  *
  * @author  Kazuya Takami
+ * @author  Justin Frydman
  * @version 2.3.0
  * @since   1.0.0
  */
