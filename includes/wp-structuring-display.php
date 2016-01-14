@@ -136,12 +136,16 @@ class Structuring_Markup_Display {
 	 * @return  array $dimensions
 	 */
 	 private function get_image_dimensions ( $url ) {
-	 	if( $image = @getimagesize( $url ) ) {
-	 		return array( $image[0], $image[1]);	
+	 	if( $image = wp_get_attachment_image_src( attachment_url_to_postid( $url ), 'full') ) {
+	 		return array( $image[1], $image[2] );
 	 	}
 	 	
-	 	if( $image = wp_get_attachment_image_src( attachment_url_to_postid( $url ), 'full') ) {
-	 		return array( $image[1], $image[2]);
+	 	if( $image = @getimagesize( $url ) ) {
+	 		return array( $image[0], $image[1] );	
+	 	}
+	 	
+	 	if( $image = @getimagesize( str_replace('https://', 'http://', $url) ) ) {
+	 		return array( $image[0], $image[1] );
 	 	}
 	 	
 	 	return false;
