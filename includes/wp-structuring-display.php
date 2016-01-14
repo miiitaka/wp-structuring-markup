@@ -140,6 +140,25 @@ class Structuring_Markup_Display {
 	 		return array( $image[1], $image[2] );
 	 	}
 	 	
+	 	if( function_exists('curl_version') ) {
+	 		$headers = array('Range: bytes=0-32768');
+	 		
+	 		$curl = curl_init( $url );
+	 		curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
+	 		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+	 		$data = curl_exec($curl);
+	 		curl_close($curl);
+	 		
+	 		$image = @imagecreatefromstring($data);
+	 		
+	 		if($image) {
+	 			$width  = imagesx($image);
+	 			$height = imagesy($image);
+	 			
+	 			return array( $width, $height );
+	 		}
+	 	}
+	 	
 	 	if( $image = @getimagesize( $url ) ) {
 	 		return array( $image[0], $image[1] );	
 	 	}
@@ -149,7 +168,7 @@ class Structuring_Markup_Display {
 	 	}
 	 	
 	 	return false;
-	 }
+	}
 
 	/**
 	 * Setting schema.org Article
