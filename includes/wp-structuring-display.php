@@ -132,7 +132,7 @@ class Structuring_Markup_Display {
 	 *
 	 * @since   2.3.2
 	 * @version 2.3.2
-	 * @author Justin Frydman
+	 * @author  Justin Frydman
 	 * @param   string $url
 	 * @return  array $dimensions
 	 */
