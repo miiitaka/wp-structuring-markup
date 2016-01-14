@@ -125,6 +125,26 @@ class Structuring_Markup_Display {
 	private function escape_text_tags ( $text ) {
 		return (string) str_replace( array( "\r", "\n" ), '', strip_tags( $text ) );
 	}
+	
+	/**
+	 * Return image dimensions
+	 *
+	 * @since   2.3.2
+	 * @version 2.3.2
+	 * @param   string $url
+	 * @return  array $dimensions
+	 */
+	 private function get_image_dimensions ( $url ) {
+	 	if( $image = @getimagesize( $url ) ) {
+	 		return array( $image[0], $image[1]);	
+	 	}
+	 	
+	 	if( $image = wp_get_attachment_image_src( attachment_url_to_postid( $url ), 'full') ) {
+	 		return array( $image[1], $image[2]);
+	 	}
+	 	
+	 	return false;
+	 }
 
 	/**
 	 * Setting schema.org Article
@@ -138,9 +158,8 @@ class Structuring_Markup_Display {
 
 		$options['logo'] = isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "";
 
-		if ( has_post_thumbnail( $post->ID ) && @getimagesize( $options['logo'] ) ) {
+		if ( has_post_thumbnail( $post->ID ) && $logo = $this->get_image_dimensions( $options['logo'] ) ) {
 			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-			$logo   = getimagesize( $options['logo'] );
 			$excerpt = $this->escape_text_tags( $post->post_excerpt );
 			$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
 
@@ -192,9 +211,8 @@ class Structuring_Markup_Display {
 
 		$options['logo'] = isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "";
 
-		if ( has_post_thumbnail( $post->ID ) && @getimagesize( $options['logo'] ) ) {
+		if ( has_post_thumbnail( $post->ID ) && $logo = $this->get_image_dimensions( $options['logo'] ) ) {
 			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-			$logo   = getimagesize( $options['logo'] );
 			$excerpt = $this->escape_text_tags( $post->post_excerpt );
 			$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
 
@@ -401,9 +419,8 @@ class Structuring_Markup_Display {
 
 		$options['logo'] = isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "";
 
-		if ( has_post_thumbnail( $post->ID ) && @getimagesize( $options['logo'] ) ) {
+		if ( has_post_thumbnail( $post->ID ) && $logo = $this->get_image_dimensions( $options['logo'] ) ) {
 			$images  = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-			$logo    = getimagesize( $options['logo'] );
 			$excerpt = $this->escape_text_tags( $post->post_excerpt );
 			$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
 
