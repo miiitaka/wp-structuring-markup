@@ -132,6 +132,7 @@ class Structuring_Markup_Display {
 	 *
 	 * @since   2.3.2
 	 * @version 2.3.2
+	 * @author Justin Frydman
 	 * @param   string $url
 	 * @return  array $dimensions
 	 */
@@ -146,6 +147,8 @@ class Structuring_Markup_Display {
 	 		$curl = curl_init( $url );
 	 		curl_setopt( $curl, CURLOPT_HTTPHEADER, $headers );
 	 		curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
+	 		curl_setopt( $curl, CURLOPT_SSL_VERIFYHOST, 0);
+	 		curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, 0);
 	 		$data = curl_exec( $curl );
 	 		curl_close( $curl );
 
