@@ -3,7 +3,7 @@
  * Schema.org Type News Article
  *
  * @author  Kazuya Takami
- * @version 2.3.2
+ * @version 2.3.3
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/NewsArticle
@@ -30,7 +30,7 @@ class Structuring_Markup_Type_NewsArticle {
 	 * Form Layout Render
 	 *
 	 * @since   1.0.0
-	 * @version 2.2.0
+	 * @version 2.3.3
 	 * @param   array $option
 	 */
 	private function page_render ( array $option ) {
