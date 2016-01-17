@@ -3,7 +3,7 @@
  * Schema.org Type Organization
  *
  * @author  Kazuya Takami
- * @since   2.3.2
+ * @since   2.3.3
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/LocalBusiness
  * @link    https://developers.google.com/structured-data/local-businesses/
@@ -203,7 +203,7 @@ class Structuring_Markup_Type_LocalBusiness {
 	/**
 	 * Form Layout Render
 	 *
-	 * @since   2.3.2
+	 * @since   2.3.3
 	 * @param   array $option
 	 */
 	private function page_render ( array $option ) {
