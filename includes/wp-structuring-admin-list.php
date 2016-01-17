@@ -62,7 +62,7 @@ class Structuring_Markup_Admin_List {
 		if ( $results ) {
 			foreach ( $results as $row ) {
 				$html  = '<tr><td>';
-				$html .= $row->activate === 'on' ? '<span class="active">Activate' : '<span class="stop">Deactivate';
+				$html .= $row->activate === 'on' ? '<span class="active">Enabled' : '<span class="stop">Disabled';
 				$html .= '</span></td>';
 				$html .= '<td><a href="';
 				$html .= admin_url( $post_url . '&type=' . esc_html( $row->type ) . '&schema_post_id=' . esc_html( $row->id ) ) . '">' . $type_array[esc_html( $row->type )];

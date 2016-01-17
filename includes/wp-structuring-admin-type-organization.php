@@ -66,7 +66,7 @@ class Structuring_Markup_Type_Organization {
 	 * Form Layout Render
 	 *
 	 * @since   1.0.0
-	 * @version 2.3.0
+	 * @version 2.3.2
 	 * @param   array $option
 	 */
 	private function page_render ( array $option ) {
@@ -96,7 +96,7 @@ class Structuring_Markup_Type_Organization {
 		if ( isset( $option['contact_point'] ) &&  $option['contact_point'] === 'on' ) {
 			$html .= ' checked="checked"';
 		}
-		$html .= '>Active';
+		$html .= '>Enabled';
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="telephone">telephone :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "telephone" . ']" id="telephone" class="regular-text" value="' . esc_attr( $option['telephone'] ) . '">';
