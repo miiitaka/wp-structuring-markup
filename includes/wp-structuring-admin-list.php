@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 2.0.0
+ * @version 2.3.3
  * @see     wp-structuring-admin-db.php
  */
 class Structuring_Markup_Admin_List {
@@ -33,7 +33,7 @@ class Structuring_Markup_Admin_List {
 	 * LIST Page HTML Render.
 	 *
 	 * @since   1.0.0
-	 * @version 2.0.0
+	 * @version 2.3.3
 	 */
 	private function page_render () {
 		$post_url = 'admin.php?page=' . $this->text_domain . '-post';
