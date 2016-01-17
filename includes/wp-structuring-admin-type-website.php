@@ -3,7 +3,7 @@
  * Schema.org Type WebSite
  *
  * @author  Kazuya Takami
- * @version 1.0.0
+ * @version 2.3.2
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/WebSite
@@ -29,7 +29,7 @@ class Structuring_Markup_Type_Website {
 	/**
 	 * Form Layout Render
 	 *
-	 * @since 1.0.0
+	 * @since 2.3.2
 	 * @param array $option
 	 */
 	private function page_render ( array $option ) {
@@ -57,7 +57,7 @@ class Structuring_Markup_Type_Website {
 		if ( isset( $option['potential_action'] ) &&  $option['potential_action'] === 'on' ) {
 			$html .= ' checked="checked"';
 		}
-		$html .= '>Active';
+		$html .= '>Enabled';
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="target">target :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "target" . ']" id="target" class="regular-text" value="' . esc_attr( $option['target'] ) . '">';
