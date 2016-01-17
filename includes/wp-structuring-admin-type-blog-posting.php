@@ -3,7 +3,7 @@
  * Schema.org Type BlogPosting
  *
  * @author  Kazuya Takami
- * @version 2.3.2
+ * @version 2.3.3
  * @since   1.2.0
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/BlogPosting
@@ -30,7 +30,7 @@ class Structuring_Markup_Type_Blog_Posting {
 	 * Form Layout Render
 	 *
 	 * @since   1.2.0
-	 * @version 2.3.2
+	 * @version 2.3.3
 	 * @param   array $option
 	 */
 	private function page_render ( array $option ) {
