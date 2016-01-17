@@ -76,7 +76,7 @@ class Structuring_Markup_Type_Blog_Posting {
 		$html .= '<input type="text" name="option[' . "logo" . ']" id="logo" class="regular-text" required value="' . esc_attr( $option['logo'] ) . '">';
 		$html .= '<small>Default : bloginfo("logo") + "/images/logo.png"</small>';
 		$html .= '</td></tr>';
-		$html .= '<tr><th>height :</th><td><small>Auto : height >= 60px.</small></td></tr>';
+		$html .= '<tr><th>height :</th><td><small>Auto : height <= 60px.</small></td></tr>';
 		$html .= '<tr><th>width :</th><td><small>Auto : width <= 600px.</small></td></tr>';
 		$html .= '</table>';
 		echo $html;
