@@ -108,7 +108,7 @@ class Structuring_Markup_Admin_Post {
 		$html .= '<input type="hidden" name="id" value="'   . esc_attr( $options['id'] ) . '">';
 		$html .= '<input type="hidden" name="type" value="' . esc_attr( $options['type'] ) . '">';
 		$html .= '<table class="schema-admin-table">';
-		$html .= '<tr><th>Enable : </th><td>';
+		$html .= '<tr><th>Enabled : </th><td>';
 		$html .= '<input type="checkbox" name="activate" value="on"';
 		$html .= ( isset( $options['activate'] ) && $options['activate'] === "on" ) ? ' checked' : '';
 		$html .= '></td></tr>';
