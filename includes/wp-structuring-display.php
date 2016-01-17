@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @author  Justin Frydman
- * @version 2.3.0
+ * @version 2.3.3
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -130,8 +130,8 @@ class Structuring_Markup_Display {
 	/**
 	 * Return image dimensions
 	 *
-	 * @since   2.3.2
-	 * @version 2.3.2
+	 * @since   2.3.3
+	 * @version 2.3.3
 	 * @author  Justin Frydman
 	 * @param   string $url
 	 * @return  array $dimensions
@@ -177,7 +177,7 @@ class Structuring_Markup_Display {
 	 * Setting schema.org Article
 	 *
 	 * @since   1.1.0
-	 * @version 2.2.0
+	 * @version 2.3.3
 	 * @param   array $options
 	 */
 	private function set_schema_article ( array $options ) {
@@ -230,7 +230,7 @@ class Structuring_Markup_Display {
 	 * Setting schema.org BlogPosting
 	 *
 	 * @since   1.2.0
-	 * @version 2.2.0
+	 * @version 2.3.3
 	 * @param   array $options
 	 */
 	private function set_schema_blog_posting ( array $options ) {
@@ -438,7 +438,7 @@ class Structuring_Markup_Display {
 	 * Setting schema.org NewsArticle
 	 *
 	 * @since   1.0.0
-	 * @version 2.2.0
+	 * @version 2.3.3
 	 * @param   array $options
 	 */
 	private function set_schema_news_article ( array $options ) {
