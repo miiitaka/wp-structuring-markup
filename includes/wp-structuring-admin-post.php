@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 2.2.0
+ * @version 2.3.2
  */
 class Structuring_Markup_Admin_Post {
 
