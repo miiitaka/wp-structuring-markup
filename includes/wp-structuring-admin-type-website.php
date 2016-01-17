@@ -3,7 +3,7 @@
  * Schema.org Type WebSite
  *
  * @author  Kazuya Takami
- * @version 2.3.2
+ * @version 2.3.3
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/WebSite
@@ -29,7 +29,7 @@ class Structuring_Markup_Type_Website {
 	/**
 	 * Form Layout Render
 	 *
-	 * @since 2.3.2
+	 * @since 2.3.3
 	 * @param array $option
 	 */
 	private function page_render ( array $option ) {
