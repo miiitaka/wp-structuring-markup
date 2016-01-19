@@ -3,7 +3,7 @@
  * Schema.org Type Article
  *
  * @author  Kazuya Takami
- * @version 2.2.0
+ * @version 2.3.3
  * @since   1.1.0
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/Article
@@ -30,7 +30,7 @@ class Structuring_Markup_Type_Article {
 	 * Form Layout Render
 	 *
 	 * @since   1.1.0
-	 * @version 2.2.0
+	 * @version 2.3.3
 	 * @param   array $option
 	 */
 	private function page_render ( array $option ) {
@@ -76,7 +76,7 @@ class Structuring_Markup_Type_Article {
 		$html .= '<input type="text" name="option[' . "logo" . ']" id="logo" class="regular-text" required value="' . esc_attr( $option['logo'] ) . '">';
 		$html .= '<small>Default : bloginfo("logo") + "/images/logo.png"</small>';
 		$html .= '</td></tr>';
-		$html .= '<tr><th>height :</th><td><small>Auto : height >= 60px.</small></td></tr>';
+		$html .= '<tr><th>height :</th><td><small>Auto : height <= 60px.</small></td></tr>';
 		$html .= '<tr><th>width :</th><td><small>Auto : width <= 600px.</small></td></tr>';
 		$html .= '</table>';
 		echo $html;

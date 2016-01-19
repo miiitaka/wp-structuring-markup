@@ -51,6 +51,11 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 == Changelog ==
 
+= 2.3.3 (2016-XX-XX)
+
+* Fixed : Improved wording on admin pages
+* Fixed : Added alternate methods to get image dimensions for systems running legacy SSL
+
 = 2.3.2 (2016-01-10) =
 
 * Fixed : Fixed a bug that Organization type of display error of contactType comes out.

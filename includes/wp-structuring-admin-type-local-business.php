@@ -3,7 +3,7 @@
  * Schema.org Type Organization
  *
  * @author  Kazuya Takami
- * @since   2.3.0
+ * @since   2.3.3
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/LocalBusiness
  * @link    https://developers.google.com/structured-data/local-businesses/
@@ -203,7 +203,7 @@ class Structuring_Markup_Type_LocalBusiness {
 	/**
 	 * Form Layout Render
 	 *
-	 * @since   2.3.0
+	 * @since   2.3.3
 	 * @param   array $option
 	 */
 	private function page_render ( array $option ) {
@@ -223,7 +223,7 @@ class Structuring_Markup_Type_LocalBusiness {
 		if ( !isset( $option['food_active'] ) ) {
 			$option['food_active'] = "";
 		}
-		$html .= $this->set_form_checkbox( 'food_active', 'Setting', $option['food_active'], 'Active' );
+		$html .= $this->set_form_checkbox( 'food_active', 'Setting', $option['food_active'], 'Enabled' );
 		$html .= $this->set_form_text( 'menu', 'Menu url', $option['menu'], false, 'For food establishments, the fully-qualified URL of the menu.' );
 		if ( !isset( $option['accepts_reservations'] ) ) {
 			$option['accepts_reservations'] = "";
@@ -249,7 +249,7 @@ class Structuring_Markup_Type_LocalBusiness {
 		if ( !isset( $option['geo_active'] ) ) {
 			$option['geo_active'] = "";
 		}
-		$html .= $this->set_form_checkbox( 'geo_active', 'Setting', $option['geo_active'], 'Active' );
+		$html .= $this->set_form_checkbox( 'geo_active', 'Setting', $option['geo_active'], 'Enabled' );
 		$html .= $this->set_form_text( 'latitude', 'Latitude', $option['latitude'], false );
 		$html .= $this->set_form_text( 'longitude', 'Longitude', $option['longitude'], false );
 		$html .= '</table>';
@@ -263,7 +263,7 @@ class Structuring_Markup_Type_LocalBusiness {
 			if ( !isset( $option[$value['type']] ) ) {
 				$option[$value['type']] = "";
 			}
-			$html .= $this->set_form_checkbox( $value['type'], $value['display'], $option[$value['type']], 'Active' );
+			$html .= $this->set_form_checkbox( $value['type'], $value['display'], $option[$value['type']], 'Enabled' );
 			$html .= $this->set_form_time( $value['type'], '', $option[$value['type'] . '-open'], $option[$value['type'] . '-close'], '' );
 		}
 

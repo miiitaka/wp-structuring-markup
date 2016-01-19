@@ -3,7 +3,7 @@
  * Schema.org Type Breadcrumb
  *
  * @author  Kazuya Takami
- * @version 2.0.2
+ * @version 2.3.3
  * @since   2.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/BreadcrumbList
@@ -28,7 +28,7 @@ class Structuring_Markup_Type_Breadcrumb {
 	/**
 	 * Form Layout Render
 	 *
-	 * @since 2.0.0
+	 * @since 2.3.3
 	 * @param array $option
 	 */
 	private function page_render ( array $option ) {
@@ -39,7 +39,7 @@ class Structuring_Markup_Type_Breadcrumb {
 		if ( isset( $option['home_on'] ) &&  $option['home_on'] === 'on' ) {
 			$html .= ' checked="checked"';
 		}
-		$html .= '>Active';
+		$html .= '>Enabled';
 		$html .= '<small>( Installed the HOME to breadcrumbs )</small>';
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="home_name">Home Name :</label></th><td>';
