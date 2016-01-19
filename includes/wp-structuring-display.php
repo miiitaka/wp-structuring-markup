@@ -134,21 +134,21 @@ class Structuring_Markup_Display {
 	 * @version 2.3.3
 	 * @author  Justin Frydman
 	 * @param   string $url
-	 * @return  array $dimensions
+	 * @return  array  $dimensions
 	 */
 	 private function get_image_dimensions ( $url ) {
-	 	if( $image = wp_get_attachment_image_src( attachment_url_to_postid( $url ), 'full') ) {
+	 	if( $image = wp_get_attachment_image_src( attachment_url_to_postid( $url ), 'full' ) ) {
 	 		return array( $image[1], $image[2] );
 	 	}
 
-	 	if( function_exists('curl_version') ) {
-	 		$headers = array('Range: bytes=0-32768');
+	 	if( function_exists( 'curl_version' ) ) {
+	 		$headers = array( 'Range: bytes=0-32768' );
 
 	 		$curl = curl_init( $url );
 	 		curl_setopt( $curl, CURLOPT_HTTPHEADER, $headers );
 	 		curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
-	 		curl_setopt( $curl, CURLOPT_SSL_VERIFYHOST, 0);
-	 		curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, 0);
+	 		curl_setopt( $curl, CURLOPT_SSL_VERIFYHOST, 0 );
+	 		curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, 0 );
 	 		$data = curl_exec( $curl );
 	 		curl_close( $curl );
 
@@ -166,7 +166,7 @@ class Structuring_Markup_Display {
 	 		return array( $image[0], $image[1] );
 	 	}
 
-	 	if( $image = @getimagesize( str_replace('https://', 'http://', $url) ) ) {
+	 	if( $image = @getimagesize( str_replace( 'https://', 'http://', $url ) ) ) {
 	 		return array( $image[0], $image[1] );
 	 	}
 
