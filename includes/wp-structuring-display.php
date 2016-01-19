@@ -3,7 +3,8 @@
  * Schema.org Display
  *
  * @author  Kazuya Takami
- * @version 2.3.0
+ * @author  Justin Frydman
+ * @version 2.3.3
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -127,10 +128,56 @@ class Structuring_Markup_Display {
 	}
 
 	/**
+	 * Return image dimensions
+	 *
+	 * @since   2.3.3
+	 * @version 2.3.3
+	 * @author  Justin Frydman
+	 * @param   string $url
+	 * @return  array $dimensions
+	 */
+	 private function get_image_dimensions ( $url ) {
+	 	if( $image = wp_get_attachment_image_src( attachment_url_to_postid( $url ), 'full') ) {
+	 		return array( $image[1], $image[2] );
+	 	}
+
+	 	if( function_exists('curl_version') ) {
+	 		$headers = array('Range: bytes=0-32768');
+
+	 		$curl = curl_init( $url );
+	 		curl_setopt( $curl, CURLOPT_HTTPHEADER, $headers );
+	 		curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
+	 		curl_setopt( $curl, CURLOPT_SSL_VERIFYHOST, 0);
+	 		curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, 0);
+	 		$data = curl_exec( $curl );
+	 		curl_close( $curl );
+
+	 		$image = @imagecreatefromstring( $data );
+
+	 		if( $image ) {
+	 			$width  = imagesx( $image );
+	 			$height = imagesy( $image );
+
+	 			return array( $width, $height );
+	 		}
+	 	}
+
+	 	if( $image = @getimagesize( $url ) ) {
+	 		return array( $image[0], $image[1] );
+	 	}
+
+	 	if( $image = @getimagesize( str_replace('https://', 'http://', $url) ) ) {
+	 		return array( $image[0], $image[1] );
+	 	}
+
+	 	return false;
+	}
+
+	/**
 	 * Setting schema.org Article
 	 *
 	 * @since   1.1.0
-	 * @version 2.2.0
+	 * @version 2.3.3
 	 * @param   array $options
 	 */
 	private function set_schema_article ( array $options ) {
@@ -138,9 +185,8 @@ class Structuring_Markup_Display {
 
 		$options['logo'] = isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "";
 
-		if ( has_post_thumbnail( $post->ID ) && @getimagesize( $options['logo'] ) ) {
+		if ( has_post_thumbnail( $post->ID ) && $logo = $this->get_image_dimensions( $options['logo'] ) ) {
 			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-			$logo   = getimagesize( $options['logo'] );
 			$excerpt = $this->escape_text_tags( $post->post_excerpt );
 			$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
 
@@ -184,7 +230,7 @@ class Structuring_Markup_Display {
 	 * Setting schema.org BlogPosting
 	 *
 	 * @since   1.2.0
-	 * @version 2.2.0
+	 * @version 2.3.3
 	 * @param   array $options
 	 */
 	private function set_schema_blog_posting ( array $options ) {
@@ -192,9 +238,8 @@ class Structuring_Markup_Display {
 
 		$options['logo'] = isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "";
 
-		if ( has_post_thumbnail( $post->ID ) && @getimagesize( $options['logo'] ) ) {
+		if ( has_post_thumbnail( $post->ID ) && $logo = $this->get_image_dimensions( $options['logo'] ) ) {
 			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-			$logo   = getimagesize( $options['logo'] );
 			$excerpt = $this->escape_text_tags( $post->post_excerpt );
 			$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
 
@@ -393,7 +438,7 @@ class Structuring_Markup_Display {
 	 * Setting schema.org NewsArticle
 	 *
 	 * @since   1.0.0
-	 * @version 2.2.0
+	 * @version 2.3.3
 	 * @param   array $options
 	 */
 	private function set_schema_news_article ( array $options ) {
@@ -401,9 +446,8 @@ class Structuring_Markup_Display {
 
 		$options['logo'] = isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "";
 
-		if ( has_post_thumbnail( $post->ID ) && @getimagesize( $options['logo'] ) ) {
+		if ( has_post_thumbnail( $post->ID ) && $logo = $this->get_image_dimensions( $options['logo'] ) ) {
 			$images  = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-			$logo    = getimagesize( $options['logo'] );
 			$excerpt = $this->escape_text_tags( $post->post_excerpt );
 			$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
 

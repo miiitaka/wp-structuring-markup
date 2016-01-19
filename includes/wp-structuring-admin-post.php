@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 2.2.0
+ * @version 2.3.3
  */
 class Structuring_Markup_Admin_Post {
 
@@ -80,7 +80,7 @@ class Structuring_Markup_Admin_Post {
 	 * Setting Page of the Admin Screen.
 	 *
 	 * @since   1.0.0
-	 * @version 2.2.0
+	 * @version 2.3.3
 	 * @param   array  $options
 	 * @param   string $status
 	 */
@@ -108,10 +108,10 @@ class Structuring_Markup_Admin_Post {
 		$html .= '<input type="hidden" name="id" value="'   . esc_attr( $options['id'] ) . '">';
 		$html .= '<input type="hidden" name="type" value="' . esc_attr( $options['type'] ) . '">';
 		$html .= '<table class="schema-admin-table">';
-		$html .= '<tr><th>Activate : </th><td><label>';
+		$html .= '<tr><th>Enabled : </th><td>';
 		$html .= '<input type="checkbox" name="activate" value="on"';
 		$html .= ( isset( $options['activate'] ) && $options['activate'] === "on" ) ? ' checked' : '';
-		$html .= '>Activate</label></td></tr>';
+		$html .= '></td></tr>';
 		$html .= '<tr><th>' . esc_html__( 'Output Page', $this->text_domain ) . ' : </th><td>';
 		echo $html;
 
