@@ -152,7 +152,7 @@ class Structuring_Markup_Opening_Hours {
 	 * @since 2.4.0
 	 * @return array
 	 */
-	public function group_periods_to_day_range( $group ) {
+	private function group_periods_to_day_range( $group ) {
 		$starting_day = null;
 		$ending_day   = null;
 
@@ -187,7 +187,7 @@ class Structuring_Markup_Opening_Hours {
 	 * @since 2.4.0
 	 * @return array
 	 */
-	public function sort_by_day_of_the_week( $consecutive_days ) {
+	private function sort_by_day_of_the_week( $consecutive_days ) {
 		$days = $this->days;
 
 		arsort($consecutive_days);
