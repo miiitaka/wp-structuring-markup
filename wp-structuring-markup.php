@@ -2,8 +2,8 @@
 /*
 Plugin Name: Markup (JSON-LD) structured in schema.org
 Plugin URI: https://wordpress.org/plugins/wp-structuring-markup/
-Description: It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an article or the fixed page.
-Version: 2.3.3
+Description: Allows you to include schema.org JSON-LD syntax markup on your website
+Version: 2.4.0
 Author: Kazuya Takami
 Author URI: http://programp.com/
 License: GPLv2 or later
@@ -19,7 +19,7 @@ new Structuring_Markup();
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 2.3.3
+ * @version 2.3.2
  */
 class Structuring_Markup {
 
@@ -27,16 +27,16 @@ class Structuring_Markup {
 	 * Variable definition.
 	 *
 	 * @since   1.3.0
-	 * @version 2.3.3
+	 * @version 2.4.0
 	 */
 	private $text_domain = 'wp-structuring-markup';
-	private $version     = '2.3.3';
+	private $version     = '2.4.0';
 
 	/**
 	 * Constructor Define.
 	 *
 	 * @since   1.0.0
-	 * @version 2.1.0
+	 * @version 2.4.0
 	 */
 	public function __construct() {
 		register_activation_hook( __FILE__, array( $this, 'create_table' ) );
@@ -49,6 +49,7 @@ class Structuring_Markup {
 		if ( is_admin() ) {
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
 			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts') );
 		} else {
 			add_action( 'wp_head', array( $this, 'wp_head' ) );
 		}
@@ -121,6 +122,17 @@ class Structuring_Markup {
 		}
 
 		wp_register_style( 'wp-structuring-markup-admin-style', plugins_url( 'css/style.css', __FILE__ ) );
+	}
+
+	/**
+	 * admin_scripts
+	 *
+	 * @since 2.4.0
+	 * @version 2.4.0
+	 * @author Justin Frydman
+	 */
+	public function admin_scripts () {
+		wp_enqueue_script( 'wp-structuring-markup-admin-main-js', plugins_url( 'js/main.min.js', __FILE__ ), array('jquery'), '1.0' );
 	}
 
 	/**
@@ -208,6 +220,7 @@ class Structuring_Markup {
 	 * @version 1.3.0
 	 */
 	public function wp_head () {
+		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-opening-hours.php' );
 		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-display.php' );
 		new Structuring_Markup_Display();
 	}
