@@ -42,7 +42,7 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
-### 2.3.3 (2016-XX-XX)
+### 2.3.3 (2016-01-19)
 - Fixed : Improved wording on admin pages
 - Fixed : Added alternate methods to get image dimensions for systems running legacy SSL
 
