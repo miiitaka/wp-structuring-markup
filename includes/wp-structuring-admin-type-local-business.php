@@ -269,14 +269,18 @@ class Structuring_Markup_Type_LocalBusiness {
 
 			$html .= $this->set_form_checkbox( $value['type'], $value['display'], $option[$value['type']], 'Enabled' );
 
-			foreach( $option['week'][$value['type']] as $type ) {
-				if( !empty($type['open']) ) {
-					$html .= $this->set_form_time( $value['type'], '', $type['open'], $type['close'], '', $i );
-					$i++;
-				} else {
-					$html .= $this->set_form_time( $value['type'], '', '', '', '', 0 );
-					break;
+			if ( isset( $option['week'][$value['type']] ) ) {
+				foreach ( $option['week'][$value['type']] as $type ) {
+					if ( !empty( $type['open'] ) ) {
+						$html .= $this->set_form_time( $value['type'], '', $type['open'], $type['close'], '', $i );
+						$i++;
+					} else {
+						$html .= $this->set_form_time( $value['type'], '', '', '', '', 0 );
+						break;
+					}
 				}
+			} else {
+				$html .= $this->set_form_time( $value['type'], '', '', '', '', 0 );
 			}
 
 			$i = 0;
@@ -316,9 +320,9 @@ class Structuring_Markup_Type_LocalBusiness {
 		$args['opening_active']       = '';
 
 		foreach ( $this->week_array as $value ) {
-			$args[$value['type']]            	  = '';
-			$args[week][$value['type']]['open']   = '';
-			$args[week][$value['type']]['close']  = '';
+			$args[$value['type']]                = '';
+			$args['week'][$value['type']]['open']  = '';
+			$args['week'][$value['type']]['close'] = '';
 		}
 
 		return (array) $args;
@@ -419,9 +423,9 @@ class Structuring_Markup_Type_LocalBusiness {
 		$format  = '<tr class="opening-hours %s"><th><label for=%s>%s :</label></th><td>';
 		$format .= 'Open Time : <input type="time" name="option[week][%s][%d][open]" id="%s-open" value="%s">';
 		$format .= ' Close Time : <input type="time" name="option[week][%s][%d][close]" id="%s-close" value="%s">';
-		$format .= '<small>%s</small> <a class="dashicons dashicons-plus markup-time plus"></a>';
+		$format .= '<small>%s</small><a class="dashicons dashicons-plus markup-time plus"></a>';
 		if( $count !== 0 ) {
-			$format .= ' <a class="dashicons dashicons-minus markup-time minus"></a>';
+			$format .= '<a class="dashicons dashicons-minus markup-time minus"></a>';
 		}
 		$format .= '</td></tr>';
 
