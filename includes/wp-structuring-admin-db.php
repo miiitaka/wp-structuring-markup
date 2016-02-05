@@ -12,7 +12,7 @@ class Structuring_Markup_Admin_Db {
 	 * Variable definition.
 	 *
 	 * @since   1.0.0
-	 * @version 2.3.0
+	 * @version 2.4.0
 	 */
 	private $table_name;
 
@@ -25,6 +25,7 @@ class Structuring_Markup_Admin_Db {
 		"local_business" => "Local Business",
 		"news_article"   => "News Article",
 		"organization"   => "Organization",
+		"person"         => "Person",
 		"website"        => "Web Site"
 	);
 
