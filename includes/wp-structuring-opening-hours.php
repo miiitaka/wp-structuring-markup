@@ -105,7 +105,6 @@ class Structuring_Markup_Opening_Hours {
 	 * @return array
 	 */
 	public function group_periods_with_days () {
-
 		$periods = $this->periods;
 
 		foreach( $periods as $key => $group ) {
@@ -130,7 +129,6 @@ class Structuring_Markup_Opening_Hours {
 	 * @return array
 	 */
 	public function group_weekly_hours () {
-
 		$grouped_days = $this->grouped_days;
 		$days         = $this->days;
 		$object       = $this;

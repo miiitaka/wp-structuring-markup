@@ -109,7 +109,7 @@ class Structuring_Markup_Admin_Db {
 
 							// LocalBusiness Convert data
 							if ( $key === 'local_business' && $activate === 'on' ) {
-								$args['options'] = $this->convert_local_business( unserialize( $list->options ) );
+								$args['options'] = $this->convert_local_business( $list->options );
 							}
 						}
 					}
@@ -124,24 +124,32 @@ class Structuring_Markup_Admin_Db {
 	 * version 2.3.3 -> 2.4.0
 	 *
 	 * @since   2.4.0
-	 * @param   array  $options
+	 * @param   string $options
 	 * @return  string $convert
 	 */
-	private function convert_local_business( array $options ) {
-		$convert = array();
+	private function convert_local_business( $options ) {
+		$options = unserialize( $options );
+		$convert = $options;
 
+		$convert['Mo']                     = isset( $options['mon'] )       ? $options['mon']       : "";
 		$convert['week']['Mo'][0]['open']  = isset( $options['mon-open'] )  ? $options['mon-open']  : "";
 		$convert['week']['Mo'][0]['close'] = isset( $options['mon-close'] ) ? $options['mon-close'] : "";
+		$convert['Tu']                     = isset( $options['tue'] )       ? $options['tue']       : "";
 		$convert['week']['Tu'][0]['open']  = isset( $options['tue-open'] )  ? $options['tue-open']  : "";
 		$convert['week']['Tu'][0]['close'] = isset( $options['tue-close'] ) ? $options['tue-close'] : "";
+		$convert['We']                     = isset( $options['wed'] )       ? $options['wed']       : "";
 		$convert['week']['We'][0]['open']  = isset( $options['wed-open'] )  ? $options['wed-open']  : "";
 		$convert['week']['We'][0]['close'] = isset( $options['wed-close'] ) ? $options['wed-close'] : "";
+		$convert['Th']                     = isset( $options['thu'] )       ? $options['mon']       : "";
 		$convert['week']['Th'][0]['open']  = isset( $options['thu-open'] )  ? $options['thu-open']  : "";
 		$convert['week']['Th'][0]['close'] = isset( $options['thu-close'] ) ? $options['thu-close'] : "";
+		$convert['Fr']                     = isset( $options['fri'] )       ? $options['fri']       : "";
 		$convert['week']['Fr'][0]['open']  = isset( $options['fri-open'] )  ? $options['fri-open']  : "";
 		$convert['week']['Fr'][0]['close'] = isset( $options['fri-close'] ) ? $options['fri-close'] : "";
+		$convert['Sa']                     = isset( $options['sat'] )       ? $options['sat']       : "";
 		$convert['week']['Sa'][0]['open']  = isset( $options['sat-open'] )  ? $options['sat-open']  : "";
 		$convert['week']['Sa'][0]['close'] = isset( $options['sat-close'] ) ? $options['sat-close'] : "";
+		$convert['Su']                     = isset( $options['sun'] )       ? $options['sun']       : "";
 		$convert['week']['Su'][0]['open']  = isset( $options['sun-open'] )  ? $options['sun-open']  : "";
 		$convert['week']['Su'][0]['close'] = isset( $options['sun-close'] ) ? $options['sun-close'] : "";
 
