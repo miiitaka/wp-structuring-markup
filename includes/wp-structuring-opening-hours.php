@@ -11,51 +11,45 @@
  */
 class Structuring_Markup_Opening_Hours {
 
-
 	/**
 	 * Multidimensional array of days and opening hours
 	 *
 	 * @since 2.4.0
-	 * @type Array
+	 * @var   array
 	 */
 	protected $opening_hours;
-
 
 	/**
 	 * List of days
 	 *
 	 * @since 2.4.0
-	 * @type Array
+	 * @var   array
 	 */
 	protected $days;
-
 
 	/**
 	 * Grouped, unique hour periods
 	 *
 	 * @since 2.4.0
-	 * @type Array
+	 * @var   array
 	 */
 	protected $periods;
-
 
 	/**
 	 * Days grouped with open-close hours
 	 *
 	 * @since 2.4.0
-	 * @type Array
+	 * @var   array
 	 */
 	protected $grouped_days;
-
 
 	/**
 	 * Open/close hours grouped by Mo-Su
 	 *
 	 * @since 2.4.0
-	 * @type Array
+	 * @var   array
 	 */
 	protected $weekly_hours;
-
 
 	/**
 	 * Constructor
@@ -66,7 +60,7 @@ class Structuring_Markup_Opening_Hours {
 	public function __construct ( array $opening_hours ) {
 		/** Default Value Set */
 		if ( !empty( $opening_hours ) ) {
-			$this->opening_hours 	= $opening_hours;
+			$this->opening_hours = $opening_hours;
 			$this->init();
 		}
 	}
@@ -76,11 +70,11 @@ class Structuring_Markup_Opening_Hours {
 	 *
 	 * @since 2.4.0
 	 */
-	public function init() {
-		$this->days 			= array_keys( $this->opening_hours );
-		$this->periods 			= $this->group_periods();
-		$this->grouped_days 	= $this->group_periods_with_days();
-		$this->weekly_hours 	= $this->group_weekly_hours();
+	public function init () {
+		$this->days         = array_keys( $this->opening_hours );
+		$this->periods      = $this->group_periods();
+		$this->grouped_days = $this->group_periods_with_days();
+		$this->weekly_hours = $this->group_weekly_hours();
 	}
 
 	/**
@@ -89,7 +83,7 @@ class Structuring_Markup_Opening_Hours {
 	 * @since 2.4.0
 	 * @return array
 	 */
-	public function group_periods() {
+	public function group_periods () {
 		$periods = array();
 		foreach( $this->opening_hours as $day ) {
 			foreach( $day as $group ) {
@@ -101,7 +95,7 @@ class Structuring_Markup_Opening_Hours {
 			}
 		}
 
-		return $periods;
+		return (array) $periods;
 	}
 
 	/**
@@ -110,7 +104,7 @@ class Structuring_Markup_Opening_Hours {
 	 * @since 2.4.0
 	 * @return array
 	 */
-	public function group_periods_with_days() {
+	public function group_periods_with_days () {
 
 		$periods = $this->periods;
 
@@ -126,7 +120,7 @@ class Structuring_Markup_Opening_Hours {
 			$periods[$key]['days'] = $days;
 		}
 
-		return $periods;
+		return (array) $periods;
 	}
 
 	/**
@@ -135,13 +129,13 @@ class Structuring_Markup_Opening_Hours {
 	 * @since 2.4.0
 	 * @return array
 	 */
-	public function group_weekly_hours() {
+	public function group_weekly_hours () {
 
 		$grouped_days = $this->grouped_days;
-		$days 		  = $this->days;
-		$object		  = $this;
+		$days         = $this->days;
+		$object       = $this;
 
-		return array_reduce( $grouped_days, function($result, $group) use ( $days, $object ) {
+		return (array) array_reduce( $grouped_days, function($result, $group) use ( $days, $object ) {
 	        return array_merge( $result, $object->group_periods_to_day_range( $group ) );
 	    }, array() );
 	}
@@ -149,10 +143,11 @@ class Structuring_Markup_Opening_Hours {
 	/**
 	 * Groups days of the week with their opening hours
 	 *
-	 * @since 2.4.0
+	 * @since  2.4.0
+	 * @param  array $group
 	 * @return array
 	 */
-	public function group_periods_to_day_range( $group ) {
+	public function group_periods_to_day_range ( $group ) {
 		$starting_day = null;
 		$ending_day   = null;
 
@@ -178,16 +173,17 @@ class Structuring_Markup_Opening_Hours {
 			}
 		}
 
-		return $this->sort_by_day_of_the_week( $consecutive_days );
+		return (array) $this->sort_by_day_of_the_week( $consecutive_days );
 	}
 
 	/**
 	 * Sorts our days in the proper weekly hour
 	 *
-	 * @since 2.4.0
+	 * @since  2.4.0
+	 * @param  array $consecutive_days
 	 * @return array
 	 */
-	public function sort_by_day_of_the_week( $consecutive_days ) {
+	public function sort_by_day_of_the_week ( $consecutive_days ) {
 		$days = $this->days;
 
 		arsort($consecutive_days);
@@ -200,7 +196,7 @@ class Structuring_Markup_Opening_Hours {
 
 	    usort($consecutive_days, $sort_by_day_func);
 
-	    return $consecutive_days;
+	    return (array) $consecutive_days;
 	}
 
 	/**
@@ -209,7 +205,7 @@ class Structuring_Markup_Opening_Hours {
 	 * @since 2.4.0
 	 * @return array
 	 */
-	public function display() {
+	public function display () {
 		$opening_hours = array();
 
 		foreach( $this->weekly_hours as $key => $group ) {
@@ -219,7 +215,7 @@ class Structuring_Markup_Opening_Hours {
 				$hours = $group['start'];
 			}
 
-			$hours .= ' '.$group['open'].'-'.$group['close'];
+			$hours .= ' ' . $group['open'] . '-' . $group['close'];
 
 			$opening_hours[] = $hours;
 		}
