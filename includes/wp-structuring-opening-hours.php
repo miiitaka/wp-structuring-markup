@@ -147,7 +147,7 @@ class Structuring_Markup_Opening_Hours {
 	 * @param  array $group
 	 * @return array
 	 */
-	public function group_periods_to_day_range ( $group ) {
+	public function group_periods_to_day_range ( array $group ) {
 		$starting_day = null;
 		$ending_day   = null;
 
@@ -183,7 +183,7 @@ class Structuring_Markup_Opening_Hours {
 	 * @param  array $consecutive_days
 	 * @return array
 	 */
-	public function sort_by_day_of_the_week ( $consecutive_days ) {
+	public function sort_by_day_of_the_week ( array $consecutive_days ) {
 		$days = $this->days;
 
 		arsort($consecutive_days);
@@ -202,7 +202,7 @@ class Structuring_Markup_Opening_Hours {
 	/**
 	 * Displays formatted opening hours
 	 *
-	 * @since 2.4.0
+	 * @since  2.4.0
 	 * @return array
 	 */
 	public function display () {
@@ -220,7 +220,7 @@ class Structuring_Markup_Opening_Hours {
 			$opening_hours[] = $hours;
 		}
 
-		return $opening_hours;
+		return (array) $opening_hours;
 	}
 
 }

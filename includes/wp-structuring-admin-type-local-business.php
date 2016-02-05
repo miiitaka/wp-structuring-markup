@@ -320,7 +320,7 @@ class Structuring_Markup_Type_LocalBusiness {
 		$args['opening_active']       = '';
 
 		foreach ( $this->week_array as $value ) {
-			$args[$value['type']]                = '';
+			$args[$value['type']]                  = '';
 			$args['week'][$value['type']]['open']  = '';
 			$args['week'][$value['type']]['close'] = '';
 		}
