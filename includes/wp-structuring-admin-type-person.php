@@ -54,69 +54,16 @@ class Structuring_Markup_Type_Person {
 	 * @param   array $option
 	 */
 	private function page_render ( array $option ) {
-		/** Logos */
+		/** Basic Settings */
 		$html  = '<table class="schema-admin-table">';
-		$html .= '<caption>Logos</caption>';
-		$html .= '<tr><th><label for="name">Organization Name :</label></th><td>';
+		$html .= '<caption>Basic Settings</caption>';
+		$html .= '<tr><th><label for="name">Name :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "name" . ']" id="name" class="regular-text" required value="' . esc_attr( $option['name'] ) . '">';
 		$html .= '<small>Default : bloginfo("name")</small>';
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="url">url :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "url" . ']" id="url" class="regular-text" required value="' . esc_attr( $option['url'] ) . '">';
 		$html .= '<small>Default : bloginfo("url")</small>';
-		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="logo">logo :</label></th><td>';
-		$html .= '<input type="text" name="option[' . "logo" . ']" id="logo" class="regular-text" required value="' . esc_attr( $option['logo'] ) . '">';
-		$html .= '<small>Default : bloginfo("logo") + "/images/logo.png"</small>';
-		$html .= '</td></tr>';
-		$html .= '</table>';
-		echo $html;
-
-		/** Corporate Contact */
-		$html  = '<table class="schema-admin-table">';
-		$html .= '<caption>Corporate Contact</caption>';
-		$html .= '<tr><th><label for="contact_point">contactPoint :</label></th><td>';
-		$html .= '<input type="checkbox" name="option[' . "contact_point" . ']" id="contact_point" value="on"';
-		if ( isset( $option['contact_point'] ) &&  $option['contact_point'] === 'on' ) {
-			$html .= ' checked="checked"';
-		}
-		$html .= '>Enabled';
-		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="telephone">telephone :</label></th><td>';
-		$html .= '<input type="text" name="option[' . "telephone" . ']" id="telephone" class="regular-text" value="' . esc_attr( $option['telephone'] ) . '">';
-		$html .= '<small>e.g. : +1-880-555-1212</small>';
-		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="contact_type">contactType :</label></th><td>';
-		$html .= '<select id="contact_type" name="option[' . "contact_type" . ']">';
-		foreach ( $this->contact_type_array as $value ) {
-			$html .= '<option value="' . $value['type'] . '"';
-			if ( $value['type'] === $option['contact_type'] ) {
-				$html .= ' selected';
-			}
-			$html .= '>' . $value['display'] . '</option>';
-		}
-		$html .= '</select>';
-		$html .= '<small>Default : "customer service"</small>';
-		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="area_served">areaServed :</label></th><td>';
-		$html .= '<input type="text" name="option[' . "area_served" . ']" id="area_served" class="regular-text" value="' . esc_attr( $option['area_served'] ) . '">';
-		$html .= '<small>Default : "US"&nbsp;&nbsp;Multiple : "US,CA"</small>';
-		$html .= '</td></tr>';
-		$html .= '<tr><th>contactOption :</th><td>';
-		$html .= '<label><input type="checkbox" name="option[' . "contact_point_1" . ']" id="contact_point_1" value="on"';
-		if ( isset( $option['contact_point_1'] ) &&  $option['contact_point_1'] === 'on' ) {
-			$html .= ' checked="checked"';
-		}
-		$html .= '>HearingImpairedSupported</label><br>';
-		$html .= '<label><input type="checkbox" name="option[' . "contact_point_2" . ']" id="contact_point_2" value="on"';
-		if ( isset( $option['contact_point_2'] ) &&  $option['contact_point_2'] === 'on' ) {
-			$html .= ' checked="checked"';
-		}
-		$html .= '>TollFree</label><br>';
-		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="available_language">available<br>Language :</label></th><td>';
-		$html .= '<input type="text" name="option[' . "available_language" . ']" id="available_language" class="regular-text" value="' . esc_attr( $option['available_language'] ) . '">';
-		$html .= '<small>Default : "English"&nbsp;&nbsp;Multiple : "French,English"</small>';
 		$html .= '</td></tr>';
 		$html .= '</table>';
 		echo $html;
@@ -132,29 +79,21 @@ class Structuring_Markup_Type_Person {
 		$html .= '</table>';
 		echo $html;
 
-		echo '<p>Setting Knowledge : <a href="https://developers.google.com/structured-data/customize/overview" target="_blank">https://developers.google.com/structured-data/customize/overview</a></p>';
+		echo '<p>Setting Knowledge : <a href="https://developers.google.com/structured-data/customize/social-profiles" target="_blank">https://developers.google.com/structured-data/customize/social-profiles</a></p>';
 		submit_button();
 	}
 
 	/**
 	 * Return the default options array
 	 *
-	 * @since   1.0.0
-	 * @version 2.3.0
+	 * @since   2.4.0
+	 * @version 2.4.0
 	 * @param   array $args
 	 * @return  array $args
 	 */
 	private function get_default_options ( array $args ) {
-		$args['name']               = get_bloginfo('name');
-		$args['url']                = get_bloginfo('url');
-		$args['logo']               = get_bloginfo('url') . '/images/logo.png';
-		$args['contact_point']      = '';
-		$args['telephone']          = '';
-		$args['contact_type']       = 'customer_service';
-		$args['area_served']        = 'US';
-		$args['contact_option_1']   = '';
-		$args['contact_option_2']   = '';
-		$args['available_language'] = 'English';
+		$args['name'] = get_bloginfo('name');
+		$args['url']  = get_bloginfo('url');
 
 		foreach ( $this->social_array as $value ) {
 			$args['social'][$value['type']] = '';

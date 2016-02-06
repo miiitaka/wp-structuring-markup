@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 2.3.3
+ * @version 2.4.0
  */
 class Structuring_Markup_Admin_Post {
 
@@ -80,7 +80,7 @@ class Structuring_Markup_Admin_Post {
 	 * Setting Page of the Admin Screen.
 	 *
 	 * @since   1.0.0
-	 * @version 2.3.3
+	 * @version 2.4.0
 	 * @param   array  $options
 	 * @param   string $status
 	 */
@@ -177,6 +177,17 @@ class Structuring_Markup_Admin_Post {
 
 				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-organization.php' );
 				new Structuring_Markup_Type_Organization( $options['option'] );
+				break;
+			case 'person':
+				$html  = $this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Page',   $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "home", "Top",   esc_html__( 'Top Page',   $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "post", "Post",  esc_html__( 'Post Page',  $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "page", "Fixed", esc_html__( 'Fixed Page', $this->text_domain ) );
+				$html .= '</td></tr></table><hr>';
+				echo $html;
+
+				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-person.php' );
+				new Structuring_Markup_Type_Person( $options['option'] );
 				break;
 			case 'website':
 				$html  = $this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Page',   $this->text_domain ) );
