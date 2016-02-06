@@ -1,11 +1,11 @@
 # wp-structuring-markup
-WordPress: Plug-in Schema.org JSON-LD  
+WordPress: Plug-in Schema.org JSON-LD
 https://wordpress.org/plugins/wp-structuring-markup/
 
-It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an post page, fixed page and etc. 
+Allows you to include schema.org JSON-LD syntax markup on your website
 Base knowledge is "https://schema.org/" and "https://developers.google.com/structured-data/"
 
-このプラグインは、投稿ページ、固定ページなどにschema.org定義の構造化マークアップ（ JSON -LDの構文）を実装するプラグインです。  
+このプラグインは、投稿ページ、固定ページなどにschema.org定義の構造化マークアップ（ JSON -LDの構文）を実装するプラグインです。
 基本知識は、https://schema.org/ や https://developers.google.com/structured-data/ を参考にしてください。
 
 ## Schema.org Type
@@ -17,6 +17,7 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 - LocalBusiness: http://schema.org/LocalBusiness
 - NewsArticle: http://schema.org/NewsArticle
 - Organization: https://schema.org/Organization
+- Person: https://schema.org/Person
 - Website: https://schema.org/WebSite
 
 ## ShortCode
@@ -41,6 +42,12 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 - Option : class="class_name" attribute additional ol element.
 
 ## Change Log
+
+### 2.4.0 (2016-02-06)
+
+- Added : Schema.org type "Person".
+- Updated : Schema.org type "LocalBusiness" OpenHours : shift time setting.
+- Check : WordPress version 4.4.2 operation check.
 
 ### 2.3.3 (2016-01-19)
 - Fixed : Improved wording on admin pages

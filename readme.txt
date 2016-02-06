@@ -3,13 +3,13 @@ Contributors: miiitaka
 Tags: schema, schema.org, json, json-ld, seo, post, posts, google, shortcode, breadcrumb
 Requires at least: 4.3.1
 Tested up to: 4.4.1
-Stable tag: 2.3.3
+Stable tag: 2.4.0
 
-It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an post page, fixed page and etc.
+Allows you to include schema.org JSON-LD syntax markup on your website
 
 == Description ==
 
-It is plug in to implement structured markup (JSON-LD syntax) by schema.org definition on an post page, fixed page and etc.
+Allows you to include schema.org JSON-LD syntax markup on your website
 Base knowledge is "https://schema.org/" and "https://developers.google.com/structured-data/"
 
 = Schema.org Type =
@@ -21,6 +21,7 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 * LocalBusiness : http://schema.org/LocalBusiness
 * NewsArticle: http://schema.org/NewsArticle
 * Organization: https://schema.org/Organization
+* Person: https://schema.org/Person
 * Website: https://schema.org/WebSite
 
 = Breadcrumb =
@@ -51,7 +52,13 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 == Changelog ==
 
-= 2.3.3 (2016-01-19)
+= 2.4.0 (2016-02-06) =
+
+* Added : Schema.org type "Person".
+* Updated : Schema.org type "LocalBusiness" OpenHours : shift time setting.
+* Check : WordPress version 4.4.2 operation check.
+
+= 2.3.3 (2016-01-19) =
 
 * Fixed : Improved wording on admin pages
 * Fixed : Added alternate methods to get image dimensions for systems running legacy SSL

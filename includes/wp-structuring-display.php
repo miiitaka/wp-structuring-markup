@@ -48,7 +48,7 @@ class Structuring_Markup_Display {
 	 * Setting JSON-LD Template
 	 *
 	 * @since   1.0.0
-	 * @version 2.3.0
+	 * @version 2.4.0
 	 * @param   Structuring_Markup_Admin_Db $db
 	 * @param   string $output
 	 */
@@ -90,6 +90,11 @@ class Structuring_Markup_Display {
 						case 'organization':
 							if ( isset( $row->options ) && $row->options ) {
 								$this->set_schema_organization( unserialize( $row->options ) );
+							}
+							break;
+						case 'person':
+							if ( isset( $row->options ) && $row->options ) {
+								$this->set_schema_person( unserialize( $row->options ) );
 							}
 							break;
 						case 'website':
@@ -365,20 +370,20 @@ class Structuring_Markup_Display {
 	 * Setting schema.org LocalBusiness
 	 *
 	 * @since   2.3.0
-	 * @version 2.3.0
+	 * @version 2.4.0
 	 * @param   array $options
 	 */
 	private function set_schema_local_business ( array $options ) {
 
 		/** weekType defined. */
 		$week_array = array(
-			array("type" => "mon", "display" => "Monday"),
-			array("type" => "tue", "display" => "Tuesday"),
-			array("type" => "wed", "display" => "Wednesday"),
-			array("type" => "thu", "display" => "Thursday"),
-			array("type" => "fri", "display" => "Friday"),
-			array("type" => "sat", "display" => "Saturday"),
-			array("type" => "sun", "display" => "Sunday")
+			array("type" => "Mo", "display" => "Monday"),
+			array("type" => "Tu", "display" => "Tuesday"),
+			array("type" => "We", "display" => "Wednesday"),
+			array("type" => "Th", "display" => "Thursday"),
+			array("type" => "Fr", "display" => "Friday"),
+			array("type" => "Sa", "display" => "Saturday"),
+			array("type" => "Su", "display" => "Sunday")
 		);
 
 		$args = array(
@@ -419,16 +424,27 @@ class Structuring_Markup_Display {
 			$args = array_merge( $args, $geo_array );
 		}
 
+		/* openingHours */
+		$active_days = array();
 		foreach ( $week_array as $value ) {
 			if ( isset( $options[$value['type']] ) && $options[$value['type']] === 'on' ) {
-				$opening_array["openingHoursSpecification"][] = array(
-					"@type"     => "OpeningHoursSpecification",
-					"dayOfWeek" => $value['display'],
-					"opens"     => isset( $options['name'] ) ? esc_html( $options[$value['type'] . '-open'] ) : "",
-					"closes"    => isset( $options['name'] ) ? esc_html( $options[$value['type'] . '-close'] ) : ""
-				);
-				$args = array_merge( $args, $opening_array );
+				$active_days[$value['type']] = $options['week'][$value['type']];
 			}
+		}
+
+		if( !empty( $active_days ) ) {
+
+			$obj = new Structuring_Markup_Opening_Hours( $active_days );
+			$opening_hours = $obj->display();
+
+			$opening_array["openingHours"] = array();
+
+			foreach( $opening_hours as $value ) {
+				$opening_array["openingHours"][] = $value;
+			}
+
+			$args = array_merge( $args, $opening_array );
+
 		}
 
 		$this->set_schema_json( $args );
@@ -515,6 +531,36 @@ class Structuring_Markup_Display {
 			);
 			$args = array_merge( $args, $contact_point );
 		}
+
+		/** Social Profiles */
+		if ( isset( $options['social'] ) ) {
+			$socials["sameAs"] = array();
+
+			foreach ( $options['social'] as $value ) {
+				if ( !empty( $value ) ) {
+					$socials["sameAs"][] = esc_html( $value );
+				}
+			}
+			$args = array_merge( $args, $socials );
+		}
+		$this->set_schema_json( $args );
+	}
+
+	/**
+	 * Setting schema.org Person
+	 *
+	 * @since    2.4.0
+	 * ＠version 2.4.0
+	 * @param array $options
+	 */
+	private function set_schema_person ( array $options ) {
+		/** Logos */
+		$args = array(
+			"@context" => "http://schema.org",
+			"@type"    => "Person",
+			"name"     => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
+			"url"      => isset( $options['url'] )  ? esc_url( $options['url'] )   : ""
+		);
 
 		/** Social Profiles */
 		if ( isset( $options['social'] ) ) {
