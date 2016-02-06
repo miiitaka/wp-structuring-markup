@@ -21,6 +21,7 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 * LocalBusiness : http://schema.org/LocalBusiness
 * NewsArticle: http://schema.org/NewsArticle
 * Organization: https://schema.org/Organization
+* Person: https://schema.org/Person
 * Website: https://schema.org/WebSite
 
 = Breadcrumb =
@@ -51,7 +52,13 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 == Changelog ==
 
-= 2.3.3 (2016-01-19)
+= 2.4.0 (2016-02-06) =
+
+* Added : Schema.org type "Person".
+* Updated : Schema.org type "LocalBusiness" OpenHours : shift time setting.
+* Check : WordPress version 4.4.2 operation check.
+
+= 2.3.3 (2016-01-19) =
 
 * Fixed : Improved wording on admin pages
 * Fixed : Added alternate methods to get image dimensions for systems running legacy SSL
