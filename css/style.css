@@ -42,7 +42,6 @@
   width: 150px;
 }
 .schema-admin-table td {
-  padding: 1px 0 0 0;
   vertical-align: middle;
 }
 .schema-admin-table td label {
@@ -53,4 +52,36 @@
 }
 .schema-admin-table input[type="checkbox"] {
   margin: 0 5px 0 0;
+}
+
+/** LocalBusiness */
+.markup-time {
+  color: #999;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  line-height: 20px;
+  font-size: 14px;
+  border: transparent solid 1px;
+  border-color: #BBB;
+  background-color: #fff;
+  border-radius: 100%;
+  margin-top: 5px;
+}
+
+.markup-time:hover {
+  color: #fff;
+  border-color: transparent;
+}
+
+.markup-time.plus:hover {
+  background-color: #00a0d2;
+}
+
+.markup-time.minus {
+  line-height: 18px;
+}
+
+.markup-time.minus:hover {
+  background-color: #F55E4F;
 }

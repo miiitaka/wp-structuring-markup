@@ -177,13 +177,13 @@ class Structuring_Markup_Type_LocalBusiness {
 
 	/** weekType defined. */
 	private $week_array = array(
-		array("type" => "mon", "display" => "Monday"),
-		array("type" => "tue", "display" => "Tuesday"),
-		array("type" => "wed", "display" => "Wednesday"),
-		array("type" => "thu", "display" => "Thursday"),
-		array("type" => "fri", "display" => "Friday"),
-		array("type" => "sat", "display" => "Saturday"),
-		array("type" => "sun", "display" => "Sunday")
+		array("type" => "Mo", "display" => "Monday"),
+		array("type" => "Tu", "display" => "Tuesday"),
+		array("type" => "We", "display" => "Wednesday"),
+		array("type" => "Th", "display" => "Thursday"),
+		array("type" => "Fr", "display" => "Friday"),
+		array("type" => "Sa", "display" => "Saturday"),
+		array("type" => "Su", "display" => "Sunday")
 	);
 
 	/**
@@ -204,6 +204,7 @@ class Structuring_Markup_Type_LocalBusiness {
 	 * Form Layout Render
 	 *
 	 * @since   2.3.3
+	 * @version 2.4.0
 	 * @param   array $option
 	 */
 	private function page_render ( array $option ) {
@@ -259,12 +260,30 @@ class Structuring_Markup_Type_LocalBusiness {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Opening Hours Specification ( recommended )</caption>';
 
+		$i = 0;
+
 		foreach ( $this->week_array as $value ) {
 			if ( !isset( $option[$value['type']] ) ) {
 				$option[$value['type']] = "";
 			}
+
 			$html .= $this->set_form_checkbox( $value['type'], $value['display'], $option[$value['type']], 'Enabled' );
-			$html .= $this->set_form_time( $value['type'], '', $option[$value['type'] . '-open'], $option[$value['type'] . '-close'], '' );
+
+			if ( isset( $option['week'][$value['type']] ) ) {
+				foreach ( $option['week'][$value['type']] as $type ) {
+					if ( !empty( $type['open'] ) ) {
+						$html .= $this->set_form_time( $value['type'], '', $type['open'], $type['close'], '', $i );
+						$i++;
+					} else {
+						$html .= $this->set_form_time( $value['type'], '', '', '', '', 0 );
+						break;
+					}
+				}
+			} else {
+				$html .= $this->set_form_time( $value['type'], '', '', '', '', 0 );
+			}
+
+			$i = 0;
 		}
 
 		$html .= '</table>';
@@ -278,6 +297,7 @@ class Structuring_Markup_Type_LocalBusiness {
 	 * Return the default options array
 	 *
 	 * @since   2.3.0
+	 * @version 2.4.0
 	 * @param   array $args
 	 * @return  array $args
 	 */
@@ -300,9 +320,9 @@ class Structuring_Markup_Type_LocalBusiness {
 		$args['opening_active']       = '';
 
 		foreach ( $this->week_array as $value ) {
-			$args[$value['type']]            = '';
-			$args[$value['type'] . '-open']  = '';
-			$args[$value['type'] . '-close'] = '';
+			$args[$value['type']]                  = '';
+			$args['week'][$value['type']]['open']  = '';
+			$args['week'][$value['type']]['close'] = '';
 		}
 
 		return (array) $args;
@@ -387,22 +407,28 @@ class Structuring_Markup_Type_LocalBusiness {
 	 * Return the form time
 	 *
 	 * @since   2.3.0
+	 * @version 2.4.0
 	 * @param   string  $id
 	 * @param   string  $display
 	 * @param   string  $value1
 	 * @param   string  $value2
 	 * @param   string  $note
+	 * @param   int     $count
 	 * @return  string  $html
 	 */
-	private function set_form_time ( $id, $display, $value1 = "", $value2 = "", $note = "" ) {
+	private function set_form_time ( $id, $display, $value1 = "", $value2 = "", $note = "", $count = 0 ) {
 		$value1 = esc_attr( $value1 );
 		$value2 = esc_attr( $value2 );
 
-		$format  = '<tr><th><label for=%s>%s :</label></th><td>';
-		$format .= 'Open Time : <input type="time" name="option[%s-open]" id="%s-open" value="%s">';
-		$format .= ' Close Time : <input type="time" name="option[%s-close]" id="%s-close" value="%s">';
-		$format .= '<small>%s</small></td></tr>';
+		$format  = '<tr class="opening-hours %s"><th><label for=%s>%s :</label></th><td>';
+		$format .= 'Open Time : <input type="time" name="option[week][%s][%d][open]" id="%s-open" value="%s">';
+		$format .= ' Close Time : <input type="time" name="option[week][%s][%d][close]" id="%s-close" value="%s">';
+		$format .= '<small>%s</small><a class="dashicons dashicons-plus markup-time plus"></a>';
+		if( $count !== 0 ) {
+			$format .= '<a class="dashicons dashicons-minus markup-time minus"></a>';
+		}
+		$format .= '</td></tr>';
 
-		return (string) sprintf( $format, $id, $display, $id, $id, $value1, $id, $id, $value2, $note );
+		return (string) sprintf( $format, $id, $id, $display, $id, $count, $id, $value1, $id, $count, $id, $value2, $note );
 	}
 }
