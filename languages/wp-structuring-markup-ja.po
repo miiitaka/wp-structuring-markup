@@ -1,14 +1,14 @@
-# Copyright (C) 2015 Markup (JSON-LD) structured in schema.org
+# Copyright (C) 2016 Markup (JSON-LD) structured in schema.org
 # This file is distributed under the same license as the Markup (JSON-LD) structured in schema.org package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Markup (JSON-LD) structured in schema.org 2.1.0\n"
+"Project-Id-Version: Markup (JSON-LD) structured in schema.org 2.4.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-structuring-markup\n"
-"POT-Creation-Date: 2015-12-03 08:59:46+00:00\n"
+"POT-Creation-Date: 2016-03-01 08:58:28+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Kazuya Takami <foundationmeister@outlook.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
@@ -21,19 +21,19 @@ msgid "Status"
 msgstr "Status"
 
 #: includes/wp-structuring-admin-list.php:51
-msgid "Schema Type"
-msgstr "Schema タイプ"
+msgid "Schema.org Type"
+msgstr "Schema.org タイプ"
 
 #: includes/wp-structuring-admin-list.php:52
-#: includes/wp-structuring-admin-post.php:112
-msgid "Output Page"
+#: includes/wp-structuring-admin-post.php:115
+msgid "Output On"
 msgstr "出力ページ"
 
 #: includes/wp-structuring-admin-list.php:53
 msgid "ShortCode"
 msgstr "ショートコード"
 
-#: includes/wp-structuring-admin-list.php:81 wp-structuring-markup.php:134
+#: includes/wp-structuring-admin-list.php:81 wp-structuring-markup.php:155
 msgid "Edit"
 msgstr "編集"
 
@@ -41,36 +41,44 @@ msgstr "編集"
 msgid "Without registration."
 msgstr "登録されていません。"
 
-#: includes/wp-structuring-admin-post.php:87
+#: includes/wp-structuring-admin-post.php:90
 msgid "Schema.org Register"
 msgstr "Schema.org 登録"
 
-#: includes/wp-structuring-admin-post.php:117
-#: includes/wp-structuring-admin-post.php:125
-#: includes/wp-structuring-admin-post.php:149
-#: includes/wp-structuring-admin-post.php:159
-#: includes/wp-structuring-admin-post.php:170
-msgid "Post Page"
+#: includes/wp-structuring-admin-post.php:120
+#: includes/wp-structuring-admin-post.php:128
+#: includes/wp-structuring-admin-post.php:154
+#: includes/wp-structuring-admin-post.php:163
+#: includes/wp-structuring-admin-post.php:173
+#: includes/wp-structuring-admin-post.php:184
+#: includes/wp-structuring-admin-post.php:195
+msgid "Posts"
 msgstr "投稿ページ"
 
-#: includes/wp-structuring-admin-post.php:133
-#: includes/wp-structuring-admin-post.php:157
-#: includes/wp-structuring-admin-post.php:168
-msgid "All Page"
-msgstr "全てのページ"
+#: includes/wp-structuring-admin-post.php:136
+#: includes/wp-structuring-admin-post.php:152
+#: includes/wp-structuring-admin-post.php:171
+#: includes/wp-structuring-admin-post.php:182
+#: includes/wp-structuring-admin-post.php:193
+msgid "All Pages (In Header)"
+msgstr "全てのページ（ヘッダー）"
 
-#: includes/wp-structuring-admin-post.php:141
+#: includes/wp-structuring-admin-post.php:144
 msgid "Event Post Page"
 msgstr "イベント投稿ページ"
 
-#: includes/wp-structuring-admin-post.php:158
-#: includes/wp-structuring-admin-post.php:169
-msgid "Top Page"
-msgstr "トップページ"
+#: includes/wp-structuring-admin-post.php:153
+#: includes/wp-structuring-admin-post.php:172
+#: includes/wp-structuring-admin-post.php:183
+#: includes/wp-structuring-admin-post.php:194
+msgid "Homepage"
+msgstr "ホームページ"
 
-#: includes/wp-structuring-admin-post.php:160
-#: includes/wp-structuring-admin-post.php:171
-msgid "Fixed Page"
+#: includes/wp-structuring-admin-post.php:155
+#: includes/wp-structuring-admin-post.php:174
+#: includes/wp-structuring-admin-post.php:185
+#: includes/wp-structuring-admin-post.php:196
+msgid "Pages"
 msgstr "固定ページ"
 
 #: includes/wp-structuring-custom-post-event.php:34
@@ -78,52 +86,51 @@ msgstr "固定ページ"
 msgid "Event Posts"
 msgstr "イベント投稿"
 
-#: includes/wp-structuring-custom-post-event.php:68
+#: includes/wp-structuring-custom-post-event.php:73
 msgid "Schema.org Type Event"
 msgstr "Schema.org Type Event"
 
-#: includes/wp-structuring-custom-post-event.php:90
-#: includes/wp-structuring-display.php:224
+#: includes/wp-structuring-custom-post-event.php:95
 msgid "USD"
 msgstr "JPY"
 
-#: includes/wp-structuring-custom-post-event.php:95
+#: includes/wp-structuring-custom-post-event.php:100
 msgid "Event Name"
 msgstr "イベント名"
 
-#: includes/wp-structuring-custom-post-event.php:100
+#: includes/wp-structuring-custom-post-event.php:105
 msgid "Start Date"
 msgstr "開始日"
 
-#: includes/wp-structuring-custom-post-event.php:106
+#: includes/wp-structuring-custom-post-event.php:111
 msgid "Event URL"
 msgstr "イベントURL"
 
-#: includes/wp-structuring-custom-post-event.php:111
+#: includes/wp-structuring-custom-post-event.php:116
 msgid "Place Name"
 msgstr "場所名"
 
-#: includes/wp-structuring-custom-post-event.php:116
+#: includes/wp-structuring-custom-post-event.php:121
 msgid "Place URL"
 msgstr "会場URL"
 
-#: includes/wp-structuring-custom-post-event.php:121
+#: includes/wp-structuring-custom-post-event.php:126
 msgid "Place Address"
 msgstr "会場住所"
 
-#: includes/wp-structuring-custom-post-event.php:126
-msgid "Price"
-msgstr "参加料"
-
 #: includes/wp-structuring-custom-post-event.php:131
+msgid "Price"
+msgstr "参加費"
+
+#: includes/wp-structuring-custom-post-event.php:136
 msgid "Currency"
 msgstr "通貨"
 
-#: wp-structuring-markup.php:125 wp-structuring-markup.php:126
+#: wp-structuring-markup.php:146 wp-structuring-markup.php:147
 msgid "Schema.org Settings"
 msgstr "Schema.org 設定"
 
-#: wp-structuring-markup.php:133
+#: wp-structuring-markup.php:154
 msgid "Schema.org Setting Edit"
 msgstr "Schema.org 設定編集"
 
@@ -136,10 +143,8 @@ msgid "https://wordpress.org/plugins/wp-structuring-markup/"
 msgstr "https://wordpress.org/plugins/wp-structuring-markup/"
 
 #. Description of the plugin/theme
-msgid ""
-"It is plug in to implement structured markup (JSON-LD syntax) by schema.org "
-"definition on an article or the fixed page."
-msgstr "このプラグインは、投稿ページ、固定ページなどにschema.org定義の構造化マークアップ（ JSON -LDの構文）を実装するプラグインです。"
+msgid "Allows you to include Schema.org JSON-LD syntax markup on your website"
+msgstr "ウェブサイト上でSchema.orgをJSON-LD構文で簡単に導入することができます"
 
 #. Author of the plugin/theme
 msgid "Kazuya Takami"
