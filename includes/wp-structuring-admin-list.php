@@ -33,7 +33,7 @@ class Structuring_Markup_Admin_List {
 	 * LIST Page HTML Render.
 	 *
 	 * @since   1.0.0
-	 * @version 2.3.3
+	 * @version 2.4.1
 	 */
 	private function page_render () {
 		$post_url = 'admin.php?page=' . $this->text_domain . '-post';
@@ -47,10 +47,10 @@ class Structuring_Markup_Admin_List {
 		$html  = '<hr>';
 		$html .= '<table class="wp-list-table widefat fixed striped posts schema-admin-table-list">';
 		$html .= '<tr>';
-		$html .= '<th scope="row">' . esc_html__( 'Status',        $this->text_domain ) . '</th>';
-		$html .= '<th scope="row">' . esc_html__( 'Schema Type',   $this->text_domain ) . '</th>';
-		$html .= '<th scope="row">' . esc_html__( 'Output Page',   $this->text_domain ) . '</th>';
-		$html .= '<th scope="row">' . esc_html__( 'ShortCode',     $this->text_domain ) . '</th>';
+		$html .= '<th scope="row">' . esc_html__( 'Status',          $this->text_domain ) . '</th>';
+		$html .= '<th scope="row">' . esc_html__( 'Schema.org Type', $this->text_domain ) . '</th>';
+		$html .= '<th scope="row">' . esc_html__( 'Output On',       $this->text_domain ) . '</th>';
+		$html .= '<th scope="row">' . esc_html__( 'ShortCode',       $this->text_domain ) . '</th>';
 		$html .= '<th scope="row">&nbsp;</th>';
 		$html .= '</tr>';
 		echo $html;

@@ -52,6 +52,10 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 == Changelog ==
 
+= 2.4.1 (2016-03-01) =
+
+* Updated : Translation.
+
 = 2.4.0 (2016-02-06) =
 
 * Added : Schema.org type "Person".
