@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 2.4.0
+ * @version 2.4.1
  */
 class Structuring_Markup_Admin_Post {
 
@@ -80,7 +80,7 @@ class Structuring_Markup_Admin_Post {
 	 * Setting Page of the Admin Screen.
 	 *
 	 * @since   1.0.0
-	 * @version 2.4.0
+	 * @version 2.4.1
 	 * @param   array  $options
 	 * @param   string $status
 	 */
@@ -112,12 +112,12 @@ class Structuring_Markup_Admin_Post {
 		$html .= '<input type="checkbox" name="activate" value="on"';
 		$html .= ( isset( $options['activate'] ) && $options['activate'] === "on" ) ? ' checked' : '';
 		$html .= '></td></tr>';
-		$html .= '<tr><th>' . esc_html__( 'Output Page', $this->text_domain ) . ' : </th><td>';
+		$html .= '<tr><th>' . esc_html__( 'Output On', $this->text_domain ) . ' : </th><td>';
 		echo $html;
 
 		switch ( $options['type'] ) {
 			case 'article':
-				$html  = $this->output_checkbox_render( $options['output'], "post", "Post", esc_html__( 'Post Page', $this->text_domain ) );
+				$html  = $this->output_checkbox_render( $options['output'], "post", "Post", esc_html__( 'Posts', $this->text_domain ) );
 				$html .= '</td></tr></table><hr>';
 				echo $html;
 
@@ -125,7 +125,7 @@ class Structuring_Markup_Admin_Post {
 				new Structuring_Markup_Type_Article( $options['option'] );
 				break;
 			case 'blog_posting':
-				$html  = $this->output_checkbox_render( $options['output'], "post", "Post", esc_html__( 'Post Page', $this->text_domain ) );
+				$html  = $this->output_checkbox_render( $options['output'], "post", "Post", esc_html__( 'Posts', $this->text_domain ) );
 				$html .= '</td></tr></table><hr>';
 				echo $html;
 
@@ -133,7 +133,7 @@ class Structuring_Markup_Admin_Post {
 				new Structuring_Markup_Type_Blog_Posting( $options['option'] );
 				break;
 			case 'breadcrumb':
-				$html  = $this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Page',   $this->text_domain ) );
+				$html  = $this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Pages (In Header)', $this->text_domain ) );
 				$html .= '</td></tr></table><hr>';
 				echo $html;
 
@@ -141,7 +141,7 @@ class Structuring_Markup_Admin_Post {
 				new Structuring_Markup_Type_Breadcrumb( $options['option'] );
 				break;
 			case 'event':
-				$html  = $this->output_checkbox_render( $options['output'], "event",  "Event Post",   esc_html__( 'Event Post Page',   $this->text_domain ) );
+				$html  = $this->output_checkbox_render( $options['output'], "event",  "Event Post",   esc_html__( 'Event Post Page', $this->text_domain ) );
 				$html .= '</td></tr></table><hr>';
 				echo $html;
 
@@ -149,10 +149,10 @@ class Structuring_Markup_Admin_Post {
 				new Structuring_Markup_Type_Event();
 				break;
 			case 'local_business':
-				$html  = $this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Page',   $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "home", "Top",   esc_html__( 'Top Page',   $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "post", "Post",  esc_html__( 'Post Page',  $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "page", "Fixed", esc_html__( 'Fixed Page', $this->text_domain ) );
+				$html  = $this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Pages (In Header)', $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "home", "Top",   esc_html__( 'Homepage',              $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "post", "Post",  esc_html__( 'Posts',                 $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "page", "Fixed", esc_html__( 'Pages',                 $this->text_domain ) );
 				$html .= '</td></tr></table><hr>';
 				echo $html;
 
@@ -160,7 +160,7 @@ class Structuring_Markup_Admin_Post {
 				new Structuring_Markup_Type_LocalBusiness( $options['option'] );
 				break;
 			case 'news_article':
-				$html  = $this->output_checkbox_render( $options['output'], "post", "Post", esc_html__( 'Post Page', $this->text_domain ) );
+				$html  = $this->output_checkbox_render( $options['output'], "post", "Post", esc_html__( 'Posts', $this->text_domain ) );
 				$html .= '</td></tr></table><hr>';
 				echo $html;
 
@@ -168,10 +168,10 @@ class Structuring_Markup_Admin_Post {
 				new Structuring_Markup_Type_NewsArticle( $options['option'] );
 				break;
 			case 'organization':
-				$html  = $this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Page',   $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "home", "Top",   esc_html__( 'Top Page',   $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "post", "Post",  esc_html__( 'Post Page',  $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "page", "Fixed", esc_html__( 'Fixed Page', $this->text_domain ) );
+				$html  = $this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Pages (In Header)', $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "home", "Top",   esc_html__( 'Homepage',              $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "post", "Post",  esc_html__( 'Posts',                 $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "page", "Fixed", esc_html__( 'Pages',                 $this->text_domain ) );
 				$html .= '</td></tr></table><hr>';
 				echo $html;
 
@@ -179,10 +179,10 @@ class Structuring_Markup_Admin_Post {
 				new Structuring_Markup_Type_Organization( $options['option'] );
 				break;
 			case 'person':
-				$html  = $this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Page',   $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "home", "Top",   esc_html__( 'Top Page',   $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "post", "Post",  esc_html__( 'Post Page',  $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "page", "Fixed", esc_html__( 'Fixed Page', $this->text_domain ) );
+				$html  = $this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Pages (In Header)', $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "home", "Top",   esc_html__( 'Homepage',              $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "post", "Post",  esc_html__( 'Posts',                 $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "page", "Fixed", esc_html__( 'Pages',                 $this->text_domain ) );
 				$html .= '</td></tr></table><hr>';
 				echo $html;
 
@@ -190,10 +190,10 @@ class Structuring_Markup_Admin_Post {
 				new Structuring_Markup_Type_Person( $options['option'] );
 				break;
 			case 'website':
-				$html  = $this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Page',   $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "home", "Top",   esc_html__( 'Top Page',   $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "post", "Post",  esc_html__( 'Post Page',  $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "page", "Fixed", esc_html__( 'Fixed Page', $this->text_domain ) );
+				$html  = $this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Pages (In Header)', $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "home", "Top",   esc_html__( 'Homepage',              $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "post", "Post",  esc_html__( 'Posts',                 $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "page", "Fixed", esc_html__( 'Pages',                 $this->text_domain ) );
 				$html .= '</td></tr></table><hr>';
 				echo $html;
 
