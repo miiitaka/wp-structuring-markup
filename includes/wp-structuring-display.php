@@ -136,16 +136,12 @@ class Structuring_Markup_Display {
 	 * Return image dimensions
 	 *
 	 * @since   2.3.3
-	 * @version 2.3.3
+	 * @version 2.4.2
 	 * @author  Justin Frydman
 	 * @param   string $url
 	 * @return  array  $dimensions
 	 */
 	 private function get_image_dimensions ( $url ) {
-	 	if( $image = wp_get_attachment_image_src( attachment_url_to_postid( $url ), 'full' ) ) {
-	 		return array( $image[1], $image[2] );
-	 	}
-
 	 	if( function_exists( 'curl_version' ) ) {
 	 		$headers = array( 'Range: bytes=0-32768' );
 
@@ -174,6 +170,11 @@ class Structuring_Markup_Display {
 	 	if( $image = @getimagesize( str_replace( 'https://', 'http://', $url ) ) ) {
 	 		return array( $image[0], $image[1] );
 	 	}
+	 	
+	 	// this hits the database and be very slow if the user is using a URL that doesn't exist in the WP Library
+	 	if( $image = wp_get_attachment_image_src( attachment_url_to_postid( $url ), 'full' ) ) {
+	 		return array( $image[1], $image[2] );
+	 	}	 	
 
 	 	return false;
 	}
