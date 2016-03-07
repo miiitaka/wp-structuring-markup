@@ -43,6 +43,10 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 2.4.2 (2016-03-07)
+
+- Fixed : Updated image size detection to use curl first
+
 ### 2.4.1 (2016-03-01)
 
 - Updated : Translation.
