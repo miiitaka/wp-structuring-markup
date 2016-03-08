@@ -9,28 +9,12 @@
 class Structuring_Markup_Cache {
 	
 	/**
-	 * The key name
+	 * The key to be stored
 	 *
 	 * @since   2.4.2
 	 * @version 2.4.2
 	 */
 	private $key; 
-	
-	/**
-	 * The time to live in the cache
-	 *
-	 * @since   2.4.2
-	 * @version 2.4.2
-	 */
-	private $ttl; 
-	
-	/**
-	 * The cache value
-	 *
-	 * @since   2.4.2
-	 * @version 2.4.2
-	 */
-	private $value; 
 	
 	/**
 	 * The prefix for a stored transient
@@ -47,17 +31,11 @@ class Structuring_Markup_Cache {
 	 * @since   2.4.2
 	 * @version 2.4.2
 	 * @param   string $key Unique key for this transient
-	 * @param   string $ttl The time to live in seconds to live in the cache. 0 will never expire
-	 * @param    string $value The value to store in the cache, can use Wordpress Easier Expression of Time Constants
 	 */
-	public function __construct ( $key, $ttl, $value ) {
+	public function __construct ( $key ) {
 		assert( !empty( $key ) );
-		assert( is_numeric( $ttl ) );
-		assert( !empty( $value ) );
 		
 		$this->key 	= (string) $key;
-		$this->ttl 	= (string) $ttl;
-		$this->value 	= (string) $value;
 	}
 
 	/**
@@ -65,10 +43,16 @@ class Structuring_Markup_Cache {
 	 *
 	 * @since   2.4.2
 	 * @version 2.4.2
+	 * @see https://codex.wordpress.org/Easier_Expression_of_Time_Constants
+	 * @param string $value - The value to be stored in the cache
+	 * @param string $ttl - The time to live in the cache. Wordpress Time Constants can be used
 	 * @return bool - If the transient was set properly
 	 */	
-	public function set() {
-		return set_transient( $this->prepared_key(), $this->value, $this->ttl );
+	public function set( $value, $ttl ) {
+		assert( !empty( $value ) );
+		assert( !empty( $ttl ) );
+		
+		return set_transient( $this->prepared_key(), $value, $ttl );
 	}
 	
 	/**
