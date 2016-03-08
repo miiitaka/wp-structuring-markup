@@ -85,6 +85,6 @@ class Structuring_Markup_Cache {
 	 * @return string $prepared_key - The prefixed and MD5'd key
 	 */	
 	private function prepared_key() {
-		return $prefix . md5( $this->key );
+		return $this->prefix . md5( $this->key );
 	}
 }
