@@ -27,10 +27,10 @@ class Structuring_Markup {
 	 * Variable definition.
 	 *
 	 * @since   1.3.0
-	 * @version 2.4.0
+	 * @version 2.4.2
 	 */
 	private $text_domain = 'wp-structuring-markup';
-	private $version     = '2.4.0';
+	private $version     = '2.4.2';
 
 	/**
 	 * Constructor Define.

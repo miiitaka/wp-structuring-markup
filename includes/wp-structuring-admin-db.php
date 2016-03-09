@@ -108,8 +108,8 @@ class Structuring_Markup_Admin_Db {
 								'update_date'   => date( "Y-m-d H:i:s" )
 							);
 
-							// LocalBusiness Convert data
-							if ( $key === 'local_business' && $activate === 'on' ) {
+							// LocalBusiness Convert data(In the case of version 2.3.x)
+							if ( $key === 'local_business' && $activate === 'on' && strpos( $options['version'], '2.3.' ) !== false ) {
 								$args['options'] = $this->convert_local_business( $list->options );
 							}
 						}
