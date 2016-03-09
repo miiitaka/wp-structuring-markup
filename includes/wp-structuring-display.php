@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @author  Justin Frydman
- * @version 2.3.3
+ * @version 2.4.2
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -136,16 +136,19 @@ class Structuring_Markup_Display {
 	 * Return image dimensions
 	 *
 	 * @since   2.3.3
-	 * @version 2.3.3
+	 * @version 2.4.2
 	 * @author  Justin Frydman
 	 * @param   string $url
 	 * @return  array  $dimensions
 	 */
 	 private function get_image_dimensions ( $url ) {
-	 	if( $image = wp_get_attachment_image_src( attachment_url_to_postid( $url ), 'full' ) ) {
-	 		return array( $image[1], $image[2] );
-	 	}
-
+		$cache = new Structuring_Markup_Cache( $url );
+		
+		// check for cached dimensions
+		if( $cache->get() !== false ) {
+			return $cache->get();
+		}
+		
 	 	if( function_exists( 'curl_version' ) ) {
 	 		$headers = array( 'Range: bytes=0-32768' );
 
@@ -162,19 +165,44 @@ class Structuring_Markup_Display {
 	 		if( $image ) {
 	 			$width  = imagesx( $image );
 	 			$height = imagesy( $image );
-
-	 			return array( $width, $height );
+				
+	 			$dimensions = array( $width, $height );
+	 			
+	 			// cache for an hour
+	 			$cache->set( $dimensions, HOUR_IN_SECONDS );
+	 			
+	 			return $dimensions;
 	 		}
 	 	}
 
 	 	if( $image = @getimagesize( $url ) ) {
-	 		return array( $image[0], $image[1] );
+	 		$dimensions = array( $image[0], $image[1] );
+	 		
+ 			// cache for an hour
+ 			$cache->set( $dimensions, HOUR_IN_SECONDS );
+ 			
+ 			return $dimensions;
 	 	}
 
 	 	if( $image = @getimagesize( str_replace( 'https://', 'http://', $url ) ) ) {
-	 		return array( $image[0], $image[1] );
+	 		$dimensions = array( $image[0], $image[1] );
+	 		
+ 			// cache for an hour
+ 			$cache->set( $dimensions, HOUR_IN_SECONDS );
+ 			
+ 			return $dimensions;	 		
 	 	}
-
+	 	
+	 	// this hits the database and be very slow if the user is using a URL that doesn't exist in the WP Library
+	 	if( $image = wp_get_attachment_image_src( attachment_url_to_postid( $url ), 'full' ) ) {
+	 		$dimensions = array( $image[1], $image[2] );
+	 		
+ 			// cache for an hour
+ 			$cache->set( $dimensions, HOUR_IN_SECONDS );
+ 			
+ 			return $dimensions;	 		
+	 	}	 	
+	 	
 	 	return false;
 	}
 
