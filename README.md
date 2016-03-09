@@ -43,14 +43,15 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
-### 2.4.2 (2016-03-07)
+### 2.4.2 (2016-03-09)
 
 - Fixed : Updated image size detection to use curl first, as attachment_url_to_postid() hits the database
 - Updated : Added a transient cache class to cache taxing operations
+- Updated : Turkish translation.
 
 ### 2.4.1 (2016-03-01)
 
-- Updated : Translation.
+- Updated : Japanese translation.
 
 ### 2.4.0 (2016-02-06)
 
