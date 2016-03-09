@@ -35,7 +35,7 @@ class Structuring_Markup_Cache {
 	public function __construct ( $key ) {
 		assert( !empty( $key ) );
 		
-		$this->key 	= (string) $key;
+		$this->key = (string) $key;
 	}
 
 	/**
@@ -43,10 +43,10 @@ class Structuring_Markup_Cache {
 	 *
 	 * @since   2.4.2
 	 * @version 2.4.2
-	 * @see https://codex.wordpress.org/Easier_Expression_of_Time_Constants
-	 * @param string $value - The value to be stored in the cache
-	 * @param string $ttl - The time to live in the cache. Wordpress Time Constants can be used
-	 * @return bool - If the transient was set properly
+	 * @see     https://codex.wordpress.org/Easier_Expression_of_Time_Constants
+	 * @param   string $value - The value to be stored in the cache
+	 * @param   string $ttl - The time to live in the cache. Wordpress Time Constants can be used
+	 * @return  bool - If the transient was set properly
 	 */	
 	public function set( $value, $ttl ) {
 		assert( !empty( $value ) );
@@ -60,7 +60,7 @@ class Structuring_Markup_Cache {
 	 *
 	 * @since   2.4.2
 	 * @version 2.4.2
-	 * @return string $transient_value - The value from the cache
+	 * @return  string $transient_value - The value from the cache
 	 */	
 	public function get() {
 		return get_transient( $this->prepared_key() );
@@ -71,7 +71,7 @@ class Structuring_Markup_Cache {
 	 *
 	 * @since   2.4.2
 	 * @version 2.4.2
-	 * @return bool - If the transient was properly deleted
+	 * @return  bool - If the transient was properly deleted
 	 */	
 	public function delete () {
 		return delete_transient( $this->prepared_key() );
@@ -80,9 +80,10 @@ class Structuring_Markup_Cache {
 	/**
 	 * Prepare a transient for storage or retrieval 
 	 * There is a 40 character transient limit
+	 *
 	 * @since   2.4.2
 	 * @version 2.4.2
-	 * @return string $prepared_key - The prefixed and MD5'd key
+	 * @return  string $prepared_key - The prefixed and MD5'd key
 	 */	
 	private function prepared_key() {
 		return $this->prefix . md5( $this->key );
