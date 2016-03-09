@@ -1,0 +1,163 @@
+# Copyright (C) 2016 Markup (JSON-LD) structured in schema.org
+# This file is distributed under the same license as the Markup (JSON-LD) structured in schema.org package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Markup (JSON-LD) structured in schema.org 2.4.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-structuring-"
+"markup\n"
+"POT-Creation-Date: 2016-03-01 08:58:28+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-03-08 03:21+0200\n"
+"Last-Translator: Keremcan Buyuktaskin <keremcan@gmail.com>\n"
+"Language-Team: Keremcan Buyuktaskin <keremcan@gmail.com>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: tr_TR\n"
+"X-Generator: Poedit 1.6.6\n"
+"X-Poedit-Basepath: D:\\Google Drive\\Sites\\Tayland Gezi\\wp-content\\plugins"
+"\\wp-structuring-markup\n"
+
+#: includes/wp-structuring-admin-list.php:43
+msgid "Schema.org Settings List"
+msgstr "Schema.org Ayarları Listesi"
+
+#: includes/wp-structuring-admin-list.php:50
+msgid "Status"
+msgstr "Durum"
+
+#: includes/wp-structuring-admin-list.php:51
+msgid "Schema Type"
+msgstr "Şema Tipi"
+
+#: includes/wp-structuring-admin-list.php:52
+#: includes/wp-structuring-admin-post.php:115
+msgid "Output On"
+msgstr "Devredeki Çıktı"
+
+#: includes/wp-structuring-admin-list.php:53
+msgid "ShortCode"
+msgstr "Kısa Kod"
+
+#: includes/wp-structuring-admin-list.php:81 wp-structuring-markup.php:155
+msgid "Edit"
+msgstr "Düzenle"
+
+#: includes/wp-structuring-admin-list.php:87
+msgid "Without registration."
+msgstr "Kayıt olmadan."
+
+#: includes/wp-structuring-admin-post.php:90
+msgid "Schema.org Register"
+msgstr "Schema.org Kayıt"
+
+#: includes/wp-structuring-admin-post.php:120
+#: includes/wp-structuring-admin-post.php:128
+#: includes/wp-structuring-admin-post.php:154
+#: includes/wp-structuring-admin-post.php:163
+#: includes/wp-structuring-admin-post.php:173
+#: includes/wp-structuring-admin-post.php:184
+#: includes/wp-structuring-admin-post.php:195
+msgid "Posts"
+msgstr "Yazılar"
+
+#: includes/wp-structuring-admin-post.php:136
+#: includes/wp-structuring-admin-post.php:152
+#: includes/wp-structuring-admin-post.php:171
+#: includes/wp-structuring-admin-post.php:182
+#: includes/wp-structuring-admin-post.php:193
+msgid "All Pages (In Header)"
+msgstr "Tüm Sayfalar (Üst Kısımda)"
+
+#: includes/wp-structuring-admin-post.php:144
+msgid "Event Post Page"
+msgstr "Etkinlik Yazı Sayfası"
+
+#: includes/wp-structuring-admin-post.php:153
+#: includes/wp-structuring-admin-post.php:172
+#: includes/wp-structuring-admin-post.php:183
+#: includes/wp-structuring-admin-post.php:194
+msgid "Homepage"
+msgstr "Ana Sayfa"
+
+#: includes/wp-structuring-admin-post.php:155
+#: includes/wp-structuring-admin-post.php:174
+#: includes/wp-structuring-admin-post.php:185
+#: includes/wp-structuring-admin-post.php:196
+msgid "Pages"
+msgstr "Sayfalar"
+
+#: includes/wp-structuring-custom-post-event.php:34
+#: includes/wp-structuring-custom-post-event.php:35
+msgid "Event Posts"
+msgstr "Etkinlik Yazıları"
+
+#: includes/wp-structuring-custom-post-event.php:73
+msgid "Schema.org Type Event"
+msgstr "Schema.org Tip Etkinliği"
+
+#: includes/wp-structuring-custom-post-event.php:95
+msgid "USD"
+msgstr "USD"
+
+#: includes/wp-structuring-custom-post-event.php:100
+msgid "Event Name"
+msgstr "Etkinlik Adı"
+
+#: includes/wp-structuring-custom-post-event.php:105
+msgid "Start Date"
+msgstr "Başlangıç Tarihi"
+
+#: includes/wp-structuring-custom-post-event.php:111
+msgid "Event URL"
+msgstr "Etkinlik URL'si"
+
+#: includes/wp-structuring-custom-post-event.php:116
+msgid "Place Name"
+msgstr "Yer Adı"
+
+#: includes/wp-structuring-custom-post-event.php:121
+msgid "Place URL"
+msgstr "Yer URL'si"
+
+#: includes/wp-structuring-custom-post-event.php:126
+msgid "Place Address"
+msgstr "Yer Adresi"
+
+#: includes/wp-structuring-custom-post-event.php:131
+msgid "Price"
+msgstr "Fiyat"
+
+#: includes/wp-structuring-custom-post-event.php:136
+msgid "Currency"
+msgstr "Para Birimi"
+
+#: wp-structuring-markup.php:146 wp-structuring-markup.php:147
+msgid "Schema.org Settings"
+msgstr "Schema.org Ayarları"
+
+#: wp-structuring-markup.php:154
+msgid "Schema.org Setting Edit"
+msgstr "Schema.org Ayarları Düzenle"
+
+#. Plugin Name of the plugin/theme
+msgid "Markup (JSON-LD) structured in schema.org"
+msgstr "Markup (JSON-LD) structured in schema.org"
+
+#. Plugin URI of the plugin/theme
+msgid "https://wordpress.org/plugins/wp-structuring-markup/"
+msgstr "https://wordpress.org/plugins/wp-structuring-markup/"
+
+#. Description of the plugin/theme
+msgid "Allows you to include schema.org JSON-LD syntax markup on your website"
+msgstr ""
+"Web sitenizde schema.org JSON-LD sözdizimi biçimlendirmesini dahil etmenize "
+"izin verir"
+
+#. Author of the plugin/theme
+msgid "Kazuya Takami"
+msgstr "Kazuya Takami"
+
+#. Author URI of the plugin/theme
+msgid "http://programp.com/"
+msgstr "http://programp.com/"
