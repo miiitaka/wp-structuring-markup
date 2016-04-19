@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 2.4.0
+ * @version 2.5.0
  */
 class Structuring_Markup_Admin_Db {
 
