@@ -23,11 +23,12 @@ class Structuring_Markup_Display {
 	 * Setting schema.org
 	 *
 	 * @since   1.0.0
-	 * @version 2.1.0
+	 * @version 2.5.0
 	 * @param   Structuring_Markup_Admin_Db $db
 	 */
 	private function set_schema ( Structuring_Markup_Admin_Db $db ) {
 		echo '<!-- Markup (JSON-LD) structured in schema.org START -->' . PHP_EOL;
+		
 		$this->get_schema_data( $db, 'all' );
 		if ( is_home() ) {
 			$this->get_schema_data( $db, 'home' );
@@ -40,6 +41,16 @@ class Structuring_Markup_Display {
 		}
 		if ( is_page() ) {
 			$this->get_schema_data( $db, 'page' );
+		}
+		$args = array(
+			'public'   => true,
+			'_builtin' => false
+		);
+		$post_types = get_post_types( $args, 'objects' );
+		foreach ( $post_types as $post_type ) {
+			if ( is_singular( $post_type->name ) ) {
+				$this->get_schema_data( $db, $post_type->name );
+			}
 		}
 		echo '<!-- Markup (JSON-LD) structured in schema.org END -->' . PHP_EOL;
 	}
