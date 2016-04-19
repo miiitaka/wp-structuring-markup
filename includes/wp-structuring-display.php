@@ -486,6 +486,17 @@ class Structuring_Markup_Display {
 
 		}
 
+		if ( isset( $options['holiday_active'] ) && $options['holiday_active'] === 'on' ) {
+			$holiday_array["openingHoursSpecification"] = array(
+				"@type"        => "OpeningHoursSpecification",
+				"opens"        => isset( $options['holiday_open'] ) ? esc_html( $options['holiday_open'] ) : "",
+				"closes"       => isset( $options['holiday_close'] ) ? esc_html( $options['holiday_close'] ) : "",
+				"validFrom"    => isset( $options['holiday_valid_from'] ) ? esc_html( $options['holiday_valid_from'] ) : "",
+				"validThrough" => isset( $options['holiday_valid_through'] ) ? esc_html( $options['holiday_valid_through'] ) : ""
+			);
+			$args = array_merge( $args, $holiday_array );
+		}
+
 		$this->set_schema_json( $args );
 	}
 

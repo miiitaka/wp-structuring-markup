@@ -54,8 +54,9 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 = 2.5.0 (2016-04-19) =
 
-* Added : You can select a custom posts at the output page.
-* Added : Add the output on "Pages" in the "Article","BlogPosting" and "NewsArticle" Schema.org type.
+* Updated : You can select a custom posts at the output page.
+* Updated : Add the output on "Pages" in the "Article","BlogPosting" and "NewsArticle" Schema.org type.
+* Updated : It added the Holiday Opening Hour of items to Schema.org Type "LocalBusiness".
 * Checked : WordPress version 4.5.0 operation check.
 
 = 2.4.2 (2016-03-09) =

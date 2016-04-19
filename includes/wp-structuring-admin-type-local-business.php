@@ -4,6 +4,7 @@
  *
  * @author  Kazuya Takami
  * @since   2.3.3
+ * @version 2.5.0
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/LocalBusiness
  * @link    https://developers.google.com/structured-data/local-businesses/
@@ -204,7 +205,7 @@ class Structuring_Markup_Type_LocalBusiness {
 	 * Form Layout Render
 	 *
 	 * @since   2.3.3
-	 * @version 2.4.0
+	 * @version 2.5.0
 	 * @param   array $option
 	 */
 	private function page_render ( array $option ) {
@@ -289,6 +290,32 @@ class Structuring_Markup_Type_LocalBusiness {
 		$html .= '</table>';
 		echo $html;
 
+		/** Holiday Opening Hours */
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>Holiday Opening Hours ( recommended )</caption>';
+		if ( !isset( $option['holiday_active'] ) ) {
+			$option['holiday_active'] = "";
+		}
+		if ( !isset( $option['holiday_open'] ) ) {
+			$option['holiday_open'] = "";
+		}
+		if ( !isset( $option['holiday_close'] ) ) {
+			$option['holiday_close'] = "";
+		}
+		if ( !isset( $option['holiday_valid_from'] ) ) {
+			$option['holiday_valid_from'] = "";
+		}
+		if ( !isset( $option['holiday_valid_through'] ) ) {
+			$option['holiday_valid_through'] = "";
+		}
+		$html .= $this->set_form_checkbox( 'holiday_active', 'Setting', $option['holiday_active'], 'Enabled' );
+		$html .= $this->set_form_time_holiday( $option['holiday_open'], $option['holiday_close'] );
+		$html .= $this->set_form_date( 'holiday_valid_from', 'validFrom', $option['holiday_valid_from'], false );
+		$html .= $this->set_form_date( 'holiday_valid_through', 'validThrough', $option['holiday_valid_through'], false );
+
+		$html .= '</table>';
+		echo $html;
+
 		echo '<p>Setting Knowledge : <a href="https://developers.google.com/structured-data/local-businesses/" target="_blank">https://developers.google.com/structured-data/local-businesses/</a></p>';
 		submit_button();
 	}
@@ -297,7 +324,7 @@ class Structuring_Markup_Type_LocalBusiness {
 	 * Return the default options array
 	 *
 	 * @since   2.3.0
-	 * @version 2.4.0
+	 * @version 2.5.0
 	 * @param   array $args
 	 * @return  array $args
 	 */
@@ -325,6 +352,12 @@ class Structuring_Markup_Type_LocalBusiness {
 			$args['week'][$value['type']]['close'] = '';
 		}
 
+		$args['holiday_active']        = '';
+		$args['holiday_open']          = '';
+		$args['holiday_close']         = '';
+		$args['holiday_valid_from']    = '';
+		$args['holiday_valid_through'] = '';
+
 		return (array) $args;
 	}
 
@@ -344,6 +377,31 @@ class Structuring_Markup_Type_LocalBusiness {
 
 		$format  = '<tr><th><label for=%s>%s :</label></th><td>';
 		$format .= '<input type="text" name="option[%s]" id="%s" class="regular-text" value="%s"';
+		if ( $required ) {
+			$format .= ' required';
+		}
+		$format .= '><small>%s</small></td></tr>';
+
+		return (string) sprintf( $format, $id, $display, $id, $id, $value, $note );
+	}
+
+	/**
+	 * Return the form text
+	 *
+	 * @since   2.5.0
+	 * @version 2.5.0
+	 * @param   string  $id
+	 * @param   string  $display
+	 * @param   string  $value
+	 * @param   boolean $required
+	 * @param   string  $note
+	 * @return  string  $html
+	 */
+	private function set_form_date ( $id, $display, $value = "", $required = false, $note = "" ) {
+		$value = esc_attr( $value );
+
+		$format  = '<tr><th><label for=%s>%s :</label></th><td>';
+		$format .= '<input type="date" name="option[%s]" id="%s" value="%s"';
 		if ( $required ) {
 			$format .= ' required';
 		}
@@ -430,5 +488,26 @@ class Structuring_Markup_Type_LocalBusiness {
 		$format .= '</td></tr>';
 
 		return (string) sprintf( $format, $id, $id, $display, $id, $count, $id, $value1, $id, $count, $id, $value2, $note );
+	}
+
+	/**
+	 * Return the form time (Holiday)
+	 *
+	 * @since   2.5.0
+	 * @version 2.5.0
+	 * @param   string  $value1
+	 * @param   string  $value2
+	 * @return  string  $html
+	 */
+	private function set_form_time_holiday ( $value1 = "", $value2 = "" ) {
+		$value1 = esc_attr( $value1 );
+		$value2 = esc_attr( $value2 );
+
+		$format  = '<tr><th>Holiday Time :</th><td>';
+		$format .= 'Open Time : <input type="time" name="option[holiday_open]" value="%s">';
+		$format .= 'Close Time : <input type="time" name="option[holiday_close]" value="%s">';
+		$format .= '</td></tr>';
+
+		return (string) sprintf( $format, $value1, $value2 );
 	}
 }
