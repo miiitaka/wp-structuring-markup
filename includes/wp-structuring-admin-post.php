@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 2.4.1
+ * @version 2.5.0
  */
 class Structuring_Markup_Admin_Post {
 
@@ -15,16 +15,43 @@ class Structuring_Markup_Admin_Post {
 	 * @version 2.0.0
 	 */
 	private $text_domain;
+
+	/**
+	 * Variable definition.
+	 *
+	 * @since   1.3.0
+	 * @version 2.0.0
+	 */
 	private $type_array;
+
+	/**
+	 * Variable definition.
+	 *
+	 * @since   2.5.0
+	 * @version 2.5.0
+	 */
+	private $post_args = array();
 
 	/**
 	 * Constructor Define.
 	 *
 	 * @since   1.0.0
-	 * @version 2.2.0
+	 * @version 2.5.0
 	 * @param   String $text_domain
 	 */
 	public function __construct ( $text_domain ) {
+		$args = array(
+			'public'   => true,
+			'_builtin' => false
+		);
+		$post_types = get_post_types( $args, 'objects' );
+		foreach ( $post_types as $post_type ) {
+			$this->post_args[] = array(
+				'label' => esc_html( $post_type->label ),
+				'value' => esc_html( $post_type->name )
+			);
+		}
+
 		$this->text_domain = $text_domain;
 
 		/**
@@ -80,7 +107,7 @@ class Structuring_Markup_Admin_Post {
 	 * Setting Page of the Admin Screen.
 	 *
 	 * @since   1.0.0
-	 * @version 2.4.1
+	 * @version 2.5.0
 	 * @param   array  $options
 	 * @param   string $status
 	 */
@@ -117,23 +144,29 @@ class Structuring_Markup_Admin_Post {
 
 		switch ( $options['type'] ) {
 			case 'article':
-				$html  = $this->output_checkbox_render( $options['output'], "post", "Post", esc_html__( 'Posts', $this->text_domain ) );
-				$html .= '</td></tr></table><hr>';
+				$html  = $this->output_checkbox_render( $options['output'], "post", esc_html__( 'Posts', $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "page", esc_html__( 'Pages', $this->text_domain ) );
+				$html .= '</td></tr>';
+				$html .= $this->output_custom_posts_render( $options['output'] );
+				$html .= '</table><hr>';
 				echo $html;
 
 				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-article.php' );
 				new Structuring_Markup_Type_Article( $options['option'] );
 				break;
 			case 'blog_posting':
-				$html  = $this->output_checkbox_render( $options['output'], "post", "Post", esc_html__( 'Posts', $this->text_domain ) );
-				$html .= '</td></tr></table><hr>';
+				$html  = $this->output_checkbox_render( $options['output'], "post", esc_html__( 'Posts', $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "page", esc_html__( 'Pages', $this->text_domain ) );
+				$html .= '</td></tr>';
+				$html .= $this->output_custom_posts_render( $options['output'] );
+				$html .= '</table><hr>';
 				echo $html;
 
 				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-blog-posting.php' );
 				new Structuring_Markup_Type_Blog_Posting( $options['option'] );
 				break;
 			case 'breadcrumb':
-				$html  = $this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Pages (In Header)', $this->text_domain ) );
+				$html  = $this->output_checkbox_render( $options['output'], "all", esc_html__( 'All Pages (In Header)', $this->text_domain ) );
 				$html .= '</td></tr></table><hr>';
 				echo $html;
 
@@ -141,7 +174,7 @@ class Structuring_Markup_Admin_Post {
 				new Structuring_Markup_Type_Breadcrumb( $options['option'] );
 				break;
 			case 'event':
-				$html  = $this->output_checkbox_render( $options['output'], "event",  "Event Post",   esc_html__( 'Event Post Page', $this->text_domain ) );
+				$html  = $this->output_checkbox_render( $options['output'], "event", esc_html__( 'Event Post Page', $this->text_domain ) );
 				$html .= '</td></tr></table><hr>';
 				echo $html;
 
@@ -149,52 +182,68 @@ class Structuring_Markup_Admin_Post {
 				new Structuring_Markup_Type_Event();
 				break;
 			case 'local_business':
-				$html  = $this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Pages (In Header)', $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "home", "Top",   esc_html__( 'Homepage',              $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "post", "Post",  esc_html__( 'Posts',                 $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "page", "Fixed", esc_html__( 'Pages',                 $this->text_domain ) );
-				$html .= '</td></tr></table><hr>';
+				$html  = $this->output_checkbox_render( $options['output'], "all",  esc_html__( 'All Pages (In Header)', $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "home", esc_html__( 'Homepage',              $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "post", esc_html__( 'Posts',                 $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "page", esc_html__( 'Pages',                 $this->text_domain ) );
+				$html .= '</td></tr>';
+				$html .= $this->output_custom_posts_render( $options['output'] );
+				$html .= '</table><hr>';
+
 				echo $html;
 
 				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-local-business.php' );
 				new Structuring_Markup_Type_LocalBusiness( $options['option'] );
 				break;
 			case 'news_article':
-				$html  = $this->output_checkbox_render( $options['output'], "post", "Post", esc_html__( 'Posts', $this->text_domain ) );
-				$html .= '</td></tr></table><hr>';
+				$html  = $this->output_checkbox_render( $options['output'], "post", esc_html__( 'Posts', $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "page", esc_html__( 'Pages', $this->text_domain ) );
+				$html .= '</td></tr>';
+				$html .= $this->output_custom_posts_render( $options['output'] );
+				$html .= '</table><hr>';
+
 				echo $html;
 
 				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-news-article.php' );
 				new Structuring_Markup_Type_NewsArticle( $options['option'] );
 				break;
 			case 'organization':
-				$html  = $this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Pages (In Header)', $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "home", "Top",   esc_html__( 'Homepage',              $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "post", "Post",  esc_html__( 'Posts',                 $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "page", "Fixed", esc_html__( 'Pages',                 $this->text_domain ) );
-				$html .= '</td></tr></table><hr>';
+				$html  = $this->output_checkbox_render( $options['output'], "all",  esc_html__( 'All Pages (In Header)', $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "home", esc_html__( 'Homepage',              $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "post", esc_html__( 'Posts',                 $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "page", esc_html__( 'Pages',                 $this->text_domain ) );
+				$html .= '</td></tr>';
+				$html .= $this->output_custom_posts_render( $options['output'] );
+				$html .= '</table><hr>';
+
 				echo $html;
 
 				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-organization.php' );
 				new Structuring_Markup_Type_Organization( $options['option'] );
 				break;
 			case 'person':
-				$html  = $this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Pages (In Header)', $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "home", "Top",   esc_html__( 'Homepage',              $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "post", "Post",  esc_html__( 'Posts',                 $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "page", "Fixed", esc_html__( 'Pages',                 $this->text_domain ) );
-				$html .= '</td></tr></table><hr>';
+				$html  = $this->output_checkbox_render( $options['output'], "all",  esc_html__( 'All Pages (In Header)', $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "home", esc_html__( 'Homepage',              $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "post", esc_html__( 'Posts',                 $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "page", esc_html__( 'Pages',                 $this->text_domain ) );
+				$html .= '</td></tr>';
+				$html .= $this->output_custom_posts_render( $options['output'] );
+				$html .= '</table><hr>';
+
 				echo $html;
 
 				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-person.php' );
 				new Structuring_Markup_Type_Person( $options['option'] );
 				break;
 			case 'website':
-				$html  = $this->output_checkbox_render( $options['output'], "all",  "All",   esc_html__( 'All Pages (In Header)', $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "home", "Top",   esc_html__( 'Homepage',              $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "post", "Post",  esc_html__( 'Posts',                 $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "page", "Fixed", esc_html__( 'Pages',                 $this->text_domain ) );
-				$html .= '</td></tr></table><hr>';
+				$html  = $this->output_checkbox_render( $options['output'], "all",  esc_html__( 'All Pages (In Header)', $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "home", esc_html__( 'Homepage',              $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "post", esc_html__( 'Posts',                 $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "page", esc_html__( 'Pages',                 $this->text_domain ) );
+				$html .= '</td></tr>';
+				$html .= $this->output_custom_posts_render( $options['output'] );
+				$html .= '</table><hr>';
+
 				echo $html;
 
 				require_once( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-website.php' );
@@ -211,19 +260,35 @@ class Structuring_Markup_Admin_Post {
 	 * CheckBox Build Render
 	 *
 	 * @since   1.0.0
-	 * @version 2.0.0
+	 * @version 2.5.0
 	 * @param   array  $option['output']
 	 * @param   string $output
 	 * @param   string $value
-	 * @param   string $display
 	 * @return  string $html
 	 */
-	private function output_checkbox_render ( array $option, $output, $value, $display ) {
+	private function output_checkbox_render ( array $option, $output, $value ) {
 		$html  = '<label>';
 		$html .= '<input type="checkbox" name="output[' . $output . ']" value="' . $value . '""';
 		$html .= isset( $option[$output] ) ? ' checked' : '';
-		$html .= '>' . $display . '</label>';
+		$html .= '>' . $value . '</label>';
 
+		return (string) $html;
+	}
+
+	/**
+	 * Custom Posts Build Render
+	 *
+	 * @since   2.5.0
+	 * @version 2.5.0
+	 * @param   array  $option['output']
+	 * @return  string $html
+	 */
+	private function output_custom_posts_render ( array $option ) {
+		$html  = '<tr><th>' . esc_html__( 'Output On(Custom Posts)', $this->text_domain ) . ' : </th><td>';
+		foreach ( $this->post_args as $post_type ) {
+			$html .= $this->output_checkbox_render( $option, $post_type['value'], $post_type['label'] );
+		}
+		$html .= '</td></tr>';
 		return (string) $html;
 	}
 

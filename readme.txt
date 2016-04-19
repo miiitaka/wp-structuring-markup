@@ -2,8 +2,8 @@
 Contributors: miiitaka
 Tags: schema, schema.org, json, json-ld, seo, post, posts, google, shortcode, breadcrumb
 Requires at least: 4.3.1
-Tested up to: 4.4.2
-Stable tag: 2.4.2
+Tested up to: 4.5.0
+Stable tag: 2.5.0
 
 Allows you to include schema.org JSON-LD syntax markup on your website
 
@@ -52,6 +52,15 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 == Changelog ==
 
+= 2.5.0 (2016-04-19) =
+
+* Updated : You can select a custom posts at the output page.
+* Updated : Add the output on "Pages" in the "Article","BlogPosting" and "NewsArticle" Schema.org type.
+* Updated : It added the Holiday Opening Hour of items to Schema.org Type "LocalBusiness".
+* Updated : It added the GeoCircle of items to Schema.org Type "LocalBusiness".
+* Updated : Japanese translation.
+* Checked : WordPress version 4.5.0 operation check.
+
 = 2.4.2 (2016-03-09) =
 
 * Fixed : Updated image size detection to use curl first, as attachment_url_to_postid() hits the database
@@ -66,12 +75,12 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 * Added : Schema.org type "Person".
 * Updated : Schema.org type "LocalBusiness" OpenHours : shift time setting.
-* Check : WordPress version 4.4.2 operation check.
+* Checked : WordPress version 4.4.2 operation check.
 
 = 2.3.3 (2016-01-19) =
 
-* Fixed : Improved wording on admin pages
-* Fixed : Added alternate methods to get image dimensions for systems running legacy SSL
+* Fixed : Improved wording on admin pages.
+* Fixed : Added alternate methods to get image dimensions for systems running legacy SSL.
 
 = 2.3.2 (2016-01-10) =
 
@@ -80,7 +89,7 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 = 2.3.1 (2016-01-07) =
 
-* Check : WordPress version 4.4.1 operation check.
+* Checked : WordPress version 4.4.1 operation check.
 * Added : Breadcrumb ShortCode option add.
 
 = 2.3.0 (2016-01-03) =
