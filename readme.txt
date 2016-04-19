@@ -58,6 +58,7 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 * Updated : Add the output on "Pages" in the "Article","BlogPosting" and "NewsArticle" Schema.org type.
 * Updated : It added the Holiday Opening Hour of items to Schema.org Type "LocalBusiness".
 * Updated : It added the GeoCircle of items to Schema.org Type "LocalBusiness".
+* Updated : Japanese translation.
 * Checked : WordPress version 4.5.0 operation check.
 
 = 2.4.2 (2016-03-09) =

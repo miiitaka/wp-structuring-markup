@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Markup (JSON-LD) structured in schema.org package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Markup (JSON-LD) structured in schema.org 2.4.1\n"
+"Project-Id-Version: Markup (JSON-LD) structured in schema.org 2.5.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-structuring-markup\n"
-"POT-Creation-Date: 2016-03-01 08:58:28+00:00\n"
+"POT-Creation-Date: 2016-04-19 12:08:30+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,7 +25,7 @@ msgid "Schema.org Type"
 msgstr "Schema.org タイプ"
 
 #: includes/wp-structuring-admin-list.php:52
-#: includes/wp-structuring-admin-post.php:115
+#: includes/wp-structuring-admin-post.php:142
 msgid "Output On"
 msgstr "出力ページ"
 
@@ -41,45 +41,52 @@ msgstr "編集"
 msgid "Without registration."
 msgstr "登録されていません。"
 
-#: includes/wp-structuring-admin-post.php:90
+#: includes/wp-structuring-admin-post.php:117
 msgid "Schema.org Register"
 msgstr "Schema.org 登録"
 
-#: includes/wp-structuring-admin-post.php:120
-#: includes/wp-structuring-admin-post.php:128
-#: includes/wp-structuring-admin-post.php:154
-#: includes/wp-structuring-admin-post.php:163
-#: includes/wp-structuring-admin-post.php:173
-#: includes/wp-structuring-admin-post.php:184
-#: includes/wp-structuring-admin-post.php:195
+#: includes/wp-structuring-admin-post.php:147
+#: includes/wp-structuring-admin-post.php:158
+#: includes/wp-structuring-admin-post.php:187
+#: includes/wp-structuring-admin-post.php:199
+#: includes/wp-structuring-admin-post.php:213
+#: includes/wp-structuring-admin-post.php:227
+#: includes/wp-structuring-admin-post.php:241
 msgid "Posts"
 msgstr "投稿ページ"
 
-#: includes/wp-structuring-admin-post.php:136
-#: includes/wp-structuring-admin-post.php:152
-#: includes/wp-structuring-admin-post.php:171
-#: includes/wp-structuring-admin-post.php:182
-#: includes/wp-structuring-admin-post.php:193
+#: includes/wp-structuring-admin-post.php:148
+#: includes/wp-structuring-admin-post.php:159
+#: includes/wp-structuring-admin-post.php:188
+#: includes/wp-structuring-admin-post.php:200
+#: includes/wp-structuring-admin-post.php:214
+#: includes/wp-structuring-admin-post.php:228
+#: includes/wp-structuring-admin-post.php:242
+msgid "Pages"
+msgstr "固定ページ"
+
+#: includes/wp-structuring-admin-post.php:169
+#: includes/wp-structuring-admin-post.php:185
+#: includes/wp-structuring-admin-post.php:211
+#: includes/wp-structuring-admin-post.php:225
+#: includes/wp-structuring-admin-post.php:239
 msgid "All Pages (In Header)"
 msgstr "全てのページ（ヘッダー）"
 
-#: includes/wp-structuring-admin-post.php:144
+#: includes/wp-structuring-admin-post.php:177
 msgid "Event Post Page"
 msgstr "イベント投稿ページ"
 
-#: includes/wp-structuring-admin-post.php:153
-#: includes/wp-structuring-admin-post.php:172
-#: includes/wp-structuring-admin-post.php:183
-#: includes/wp-structuring-admin-post.php:194
+#: includes/wp-structuring-admin-post.php:186
+#: includes/wp-structuring-admin-post.php:212
+#: includes/wp-structuring-admin-post.php:226
+#: includes/wp-structuring-admin-post.php:240
 msgid "Homepage"
 msgstr "ホームページ"
 
-#: includes/wp-structuring-admin-post.php:155
-#: includes/wp-structuring-admin-post.php:174
-#: includes/wp-structuring-admin-post.php:185
-#: includes/wp-structuring-admin-post.php:196
-msgid "Pages"
-msgstr "固定ページ"
+#: includes/wp-structuring-admin-post.php:287
+msgid "Output On(Custom Posts)"
+msgstr "出力ページ（カスタム投稿）"
 
 #: includes/wp-structuring-custom-post-event.php:34
 #: includes/wp-structuring-custom-post-event.php:35
