@@ -7,6 +7,7 @@
  * @version 2.5.0
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/LocalBusiness
+ * @link    https://schema.org/GeoCircle
  * @link    https://developers.google.com/structured-data/local-businesses/
  */
 class Structuring_Markup_Type_LocalBusiness {
@@ -242,6 +243,20 @@ class Structuring_Markup_Type_LocalBusiness {
 		$html .= $this->set_form_text( 'address_region', 'Address Region', $option['address_region'], false );
 		$html .= $this->set_form_text( 'postal_code', 'Postal Code', $option['postal_code'], true );
 		$html .= $this->set_form_text( 'address_country', 'Address Country', $option['address_country'], true, '<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2" target="_blank">The 2-letter ISO 3166-1 alpha-2 country code.</a>' );
+		$html .= '</table>';
+		echo $html;
+
+		/** Geo Circle */
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>Geo Circle ( recommended )</caption>';
+		if ( !isset( $option['geo_circle_active'] ) ) {
+			$option['geo_circle_active'] = "";
+		}
+		if ( !isset( $option['geo_circle_radius'] ) ) {
+			$option['geo_circle_radius'] = "";
+		}
+		$html .= $this->set_form_checkbox( 'geo_circle_active', 'Setting', $option['geo_circle_active'], 'Enabled' );
+		$html .= $this->set_form_text( 'geo_circle_radius', 'geoRadius', $option['geo_circle_radius'], false );
 		$html .= '</table>';
 		echo $html;
 
