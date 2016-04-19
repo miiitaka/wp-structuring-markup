@@ -43,6 +43,14 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 2.5.0 (2016-04-19)
+
+- Updated : You can select a custom posts at the output page.
+- Updated : Add the output on "Pages" in the "Article","BlogPosting" and "NewsArticle" Schema.org type.
+- Updated : It added the Holiday Opening Hour of items to Schema.org Type "LocalBusiness".
+- Updated : It added the GeoCircle of items to Schema.org Type "LocalBusiness".
+- Checked : WordPress version 4.5.0 operation check.
+
 ### 2.4.2 (2016-03-09)
 
 - Fixed : Updated image size detection to use curl first, as attachment_url_to_postid() hits the database
