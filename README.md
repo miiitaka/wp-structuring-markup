@@ -43,6 +43,11 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 2.5.1 (2016-05-09)
+
+- Checked : WordPress version 4.5.2 operation check.
+- Checked : WordPress version 4.5.1 operation check.
+
 ### 2.5.0 (2016-04-19)
 
 - Updated : You can select a custom posts at the output page.

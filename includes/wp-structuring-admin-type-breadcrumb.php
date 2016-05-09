@@ -3,7 +3,7 @@
  * Schema.org Type Breadcrumb
  *
  * @author  Kazuya Takami
- * @version 2.3.3
+ * @version 2.5.1
  * @since   2.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/BreadcrumbList
@@ -28,13 +28,14 @@ class Structuring_Markup_Type_Breadcrumb {
 	/**
 	 * Form Layout Render
 	 *
-	 * @since 2.3.3
-	 * @param array $option
+	 * @version 2.5.1
+	 * @since   2.3.3
+	 * @param   array $option
 	 */
 	private function page_render ( array $option ) {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Basic Setting</caption>';
-		$html .= '<tr><th><label for="home_on">Home Display :</label></th><td>';
+		$html .= '<tr><th><label for="home_on">Display Home Page :</label></th><td>';
 		$html .= '<input type="checkbox" name="option[' . "home_on" . ']" id="home_on" value="on"';
 		if ( isset( $option['home_on'] ) &&  $option['home_on'] === 'on' ) {
 			$html .= ' checked="checked"';
