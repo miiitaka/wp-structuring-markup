@@ -43,6 +43,10 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 2.5.2 (2016-05-17)
+
+- Updated : Schema.org Type the "Article" and "NewsArticle" and "BlogPosting" can be displayed without the "Featured image" setting.
+
 ### 2.5.1 (2016-05-09)
 
 - Checked : WordPress version 4.5.2 operation check.

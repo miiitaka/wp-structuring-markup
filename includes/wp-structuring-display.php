@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @author  Justin Frydman
- * @version 2.5.0
+ * @version 2.5.2
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
