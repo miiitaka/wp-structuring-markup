@@ -221,122 +221,106 @@ class Structuring_Markup_Display {
 	 * Setting schema.org Article
 	 *
 	 * @since   1.1.0
-	 * @version 2.5.2
+	 * @version 2.3.3
 	 * @param   array $options
 	 */
 	private function set_schema_article ( array $options ) {
 		global $post;
 
-		$excerpt = $this->escape_text_tags( $post->post_excerpt );
-		$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
+		$options['logo'] = isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "";
 
-		$args = array(
-			"@context" => "http://schema.org",
-			"@type"    => "Article",
-			"mainEntityOfPage" => array(
-				"@type" => "WebPage",
-				"@id"   => get_permalink( $post->ID )
-			),
-			"headline" => $this->escape_text_tags( $post->post_title ),
-			"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
-			"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
-			"author" => array(
-				"@type" => "Person",
-				"name"  => $this->escape_text_tags( get_the_author_meta( 'display_name', $post->post_author ) )
-			),
-			"description" => $content
-		);
-
-		if ( has_post_thumbnail( $post->ID ) ) {
+		if ( has_post_thumbnail( $post->ID ) && $logo = $this->get_image_dimensions( $options['logo'] ) ) {
 			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+			$excerpt = $this->escape_text_tags( $post->post_excerpt );
+			$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
 
-			$image_array["image"] = array(
-				"@type"  => "ImageObject",
-				"url"    => $images[0],
-				"width"  => $images[1],
-				"height" => $images[2]
-			);
-			$args = array_merge( $args, $image_array );
-		}
-
-		$options['logo'] = isset( $options['logo'] ) ? esc_url( $options['logo'] ) : "";
-
-		if ( $logo = $this->get_image_dimensions( $options['logo'] ) ) {
-			$publisher_array["publisher"] = array(
-				"@type" => "Organization",
-				"name"  => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
-				"logo"  => array(
+			$args = array(
+				"@context" => "http://schema.org",
+				"@type"    => "Article",
+				"mainEntityOfPage" => array(
+					"@type" => "WebPage",
+					"@id"   => get_permalink( $post->ID )
+				),
+				"headline" => $this->escape_text_tags( $post->post_title ),
+				"image"    => array(
 					"@type"  => "ImageObject",
-					"url"    => isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "",
-					"width"  => $logo[0],
-					"height" => $logo[1]
-				)
+					"url"    => $images[0],
+					"width"  => $images[1],
+					"height" => $images[2]
+				),
+				"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
+				"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
+				"author" => array(
+					"@type" => "Person",
+					"name"  => $this->escape_text_tags( get_the_author_meta( 'display_name', $post->post_author ) )
+				),
+				"publisher" => array(
+					"@type" => "Organization",
+					"name"  => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
+					"logo"  => array(
+						"@type"  => "ImageObject",
+						"url"    => isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "",
+						"width"  => $logo[0],
+						"height" => $logo[1]
+					)
+				),
+				"description" => $content
 			);
-			$args = array_merge( $args, $publisher_array );
+			$this->set_schema_json( $args );
 		}
-
-		$this->set_schema_json( $args );
 	}
 
 	/**
 	 * Setting schema.org BlogPosting
 	 *
 	 * @since   1.2.0
-	 * @version 2.5.2
+	 * @version 2.3.3
 	 * @param   array $options
 	 */
 	private function set_schema_blog_posting ( array $options ) {
 		global $post;
 
-		$excerpt = $this->escape_text_tags( $post->post_excerpt );
-		$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
+		$options['logo'] = isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "";
 
-		$args = array(
-			"@context" => "http://schema.org",
-			"@type"    => "BlogPosting",
-			"mainEntityOfPage" => array(
-				"@type" => "WebPage",
-				"@id"   => get_permalink( $post->ID )
-			),
-			"headline" => $this->escape_text_tags( $post->post_title ),
-			"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
-			"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
-			"author" => array(
-				"@type" => "Person",
-				"name"  => $this->escape_text_tags( get_the_author_meta( 'display_name', $post->post_author ) )
-			),
-			"description" => $content
-		);
-
-		if ( has_post_thumbnail( $post->ID ) ) {
+		if ( has_post_thumbnail( $post->ID ) && $logo = $this->get_image_dimensions( $options['logo'] ) ) {
 			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+			$excerpt = $this->escape_text_tags( $post->post_excerpt );
+			$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
 
-			$image_array["image"] = array(
-				"@type"  => "ImageObject",
-				"url"    => $images[0],
-				"width"  => $images[1],
-				"height" => $images[2]
-			);
-			$args = array_merge( $args, $image_array );
-		}
-
-		$options['logo'] = isset( $options['logo'] ) ? esc_url( $options['logo'] ) : "";
-
-		if ( $logo = $this->get_image_dimensions( $options['logo'] ) ) {
-			$publisher_array["publisher"] = array(
-				"@type" => "Organization",
-				"name"  => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
-				"logo"  => array(
+			$args = array(
+				"@context" => "http://schema.org",
+				"@type"    => "BlogPosting",
+				"mainEntityOfPage" => array(
+					"@type" => "WebPage",
+					"@id"   => get_permalink( $post->ID )
+				),
+				"headline" => $this->escape_text_tags( $post->post_title ),
+				"image"    => array(
 					"@type"  => "ImageObject",
-					"url"    => isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "",
-					"width"  => $logo[0],
-					"height" => $logo[1]
-				)
+					"url"    => $images[0],
+					"width"  => $images[1],
+					"height" => $images[2]
+				),
+				"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
+				"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
+				"author" => array(
+					"@type" => "Person",
+					"name"  => $this->escape_text_tags( get_the_author_meta( 'display_name', $post->post_author ) )
+				),
+				"publisher" => array(
+					"@type" => "Organization",
+					"name"  => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
+					"logo"  => array(
+						"@type"  => "ImageObject",
+						"url"    => isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "",
+						"width"  => $logo[0],
+						"height" => $logo[1]
+					)
+				),
+				"description" => $content
 			);
-			$args = array_merge( $args, $publisher_array );
+			$this->set_schema_json( $args );
 		}
-
-		$this->set_schema_json( $args );
 	}
 
 	/**
@@ -399,23 +383,23 @@ class Structuring_Markup_Display {
 			if ( !isset( $meta['schema_event_offers_currency'] ) ) $meta['schema_event_offers_currency'] = '';
 
 			$args = array(
-				"@context"  => "http://schema.org",
-				"@type"     => "Event",
-				"name"      => $this->escape_text_tags( $meta['schema_event_name'] ),
-				"startDate" => $this->escape_text_tags( $meta['schema_event_date'] ) . 'T' . $this->escape_text_tags( $meta['schema_event_time'] ),
-				"url"       => esc_url( $meta['schema_event_url'] ),
-				"location"  => array(
-					"@type"   => "Place",
-					"sameAs"  => esc_url( $meta['schema_event_place_url'] ),
-					"name"    => $this->escape_text_tags( $meta['schema_event_place_name'] ),
-					"address" => $this->escape_text_tags( $meta['schema_event_place_address'] )
-				),
-				"offers"    => array(
-					"@type"         => "Offer",
-					"price"         => $this->escape_text_tags( $meta['schema_event_offers_price'] ),
-					"priceCurrency" => $this->escape_text_tags( $meta['schema_event_offers_currency'] ),
-					"url"           => esc_url( $meta['schema_event_url'] )
-				)
+					"@context"  => "http://schema.org",
+					"@type"     => "Event",
+					"name"      => $this->escape_text_tags( $meta['schema_event_name'] ),
+					"startDate" => $this->escape_text_tags( $meta['schema_event_date'] ) . 'T' . $this->escape_text_tags( $meta['schema_event_time'] ),
+					"url"       => esc_url( $meta['schema_event_url'] ),
+					"location"  => array(
+						"@type"   => "Place",
+						"sameAs"  => esc_url( $meta['schema_event_place_url'] ),
+						"name"    => $this->escape_text_tags( $meta['schema_event_place_name'] ),
+						"address" => $this->escape_text_tags( $meta['schema_event_place_address'] )
+					),
+					"offers"    => array(
+						"@type"         => "Offer",
+						"price"         => $this->escape_text_tags( $meta['schema_event_offers_price'] ),
+						"priceCurrency" => $this->escape_text_tags( $meta['schema_event_offers_currency'] ),
+						"url"           => esc_url( $meta['schema_event_url'] )
+					)
 			);
 			$this->set_schema_json( $args );
 		}
@@ -536,61 +520,53 @@ class Structuring_Markup_Display {
 	 * Setting schema.org NewsArticle
 	 *
 	 * @since   1.0.0
-	 * @version 2.5.2
+	 * @version 2.3.3
 	 * @param   array $options
 	 */
 	private function set_schema_news_article ( array $options ) {
 		global $post;
 
-		$excerpt = $this->escape_text_tags( $post->post_excerpt );
-		$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
+		$options['logo'] = isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "";
 
-		$args = array(
-			"@context" => "http://schema.org",
-			"@type"    => "NewsArticle",
-			"mainEntityOfPage" => array(
-				"@type" => "WebPage",
-				"@id"   => get_permalink( $post->ID )
-			),
-			"headline" => $this->escape_text_tags( $post->post_title ),
-			"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
-			"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
-			"author" => array(
-				"@type" => "Person",
-				"name"  => $this->escape_text_tags( get_the_author_meta( 'display_name', $post->post_author ) )
-			),
-			"description" => $content
-		);
-
-		if ( has_post_thumbnail( $post->ID ) ) {
+		if ( has_post_thumbnail( $post->ID ) && $logo = $this->get_image_dimensions( $options['logo'] ) ) {
 			$images  = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+			$excerpt = $this->escape_text_tags( $post->post_excerpt );
+			$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
 
-			$image_array["image"] = array(
-				"@type"  => "ImageObject",
-				"url"    => $images[0],
-				"width"  => $images[1],
-				"height" => $images[2]
-			);
-			$args = array_merge( $args, $image_array );
-		}
-
-		$options['logo'] = isset( $options['logo'] ) ? esc_url( $options['logo'] ) : "";
-
-		if ( $logo = $this->get_image_dimensions( $options['logo'] ) ) {
-			$publisher_array["publisher"] = array(
-				"@type" => "Organization",
-				"name"  => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
-				"logo"  => array(
+			$args = array(
+				"@context" => "http://schema.org",
+				"@type"    => "NewsArticle",
+				"mainEntityOfPage" => array(
+					"@type" => "WebPage",
+					"@id"   => get_permalink( $post->ID )
+				),
+				"headline" => $this->escape_text_tags( $post->post_title ),
+				"image"    => array(
 					"@type"  => "ImageObject",
-					"url"    => isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "",
-					"width"  => $logo[0],
-					"height" => $logo[1]
-				)
+					"url"    => $images[0],
+					"width"  => $images[1],
+					"height" => $images[2]
+				),
+				"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
+				"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
+				"author" => array(
+					"@type" => "Person",
+					"name"  => $this->escape_text_tags( get_the_author_meta( 'display_name', $post->post_author ) )
+				),
+				"publisher" => array(
+					"@type" => "Organization",
+					"name"  => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
+					"logo"  => array(
+						"@type"  => "ImageObject",
+						"url"    => isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "",
+						"width"  => $logo[0],
+      					"height" => $logo[1]
+					)
+				),
+				"description" => $content
 			);
-			$args = array_merge( $args, $publisher_array );
+			$this->set_schema_json( $args );
 		}
-
-		$this->set_schema_json( $args );
 	}
 
 	/**
