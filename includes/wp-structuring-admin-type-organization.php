@@ -7,10 +7,7 @@
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/Organization
- * @link    https://developers.google.com/structured-data/customize/overview
- * @link    https://developers.google.com/structured-data/customize/logos
- * @link    https://developers.google.com/structured-data/customize/contact-points
- * @link    https://developers.google.com/structured-data/customize/social-profiles
+ * @link    https://developers.google.com/search/docs/guides/enhance-site
  */
 class Structuring_Markup_Type_Organization {
 

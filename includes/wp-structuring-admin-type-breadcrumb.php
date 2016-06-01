@@ -7,7 +7,7 @@
  * @since   2.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/BreadcrumbList
- * @link    https://developers.google.com/structured-data/breadcrumbs
+ * @link    https://developers.google.com/search/docs/data-types/breadcrumbs
  */
 class Structuring_Markup_Type_Breadcrumb {
 
