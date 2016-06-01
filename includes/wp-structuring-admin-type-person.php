@@ -7,7 +7,7 @@
  * @since   2.4.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/Person
- * @link    https://developers.google.com/structured-data/customize/social-profiles
+ * @link    https://developers.google.com/search/docs/data-types/social-profile-links
  */
 class Structuring_Markup_Type_Person {
 

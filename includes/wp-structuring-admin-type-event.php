@@ -9,8 +9,7 @@
  * @link    http://schema.org/Event
  * @link    http://schema.org/Place
  * @link    http://schema.org/Offer
- * @link    https://developers.google.com/structured-data/events/
- * @link    https://developers.google.com/structured-data/rich-snippets/events
+ * @link    https://developers.google.com/search/docs/data-types/events
  */
 class Structuring_Markup_Type_Event {
 
