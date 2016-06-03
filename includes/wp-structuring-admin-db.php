@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 2.5.0
+ * @version 2.6.0
  */
 class Structuring_Markup_Admin_Db {
 
@@ -12,7 +12,7 @@ class Structuring_Markup_Admin_Db {
 	 * Variable definition.
 	 *
 	 * @since   1.0.0
-	 * @version 2.4.0
+	 * @version 2.6.0
 	 */
 	private $table_name;
 
@@ -26,6 +26,7 @@ class Structuring_Markup_Admin_Db {
 		"news_article"   => "News Article",
 		"organization"   => "Organization",
 		"person"         => "Person",
+		"videos"         => "Videos",
 		"website"        => "Web Site"
 	);
 
