@@ -54,7 +54,7 @@ class Structuring_Markup_Type_Event {
 
 		echo '<p>Custom post name "schema_event_post"</p>';
 		echo '<p>Archive rewrite name "events"</p>';
-		echo '<p>Setting Knowledge : <a href="https://developers.google.com/structured-data/rich-snippets/events" target="_blank">https://developers.google.com/structured-data/rich-snippets/events</a></p>';
+		echo '<p>Setting Knowledge : <a href="https://developers.google.com/search/docs/data-types/events" target="_blank">https://developers.google.com/search/docs/data-types/events</a></p>';
 
 		submit_button();
 	}

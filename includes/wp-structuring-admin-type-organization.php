@@ -145,7 +145,7 @@ class Structuring_Markup_Type_Organization {
 		$html .= '</table>';
 		echo $html;
 
-		echo '<p>Setting Knowledge : <a href="https://developers.google.com/structured-data/customize/overview" target="_blank">https://developers.google.com/structured-data/customize/overview</a></p>';
+		echo '<p>Setting Knowledge : <a href="https://developers.google.com/search/docs/guides/enhance-site" target="_blank">https://developers.google.com/search/docs/guides/enhance-site</a></p>';
 		submit_button();
 	}
 

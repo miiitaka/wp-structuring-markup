@@ -79,7 +79,7 @@ class Structuring_Markup_Type_Person {
 		$html .= '</table>';
 		echo $html;
 
-		echo '<p>Setting Knowledge : <a href="https://developers.google.com/structured-data/customize/social-profiles" target="_blank">https://developers.google.com/structured-data/customize/social-profiles</a></p>';
+		echo '<p>Setting Knowledge : <a href="https://developers.google.com/search/docs/data-types/social-profile-links" target="_blank">https://developers.google.com/search/docs/data-types/social-profile-links</a></p>';
 		submit_button();
 	}
 
