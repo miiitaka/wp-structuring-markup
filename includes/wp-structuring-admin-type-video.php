@@ -1,6 +1,6 @@
 <?php
 /**
- * Schema.org Type Videos
+ * Schema.org Type Video
  *
  * @author  Kazuya Takami
  * @version 2.6.0
@@ -36,6 +36,7 @@ class Structuring_Markup_Type_Videos {
 		$html .= '<tr><th>contentUrl :</th><td><small>Input a custom post: field name "schema_video_content_url"</small></td></tr>';
 		$html .= '<tr><th>embedUrl :</th><td><small>Input a custom post: field name "schema_video_embed_url"</small></td></tr>';
 		$html .= '<tr><th>interactionCount :</th><td><small>Input a custom post: field name "schema_video_interaction_count"</small></td></tr>';
+		$html .= '<tr><th>expires :</th><td><small>Input a custom post: field name "schema_video_expires_date" & "schema_video_expires_time"</small></td></tr>';
 		$html .= '</table>';
 		echo $html;
 
