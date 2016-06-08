@@ -44,7 +44,7 @@ class Structuring_Markup {
 		add_shortcode( $this->text_domain . '-breadcrumb', array( $this, 'short_code_init_breadcrumb' ) );
 
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
-		add_action( 'init',           array( $this, 'create_post_type_event' ) );
+		add_action( 'init',           array( $this, 'create_post_type' ) );
 
 		if ( is_admin() ) {
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
@@ -98,14 +98,16 @@ class Structuring_Markup {
 	}
 
 	/**
-	 * Create custom post type "event".
+	 * Create custom post type.
 	 *
 	 * @since   2.1.0
-	 * @version 2.1.0
+	 * @version 2.6.0
 	 */
-	function create_post_type_event () {
+	function create_post_type () {
 		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-custom-post-event.php' );
 		new Structuring_Markup_Custom_Post_Event( $this->text_domain );
+		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-custom-post-video.php' );
+		new Structuring_Markup_Custom_Post_Video( $this->text_domain );
 	}
 
 	/**

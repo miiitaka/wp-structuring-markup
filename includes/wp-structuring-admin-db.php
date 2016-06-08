@@ -26,7 +26,7 @@ class Structuring_Markup_Admin_Db {
 		"news_article"   => "News Article",
 		"organization"   => "Organization",
 		"person"         => "Person",
-		"videos"         => "Videos",
+		"video"          => "Video",
 		"website"        => "Web Site"
 	);
 
