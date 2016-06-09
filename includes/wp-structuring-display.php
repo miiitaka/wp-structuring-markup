@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @author  Justin Frydman
- * @version 2.5.0
+ * @version 2.6.0
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -23,7 +23,7 @@ class Structuring_Markup_Display {
 	 * Setting schema.org
 	 *
 	 * @since   1.0.0
-	 * @version 2.5.0
+	 * @version 2.6.0
 	 * @param   Structuring_Markup_Admin_Db $db
 	 */
 	private function set_schema ( Structuring_Markup_Admin_Db $db ) {
@@ -39,6 +39,9 @@ class Structuring_Markup_Display {
 		if ( is_singular( 'schema_event_post' ) ) {
 			$this->get_schema_data( $db, 'event' );
 		}
+		if ( is_singular( 'schema_video_post' ) ) {
+			$this->get_schema_data( $db, 'video' );
+		}
 		if ( is_page() ) {
 			$this->get_schema_data( $db, 'page' );
 		}
@@ -47,6 +50,10 @@ class Structuring_Markup_Display {
 			'_builtin' => false
 		);
 		$post_types = get_post_types( $args, 'objects' );
+
+		unset($post_types['schema_event_post']);
+		unset($post_types['schema_video_post']);
+
 		foreach ( $post_types as $post_type ) {
 			if ( is_singular( $post_type->name ) ) {
 				$this->get_schema_data( $db, $post_type->name );
@@ -59,7 +66,7 @@ class Structuring_Markup_Display {
 	 * Setting JSON-LD Template
 	 *
 	 * @since   1.0.0
-	 * @version 2.4.0
+	 * @version 2.6.0
 	 * @param   Structuring_Markup_Admin_Db $db
 	 * @param   string $output
 	 */
@@ -107,6 +114,9 @@ class Structuring_Markup_Display {
 							if ( isset( $row->options ) && $row->options ) {
 								$this->set_schema_person( unserialize( $row->options ) );
 							}
+							break;
+						case 'video':
+							$this->set_schema_video();
 							break;
 						case 'website':
 							if ( isset( $row->options ) && $row->options ) {
@@ -640,6 +650,60 @@ class Structuring_Markup_Display {
 			$args = array_merge( $args, $socials );
 		}
 		$this->set_schema_json( $args );
+	}
+	
+	/**
+	 * Setting schema.org Video
+	 *
+	 * @since   2.6.0
+	 * @version 2.6.0
+	 */
+	private function set_schema_video () {
+		global $post;
+		$meta = get_post_meta( $post->ID, 'schema_video_post', false );
+
+		if ( has_post_thumbnail( $post->ID ) ) {
+			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+			$excerpt = $this->escape_text_tags( $post->post_excerpt );
+			$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
+
+			if (isset($meta[0])) {
+				$meta = unserialize($meta[0]);
+
+				if ( !isset( $meta['schema_video_duration'] ) )          $meta['schema_video_duration'] = '';
+				if ( !isset( $meta['schema_video_content_url'] ) )       $meta['schema_video_content_url'] = '';
+				if ( !isset( $meta['schema_video_embed_url'] ) )         $meta['schema_video_embed_url'] = '';
+				if ( !isset( $meta['schema_video_interaction_count'] ) ) $meta['schema_video_interaction_count'] = '';
+				if ( !isset( $meta['schema_video_expires_date'] ) ) $meta['schema_video_expires_date'] = '';
+				if ( !isset( $meta['schema_video_expires_time'] ) ) $meta['schema_video_expires_time'] = '';
+
+				$args = array(
+					"@context" => "http://schema.org",
+					"@type" => "VideoObject",
+					"name" => $this->escape_text_tags( $post->post_title ),
+					"description" => $content,
+					"thumbnailUrl" => $images[0],
+					"uploadDate" => get_post_modified_time( DATE_ISO8601, __return_false(), $post->ID )
+				);
+
+				if ( !empty( $meta['schema_video_duration'] ) ) {
+					$args["duration"] = esc_html( $meta['schema_video_duration'] );
+				}
+				if ( !empty( $meta['schema_video_content_url'] ) ) {
+					$args["contentUrl"] = esc_url( $meta['schema_video_content_url'] );
+				}
+				if ( empty( $meta['schema_video_embed_url'] ) ) {
+					$args["embedUrl"] = esc_url( $meta['schema_video_embed_url'] );
+				}
+				if ( !empty( $meta['schema_video_interaction_count'] ) ) {
+					$args["interactionCount"] = esc_html( $meta['schema_video_interaction_count'] );
+				}
+				if ( !empty( $meta['schema_video_expires_date'] ) && !empty( $meta['schema_video_expires_time'] ) ) {
+					$args["expires"] = $this->escape_text_tags( $meta['schema_video_expires_date'] ) . 'T' . $this->escape_text_tags( $meta['schema_video_expires_time'] );
+				}
+				$this->set_schema_json( $args );
+			}
+		}
 	}
 
 	/**

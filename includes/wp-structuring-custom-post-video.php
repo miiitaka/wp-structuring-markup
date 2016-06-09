@@ -114,10 +114,10 @@ class Structuring_Markup_Custom_Post_Video {
 		$html .= '<input type="text" name="option[' . "schema_video_interaction_count" . ']" id="schema_video_interaction_count" class="regular-text" value="' . esc_attr( $args['schema_video_interaction_count'] ) . '">';
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="schema_video_expires_date">';
-		$html .= esc_html__( 'Start Date', $this->text_domain );
+		$html .= esc_html__( 'expires', $this->text_domain );
 		$html .= '</label></th><td>';
-		$html .= '<input type="date" name="option[' . "schema_video_expires_date" . ']" id="schema_video_expires_date" required value="' . esc_attr( $args['schema_video_expires_date'] ) . '">';
-		$html .= '<input type="time" name="option[' . "schema_video_expires_time" . ']" id="schema_video_expires_time" required value="' . esc_attr( $args['schema_video_expires_time'] ) . '">';
+		$html .= '<input type="date" name="option[' . "schema_video_expires_date" . ']" id="schema_video_expires_date" value="' . esc_attr( $args['schema_video_expires_date'] ) . '">';
+		$html .= '<input type="time" name="option[' . "schema_video_expires_time" . ']" id="schema_video_expires_time" value="' . esc_attr( $args['schema_video_expires_time'] ) . '">';
 		$html .= '</td></tr>';
 		$html .= '</table>';
 
