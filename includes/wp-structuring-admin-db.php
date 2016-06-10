@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 2.6.0
+ * @version 3.0.0
  */
 class Structuring_Markup_Admin_Db {
 
@@ -12,7 +12,7 @@ class Structuring_Markup_Admin_Db {
 	 * Variable definition.
 	 *
 	 * @since   1.0.0
-	 * @version 2.6.0
+	 * @version 3.0.0
 	 */
 	private $table_name;
 
@@ -223,25 +223,6 @@ class Structuring_Markup_Admin_Db {
 		$query = "SELECT * FROM " . $this->table_name . " ORDER BY type ASC";
 
 		return (array) $wpdb->get_results( $query );
-	}
-
-	/**
-	 * Get Select Data.
-	 *
-	 * @since   1.0.0
-	 * @version 2.5.0
-	 * @param   array $output
-	 * @return  array $results
-	 */
-	public function get_select_options ( $output ) {
-		global $wpdb;
-
-		$query    = "SELECT * FROM " . $this->table_name . " WHERE output LIKE '%%\"%s\"%%'";
-		$data     = array( $output );
-		$prepared = $wpdb->prepare( $query, $data );
-		$results  = $wpdb->get_results( $prepared );
-
-		return (array) $results;
 	}
 
 	/**

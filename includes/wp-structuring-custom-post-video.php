@@ -3,16 +3,16 @@
  * Schema.org Custom Post "Video"
  *
  * @author  Kazuya Takami
- * @since   2.6.0
- * @version 2.6.0
+ * @since   3.0.0
+ * @version 3.0.0
  */
 class Structuring_Markup_Custom_Post_Video {
 
 	/**
 	 * Variable definition.
 	 *
-	 * @since   2.6.0
-	 * @version 2.6.0
+	 * @since   3.0.0
+	 * @version 3.0.0
 	 */
 	private $text_domain;
 	private $custom_type = 'schema_video_post';
@@ -20,8 +20,8 @@ class Structuring_Markup_Custom_Post_Video {
 	/**
 	 * Constructor Define.
 	 *
-	 * @since   2.6.0
-	 * @version 2.6.0
+	 * @since   3.0.0
+	 * @version 3.0.0
 	 * @param   String $text_domain
 	 */
 	public function __construct ( $text_domain ) {
@@ -56,8 +56,8 @@ class Structuring_Markup_Custom_Post_Video {
 	/**
 	 * admin init.
 	 *
-	 * @since   2.6.0
-	 * @version 2.6.0
+	 * @since   3.0.0
+	 * @version 3.0.0
 	 */
 	public function admin_init () {
 		add_action( 'save_post_' . $this->custom_type, array( $this, 'save_post' ) );
@@ -66,8 +66,8 @@ class Structuring_Markup_Custom_Post_Video {
 	/**
 	 * admin meta boxes.
 	 *
-	 * @since   2.6.0
-	 * @version 2.6.0
+	 * @since   3.0.0
+	 * @version 3.0.0
 	 */
 	public function admin_menu () {
 		$custom_field_title = esc_html__( 'Schema.org Type Video', $this->text_domain );
@@ -77,8 +77,8 @@ class Structuring_Markup_Custom_Post_Video {
 	/**
 	 * Set custom fields.
 	 *
-	 * @since   2.6.0
-	 * @version 2.6.0
+	 * @since   3.0.0
+	 * @version 3.0.0
 	 */
 	public function set_custom_fields () {
 		$args = get_post_meta( get_the_ID(), $this->custom_type, false );
@@ -127,8 +127,8 @@ class Structuring_Markup_Custom_Post_Video {
 	/**
 	 * Save custom post.
 	 *
-	 * @since   2.6.0
-	 * @version 2.6.0
+	 * @since   3.0.0
+	 * @version 3.0.0
 	 * @param   integer $post_id The post ID.
 	 */
 	public function save_post ( $post_id ) {

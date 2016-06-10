@@ -3,7 +3,7 @@ Contributors: miiitaka
 Tags: schema, schema.org, json, json-ld, seo, post, posts, google, shortcode, breadcrumb
 Requires at least: 4.3.1
 Tested up to: 4.5.2
-Stable tag: 2.5.1
+Stable tag: 3.0.0
 
 Allows you to include schema.org JSON-LD syntax markup on your website
 
@@ -22,6 +22,7 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 * NewsArticle: http://schema.org/NewsArticle
 * Organization: https://schema.org/Organization
 * Person: https://schema.org/Person
+* Video: https://schema.org/Video
 * Website: https://schema.org/WebSite
 
 = Breadcrumb =
@@ -51,6 +52,13 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 * Open 'Schema.org Setting' menu.
 
 == Changelog ==
+
+= 3.0.0 (2016-06-xx) =
+
+* Added : Schema.org type "Video".
+* Added : Display the cause of the JSON-LD is not output in HTML comments.
+* Fixed : "Schema.org Event" solve the output of JSON-LD is a problem with the double in the custom posts.
+* Fixed : Changes to the search of the array to remove the SQL statement to get the output page.
 
 = 2.5.1 (2016-05-09) =
 
