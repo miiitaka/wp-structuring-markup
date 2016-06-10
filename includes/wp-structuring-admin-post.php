@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 2.6.0
+ * @version 3.0.0
  */
 class Structuring_Markup_Admin_Post {
 
@@ -107,7 +107,7 @@ class Structuring_Markup_Admin_Post {
 	 * Setting Page of the Admin Screen.
 	 *
 	 * @since   1.0.0
-	 * @version 2.6.0
+	 * @version 3.0.0
 	 * @param   array  $options
 	 * @param   string $status
 	 */

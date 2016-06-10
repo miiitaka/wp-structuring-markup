@@ -3,8 +3,8 @@
  * Schema.org Type Video
  *
  * @author  Kazuya Takami
- * @version 2.6.0
- * @since   2.6.0
+ * @version 3.0.0
+ * @since   3.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/VideoObject
  * @link    https://developers.google.com/search/docs/data-types/videos
@@ -14,7 +14,7 @@ class Structuring_Markup_Type_Videos {
 	/**
 	 * Constructor Define.
 	 *
-	 * @since 2.6.0
+	 * @since 3.0.0
 	 */
 	public function __construct () {
 		$this->page_render();
@@ -23,7 +23,7 @@ class Structuring_Markup_Type_Videos {
 	/**
 	 * Form Layout Render
 	 *
-	 * @since 2.6.0
+	 * @since 3.0.0
 	 */
 	private function page_render () {
 		$html  = '<table class="schema-admin-table">';

@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @author  Justin Frydman
- * @version 2.6.0
+ * @version 3.0.0
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -23,7 +23,7 @@ class Structuring_Markup_Display {
 	 * Setting schema.org
 	 *
 	 * @since   1.0.0
-	 * @version 2.6.0
+	 * @version 3.0.0
 	 * @param   Structuring_Markup_Admin_Db $db
 	 */
 	private function set_schema ( Structuring_Markup_Admin_Db $db ) {
@@ -66,7 +66,7 @@ class Structuring_Markup_Display {
 	 * Setting JSON-LD Template
 	 *
 	 * @since   1.0.0
-	 * @version 2.6.0
+	 * @version 3.0.0
 	 * @param   Structuring_Markup_Admin_Db $db
 	 * @param   string $output
 	 */
@@ -133,7 +133,9 @@ class Structuring_Markup_Display {
 	 * Setting JSON-LD Template
 	 *
 	 * @since 1.0.0
-	 * @param array $args
+	 * @since 3.0.0
+	 * @param array   $args
+	 * @param boolean $error
 	 */
 	private function set_schema_json ( array $args ) {
 		echo '<script type="application/ld+json">' , PHP_EOL;
@@ -655,8 +657,8 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org Video
 	 *
-	 * @since   2.6.0
-	 * @version 2.6.0
+	 * @since   3.0.0
+	 * @version 3.0.0
 	 */
 	private function set_schema_video () {
 		global $post;
@@ -674,8 +676,8 @@ class Structuring_Markup_Display {
 				if ( !isset( $meta['schema_video_content_url'] ) )       $meta['schema_video_content_url'] = '';
 				if ( !isset( $meta['schema_video_embed_url'] ) )         $meta['schema_video_embed_url'] = '';
 				if ( !isset( $meta['schema_video_interaction_count'] ) ) $meta['schema_video_interaction_count'] = '';
-				if ( !isset( $meta['schema_video_expires_date'] ) ) $meta['schema_video_expires_date'] = '';
-				if ( !isset( $meta['schema_video_expires_time'] ) ) $meta['schema_video_expires_time'] = '';
+				if ( !isset( $meta['schema_video_expires_date'] ) )      $meta['schema_video_expires_date'] = '';
+				if ( !isset( $meta['schema_video_expires_time'] ) )      $meta['schema_video_expires_time'] = '';
 
 				$args = array(
 					"@context" => "http://schema.org",
