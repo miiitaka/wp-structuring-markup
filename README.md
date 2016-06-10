@@ -5,9 +5,6 @@ https://wordpress.org/plugins/wp-structuring-markup/
 Allows you to include schema.org JSON-LD syntax markup on your website
 Base knowledge is "https://schema.org/" and "https://developers.google.com/structured-data/"
 
-このプラグインは、投稿ページ、固定ページなどにschema.org定義の構造化マークアップ（ JSON -LDの構文）を実装するプラグインです。
-基本知識は、https://schema.org/ や https://developers.google.com/structured-data/ を参考にしてください。
-
 ## Schema.org Type
 
 - Article: http://schema.org/Article
@@ -18,12 +15,11 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 - NewsArticle: http://schema.org/NewsArticle
 - Organization: https://schema.org/Organization
 - Person: https://schema.org/Person
+- Video: https://schema.org/Video
 - Website: https://schema.org/WebSite
 
 ## ShortCode
 You can display the breadcrumbs in the short code. Breadcrumb definition is available even if not active.
-
-ショートコードでパンくずリストを表示することができます。Breadcrumb定義がアクティブでなくても使用可能です。
 
 
 [ Example ]
@@ -42,6 +38,11 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 - Option : class="class_name" attribute additional ol element.
 
 ## Change Log
+
+### 2.6.0 (2016-06-xx)
+
+- Added : Schema.org type "Video".
+- Fixed : "Schema.org Event" solve the output of JSON-LD is a problem with the double in the custom posts.
 
 ### 2.5.1 (2016-05-09)
 
