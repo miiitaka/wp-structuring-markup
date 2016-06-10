@@ -226,25 +226,6 @@ class Structuring_Markup_Admin_Db {
 	}
 
 	/**
-	 * Get Select Data.
-	 *
-	 * @since   1.0.0
-	 * @version 2.5.0
-	 * @param   array $output
-	 * @return  array $results
-	 */
-	public function get_select_options ( $output ) {
-		global $wpdb;
-
-		$query    = "SELECT * FROM " . $this->table_name . " WHERE output LIKE '%%\"%s\"%%'";
-		$data     = array( $output );
-		$prepared = $wpdb->prepare( $query, $data );
-		$results  = $wpdb->get_results( $prepared );
-
-		return (array) $results;
-	}
-
-	/**
 	 * Get Type Data.
 	 *
 	 * @since   2.0.0

@@ -39,10 +39,12 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
-### 2.6.0 (2016-06-xx)
+### 3.0.0 (2016-06-xx)
 
 - Added : Schema.org type "Video".
+- Added : Display the cause of the JSON-LD is not output in HTML comments.
 - Fixed : "Schema.org Event" solve the output of JSON-LD is a problem with the double in the custom posts.
+- Fixed : Changes to the search of the array to remove the SQL statement to get the output page.
 
 ### 2.5.1 (2016-05-09)
 
