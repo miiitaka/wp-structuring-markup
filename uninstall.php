@@ -8,7 +8,7 @@ new Structuring_Markup_Uninstall();
  * Schema.org Plugin Uninstall
  *
  * @author  Kazuya Takami
- * @version 2.1.0
+ * @version 3.0.0
  * @since   1.0.0
  */
 class Structuring_Markup_Uninstall {
@@ -17,20 +17,23 @@ class Structuring_Markup_Uninstall {
 	 * Variable definition.
 	 *
 	 * @since   2.1.0
-	 * @version 2.1.0
+	 * @version 3.0.0
 	 */
-	private $custom_type = 'schema_event_post';
+	private $custom_type_event = 'schema_event_post';
+	private $custom_type_video = 'schema_video_post';
 
 	/**
 	 * Constructor Define.
 	 *
 	 * @since   1.0.0
-	 * @version 2.0.0
+	 * @version 3.0.0
 	 */
 	public function __construct () {
 		$this->drop_table( 'structuring_markup' );
-		$this->delete_custom_post( $this->custom_type );
-		$this->delete_post_meta( $this->custom_type );
+		$this->delete_custom_post( $this->custom_type_event );
+		$this->delete_post_meta( $this->custom_type_event );
+		$this->delete_custom_post( $this->custom_type_video );
+		$this->delete_post_meta( $this->custom_type_video );
 		delete_option( 'wp_structuring_markup' );
 	}
 
