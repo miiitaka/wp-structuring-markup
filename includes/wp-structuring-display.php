@@ -80,15 +80,14 @@ class Structuring_Markup_Display {
 	 * @param   string $output
 	 * @param   array  $structuring_markup_args
 	 */
-	private function get_schema_data ( $output, array $structuring_markup_args )
-	{
+	private function get_schema_data ( $output, array $structuring_markup_args ) {
 
 		foreach ($structuring_markup_args as $row) {
-			// Output page check.
+			/** Output page check. */
 			$output_args = unserialize( $row->output );
 			if ( array_key_exists( $output, $output_args ) ) {
 				
-				// Activate check.
+				/** Activate check. */
 				if ( isset( $row->type ) && isset( $row->activate ) && $row->activate === 'on' ) {
 					switch ( $row->type ) {
 						case 'article':
@@ -153,7 +152,7 @@ class Structuring_Markup_Display {
 	 */
 	private function set_schema_json ( array $args, $error = false ) {
 		if ( $error ) {
-			// Error Display
+			/** Error Display */
 			if ( isset( $args["@type"] ) ) {
 				foreach ( $args["message"] as $message ) {
 					echo "<!-- Schema.org ", $args["@type"], " : ", $message, " -->", PHP_EOL;
@@ -190,7 +189,7 @@ class Structuring_Markup_Display {
 	 private function get_image_dimensions ( $url ) {
 		$cache = new Structuring_Markup_Cache( $url );
 		
-		// check for cached dimensions
+		/** check for cached dimensions */
 		if( $cache->get() !== false ) {
 			return $cache->get();
 		}
@@ -214,7 +213,7 @@ class Structuring_Markup_Display {
 				
 	 			$dimensions = array( $width, $height );
 	 			
-	 			// cache for an hour
+	 			/** cache for an hour */
 	 			$cache->set( $dimensions, HOUR_IN_SECONDS );
 	 			
 	 			return $dimensions;
@@ -224,7 +223,7 @@ class Structuring_Markup_Display {
 	 	if( $image = @getimagesize( $url ) ) {
 	 		$dimensions = array( $image[0], $image[1] );
 	 		
- 			// cache for an hour
+ 			/** cache for an hour */
  			$cache->set( $dimensions, HOUR_IN_SECONDS );
  			
  			return $dimensions;
@@ -233,13 +232,13 @@ class Structuring_Markup_Display {
 	 	if( $image = @getimagesize( str_replace( 'https://', 'http://', $url ) ) ) {
 	 		$dimensions = array( $image[0], $image[1] );
 	 		
- 			// cache for an hour
+ 			/** cache for an hour */
  			$cache->set( $dimensions, HOUR_IN_SECONDS );
  			
  			return $dimensions;	 		
 	 	}
 	 	
-	 	// this hits the database and be very slow if the user is using a URL that doesn't exist in the WP Library
+	 	/** this hits the database and be very slow if the user is using a URL that doesn't exist in the WP Library */
 	 	if( $image = wp_get_attachment_image_src( attachment_url_to_postid( $url ), 'full' ) ) {
 	 		$dimensions = array( $image[1], $image[2] );
 	 		
@@ -383,9 +382,9 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org Breadcrumb
 	 *
-	 * @since    2.0.0
-	 * ＠version 2.0.0
-	 * @param    array $options
+	 * @since   2.0.0
+	 * @version 2.0.0
+	 * @param   array $options
 	 */
 	private function set_schema_breadcrumb ( array $options ) {
 		require_once( plugin_dir_path( __FILE__ ) . 'wp-structuring-short-code-breadcrumb.php' );

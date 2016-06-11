@@ -84,6 +84,8 @@ class Structuring_Markup {
 			require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-short-code-breadcrumb.php');
 			$obj = new Structuring_Markup_ShortCode_Breadcrumb();
 			return $obj->short_code_display( $options, $args );
+		} else {
+			return __return_false();
 		}
 	}
 
@@ -94,7 +96,7 @@ class Structuring_Markup {
 	 * @version 1.3.0
 	 */
 	public function plugins_loaded () {
-		load_plugin_textdomain( $this->text_domain, false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+		load_plugin_textdomain( $this->text_domain, __return_false(), dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 	}
 
 	/**
