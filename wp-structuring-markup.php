@@ -171,8 +171,11 @@ class Structuring_Markup {
 			if ( isset( $_POST['activate'] ) && $_POST['activate'] === 'on' ) {
 				flush_rewrite_rules();
 			}
-			if ( !isset( $_POST['activate'] ) ) {
+			if ( !isset( $_POST['activate'] ) && isset( $_GET['type'] ) && $_GET['type'] === 'event' ) {
 				remove_menu_page('edit.php?post_type=schema_event_post');
+			}
+			if ( !isset( $_POST['activate'] ) && isset( $_GET['type'] ) && $_GET['type'] === 'video' ) {
+				remove_menu_page('edit.php?post_type=schema_video_post');
 			}
 		} else {
 			/** DB Connect */
@@ -181,6 +184,12 @@ class Structuring_Markup {
 
 			if ( !isset( $results['activate'] ) || $results['activate'] !== 'on' ) {
 				remove_menu_page( 'edit.php?post_type=schema_event_post' );
+			}
+
+			$results = $db->get_type_options('video');
+
+			if ( !isset( $results['activate'] ) || $results['activate'] !== 'on' ) {
+				remove_menu_page( 'edit.php?post_type=schema_video_post' );
 			}
 		}
 	}
