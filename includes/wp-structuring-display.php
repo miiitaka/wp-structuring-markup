@@ -640,7 +640,7 @@ class Structuring_Markup_Display {
 	 * Setting schema.org Organization
 	 *
 	 * @since   1.0.0
-	 * @version 2.2.0
+	 * @version 3.0.0
 	 * @param   array $options
 	 */
 	private function set_schema_organization ( array $options ) {
@@ -670,11 +670,13 @@ class Structuring_Markup_Display {
 			$socials["sameAs"] = array();
 
 			foreach ( $options['social'] as $value ) {
-				if ( !empty( $value ) ) {
-					$socials["sameAs"][] = esc_html( $value );
+				if ( $value ) {
+					$socials["sameAs"][] = esc_url( $value );
 				}
 			}
-			$args = array_merge( $args, $socials );
+			if ( !empty( $socials["sameAs"] ) ) {
+				$args = array_merge( $args, $socials );
+			}
 		}
 		$this->set_schema_json( $args );
 	}

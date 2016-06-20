@@ -45,6 +45,7 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 - Added : Display the cause of the JSON-LD is not output in HTML comments.
 - Fixed : "Schema.org Event" solve the output of JSON-LD is a problem with the double in the custom posts.
 - Fixed : Changes to the search of the array to remove the SQL statement to get the output page.
+- Fixed : "Schema.org Organization" If you have not set up a Social Profiles, it does not show an empty array.
 
 ### 2.5.1 (2016-05-09)
 
