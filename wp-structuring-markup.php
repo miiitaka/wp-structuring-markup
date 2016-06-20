@@ -3,7 +3,7 @@
 Plugin Name: Markup (JSON-LD) structured in schema.org
 Plugin URI: https://wordpress.org/plugins/wp-structuring-markup/
 Description: Allows you to include schema.org JSON-LD syntax markup on your website
-Version: 2.5.1
+Version: 3.0.0
 Author: Kazuya Takami
 Author URI: http://programp.com/
 License: GPLv2 or later
@@ -19,7 +19,7 @@ new Structuring_Markup();
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 2.5.1
+ * @version 3.0.0
  */
 class Structuring_Markup {
 
@@ -27,10 +27,10 @@ class Structuring_Markup {
 	 * Variable definition.
 	 *
 	 * @since   1.3.0
-	 * @version 2.5.1
+	 * @version 3.0.0
 	 */
 	private $text_domain = 'wp-structuring-markup';
-	private $version     = '2.5.1';
+	private $version     = '3.0.0';
 
 	/**
 	 * Constructor Define.
@@ -44,7 +44,7 @@ class Structuring_Markup {
 		add_shortcode( $this->text_domain . '-breadcrumb', array( $this, 'short_code_init_breadcrumb' ) );
 
 		add_action( 'plugins_loaded', array( $this, 'plugins_loaded' ) );
-		add_action( 'init',           array( $this, 'create_post_type_event' ) );
+		add_action( 'init',           array( $this, 'create_post_type' ) );
 
 		if ( is_admin() ) {
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
@@ -84,6 +84,8 @@ class Structuring_Markup {
 			require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-short-code-breadcrumb.php');
 			$obj = new Structuring_Markup_ShortCode_Breadcrumb();
 			return $obj->short_code_display( $options, $args );
+		} else {
+			return __return_false();
 		}
 	}
 
@@ -94,18 +96,20 @@ class Structuring_Markup {
 	 * @version 1.3.0
 	 */
 	public function plugins_loaded () {
-		load_plugin_textdomain( $this->text_domain, false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
+		load_plugin_textdomain( $this->text_domain, __return_false(), dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 	}
 
 	/**
-	 * Create custom post type "event".
+	 * Create custom post type.
 	 *
 	 * @since   2.1.0
-	 * @version 2.1.0
+	 * @version 3.0.0
 	 */
-	function create_post_type_event () {
+	function create_post_type () {
 		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-custom-post-event.php' );
 		new Structuring_Markup_Custom_Post_Event( $this->text_domain );
+		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-custom-post-video.php' );
+		new Structuring_Markup_Custom_Post_Video( $this->text_domain );
 	}
 
 	/**
@@ -127,9 +131,9 @@ class Structuring_Markup {
 	/**
 	 * admin_scripts
 	 *
-	 * @since 2.4.0
+	 * @since   2.4.0
 	 * @version 2.4.0
-	 * @author Justin Frydman
+	 * @author  Justin Frydman
 	 */
 	public function admin_scripts () {
 		wp_enqueue_script( 'wp-structuring-markup-admin-main-js', plugins_url( 'js/main.min.js', __FILE__ ), array('jquery'), '1.0' );
@@ -167,8 +171,11 @@ class Structuring_Markup {
 			if ( isset( $_POST['activate'] ) && $_POST['activate'] === 'on' ) {
 				flush_rewrite_rules();
 			}
-			if ( !isset( $_POST['activate'] ) ) {
+			if ( !isset( $_POST['activate'] ) && isset( $_GET['type'] ) && $_GET['type'] === 'event' ) {
 				remove_menu_page('edit.php?post_type=schema_event_post');
+			}
+			if ( !isset( $_POST['activate'] ) && isset( $_GET['type'] ) && $_GET['type'] === 'video' ) {
+				remove_menu_page('edit.php?post_type=schema_video_post');
 			}
 		} else {
 			/** DB Connect */
@@ -177,6 +184,12 @@ class Structuring_Markup {
 
 			if ( !isset( $results['activate'] ) || $results['activate'] !== 'on' ) {
 				remove_menu_page( 'edit.php?post_type=schema_event_post' );
+			}
+
+			$results = $db->get_type_options('video');
+
+			if ( !isset( $results['activate'] ) || $results['activate'] !== 'on' ) {
+				remove_menu_page( 'edit.php?post_type=schema_video_post' );
 			}
 		}
 	}

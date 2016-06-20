@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 2.5.0
+ * @version 3.0.0
  */
 class Structuring_Markup_Admin_Post {
 
@@ -107,7 +107,7 @@ class Structuring_Markup_Admin_Post {
 	 * Setting Page of the Admin Screen.
 	 *
 	 * @since   1.0.0
-	 * @version 2.5.0
+	 * @version 3.0.0
 	 * @param   array  $options
 	 * @param   string $status
 	 */
@@ -234,6 +234,14 @@ class Structuring_Markup_Admin_Post {
 
 				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-person.php' );
 				new Structuring_Markup_Type_Person( $options['option'] );
+				break;
+			case 'video':
+				$html  = $this->output_checkbox_render( $options['output'], "video", esc_html__( 'Video Post Page', $this->text_domain ) );
+				$html .= '</td></tr></table><hr>';
+				echo $html;
+
+				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-video.php' );
+				new Structuring_Markup_Type_Videos();
 				break;
 			case 'website':
 				$html  = $this->output_checkbox_render( $options['output'], "all",  esc_html__( 'All Pages (In Header)', $this->text_domain ) );

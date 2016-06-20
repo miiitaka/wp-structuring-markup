@@ -4,10 +4,18 @@
  *
  * @author  Kazuya Takami
  * @author  Justin Frydman
- * @version 2.5.0
+ * @version 3.0.0
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
+
+	/**
+	 * Text Domain
+	 *
+	 * @since   3.0.0
+	 * @version 3.0.0
+	 */
+	private $text_domain = 'wp-structuring-markup';
 
 	/**
 	 * Constructor Define.
@@ -23,33 +31,42 @@ class Structuring_Markup_Display {
 	 * Setting schema.org
 	 *
 	 * @since   1.0.0
-	 * @version 2.5.0
+	 * @version 3.0.0
 	 * @param   Structuring_Markup_Admin_Db $db
 	 */
 	private function set_schema ( Structuring_Markup_Admin_Db $db ) {
+		$structuring_markup_args = $db->get_list_options();
+
 		echo '<!-- Markup (JSON-LD) structured in schema.org START -->' . PHP_EOL;
 		
-		$this->get_schema_data( $db, 'all' );
+		$this->get_schema_data( 'all', $structuring_markup_args );
 		if ( is_home() ) {
-			$this->get_schema_data( $db, 'home' );
+			$this->get_schema_data( 'home', $structuring_markup_args );
 		}
 		if ( is_single() && get_post_type() === 'post' ) {
-			$this->get_schema_data( $db, 'post' );
+			$this->get_schema_data( 'post', $structuring_markup_args );
 		}
 		if ( is_singular( 'schema_event_post' ) ) {
-			$this->get_schema_data( $db, 'event' );
+			$this->get_schema_data( 'event', $structuring_markup_args );
+		}
+		if ( is_singular( 'schema_video_post' ) ) {
+			$this->get_schema_data( 'video', $structuring_markup_args );
 		}
 		if ( is_page() ) {
-			$this->get_schema_data( $db, 'page' );
+			$this->get_schema_data( 'page', $structuring_markup_args );
 		}
 		$args = array(
 			'public'   => true,
 			'_builtin' => false
 		);
 		$post_types = get_post_types( $args, 'objects' );
+
+		unset($post_types['schema_event_post']);
+		unset($post_types['schema_video_post']);
+
 		foreach ( $post_types as $post_type ) {
 			if ( is_singular( $post_type->name ) ) {
-				$this->get_schema_data( $db, $post_type->name );
+				$this->get_schema_data( $post_type->name, $structuring_markup_args );
 			}
 		}
 		echo '<!-- Markup (JSON-LD) structured in schema.org END -->' . PHP_EOL;
@@ -59,15 +76,18 @@ class Structuring_Markup_Display {
 	 * Setting JSON-LD Template
 	 *
 	 * @since   1.0.0
-	 * @version 2.4.0
-	 * @param   Structuring_Markup_Admin_Db $db
+	 * @version 3.0.0
 	 * @param   string $output
+	 * @param   array  $structuring_markup_args
 	 */
-	private function get_schema_data ( Structuring_Markup_Admin_Db $db, $output ) {
-		$results = $db->get_select_options( $output );
+	private function get_schema_data ( $output, array $structuring_markup_args ) {
 
-		if ( isset( $results ) ) {
-			foreach ( $results as $row ) {
+		foreach ($structuring_markup_args as $row) {
+			/** Output page check. */
+			$output_args = unserialize( $row->output );
+			if ( array_key_exists( $output, $output_args ) ) {
+				
+				/** Activate check. */
 				if ( isset( $row->type ) && isset( $row->activate ) && $row->activate === 'on' ) {
 					switch ( $row->type ) {
 						case 'article':
@@ -108,6 +128,9 @@ class Structuring_Markup_Display {
 								$this->set_schema_person( unserialize( $row->options ) );
 							}
 							break;
+						case 'video':
+							$this->set_schema_video();
+							break;
 						case 'website':
 							if ( isset( $row->options ) && $row->options ) {
 								$this->set_schema_website( unserialize( $row->options ) );
@@ -123,12 +146,23 @@ class Structuring_Markup_Display {
 	 * Setting JSON-LD Template
 	 *
 	 * @since 1.0.0
-	 * @param array $args
+	 * @since 3.0.0
+	 * @param array   $args
+	 * @param boolean $error
 	 */
-	private function set_schema_json ( array $args ) {
-		echo '<script type="application/ld+json">' , PHP_EOL;
-		echo json_encode( $args, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ) , PHP_EOL;
-		echo '</script>' , PHP_EOL;
+	private function set_schema_json ( array $args, $error = false ) {
+		if ( $error ) {
+			/** Error Display */
+			if ( isset( $args["@type"] ) ) {
+				foreach ( $args["message"] as $message ) {
+					echo "<!-- Schema.org ", $args["@type"], " : ", $message, " -->", PHP_EOL;
+				}
+			}
+		} else {
+			echo '<script type="application/ld+json">', PHP_EOL;
+			echo json_encode( $args, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ), PHP_EOL;
+			echo '</script>', PHP_EOL;
+		}
 	}
 
 	/**
@@ -155,7 +189,7 @@ class Structuring_Markup_Display {
 	 private function get_image_dimensions ( $url ) {
 		$cache = new Structuring_Markup_Cache( $url );
 		
-		// check for cached dimensions
+		/** check for cached dimensions */
 		if( $cache->get() !== false ) {
 			return $cache->get();
 		}
@@ -179,7 +213,7 @@ class Structuring_Markup_Display {
 				
 	 			$dimensions = array( $width, $height );
 	 			
-	 			// cache for an hour
+	 			/** cache for an hour */
 	 			$cache->set( $dimensions, HOUR_IN_SECONDS );
 	 			
 	 			return $dimensions;
@@ -189,7 +223,7 @@ class Structuring_Markup_Display {
 	 	if( $image = @getimagesize( $url ) ) {
 	 		$dimensions = array( $image[0], $image[1] );
 	 		
- 			// cache for an hour
+ 			/** cache for an hour */
  			$cache->set( $dimensions, HOUR_IN_SECONDS );
  			
  			return $dimensions;
@@ -198,13 +232,13 @@ class Structuring_Markup_Display {
 	 	if( $image = @getimagesize( str_replace( 'https://', 'http://', $url ) ) ) {
 	 		$dimensions = array( $image[0], $image[1] );
 	 		
- 			// cache for an hour
+ 			/** cache for an hour */
  			$cache->set( $dimensions, HOUR_IN_SECONDS );
  			
  			return $dimensions;	 		
 	 	}
 	 	
-	 	// this hits the database and be very slow if the user is using a URL that doesn't exist in the WP Library
+	 	/** this hits the database and be very slow if the user is using a URL that doesn't exist in the WP Library */
 	 	if( $image = wp_get_attachment_image_src( attachment_url_to_postid( $url ), 'full' ) ) {
 	 		$dimensions = array( $image[1], $image[2] );
 	 		
@@ -221,22 +255,24 @@ class Structuring_Markup_Display {
 	 * Setting schema.org Article
 	 *
 	 * @since   1.1.0
-	 * @version 2.3.3
+	 * @version 3.0.0
 	 * @param   array $options
 	 */
 	private function set_schema_article ( array $options ) {
 		global $post;
 
 		$options['logo'] = isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "";
+		$args = array(
+			"@context" => "http://schema.org",
+			"@type"    => "Article"
+		);
 
 		if ( has_post_thumbnail( $post->ID ) && $logo = $this->get_image_dimensions( $options['logo'] ) ) {
 			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 			$excerpt = $this->escape_text_tags( $post->post_excerpt );
 			$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
 
-			$args = array(
-				"@context" => "http://schema.org",
-				"@type"    => "Article",
+			$schema_args = array(
 				"mainEntityOfPage" => array(
 					"@type" => "WebPage",
 					"@id"   => get_permalink( $post->ID )
@@ -266,7 +302,16 @@ class Structuring_Markup_Display {
 				),
 				"description" => $content
 			);
+			$args = array_merge( $args, $schema_args );
 			$this->set_schema_json( $args );
+		} else {
+			if ( !has_post_thumbnail( $post->ID ) ) {
+				$args["message"][] = __( "Featured Image not set.", $this->text_domain );
+			}
+			if ( !$this->get_image_dimensions( $options['logo'] ) ) {
+				$args["message"][] = __( "Logo Image not set.", $this->text_domain );
+			}
+			$this->set_schema_json( $args, __return_true() );
 		}
 	}
 
@@ -274,22 +319,24 @@ class Structuring_Markup_Display {
 	 * Setting schema.org BlogPosting
 	 *
 	 * @since   1.2.0
-	 * @version 2.3.3
+	 * @version 3.0.0
 	 * @param   array $options
 	 */
 	private function set_schema_blog_posting ( array $options ) {
 		global $post;
 
 		$options['logo'] = isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "";
+		$args = array(
+			"@context" => "http://schema.org",
+			"@type"    => "BlogPosting"
+		);
 
 		if ( has_post_thumbnail( $post->ID ) && $logo = $this->get_image_dimensions( $options['logo'] ) ) {
 			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 			$excerpt = $this->escape_text_tags( $post->post_excerpt );
 			$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
 
-			$args = array(
-				"@context" => "http://schema.org",
-				"@type"    => "BlogPosting",
+			$schema_args = array(
 				"mainEntityOfPage" => array(
 					"@type" => "WebPage",
 					"@id"   => get_permalink( $post->ID )
@@ -319,16 +366,25 @@ class Structuring_Markup_Display {
 				),
 				"description" => $content
 			);
+			$args = array_merge( $args, $schema_args );
 			$this->set_schema_json( $args );
+		} else {
+			if ( !has_post_thumbnail( $post->ID ) ) {
+				$args["message"][] = __( "Featured Image not set.", $this->text_domain );
+			}
+			if ( !$this->get_image_dimensions( $options['logo'] ) ) {
+				$args["message"][] = __( "Logo Image not set.", $this->text_domain );
+			}
+			$this->set_schema_json( $args, __return_true() );
 		}
 	}
 
 	/**
 	 * Setting schema.org Breadcrumb
 	 *
-	 * @since    2.0.0
-	 * ＠version 2.0.0
-	 * @param    array $options
+	 * @since   2.0.0
+	 * @version 2.0.0
+	 * @param   array $options
 	 */
 	private function set_schema_breadcrumb ( array $options ) {
 		require_once( plugin_dir_path( __FILE__ ) . 'wp-structuring-short-code-breadcrumb.php' );
@@ -363,7 +419,7 @@ class Structuring_Markup_Display {
 	 * Setting schema.org Event
 	 *
 	 * @since   2.1.0
-	 * @version 2.1.0
+	 * @version 3.0.0
 	 */
 	private function set_schema_event () {
 		global $post;
@@ -372,10 +428,10 @@ class Structuring_Markup_Display {
 		if ( isset( $meta[0] ) ) {
 			$meta = unserialize( $meta[0] );
 
-			if ( !isset( $meta['schema_event_name']) ) $meta['schema_event_name'] = '';
-			if ( !isset( $meta['schema_event_date']) ) $meta['schema_event_date'] = date('Y-m-d');
-			if ( !isset( $meta['schema_event_time']) ) $meta['schema_event_time'] = date('h:i');
-			if ( !isset( $meta['schema_event_url']) )  $meta['schema_event_url']  = '';
+			if ( !isset( $meta['schema_event_name']) )             $meta['schema_event_name'] = '';
+			if ( !isset( $meta['schema_event_date']) )             $meta['schema_event_date'] = date('Y-m-d');
+			if ( !isset( $meta['schema_event_time']) )             $meta['schema_event_time'] = date('h:i');
+			if ( !isset( $meta['schema_event_url']) )              $meta['schema_event_url']  = '';
 			if ( !isset( $meta['schema_event_place_name'] ) )      $meta['schema_event_place_name']      = '';
 			if ( !isset( $meta['schema_event_place_url'] ) )       $meta['schema_event_place_url']       = '';
 			if ( !isset( $meta['schema_event_place_address'] ) )   $meta['schema_event_place_address']   = '';
@@ -383,23 +439,23 @@ class Structuring_Markup_Display {
 			if ( !isset( $meta['schema_event_offers_currency'] ) ) $meta['schema_event_offers_currency'] = '';
 
 			$args = array(
-					"@context"  => "http://schema.org",
-					"@type"     => "Event",
-					"name"      => $this->escape_text_tags( $meta['schema_event_name'] ),
-					"startDate" => $this->escape_text_tags( $meta['schema_event_date'] ) . 'T' . $this->escape_text_tags( $meta['schema_event_time'] ),
-					"url"       => esc_url( $meta['schema_event_url'] ),
-					"location"  => array(
-						"@type"   => "Place",
-						"sameAs"  => esc_url( $meta['schema_event_place_url'] ),
-						"name"    => $this->escape_text_tags( $meta['schema_event_place_name'] ),
-						"address" => $this->escape_text_tags( $meta['schema_event_place_address'] )
-					),
-					"offers"    => array(
-						"@type"         => "Offer",
-						"price"         => $this->escape_text_tags( $meta['schema_event_offers_price'] ),
-						"priceCurrency" => $this->escape_text_tags( $meta['schema_event_offers_currency'] ),
-						"url"           => esc_url( $meta['schema_event_url'] )
-					)
+				"@context"  => "http://schema.org",
+				"@type"     => "Event",
+				"name"      => $this->escape_text_tags( $meta['schema_event_name'] ),
+				"startDate" => $this->escape_text_tags( $meta['schema_event_date'] ) . 'T' . $this->escape_text_tags( $meta['schema_event_time'] ),
+				"url"       => esc_url( $meta['schema_event_url'] ),
+				"location"  => array(
+					"@type"   => "Place",
+					"sameAs"  => esc_url( $meta['schema_event_place_url'] ),
+					"name"    => $this->escape_text_tags( $meta['schema_event_place_name'] ),
+					"address" => $this->escape_text_tags( $meta['schema_event_place_address'] )
+				),
+				"offers"    => array(
+					"@type"         => "Offer",
+					"price"         => $this->escape_text_tags( $meta['schema_event_offers_price'] ),
+					"priceCurrency" => $this->escape_text_tags( $meta['schema_event_offers_currency'] ),
+					"url"           => esc_url( $meta['schema_event_url'] )
+				)
 			);
 			$this->set_schema_json( $args );
 		}
@@ -409,20 +465,20 @@ class Structuring_Markup_Display {
 	 * Setting schema.org LocalBusiness
 	 *
 	 * @since   2.3.0
-	 * @version 2.5.0
+	 * @version 3.0.0
 	 * @param   array $options
 	 */
 	private function set_schema_local_business ( array $options ) {
 
 		/** weekType defined. */
 		$week_array = array(
-			array("type" => "Mo", "display" => "Monday"),
-			array("type" => "Tu", "display" => "Tuesday"),
-			array("type" => "We", "display" => "Wednesday"),
-			array("type" => "Th", "display" => "Thursday"),
-			array("type" => "Fr", "display" => "Friday"),
-			array("type" => "Sa", "display" => "Saturday"),
-			array("type" => "Su", "display" => "Sunday")
+			array( "type" => "Mo", "display" => "Monday" ),
+			array( "type" => "Tu", "display" => "Tuesday" ),
+			array( "type" => "We", "display" => "Wednesday" ),
+			array( "type" => "Th", "display" => "Thursday" ),
+			array( "type" => "Fr", "display" => "Friday" ),
+			array( "type" => "Sa", "display" => "Saturday" ),
+			array( "type" => "Su", "display" => "Sunday" )
 		);
 
 		$args = array(
@@ -520,22 +576,24 @@ class Structuring_Markup_Display {
 	 * Setting schema.org NewsArticle
 	 *
 	 * @since   1.0.0
-	 * @version 2.3.3
+	 * @version 3.0.0
 	 * @param   array $options
 	 */
 	private function set_schema_news_article ( array $options ) {
 		global $post;
 
 		$options['logo'] = isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "";
+		$args = array(
+			"@context" => "http://schema.org",
+			"@type"    => "NewsArticle"
+		);
 
 		if ( has_post_thumbnail( $post->ID ) && $logo = $this->get_image_dimensions( $options['logo'] ) ) {
 			$images  = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 			$excerpt = $this->escape_text_tags( $post->post_excerpt );
 			$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
 
-			$args = array(
-				"@context" => "http://schema.org",
-				"@type"    => "NewsArticle",
+			$schema_args = array(
 				"mainEntityOfPage" => array(
 					"@type" => "WebPage",
 					"@id"   => get_permalink( $post->ID )
@@ -565,16 +623,25 @@ class Structuring_Markup_Display {
 				),
 				"description" => $content
 			);
+			$args = array_merge( $args, $schema_args );
 			$this->set_schema_json( $args );
+		} else {
+			if ( !has_post_thumbnail( $post->ID ) ) {
+				$args["message"][] = __( "Featured Image not set.", $this->text_domain );
+			}
+			if ( !$this->get_image_dimensions( $options['logo'] ) ) {
+				$args["message"][] = __( "Logo Image not set.", $this->text_domain );
+			}
+			$this->set_schema_json( $args, __return_true() );
 		}
 	}
 
 	/**
 	 * Setting schema.org Organization
 	 *
-	 * @since    1.0.0
-	 * ＠version 2.2.0
-	 * @param array $options
+	 * @since   1.0.0
+	 * @version 3.0.0
+	 * @param   array $options
 	 */
 	private function set_schema_organization ( array $options ) {
 		/** Logos */
@@ -603,11 +670,13 @@ class Structuring_Markup_Display {
 			$socials["sameAs"] = array();
 
 			foreach ( $options['social'] as $value ) {
-				if ( !empty( $value ) ) {
-					$socials["sameAs"][] = esc_html( $value );
+				if ( $value ) {
+					$socials["sameAs"][] = esc_url( $value );
 				}
 			}
-			$args = array_merge( $args, $socials );
+			if ( !empty( $socials["sameAs"] ) ) {
+				$args = array_merge( $args, $socials );
+			}
 		}
 		$this->set_schema_json( $args );
 	}
@@ -615,9 +684,9 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org Person
 	 *
-	 * @since    2.4.0
-	 * ＠version 2.4.0
-	 * @param array $options
+	 * @since   2.4.0
+	 * @version 2.4.0
+	 * @param   array $options
 	 */
 	private function set_schema_person ( array $options ) {
 		/** Logos */
@@ -640,6 +709,64 @@ class Structuring_Markup_Display {
 			$args = array_merge( $args, $socials );
 		}
 		$this->set_schema_json( $args );
+	}
+	
+	/**
+	 * Setting schema.org Video
+	 *
+	 * @since   3.0.0
+	 * @version 3.0.0
+	 */
+	private function set_schema_video () {
+		global $post;
+		$meta = get_post_meta( $post->ID, 'schema_video_post', false );
+
+		$args = array(
+			"@context" => "http://schema.org",
+			"@type" => "VideoObject"
+		);
+
+		if ( has_post_thumbnail( $post->ID ) ) {
+			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+			$excerpt = $this->escape_text_tags( $post->post_excerpt );
+			$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
+
+			if ( isset( $meta[0] ) ) {
+				$meta = unserialize( $meta[0] );
+
+				if ( !isset( $meta['schema_video_duration'] ) )          $meta['schema_video_duration'] = '';
+				if ( !isset( $meta['schema_video_content_url'] ) )       $meta['schema_video_content_url'] = '';
+				if ( !isset( $meta['schema_video_embed_url'] ) )         $meta['schema_video_embed_url'] = '';
+				if ( !isset( $meta['schema_video_interaction_count'] ) ) $meta['schema_video_interaction_count'] = '';
+				if ( !isset( $meta['schema_video_expires_date'] ) )      $meta['schema_video_expires_date'] = '';
+				if ( !isset( $meta['schema_video_expires_time'] ) )      $meta['schema_video_expires_time'] = '';
+
+				$args["name"]         = $this->escape_text_tags( $post->post_title );
+				$args["description"]  = $content;
+				$args["thumbnailUrl"] = $images[0];
+				$args["uploadDate"]   = get_post_modified_time( DATE_ISO8601, __return_false(), $post->ID );
+
+				if ( !empty( $meta['schema_video_duration'] ) ) {
+					$args["duration"] = esc_html( $meta['schema_video_duration'] );
+				}
+				if ( !empty( $meta['schema_video_content_url'] ) ) {
+					$args["contentUrl"] = esc_url( $meta['schema_video_content_url'] );
+				}
+				if ( empty( $meta['schema_video_embed_url'] ) ) {
+					$args["embedUrl"] = esc_url( $meta['schema_video_embed_url'] );
+				}
+				if ( !empty( $meta['schema_video_interaction_count'] ) ) {
+					$args["interactionCount"] = esc_html( $meta['schema_video_interaction_count'] );
+				}
+				if ( !empty( $meta['schema_video_expires_date'] ) && !empty( $meta['schema_video_expires_time'] ) ) {
+					$args["expires"] = $this->escape_text_tags( $meta['schema_video_expires_date'] ) . 'T' . $this->escape_text_tags( $meta['schema_video_expires_time'] );
+				}
+				$this->set_schema_json( $args );
+			}
+		} else {
+			$args["message"][] = __( "Featured Image not set.", $this->text_domain );
+			$this->set_schema_json( $args, __return_true() );
+		}
 	}
 
 	/**

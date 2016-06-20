@@ -8,7 +8,7 @@
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/LocalBusiness
  * @link    https://schema.org/GeoCircle
- * @link    https://developers.google.com/structured-data/local-businesses/
+ * @link    https://developers.google.com/search/docs/guides/intro-structured-data
  */
 class Structuring_Markup_Type_LocalBusiness {
 
@@ -331,7 +331,7 @@ class Structuring_Markup_Type_LocalBusiness {
 		$html .= '</table>';
 		echo $html;
 
-		echo '<p>Setting Knowledge : <a href="https://developers.google.com/structured-data/local-businesses/" target="_blank">https://developers.google.com/structured-data/local-businesses/</a></p>';
+		echo '<p>Setting Knowledge : <a href="https://developers.google.com/search/docs/guides/intro-structured-data" target="_blank">https://developers.google.com/search/docs/guides/intro-structured-data</a></p>';
 		submit_button();
 	}
 

@@ -7,7 +7,7 @@
  * @since   1.1.0
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/Article
- * @link    https://developers.google.com/structured-data/rich-snippets/articles
+ * @link    https://developers.google.com/search/docs/data-types/articles
  */
 class Structuring_Markup_Type_Article {
 
@@ -81,7 +81,7 @@ class Structuring_Markup_Type_Article {
 		$html .= '</table>';
 		echo $html;
 
-		echo '<p>Setting Knowledge : <a href="https://developers.google.com/structured-data/rich-snippets/articles" target="_blank">https://developers.google.com/structured-data/rich-snippets/articles</a></p>';
+		echo '<p>Setting Knowledge : <a href="https://developers.google.com/search/docs/data-types/articles" target="_blank">https://developers.google.com/search/docs/data-types/articles</a></p>';
 		submit_button();
 	}
 

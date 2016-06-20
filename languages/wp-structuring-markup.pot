@@ -2,14 +2,15 @@
 # This file is distributed under the same license as the Markup (JSON-LD) structured in schema.org package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Markup (JSON-LD) structured in schema.org 2.5.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-structuring-markup\n"
-"POT-Creation-Date: 2016-04-19 12:08:30+00:00\n"
+"Project-Id-Version: Markup (JSON-LD) structured in schema.org 3.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-structuring-"
+"markup\n"
+"POT-Creation-Date: 2016-06-20 10:36:01+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Kazuya Takami <foundationmeister@outlook.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
 #: includes/wp-structuring-admin-list.php:43
@@ -33,7 +34,7 @@ msgstr ""
 msgid "ShortCode"
 msgstr ""
 
-#: includes/wp-structuring-admin-list.php:81 wp-structuring-markup.php:155
+#: includes/wp-structuring-admin-list.php:81 wp-structuring-markup.php:159
 msgid "Edit"
 msgstr ""
 
@@ -51,7 +52,7 @@ msgstr ""
 #: includes/wp-structuring-admin-post.php:199
 #: includes/wp-structuring-admin-post.php:213
 #: includes/wp-structuring-admin-post.php:227
-#: includes/wp-structuring-admin-post.php:241
+#: includes/wp-structuring-admin-post.php:249
 msgid "Posts"
 msgstr ""
 
@@ -61,7 +62,7 @@ msgstr ""
 #: includes/wp-structuring-admin-post.php:200
 #: includes/wp-structuring-admin-post.php:214
 #: includes/wp-structuring-admin-post.php:228
-#: includes/wp-structuring-admin-post.php:242
+#: includes/wp-structuring-admin-post.php:250
 msgid "Pages"
 msgstr ""
 
@@ -69,7 +70,7 @@ msgstr ""
 #: includes/wp-structuring-admin-post.php:185
 #: includes/wp-structuring-admin-post.php:211
 #: includes/wp-structuring-admin-post.php:225
-#: includes/wp-structuring-admin-post.php:239
+#: includes/wp-structuring-admin-post.php:247
 msgid "All Pages (In Header)"
 msgstr ""
 
@@ -80,11 +81,15 @@ msgstr ""
 #: includes/wp-structuring-admin-post.php:186
 #: includes/wp-structuring-admin-post.php:212
 #: includes/wp-structuring-admin-post.php:226
-#: includes/wp-structuring-admin-post.php:240
+#: includes/wp-structuring-admin-post.php:248
 msgid "Homepage"
 msgstr ""
 
-#: includes/wp-structuring-admin-post.php:287
+#: includes/wp-structuring-admin-post.php:239
+msgid "Video Post Page"
+msgstr ""
+
+#: includes/wp-structuring-admin-post.php:295
 msgid "Output On(Custom Posts)"
 msgstr ""
 
@@ -93,51 +98,101 @@ msgstr ""
 msgid "Event Posts"
 msgstr ""
 
-#: includes/wp-structuring-custom-post-event.php:73
+#: includes/wp-structuring-custom-post-event.php:36
+msgid "All Event Posts"
+msgstr ""
+
+#: includes/wp-structuring-custom-post-event.php:74
 msgid "Schema.org Type Event"
 msgstr ""
 
-#: includes/wp-structuring-custom-post-event.php:95
+#: includes/wp-structuring-custom-post-event.php:96
 msgid "USD"
 msgstr ""
 
-#: includes/wp-structuring-custom-post-event.php:100
+#: includes/wp-structuring-custom-post-event.php:101
 msgid "Event Name"
 msgstr ""
 
-#: includes/wp-structuring-custom-post-event.php:105
+#: includes/wp-structuring-custom-post-event.php:106
 msgid "Start Date"
 msgstr ""
 
-#: includes/wp-structuring-custom-post-event.php:111
+#: includes/wp-structuring-custom-post-event.php:112
 msgid "Event URL"
 msgstr ""
 
-#: includes/wp-structuring-custom-post-event.php:116
+#: includes/wp-structuring-custom-post-event.php:117
 msgid "Place Name"
 msgstr ""
 
-#: includes/wp-structuring-custom-post-event.php:121
+#: includes/wp-structuring-custom-post-event.php:122
 msgid "Place URL"
 msgstr ""
 
-#: includes/wp-structuring-custom-post-event.php:126
+#: includes/wp-structuring-custom-post-event.php:127
 msgid "Place Address"
 msgstr ""
 
-#: includes/wp-structuring-custom-post-event.php:131
+#: includes/wp-structuring-custom-post-event.php:132
 msgid "Price"
 msgstr ""
 
-#: includes/wp-structuring-custom-post-event.php:136
+#: includes/wp-structuring-custom-post-event.php:137
 msgid "Currency"
 msgstr ""
 
-#: wp-structuring-markup.php:146 wp-structuring-markup.php:147
+#: includes/wp-structuring-custom-post-video.php:34
+#: includes/wp-structuring-custom-post-video.php:35
+msgid "Video Posts"
+msgstr ""
+
+#: includes/wp-structuring-custom-post-video.php:36
+msgid "All Video Posts"
+msgstr ""
+
+#: includes/wp-structuring-custom-post-video.php:74
+msgid "Schema.org Type Video"
+msgstr ""
+
+#: includes/wp-structuring-custom-post-video.php:98
+msgid "duration"
+msgstr ""
+
+#: includes/wp-structuring-custom-post-video.php:103
+msgid "contentURL"
+msgstr ""
+
+#: includes/wp-structuring-custom-post-video.php:108
+msgid "embedURL"
+msgstr ""
+
+#: includes/wp-structuring-custom-post-video.php:113
+msgid "interactionCount"
+msgstr ""
+
+#: includes/wp-structuring-custom-post-video.php:118
+msgid "expires"
+msgstr ""
+
+#: includes/wp-structuring-display.php:309
+#: includes/wp-structuring-display.php:373
+#: includes/wp-structuring-display.php:630
+#: includes/wp-structuring-display.php:767
+msgid "Featured Image not set."
+msgstr ""
+
+#: includes/wp-structuring-display.php:312
+#: includes/wp-structuring-display.php:376
+#: includes/wp-structuring-display.php:633
+msgid "Logo Image not set."
+msgstr ""
+
+#: wp-structuring-markup.php:150 wp-structuring-markup.php:151
 msgid "Schema.org Settings"
 msgstr ""
 
-#: wp-structuring-markup.php:154
+#: wp-structuring-markup.php:158
 msgid "Schema.org Setting Edit"
 msgstr ""
 

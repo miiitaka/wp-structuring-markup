@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 2.5.0
+ * @version 3.0.0
  */
 class Structuring_Markup_Admin_Db {
 
@@ -12,7 +12,7 @@ class Structuring_Markup_Admin_Db {
 	 * Variable definition.
 	 *
 	 * @since   1.0.0
-	 * @version 2.4.0
+	 * @version 3.0.0
 	 */
 	private $table_name;
 
@@ -26,6 +26,7 @@ class Structuring_Markup_Admin_Db {
 		"news_article"   => "News Article",
 		"organization"   => "Organization",
 		"person"         => "Person",
+		"video"          => "Video",
 		"website"        => "Web Site"
 	);
 
@@ -108,7 +109,7 @@ class Structuring_Markup_Admin_Db {
 								'update_date'   => date( "Y-m-d H:i:s" )
 							);
 
-							// LocalBusiness Convert data(In the case of version 2.3.x)
+							/** LocalBusiness Convert data(In the case of version 2.3.x) */
 							if ( $key === 'local_business' && $activate === 'on' && strpos( $options['version'], '2.3.' ) !== false ) {
 								$args['options'] = $this->convert_local_business( $list->options );
 							}
@@ -225,25 +226,6 @@ class Structuring_Markup_Admin_Db {
 	}
 
 	/**
-	 * Get Select Data.
-	 *
-	 * @since   1.0.0
-	 * @version 2.5.0
-	 * @param   array $output
-	 * @return  array $results
-	 */
-	public function get_select_options ( $output ) {
-		global $wpdb;
-
-		$query    = "SELECT * FROM " . $this->table_name . " WHERE output LIKE '%%\"%s\"%%'";
-		$data     = array( $output );
-		$prepared = $wpdb->prepare( $query, $data );
-		$results  = $wpdb->get_results( $prepared );
-
-		return (array) $results;
-	}
-
-	/**
 	 * Get Type Data.
 	 *
 	 * @since   2.0.0
@@ -275,7 +257,7 @@ class Structuring_Markup_Admin_Db {
 	 *
 	 * @since   1.0.0
 	 * @version 2.0.0
-	 * @param   array  $args
+	 * @param   array $args
 	 */
 	private function insert_options ( array $args ) {
 		global $wpdb;
@@ -289,7 +271,7 @@ class Structuring_Markup_Admin_Db {
 	 *
 	 * @since   1.0.0
 	 * @version 2.0.0
-	 * @param   array $post($_POST)
+	 * @param   array   $post($_POST)
 	 * @return  integer $post['id']
 	 */
 	public function update_options ( array $post ) {

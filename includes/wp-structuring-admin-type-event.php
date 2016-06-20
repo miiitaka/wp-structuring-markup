@@ -9,8 +9,7 @@
  * @link    http://schema.org/Event
  * @link    http://schema.org/Place
  * @link    http://schema.org/Offer
- * @link    https://developers.google.com/structured-data/events/
- * @link    https://developers.google.com/structured-data/rich-snippets/events
+ * @link    https://developers.google.com/search/docs/data-types/events
  */
 class Structuring_Markup_Type_Event {
 
@@ -55,7 +54,7 @@ class Structuring_Markup_Type_Event {
 
 		echo '<p>Custom post name "schema_event_post"</p>';
 		echo '<p>Archive rewrite name "events"</p>';
-		echo '<p>Setting Knowledge : <a href="https://developers.google.com/structured-data/rich-snippets/events" target="_blank">https://developers.google.com/structured-data/rich-snippets/events</a></p>';
+		echo '<p>Setting Knowledge : <a href="https://developers.google.com/search/docs/data-types/events" target="_blank">https://developers.google.com/search/docs/data-types/events</a></p>';
 
 		submit_button();
 	}

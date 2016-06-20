@@ -21,7 +21,7 @@ class Structuring_Markup_Custom_Post_Event {
 	 * Constructor Define.
 	 *
 	 * @since   2.1.0
-	 * @version 2.2.1
+	 * @version 3.0.0
 	 * @param   String $text_domain
 	 */
 	public function __construct ( $text_domain ) {
@@ -31,8 +31,9 @@ class Structuring_Markup_Custom_Post_Event {
 			$this->custom_type,
 			array(
 				'labels' => array(
-					'name'          => esc_html__( 'Event Posts', $this->text_domain ),
-					'singular_name' => esc_html__( 'Event Posts', $this->text_domain )
+					'name'          => esc_html__( 'Event Posts',     $this->text_domain ),
+					'singular_name' => esc_html__( 'Event Posts',     $this->text_domain ),
+					'all_items'     => esc_html__( 'All Event Posts', $this->text_domain )
 				),
 				'capability_type' => 'post',
 				'has_archive'     => true,

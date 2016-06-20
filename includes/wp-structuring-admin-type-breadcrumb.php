@@ -7,7 +7,7 @@
  * @since   2.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/BreadcrumbList
- * @link    https://developers.google.com/structured-data/breadcrumbs
+ * @link    https://developers.google.com/search/docs/data-types/breadcrumbs
  */
 class Structuring_Markup_Type_Breadcrumb {
 
@@ -50,7 +50,7 @@ class Structuring_Markup_Type_Breadcrumb {
 		$html .= '</table>';
 		echo $html;
 
-		echo '<p>Setting Knowledge : <a href="https://developers.google.com/structured-data/slsb-overview" target="_blank">https://developers.google.com/structured-data/slsb-overview</a></p>';
+		echo '<p>Setting Knowledge : <a href="https://developers.google.com/search/docs/data-types/breadcrumbs" target="_blank">https://developers.google.com/search/docs/data-types/breadcrumbs</a></p>';
 		submit_button();
 	}
 

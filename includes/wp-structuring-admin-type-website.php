@@ -7,8 +7,8 @@
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/WebSite
- * @link    https://developers.google.com/structured-data/slsb-overview
- * @link    https://developers.google.com/structured-data/site-name
+ * @link    https://developers.google.com/search/docs/guides/enhance-site#add-a-sitelinks-searchbox-for-your-site
+ * @link    https://developers.google.com/search/docs/data-types/sitename
  */
 class Structuring_Markup_Type_Website {
 
@@ -66,7 +66,7 @@ class Structuring_Markup_Type_Website {
 		$html .= '</table>';
 		echo $html;
 
-		echo '<p>Setting Knowledge : <a href="https://developers.google.com/structured-data/slsb-overview" target="_blank">https://developers.google.com/structured-data/slsb-overview</a></p>';
+		echo '<p>Setting Knowledge : <a href="https://developers.google.com/search/docs/data-types/sitename" target="_blank">https://developers.google.com/search/docs/data-types/sitename</a></p>';
 		submit_button();
 	}
 
