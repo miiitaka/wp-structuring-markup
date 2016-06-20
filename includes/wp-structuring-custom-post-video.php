@@ -31,8 +31,9 @@ class Structuring_Markup_Custom_Post_Video {
 			$this->custom_type,
 			array(
 				'labels' => array(
-					'name'          => esc_html__( 'Video Posts', $this->text_domain ),
-					'singular_name' => esc_html__( 'Video Posts', $this->text_domain )
+					'name'          => esc_html__( 'Video Posts',     $this->text_domain ),
+					'singular_name' => esc_html__( 'Video Posts',     $this->text_domain ),
+					'all_items'     => esc_html__( 'All Video Posts', $this->text_domain )
 				),
 				'capability_type' => 'post',
 				'has_archive'     => true,
