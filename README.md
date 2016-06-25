@@ -39,6 +39,9 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 3.0.1 (2016-06-25)
+- Checked : WordPress version 4.5.3 operation check.
+
 ### 3.0.0 (2016-06-20)
 
 - Added : Schema.org type "Video".
