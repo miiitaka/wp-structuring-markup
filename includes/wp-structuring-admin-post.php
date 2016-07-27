@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 3.0.0
+ * @version 3.0.2
  */
 class Structuring_Markup_Admin_Post {
 
@@ -33,10 +33,19 @@ class Structuring_Markup_Admin_Post {
 	private $post_args = array();
 
 	/**
+	 * Defined nonce.
+	 *
+	 * @since   3.0.2
+	 * @version 3.0.2
+	 */
+	private $nonce_name;
+	private $nonce_action;
+
+	/**
 	 * Constructor Define.
 	 *
 	 * @since   1.0.0
-	 * @version 2.5.0
+	 * @version 3.0.2
 	 * @param   String $text_domain
 	 */
 	public function __construct ( $text_domain ) {
@@ -51,8 +60,9 @@ class Structuring_Markup_Admin_Post {
 				'value' => esc_html( $post_type->name )
 			);
 		}
-
-		$this->text_domain = $text_domain;
+		$this->text_domain  = $text_domain;
+		$this->nonce_name   = "_wpnonce_" . $text_domain;
+		$this->nonce_action = "edit-"     . $text_domain;
 
 		/**
 		 * Update Status
@@ -76,12 +86,14 @@ class Structuring_Markup_Admin_Post {
 		);
 
 		/** DataBase Update & Insert Mode */
-		if ( isset( $_POST['id'] ) && is_numeric( $_POST['id'] ) ) {
-			if ( isset( $_POST['output'] ) ) {
-				$options['id'] = $db->update_options( $_POST );
-				$status = "ok";
-			} else {
-				$status = "output";
+		if ( ! empty( $_POST ) && check_admin_referer( $this->nonce_action, $this->nonce_name ) ) {
+			if ( isset( $_POST['id'] ) && is_numeric( $_POST['id'] ) ) {
+				if ( isset( $_POST['output'] ) ) {
+					$options['id'] = $db->update_options( $_POST );
+					$status = "ok";
+				} else {
+					$status = "output";
+				}
 			}
 		}
 
@@ -107,7 +119,7 @@ class Structuring_Markup_Admin_Post {
 	 * Setting Page of the Admin Screen.
 	 *
 	 * @since   1.0.0
-	 * @version 3.0.0
+	 * @version 3.0.2
 	 * @param   array  $options
 	 * @param   string $status
 	 */
@@ -132,7 +144,11 @@ class Structuring_Markup_Admin_Post {
 		/** Output Page Select */
 		$html  = '<hr>';
 		$html .= '<form method="post" action="">';
-		$html .= '<input type="hidden" name="id" value="'   . esc_attr( $options['id'] ) . '">';
+		echo $html;
+
+		wp_nonce_field( $this->nonce_action, $this->nonce_name );
+
+		$html  = '<input type="hidden" name="id" value="'   . esc_attr( $options['id'] ) . '">';
 		$html .= '<input type="hidden" name="type" value="' . esc_attr( $options['type'] ) . '">';
 		$html .= '<table class="schema-admin-table">';
 		$html .= '<tr><th>Enabled : </th><td>';
