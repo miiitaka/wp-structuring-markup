@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @author  Justin Frydman
- * @version 3.0.0
+ * @version 3.0.3
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -31,7 +31,7 @@ class Structuring_Markup_Display {
 	 * Setting schema.org
 	 *
 	 * @since   1.0.0
-	 * @version 3.0.0
+	 * @version 3.0.3
 	 * @param   Structuring_Markup_Admin_Db $db
 	 */
 	private function set_schema ( Structuring_Markup_Admin_Db $db ) {
@@ -40,7 +40,7 @@ class Structuring_Markup_Display {
 		echo '<!-- Markup (JSON-LD) structured in schema.org START -->' . PHP_EOL;
 		
 		$this->get_schema_data( 'all', $structuring_markup_args );
-		if ( is_home() ) {
+		if ( is_home() || is_front_page() ) {
 			$this->get_schema_data( 'home', $structuring_markup_args );
 		}
 		if ( is_single() && get_post_type() === 'post' ) {
