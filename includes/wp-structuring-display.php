@@ -38,7 +38,7 @@ class Structuring_Markup_Display {
 		$structuring_markup_args = $db->get_list_options();
 
 		echo '<!-- Markup (JSON-LD) structured in schema.org START -->' . PHP_EOL;
-		
+
 		$this->get_schema_data( 'all', $structuring_markup_args );
 		if ( is_home() || is_front_page() ) {
 			$this->get_schema_data( 'home', $structuring_markup_args );
@@ -186,69 +186,69 @@ class Structuring_Markup_Display {
 	 * @param   string $url
 	 * @return  array  $dimensions
 	 */
-	 private function get_image_dimensions ( $url ) {
+	private function get_image_dimensions ( $url ) {
 		$cache = new Structuring_Markup_Cache( $url );
-		
+
 		/** check for cached dimensions */
-		if( $cache->get() !== false ) {
+		if ( $cache->get() !== false ) {
 			return $cache->get();
 		}
-		
-	 	if( function_exists( 'curl_version' ) ) {
-	 		$headers = array( 'Range: bytes=0-32768' );
 
-	 		$curl = curl_init( $url );
-	 		curl_setopt( $curl, CURLOPT_HTTPHEADER, $headers );
-	 		curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
-	 		curl_setopt( $curl, CURLOPT_SSL_VERIFYHOST, 0 );
-	 		curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, 0 );
-	 		$data = curl_exec( $curl );
-	 		curl_close( $curl );
+		if ( function_exists( 'curl_version' ) ) {
+			$headers = array( 'Range: bytes=0-32768' );
 
-	 		$image = @imagecreatefromstring( $data );
+			$curl = curl_init( $url );
+			curl_setopt( $curl, CURLOPT_HTTPHEADER, $headers );
+			curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
+			curl_setopt( $curl, CURLOPT_SSL_VERIFYHOST, 0 );
+			curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, 0 );
+			$data = curl_exec( $curl );
+			curl_close( $curl );
 
-	 		if( $image ) {
-	 			$width  = imagesx( $image );
-	 			$height = imagesy( $image );
-				
-	 			$dimensions = array( $width, $height );
-	 			
-	 			/** cache for an hour */
-	 			$cache->set( $dimensions, HOUR_IN_SECONDS );
-	 			
-	 			return $dimensions;
-	 		}
-	 	}
+			$image = @imagecreatefromstring( $data );
 
-	 	if( $image = @getimagesize( $url ) ) {
-	 		$dimensions = array( $image[0], $image[1] );
-	 		
- 			/** cache for an hour */
- 			$cache->set( $dimensions, HOUR_IN_SECONDS );
- 			
- 			return $dimensions;
-	 	}
+			if ( $image ) {
+				$width  = imagesx( $image );
+				$height = imagesy( $image );
 
-	 	if( $image = @getimagesize( str_replace( 'https://', 'http://', $url ) ) ) {
-	 		$dimensions = array( $image[0], $image[1] );
-	 		
- 			/** cache for an hour */
- 			$cache->set( $dimensions, HOUR_IN_SECONDS );
- 			
- 			return $dimensions;	 		
-	 	}
-	 	
-	 	/** this hits the database and be very slow if the user is using a URL that doesn't exist in the WP Library */
-	 	if( $image = wp_get_attachment_image_src( attachment_url_to_postid( $url ), 'full' ) ) {
-	 		$dimensions = array( $image[1], $image[2] );
-	 		
- 			// cache for an hour
- 			$cache->set( $dimensions, HOUR_IN_SECONDS );
- 			
- 			return $dimensions;	 		
-	 	}	 	
-	 	
-	 	return false;
+				$dimensions = array( $width, $height );
+
+				/** cache for an hour */
+				$cache->set( $dimensions, HOUR_IN_SECONDS );
+
+				return $dimensions;
+			}
+		}
+
+		if ( $image = @getimagesize( $url ) ) {
+			$dimensions = array( $image[0], $image[1] );
+
+			/** cache for an hour */
+			$cache->set( $dimensions, HOUR_IN_SECONDS );
+
+			return $dimensions;
+		}
+
+		if ( $image = @getimagesize( str_replace( 'https://', 'http://', $url ) ) ) {
+			$dimensions = array( $image[0], $image[1] );
+
+			/** cache for an hour */
+			$cache->set( $dimensions, HOUR_IN_SECONDS );
+
+			return $dimensions;
+		}
+
+		/** this hits the database and be very slow if the user is using a URL that doesn't exist in the WP Library */
+		if ( $image = wp_get_attachment_image_src( attachment_url_to_postid( $url ), 'full' ) ) {
+			$dimensions = array( $image[1], $image[2] );
+
+			// cache for an hour
+			$cache->set( $dimensions, HOUR_IN_SECONDS );
+
+			return $dimensions;
+		}
+
+		return false;
 	}
 
 	/**
@@ -618,7 +618,7 @@ class Structuring_Markup_Display {
 						"@type"  => "ImageObject",
 						"url"    => isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "",
 						"width"  => $logo[0],
-      					"height" => $logo[1]
+						"height" => $logo[1]
 					)
 				),
 				"description" => $content
