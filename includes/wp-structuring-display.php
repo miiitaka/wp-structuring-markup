@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @author  Justin Frydman
- * @version 3.0.3
+ * @version 3.0.4
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -465,7 +465,7 @@ class Structuring_Markup_Display {
 	 * Setting schema.org LocalBusiness
 	 *
 	 * @since   2.3.0
-	 * @version 3.0.0
+	 * @version 3.0.4
 	 * @param   array $options
 	 */
 	private function set_schema_local_business ( array $options ) {
@@ -508,8 +508,8 @@ class Structuring_Markup_Display {
 			"postalCode"      => isset( $options['postal_code'] )      ? esc_html( $options['postal_code'] ) : "",
 			"addressCountry"  => isset( $options['address_country'] )  ? esc_html( $options['address_country'] ) : ""
 		);
-		$args = array_merge( $args, $address_array );
-
+		$args      = array_merge( $args, $address_array );
+		$geo_array = array();
 
 		if ( isset( $options['geo_active'] ) && $options['geo_active'] === 'on' ) {
 			$geo_array["geo"] = array(
@@ -674,7 +674,7 @@ class Structuring_Markup_Display {
 					$socials["sameAs"][] = esc_url( $value );
 				}
 			}
-			if ( !empty( $socials["sameAs"] ) ) {
+			if ( count( $socials["sameAs"] ) > 0 ) {
 				$args = array_merge( $args, $socials );
 			}
 		}
@@ -685,7 +685,7 @@ class Structuring_Markup_Display {
 	 * Setting schema.org Person
 	 *
 	 * @since   2.4.0
-	 * @version 2.4.0
+	 * @version 3.0.4
 	 * @param   array $options
 	 */
 	private function set_schema_person ( array $options ) {
@@ -706,7 +706,9 @@ class Structuring_Markup_Display {
 					$socials["sameAs"][] = esc_html( $value );
 				}
 			}
-			$args = array_merge( $args, $socials );
+			if ( count( $socials["sameAs"] ) > 0 ) {
+				$args = array_merge( $args, $socials );
+			}
 		}
 		$this->set_schema_json( $args );
 	}
