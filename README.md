@@ -39,6 +39,9 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 3.0.4 (2016-08-xx)
+- Fixed : Type Person and Organization Non-display case "sameAs" is empty.
+
 ### 3.0.3 (2016-07-27)
 - Fixed : If you select a static page in a display of the front page, the home page is not output at the output page. (Added is_front_page function)
 
