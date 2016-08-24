@@ -136,7 +136,7 @@ class Structuring_Markup {
 	 * @author  Justin Frydman
 	 */
 	public function admin_scripts () {
-		if ( $_GET["page"] === $this->text_domain . '-post' ) {
+		if ( isset( $_GET["page"] ) && $_GET["page"] === $this->text_domain . '-post' ) {
 			wp_enqueue_script ( 'wp-structuring-markup-admin-main-js', plugins_url ( 'js/main.min.js', __FILE__ ), array( 'jquery' ), '1.0.0' );
 		}
 	}
