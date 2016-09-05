@@ -115,7 +115,7 @@ class Structuring_Markup {
 	 * admin init.
 	 *
 	 * @since   1.3.1
-	 * @version 2.1.1
+	 * @version 3.0.5
 	 */
 	public function admin_init () {
 		/** version up check */
@@ -124,7 +124,7 @@ class Structuring_Markup {
 			$this->create_table();
 		}
 
-		wp_register_style( 'wp-structuring-markup-admin-style', plugins_url( 'css/style.css', __FILE__ ) );
+		wp_register_style( 'wp-structuring-markup-admin-style', plugins_url( 'css/style.css', __FILE__ ), array(), $this->version );
 	}
 
 	/**
