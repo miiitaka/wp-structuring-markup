@@ -19,7 +19,7 @@ new Structuring_Markup();
  *
  * @author  Kazuya Takami
  * @since   1.0.0
- * @version 3.0.3
+ * @version 3.0.5
  */
 class Structuring_Markup {
 
@@ -49,7 +49,6 @@ class Structuring_Markup {
 		if ( is_admin() ) {
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
 			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts') );
 		} else {
 			add_action( 'wp_head', array( $this, 'wp_head' ) );
 		}
@@ -136,8 +135,8 @@ class Structuring_Markup {
 	 * @author  Justin Frydman
 	 */
 	public function admin_scripts () {
-		if ( isset( $_GET["page"] ) && $_GET["page"] === $this->text_domain . '-post' ) {
-			wp_enqueue_script ( 'wp-structuring-markup-admin-main-js', plugins_url ( 'js/main.min.js', __FILE__ ), array( 'jquery' ), '1.0.0' );
+		if ( isset( $_GET["type"] ) && $_GET["type"] === 'local_business' ) {
+			wp_enqueue_script ( 'wp-structuring-markup-admin-main-js', plugins_url ( 'js/main.min.js', __FILE__ ), array( 'jquery' ), $this->version );
 		}
 	}
 
@@ -145,7 +144,7 @@ class Structuring_Markup {
 	 * Add Menu to the Admin Screen.
 	 *
 	 * @since   1.0.0
-	 * @version 2.0.0
+	 * @version 3.0.5
 	 */
 	public function admin_menu () {
 		$list_page = add_menu_page(
@@ -165,8 +164,9 @@ class Structuring_Markup {
 		);
 
 		/** Using registered $page handle to hook stylesheet loading */
-		add_action( 'admin_print_styles-' . $list_page, array( $this, 'add_style' ) );
-		add_action( 'admin_print_styles-' . $post_page, array( $this, 'add_style' ) );
+		add_action( 'admin_print_styles-'  . $list_page, array( $this, 'add_style' ) );
+		add_action( 'admin_print_styles-'  . $post_page, array( $this, 'add_style' ) );
+		add_action( 'admin_print_scripts-' . $post_page, array( $this, 'admin_scripts' ) );
 
 		/** Custom post menu controls */
 		if ( isset( $_GET['page'] ) && $_GET['page'] === $this->text_domain . '-post' && !empty( $_POST ) ) {
