@@ -1,97 +1,97 @@
 /** List Setting */
 .schema-admin-table-list th:nth-child(1) {
-  width: 10em;
+	width: 10em;
 }
 
 .schema-admin-table-list td {
-  vertical-align: middle;
+	vertical-align: middle;
 }
 
 .schema-admin-table-list td:nth-child(1) span {
-  display: inline-block;
-  padding: 0 1em 0 1em;
-  text-align: center;
-  width: 8em;
+	display: inline-block;
+	padding: 0 1em 0 1em;
+	text-align: center;
+	width: 8em;
 }
 
 .schema-admin-table-list td:nth-child(1) span.active {
-  background: #00a0d2;
-  color: #fff;
+	background: #00a0d2;
+	color: #fff;
 }
 
 .schema-admin-table-list td:nth-child(1) span.stop {
-  background: #ccc;
+	background: #ccc;
 }
 
 /** Posts page */
 .schema-admin-h1-span {
-  display: inline-block;
-  font-size: 80%;
-  margin: 0 0 0 10px;
+	display: inline-block;
+	font-size: 80%;
+	margin: 0 0 0 10px;
 }
 
 .schema-admin-table {
-  margin: 15px 0 15px 0;
+	margin: 15px 0 15px 0;
 }
 
 .schema-admin-table caption {
-  border-left: solid 4px #00a0d2;
-  margin: 0 0 10px 0;
-  padding: 3px 0 3px 7px;
-  text-align: left;
+	border-left: solid 4px #00a0d2;
+	margin: 0 0 10px 0;
+	padding: 3px 0 3px 7px;
+	text-align: left;
 }
 
 .schema-admin-table th {
-  height: 2em;
-  padding: 0 5px 0 0;
-  text-align: right;
-  vertical-align: middle;
-  width: 200px;
+	height: 2em;
+	padding: 0 5px 0 0;
+	text-align: right;
+	vertical-align: middle;
+	width: 200px;
 }
 
 .schema-admin-table td {
-  vertical-align: middle;
+	vertical-align: middle;
 }
 
 .schema-admin-table td label {
-  margin: 0 10px 0 0;
+	margin: 0 10px 0 0;
 }
 
 .schema-admin-table small {
-  margin: 0 0 0 5px;
+	margin: 0 0 0 5px;
 }
 
 .schema-admin-table input[type="checkbox"] {
-  margin: 0 5px 0 0;
+	margin: 0 5px 0 0;
 }
 
 /** LocalBusiness */
 .markup-time {
-  color: #999;
-  cursor: pointer;
-  width: 18px;
-  height: 18px;
-  line-height: 20px;
-  font-size: 14px;
-  border: solid 1px #bbb;
-  background-color: #fff;
-  border-radius: 100%;
-  margin-top: 5px;
+	color: #999;
+	cursor: pointer;
+	width: 18px;
+	height: 18px;
+	line-height: 20px;
+	font-size: 14px;
+	border: solid 1px #bbb;
+	background-color: #fff;
+	border-radius: 100%;
+	margin-top: 5px;
 }
 
 .markup-time:hover {
-  color: #fff;
-  border-color: transparent;
+	color: #fff;
+	border-color: transparent;
 }
 
 .markup-time .plus:hover {
-  background-color: #00a0d2;
+	background-color: #00a0d2;
 }
 
 .markup-time .minus {
-  line-height: 18px;
+	line-height: 18px;
 }
 
 .markup-time .minus:hover {
-  background-color: #f55e4f;
+	background-color: #f55e4f;
 }
