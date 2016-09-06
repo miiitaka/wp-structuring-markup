@@ -20,7 +20,7 @@
 }
 
 .schema-admin-table-list td:nth-child(1) span.stop {
-	background: #ccc;
+	background: #ddd;
 }
 
 /** Posts page */
@@ -30,13 +30,19 @@
 	margin: 0 0 0 10px;
 }
 
+.schema-admin-require::before {
+	color: #a00;
+	content: "*";
+	margin: 0 3px 0 0;
+}
+
 .schema-admin-table {
 	margin: 15px 0 15px 0;
 }
 
 .schema-admin-table caption {
 	border-left: solid 4px #00a0d2;
-	margin: 0 0 10px 0;
+	margin: 0 0 5px 0;
 	padding: 3px 0 3px 7px;
 	text-align: left;
 }
@@ -49,6 +55,12 @@
 	width: 200px;
 }
 
+.schema-admin-table th.require::before {
+	color: #a00;
+	content: "*";
+	margin: 0 3px 0 0;
+}
+
 .schema-admin-table td {
 	vertical-align: middle;
 }
@@ -58,11 +70,18 @@
 }
 
 .schema-admin-table small {
-	margin: 0 0 0 5px;
+	display: block;
+	margin: 2px 0 2px 1px;
+	background: #ddd;
+	padding: 0 5px;
 }
 
 .schema-admin-table input[type="checkbox"] {
 	margin: 0 5px 0 0;
+}
+
+.schema-admin-table input:invalid {
+	box-shadow: 0 0 1px 1px #a00;
 }
 
 /** LocalBusiness */
