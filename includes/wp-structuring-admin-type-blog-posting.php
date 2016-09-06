@@ -89,8 +89,8 @@ class Structuring_Markup_Type_Blog_Posting {
 	/**
 	 * Return the default options array
 	 *
-	 * @since   2.2.0
 	 * @version 2.2.0
+	 * @since   2.2.0
 	 * @param   array $args
 	 * @return  array $args
 	 */
