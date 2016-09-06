@@ -3,12 +3,12 @@
  * Schema.org Type Organization
  *
  * @author  Kazuya Takami
+ * @version 3.0.5
  * @since   2.3.3
- * @version 2.5.0
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/LocalBusiness
  * @link    https://schema.org/GeoCircle
- * @link    https://developers.google.com/search/docs/guides/intro-structured-data
+ * @link    https://developers.google.com/search/docs/data-types/local-businesses
  */
 class Structuring_Markup_Type_LocalBusiness {
 
@@ -17,7 +17,7 @@ class Structuring_Markup_Type_LocalBusiness {
 	 *
 	 * @since 2.3.0
 	 */
-	/** LoacalBusiness Type defined. */
+	/** LocalBusiness Type defined. */
 	private $business_type_array = array(
 		array( "type" => "LocalBusiness", "display" => "LocalBusiness" ),
 
@@ -205,14 +205,14 @@ class Structuring_Markup_Type_LocalBusiness {
 	/**
 	 * Form Layout Render
 	 *
+	 * @version 3.0.5
 	 * @since   2.3.3
-	 * @version 2.5.0
 	 * @param   array $option
 	 */
 	private function page_render ( array $option ) {
 		/** Local Business Type */
 		$html  = '<table class="schema-admin-table">';
-		$html .= '<caption>Local Business ( required )</caption>';
+		$html .= '<caption>Local Business</caption>';
 		$html .= $this->set_form_select( 'business_type', 'Local Business Type', $option['business_type'], 'Default : "Local Business"' );
 		$html .= $this->set_form_text( 'name', 'Business Name', $option['name'], true, 'Default : bloginfo("name")' );
 		$html .= $this->set_form_text( 'url', 'Url', $option['url'], true, 'Default : bloginfo("url")' );
@@ -222,7 +222,7 @@ class Structuring_Markup_Type_LocalBusiness {
 
 		/** For food establishments */
 		$html  = '<table class="schema-admin-table">';
-		$html .= '<caption>For food establishments ( recommended )</caption>';
+		$html .= '<caption>For food establishments</caption>';
 		if ( !isset( $option['food_active'] ) ) {
 			$option['food_active'] = "";
 		}
@@ -237,7 +237,7 @@ class Structuring_Markup_Type_LocalBusiness {
 
 		/** Postal Address */
 		$html  = '<table class="schema-admin-table">';
-		$html .= '<caption>Postal Address ( required )</caption>';
+		$html .= '<caption>Postal Address</caption>';
 		$html .= $this->set_form_text( 'street_address', 'Street Address', $option['street_address'], true );
 		$html .= $this->set_form_text( 'address_locality', 'Address Locality', $option['address_locality'], true );
 		$html .= $this->set_form_text( 'address_region', 'Address Region', $option['address_region'], false );
@@ -248,7 +248,7 @@ class Structuring_Markup_Type_LocalBusiness {
 
 		/** Geo Circle */
 		$html  = '<table class="schema-admin-table">';
-		$html .= '<caption>Geo Circle ( recommended )</caption>';
+		$html .= '<caption>Geo Circle</caption>';
 		if ( !isset( $option['geo_circle_active'] ) ) {
 			$option['geo_circle_active'] = "";
 		}
@@ -262,7 +262,7 @@ class Structuring_Markup_Type_LocalBusiness {
 
 		/** Geo Coordinates */
 		$html  = '<table class="schema-admin-table">';
-		$html .= '<caption>Geo Coordinates ( recommended )</caption>';
+		$html .= '<caption>Geo Coordinates</caption>';
 		if ( !isset( $option['geo_active'] ) ) {
 			$option['geo_active'] = "";
 		}
@@ -274,7 +274,7 @@ class Structuring_Markup_Type_LocalBusiness {
 
 		/** Opening Hours Specification */
 		$html  = '<table class="schema-admin-table">';
-		$html .= '<caption>Opening Hours Specification ( recommended )</caption>';
+		$html .= '<caption>Opening Hours Specification</caption>';
 
 		$i = 0;
 
@@ -307,7 +307,7 @@ class Structuring_Markup_Type_LocalBusiness {
 
 		/** Holiday Opening Hours */
 		$html  = '<table class="schema-admin-table">';
-		$html .= '<caption>Holiday Opening Hours ( recommended )</caption>';
+		$html .= '<caption>Holiday Opening Hours</caption>';
 		if ( !isset( $option['holiday_active'] ) ) {
 			$option['holiday_active'] = "";
 		}
@@ -331,7 +331,7 @@ class Structuring_Markup_Type_LocalBusiness {
 		$html .= '</table>';
 		echo $html;
 
-		echo '<p>Setting Knowledge : <a href="https://developers.google.com/search/docs/guides/intro-structured-data" target="_blank">https://developers.google.com/search/docs/guides/intro-structured-data</a></p>';
+		echo '<p>Setting Knowledge : <a href="https://developers.google.com/search/docs/data-types/local-businesses" target="_blank">https://developers.google.com/search/docs/data-types/local-businesses</a></p>';
 		submit_button();
 	}
 
@@ -379,6 +379,7 @@ class Structuring_Markup_Type_LocalBusiness {
 	/**
 	 * Return the form text
 	 *
+	 * @version 3.0.5
 	 * @since   2.3.0
 	 * @param   string  $id
 	 * @param   string  $display
@@ -390,8 +391,14 @@ class Structuring_Markup_Type_LocalBusiness {
 	private function set_form_text ( $id, $display, $value = "", $required = false, $note = "" ) {
 		$value = esc_attr( $value );
 
-		$format  = '<tr><th><label for=%s>%s :</label></th><td>';
+		if ( $required ) {
+			$format = '<tr><th class="require"><label for=%s>%s :</label></th><td>';
+		} else {
+			$format = '<tr><th><label for=%s>%s :</label></th><td>';
+		}
+
 		$format .= '<input type="text" name="option[%s]" id="%s" class="regular-text" value="%s"';
+
 		if ( $required ) {
 			$format .= ' required';
 		}
@@ -401,9 +408,9 @@ class Structuring_Markup_Type_LocalBusiness {
 	}
 
 	/**
-	 * Return the form text
+	 * Return the form date
 	 *
-	 * @since   2.5.0
+	 * @since   3.0.5
 	 * @version 2.5.0
 	 * @param   string  $id
 	 * @param   string  $display
@@ -428,6 +435,7 @@ class Structuring_Markup_Type_LocalBusiness {
 	/**
 	 * Return the form checkbox
 	 *
+	 * @version 3.0.5
 	 * @since   2.3.0
 	 * @param   string  $id
 	 * @param   string  $display
@@ -443,7 +451,7 @@ class Structuring_Markup_Type_LocalBusiness {
 		if ( $value === 'on' ) {
 			$format .= ' checked="checked"';
 		}
-		$format .= '><small>%s</small></td></tr>';
+		$format .= '>%s</td></tr>';
 
 		return (string) sprintf( $format, $id, $display, $id, $id, $note );
 	}
@@ -461,7 +469,7 @@ class Structuring_Markup_Type_LocalBusiness {
 	private function set_form_select ( $id, $display, $value = "", $note = "" ) {
 		$value = esc_attr( $value );
 
-		$format  = '<tr><th><label for=%s>%s :</label></th><td>';
+		$format  = '<tr><th class="require"><label for=%s>%s :</label></th><td>';
 		$format .= '<select id="%s" name="option[%s]">';
 		foreach ( $this->business_type_array as $args ) {
 			$format .= '<option value="' . $args['type'] . '"';
@@ -479,8 +487,8 @@ class Structuring_Markup_Type_LocalBusiness {
 	/**
 	 * Return the form time
 	 *
+	 * @version 3.0.5
 	 * @since   2.3.0
-	 * @version 2.4.0
 	 * @param   string  $id
 	 * @param   string  $display
 	 * @param   string  $value1
@@ -496,7 +504,7 @@ class Structuring_Markup_Type_LocalBusiness {
 		$format  = '<tr class="opening-hours %s"><th><label for=%s>%s :</label></th><td>';
 		$format .= 'Open Time : <input type="time" name="option[week][%s][%d][open]" id="%s-open" value="%s">';
 		$format .= ' Close Time : <input type="time" name="option[week][%s][%d][close]" id="%s-close" value="%s">';
-		$format .= '<small>%s</small><a class="dashicons dashicons-plus markup-time plus"></a>';
+		$format .= '%s<a class="dashicons dashicons-plus markup-time plus"></a>';
 		if( $count !== 0 ) {
 			$format .= '<a class="dashicons dashicons-minus markup-time minus"></a>';
 		}

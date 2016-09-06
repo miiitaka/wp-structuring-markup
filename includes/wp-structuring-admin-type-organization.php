@@ -3,7 +3,7 @@
  * Schema.org Type Organization
  *
  * @author  Kazuya Takami
- * @version 2.3.3
+ * @version 3.0.5
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/Organization
@@ -14,8 +14,8 @@ class Structuring_Markup_Type_Organization {
 	/**
 	 * Variable definition.
 	 *
-	 * @since   1.0.0
 	 * @version 2.3.2
+	 * @since   1.0.0
 	 */
 	/** contactType defined. */
 	private $contact_type_array = array(
@@ -62,23 +62,23 @@ class Structuring_Markup_Type_Organization {
 	/**
 	 * Form Layout Render
 	 *
+	 * @version 3.0.5
 	 * @since   1.0.0
-	 * @version 2.3.3
 	 * @param   array $option
 	 */
 	private function page_render ( array $option ) {
 		/** Logos */
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Logos</caption>';
-		$html .= '<tr><th><label for="name">Organization Name :</label></th><td>';
+		$html .= '<tr><th class="require"><label for="name">Organization Name :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "name" . ']" id="name" class="regular-text" required value="' . esc_attr( $option['name'] ) . '">';
 		$html .= '<small>Default : bloginfo("name")</small>';
 		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="url">url :</label></th><td>';
+		$html .= '<tr><th class="require"><label for="url">url :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "url" . ']" id="url" class="regular-text" required value="' . esc_attr( $option['url'] ) . '">';
 		$html .= '<small>Default : bloginfo("url")</small>';
 		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="logo">logo :</label></th><td>';
+		$html .= '<tr><th class="require"><label for="logo">logo :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "logo" . ']" id="logo" class="regular-text" required value="' . esc_attr( $option['logo'] ) . '">';
 		$html .= '<small>Default : bloginfo("logo") + "/images/logo.png"</small>';
 		$html .= '</td></tr>';
@@ -127,7 +127,7 @@ class Structuring_Markup_Type_Organization {
 		}
 		$html .= '>TollFree</label><br>';
 		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="available_language">available<br>Language :</label></th><td>';
+		$html .= '<tr><th><label for="available_language">available&nbsp;Language :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "available_language" . ']" id="available_language" class="regular-text" value="' . esc_attr( $option['available_language'] ) . '">';
 		$html .= '<small>Default : "English"&nbsp;&nbsp;Multiple : "French,English"</small>';
 		$html .= '</td></tr>';
