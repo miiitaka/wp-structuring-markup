@@ -3,8 +3,8 @@
  * Schema.org Admin Post
  *
  * @author  Kazuya Takami
+ * @version 3.0.5
  * @since   1.0.0
- * @version 3.0.2
  */
 class Structuring_Markup_Admin_Post {
 
@@ -118,8 +118,8 @@ class Structuring_Markup_Admin_Post {
 	/**
 	 * Setting Page of the Admin Screen.
 	 *
+	 * @version 3.0.5
 	 * @since   1.0.0
-	 * @version 3.0.2
 	 * @param   array  $options
 	 * @param   string $status
 	 */
@@ -143,6 +143,9 @@ class Structuring_Markup_Admin_Post {
 
 		/** Output Page Select */
 		$html  = '<hr>';
+		$html .= '<p class="schema-admin-require">';
+		$html .= esc_html__( 'Please note that all fields followed by an asterisk must be filled in.', $this->text_domain );
+		$html .= '</p>';
 		$html .= '<form method="post" action="">';
 		echo $html;
 
@@ -151,7 +154,7 @@ class Structuring_Markup_Admin_Post {
 		$html  = '<input type="hidden" name="id" value="'   . esc_attr( $options['id'] ) . '">';
 		$html .= '<input type="hidden" name="type" value="' . esc_attr( $options['type'] ) . '">';
 		$html .= '<table class="schema-admin-table">';
-		$html .= '<tr><th>Enabled : </th><td>';
+		$html .= '<tr><th class="require">Enabled : </th><td>';
 		$html .= '<input type="checkbox" name="activate" value="on"';
 		$html .= ( isset( $options['activate'] ) && $options['activate'] === "on" ) ? ' checked' : '';
 		$html .= '></td></tr>';

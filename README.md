@@ -39,6 +39,10 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 3.0.5 (2016-09-06)
+- Fixed : CSS & JavaScript version control.
+- Fixed : Registration screen display adjustment.
+
 ### 3.0.4 (2016-08-17)
 - Fixed : Type Person and Organization Non-display case "sameAs" is empty.
 - Checked : WordPress version 4.6.0 operation check.

@@ -3,7 +3,7 @@
 Plugin Name: Markup (JSON-LD) structured in schema.org
 Plugin URI: https://wordpress.org/plugins/wp-structuring-markup/
 Description: Allows you to include schema.org JSON-LD syntax markup on your website
-Version: 3.0.4
+Version: 3.0.5
 Author: Kazuya Takami
 Author URI: http://programp.com/
 License: GPLv2 or later
@@ -18,25 +18,25 @@ new Structuring_Markup();
  * Schema.org Basic Class
  *
  * @author  Kazuya Takami
+ * @version 3.0.5
  * @since   1.0.0
- * @version 3.0.3
  */
 class Structuring_Markup {
 
 	/**
 	 * Variable definition.
 	 *
+	 * @version 3.0.5
 	 * @since   1.3.0
-	 * @version 3.0.3
 	 */
 	private $text_domain = 'wp-structuring-markup';
-	private $version     = '3.0.3';
+	private $version     = '3.0.5';
 
 	/**
 	 * Constructor Define.
 	 *
-	 * @since   1.0.0
 	 * @version 2.4.0
+	 * @since   1.0.0
 	 */
 	public function __construct() {
 		register_activation_hook( __FILE__, array( $this, 'create_table' ) );
@@ -49,7 +49,6 @@ class Structuring_Markup {
 		if ( is_admin() ) {
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
 			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts') );
 		} else {
 			add_action( 'wp_head', array( $this, 'wp_head' ) );
 		}
@@ -58,8 +57,8 @@ class Structuring_Markup {
 	/**
 	 * Create table.
 	 *
-	 * @since   2.0.0
 	 * @version 2.0.0
+	 * @since   2.0.0
 	 */
 	public function create_table() {
 		$db = new Structuring_Markup_Admin_Db();
@@ -69,8 +68,8 @@ class Structuring_Markup {
 	/**
 	 * Breadcrumb ShortCode Register.
 	 *
-	 * @since   2.0.0
 	 * @version 2.3.1
+	 * @since   2.0.0
 	 * @param   string $args short code params
 	 * @return  string $html
 	 */
@@ -92,8 +91,8 @@ class Structuring_Markup {
 	/**
 	 * i18n.
 	 *
-	 * @since   1.3.0
 	 * @version 1.3.0
+	 * @since   1.3.0
 	 */
 	public function plugins_loaded () {
 		load_plugin_textdomain( $this->text_domain, __return_false(), dirname( plugin_basename( __FILE__ ) ) . '/languages' );
@@ -102,8 +101,8 @@ class Structuring_Markup {
 	/**
 	 * Create custom post type.
 	 *
-	 * @since   2.1.0
 	 * @version 3.0.0
+	 * @since   2.1.0
 	 */
 	function create_post_type () {
 		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-custom-post-event.php' );
@@ -115,8 +114,8 @@ class Structuring_Markup {
 	/**
 	 * admin init.
 	 *
+	 * @version 3.0.5
 	 * @since   1.3.1
-	 * @version 2.1.1
 	 */
 	public function admin_init () {
 		/** version up check */
@@ -125,25 +124,28 @@ class Structuring_Markup {
 			$this->create_table();
 		}
 
-		wp_register_style( 'wp-structuring-markup-admin-style', plugins_url( 'css/style.css', __FILE__ ) );
+		wp_register_style( 'wp-structuring-markup-admin-style', plugins_url( 'css/style.css', __FILE__ ), array(), $this->version );
 	}
 
 	/**
 	 * admin_scripts
 	 *
-	 * @since   2.4.0
-	 * @version 2.4.0
 	 * @author  Justin Frydman
+	 * @author  Kazuya Takami
+	 * @version 3.0.5
+	 * @since   2.4.0
 	 */
 	public function admin_scripts () {
-		wp_enqueue_script( 'wp-structuring-markup-admin-main-js', plugins_url( 'js/main.min.js', __FILE__ ), array('jquery'), '1.0' );
+		if ( isset( $_GET["type"] ) && $_GET["type"] === 'local_business' ) {
+			wp_enqueue_script ( 'wp-structuring-markup-admin-main-js', plugins_url ( 'js/main.min.js', __FILE__ ), array( 'jquery' ), $this->version );
+		}
 	}
 
 	/**
 	 * Add Menu to the Admin Screen.
 	 *
+	 * @version 3.0.5
 	 * @since   1.0.0
-	 * @version 2.0.0
 	 */
 	public function admin_menu () {
 		$list_page = add_menu_page(
@@ -163,8 +165,9 @@ class Structuring_Markup {
 		);
 
 		/** Using registered $page handle to hook stylesheet loading */
-		add_action( 'admin_print_styles-' . $list_page, array( $this, 'add_style' ) );
-		add_action( 'admin_print_styles-' . $post_page, array( $this, 'add_style' ) );
+		add_action( 'admin_print_styles-'  . $list_page, array( $this, 'add_style' ) );
+		add_action( 'admin_print_styles-'  . $post_page, array( $this, 'add_style' ) );
+		add_action( 'admin_print_scripts-' . $post_page, array( $this, 'admin_scripts' ) );
 
 		/** Custom post menu controls */
 		if ( isset( $_GET['page'] ) && $_GET['page'] === $this->text_domain . '-post' && !empty( $_POST ) ) {
@@ -197,8 +200,8 @@ class Structuring_Markup {
 	/**
 	 * CSS admin add.
 	 *
-	 * @since   1.3.1
 	 * @version 1.3.1
+	 * @since   1.3.1
 	 */
 	public function add_style () {
 		wp_enqueue_style( 'wp-structuring-markup-admin-style' );
@@ -207,8 +210,8 @@ class Structuring_Markup {
 	/**
 	 * LIST Page Template Require.
 	 *
-	 * @since   1.0.0
 	 * @version 1.3.0
+	 * @since   1.0.0
 	 */
 	public function list_page_render () {
 		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-admin-list.php' );
@@ -218,8 +221,8 @@ class Structuring_Markup {
 	/**
 	 * POST Page Template Require.
 	 *
-	 * @since   1.0.0
 	 * @version 1.3.0
+	 * @since   1.0.0
 	 */
 	public function post_page_render () {
 		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-admin-post.php' );
@@ -229,8 +232,8 @@ class Structuring_Markup {
 	/**
 	 * Display Page Template Require.
 	 *
-	 * @since   1.3.0
 	 * @version 2.4.2
+	 * @since   1.3.0
 	 */
 	public function wp_head () {
 		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-cache.php' );

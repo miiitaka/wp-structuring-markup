@@ -3,7 +3,7 @@
  * Schema.org Type Video
  *
  * @author  Kazuya Takami
- * @version 3.0.0
+ * @version 3.0.5
  * @since   3.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/VideoObject
@@ -23,15 +23,16 @@ class Structuring_Markup_Type_Videos {
 	/**
 	 * Form Layout Render
 	 *
-	 * @since 3.0.0
+	 * @version 3.0.5
+	 * @since   3.0.0
 	 */
 	private function page_render () {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Basic Setting</caption>';
-		$html .= '<tr><th>name :</th><td><small>Post Title</small></td></tr>';
-		$html .= '<tr><th>Description :</th><td><small>Post Description</small></td></tr>';
-		$html .= '<tr><th>thumbnailUrl :</th><td><small>Featured Image URL</small></td></tr>';
-		$html .= '<tr><th>uploadDate :</th><td><small>Update Date</small></td></tr>';
+		$html .= '<tr><th class="require">name :</th><td><small>Post Title</small></td></tr>';
+		$html .= '<tr><th class="require">Description :</th><td><small>Post Description</small></td></tr>';
+		$html .= '<tr><th class="require">thumbnailUrl :</th><td><small>Featured Image URL</small></td></tr>';
+		$html .= '<tr><th class="require">uploadDate :</th><td><small>Update Date</small></td></tr>';
 		$html .= '<tr><th>duration :</th><td><small>Input a custom post: field name "schema_video_duration"</small></td></tr>';
 		$html .= '<tr><th>contentUrl :</th><td><small>Input a custom post: field name "schema_video_content_url"</small></td></tr>';
 		$html .= '<tr><th>embedUrl :</th><td><small>Input a custom post: field name "schema_video_embed_url"</small></td></tr>';

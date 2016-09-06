@@ -3,7 +3,7 @@
  * Schema.org Type Person
  *
  * @author  Kazuya Takami
- * @version 2.4.0
+ * @version 3.0.5
  * @since   2.4.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/Person
@@ -14,8 +14,8 @@ class Structuring_Markup_Type_Person {
 	/**
 	 * Variable definition.
 	 *
-	 * @since   2.4.0
 	 * @version 2.4.0
+	 * @since   2.4.0
 	 */
 	/** Social Profile */
 	private $social_array = array(
@@ -34,8 +34,8 @@ class Structuring_Markup_Type_Person {
 	/**
 	 * Constructor Define.
 	 *
-	 * @since   2.4.0
 	 * @version 2.4.0
+	 * @since   2.4.0
 	 * @param   array $option
 	 */
 	public function __construct ( array $option ) {
@@ -49,19 +49,19 @@ class Structuring_Markup_Type_Person {
 	/**
 	 * Form Layout Render
 	 *
+	 * @version 3.0.5
 	 * @since   2.4.0
-	 * @version 2.4.0
 	 * @param   array $option
 	 */
 	private function page_render ( array $option ) {
 		/** Basic Settings */
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Basic Settings</caption>';
-		$html .= '<tr><th><label for="name">Name :</label></th><td>';
+		$html .= '<tr><th class="require"><label for="name">Name :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "name" . ']" id="name" class="regular-text" required value="' . esc_attr( $option['name'] ) . '">';
 		$html .= '<small>Default : bloginfo("name")</small>';
 		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="url">url :</label></th><td>';
+		$html .= '<tr><th class="require"><label for="url">url :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "url" . ']" id="url" class="regular-text" required value="' . esc_attr( $option['url'] ) . '">';
 		$html .= '<small>Default : bloginfo("url")</small>';
 		$html .= '</td></tr>';
