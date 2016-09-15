@@ -3,16 +3,16 @@
  * Schema.org Admin DB Connection.
  *
  * @author  Kazuya Takami
+ * @version 3.1.0
  * @since   1.0.0
- * @version 3.0.0
  */
 class Structuring_Markup_Admin_Db {
 
 	/**
 	 * Variable definition.
 	 *
+	 * @version 3.1.0
 	 * @since   1.0.0
-	 * @version 3.0.0
 	 */
 	private $table_name;
 
@@ -26,6 +26,7 @@ class Structuring_Markup_Admin_Db {
 		"news_article"   => "News Article",
 		"organization"   => "Organization",
 		"person"         => "Person",
+		"site_navigation"=> "Site Navigation",
 		"video"          => "Video",
 		"website"        => "Web Site"
 	);
@@ -33,8 +34,8 @@ class Structuring_Markup_Admin_Db {
 	/**
 	 * Constructor Define.
 	 *
-	 * @since   1.0.0
 	 * @version 1.3.2
+	 * @since   1.0.0
 	 */
 	public function __construct () {
 		global $wpdb;
@@ -44,8 +45,8 @@ class Structuring_Markup_Admin_Db {
 	/**
 	 * Create Table.
 	 *
-	 * @since   1.0.0
 	 * @version 2.1.1
+	 * @since   1.0.0
 	 * @param   string $text_domain
 	 * @param   string $version
 	 */
@@ -76,8 +77,8 @@ class Structuring_Markup_Admin_Db {
 			/**
 			 * version up process.
 			 *
-			 * @since   2.0.0
 			 * @version 2.1.1
+			 * @since   2.0.0
 			 * */
 			$options = get_option( $text_domain );
 
@@ -161,8 +162,8 @@ class Structuring_Markup_Admin_Db {
 	/**
 	 * Create table execute
 	 *
-	 * @since   2.0.0
 	 * @version 2.1.1
+	 * @since   2.0.0
 	 * @param   string $charset_collate
 	 * @param   string $text_domain
 	 * @param   string $version
@@ -187,8 +188,8 @@ class Structuring_Markup_Admin_Db {
 	/**
 	 * Get Data.
 	 *
-	 * @since   1.0.0
 	 * @version 2.1.0
+	 * @since   1.0.0
 	 * @param   integer $id
 	 * @return  array   $results
 	 */
@@ -228,8 +229,8 @@ class Structuring_Markup_Admin_Db {
 	/**
 	 * Get Type Data.
 	 *
-	 * @since   2.0.0
 	 * @version 2.1.0
+	 * @since   2.0.0
 	 * @param   string $type
 	 * @return  array  $results
 	 */
@@ -255,8 +256,8 @@ class Structuring_Markup_Admin_Db {
 	/**
 	 * Insert Data.
 	 *
-	 * @since   1.0.0
 	 * @version 2.0.0
+	 * @since   1.0.0
 	 * @param   array $args
 	 */
 	private function insert_options ( array $args ) {
@@ -269,8 +270,8 @@ class Structuring_Markup_Admin_Db {
 	/**
 	 * Update Data.
 	 *
-	 * @since   1.0.0
 	 * @version 2.0.0
+	 * @since   1.0.0
 	 * @param   array   $post($_POST)
 	 * @return  integer $post['id']
 	 */
