@@ -3,7 +3,7 @@
  * Schema.org Admin Post
  *
  * @author  Kazuya Takami
- * @version 3.0.5
+ * @version 3.1.0
  * @since   1.0.0
  */
 class Structuring_Markup_Admin_Post {
@@ -11,32 +11,32 @@ class Structuring_Markup_Admin_Post {
 	/**
 	 * Variable definition.
 	 *
-	 * @since   1.3.0
 	 * @version 2.0.0
+	 * @since   1.3.0
 	 */
 	private $text_domain;
 
 	/**
 	 * Variable definition.
 	 *
-	 * @since   1.3.0
 	 * @version 2.0.0
+	 * @since   1.3.0
 	 */
 	private $type_array;
 
 	/**
 	 * Variable definition.
 	 *
-	 * @since   2.5.0
 	 * @version 2.5.0
+	 * @since   2.5.0
 	 */
 	private $post_args = array();
 
 	/**
 	 * Defined nonce.
 	 *
-	 * @since   3.0.2
 	 * @version 3.0.2
+	 * @since   3.0.2
 	 */
 	private $nonce_name;
 	private $nonce_action;
@@ -44,8 +44,8 @@ class Structuring_Markup_Admin_Post {
 	/**
 	 * Constructor Define.
 	 *
-	 * @since   1.0.0
 	 * @version 3.0.2
+	 * @since   1.0.0
 	 * @param   String $text_domain
 	 */
 	public function __construct ( $text_domain ) {
@@ -118,7 +118,7 @@ class Structuring_Markup_Admin_Post {
 	/**
 	 * Setting Page of the Admin Screen.
 	 *
-	 * @version 3.0.5
+	 * @version 3.1.0
 	 * @since   1.0.0
 	 * @param   array  $options
 	 * @param   string $status
@@ -254,6 +254,14 @@ class Structuring_Markup_Admin_Post {
 				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-person.php' );
 				new Structuring_Markup_Type_Person( $options['option'] );
 				break;
+			case 'site_navigation':
+				$html  = $this->output_checkbox_render( $options['output'], "all", esc_html__( 'All Pages (In Header)', $this->text_domain ) );
+				$html .= '</td></tr></table><hr>';
+				echo $html;
+
+				require_once ( plugin_dir_path( __FILE__ ) . 'wp-structuring-admin-type-site-navigation.php' );
+				new Structuring_Markup_Type_Site_Navigation( $options['option'] );
+				break;
 			case 'video':
 				$html  = $this->output_checkbox_render( $options['output'], "video", esc_html__( 'Video Post Page', $this->text_domain ) );
 				$html .= '</td></tr></table><hr>';
@@ -286,8 +294,8 @@ class Structuring_Markup_Admin_Post {
 	/**
 	 * CheckBox Build Render
 	 *
-	 * @since   1.0.0
 	 * @version 2.5.0
+	 * @since   1.0.0
 	 * @param   array  $option['output']
 	 * @param   string $output
 	 * @param   string $value
@@ -305,8 +313,8 @@ class Structuring_Markup_Admin_Post {
 	/**
 	 * Custom Posts Build Render
 	 *
-	 * @since   2.5.0
 	 * @version 2.5.0
+	 * @since   2.5.0
 	 * @param   array  $option['output']
 	 * @return  string $html
 	 */
@@ -322,8 +330,8 @@ class Structuring_Markup_Admin_Post {
 	/**
 	 * Information Message Render
 	 *
-	 * @since   1.0.0
 	 * @version 2.0.0
+	 * @since   1.0.0
 	 * @return  string $html
 	 */
 	private function information_render () {
@@ -340,8 +348,8 @@ class Structuring_Markup_Admin_Post {
 	/**
 	 * Error Message Render
 	 *
-	 * @since   1.0.0
 	 * @version 2.0.0
+	 * @since   1.0.0
 	 * @return  string $html
 	 */
 	private function output_error_render () {
