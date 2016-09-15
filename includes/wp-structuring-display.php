@@ -128,6 +128,11 @@ class Structuring_Markup_Display {
 								$this->set_schema_person( unserialize( $row->options ) );
 							}
 							break;
+						case 'site_navigation':
+							if ( isset( $row->options ) && $row->options ) {
+								$this->set_schema_site_navigation( unserialize( $row->options ) );
+							}
+							break;
 						case 'video':
 							$this->set_schema_video();
 							break;
@@ -716,7 +721,39 @@ class Structuring_Markup_Display {
 		}
 		$this->set_schema_json( $args );
 	}
-	
+
+	/**
+	 * Setting schema.org Site Navigation
+	 *
+	 * @version 3.1.0
+	 * @since   3.1.0
+	 * @param   array $options
+	 */
+	private function set_schema_site_navigation ( array $options ) {
+		$args = array();
+
+		if ( isset( $options['menu_name'] ) && wp_get_nav_menu_items( $options['menu_name'], $args ) ) {
+			$items_array = wp_get_nav_menu_items( $options['menu_name'], $args );
+			$name_array  = array();
+			$url_array   = array();
+
+			foreach ( (array) $items_array as $key => $menu_item ) {
+				$url_array[]  = $menu_item->url;
+				$name_array[] = $menu_item->title;
+			}
+
+			if ( count( $items_array ) > 0 ) {
+				$args = array(
+					"@context" => "http://schema.org",
+					"@type"    => "SiteNavigationElement",
+					"name"     => $name_array,
+					"url"      => $url_array
+				);
+				$this->set_schema_json ( $args );
+			}
+		}
+	}
+
 	/**
 	 * Setting schema.org Video
 	 *
@@ -729,7 +766,7 @@ class Structuring_Markup_Display {
 
 		$args = array(
 			"@context" => "http://schema.org",
-			"@type" => "VideoObject"
+			"@type"    => "VideoObject"
 		);
 
 		if ( has_post_thumbnail( $post->ID ) ) {
