@@ -815,7 +815,7 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org WebSite
 	 *
-	 * @version 2.2.0
+	 * @version 3.1.0
 	 * @since   1.0.0
 	 * @param   array $options
 	 */
@@ -828,12 +828,28 @@ class Structuring_Markup_Display {
 			"url"           => isset( $options['url'] ) ? esc_url( $options['url'] ) : ""
 		);
 
+		$search_array = array();
+
 		if ( isset( $options['potential_action'] ) && $options['potential_action'] === 'on' ) {
-			$potential_action["potentialAction"] = array(
+			$action_array = array(
 				"@type"       => "SearchAction",
 				"target"      => isset( $options['target'] ) ? esc_url( $options['target'] ) . "{search_term_string}" : "",
 				"query-input" => isset( $options['target'] ) ? "required name=search_term_string" : ""
 			);
+			$search_array[] = $action_array;
+		}
+
+		if ( count( $search_array ) > 0 ) {
+			if ( isset( $options['potential_action_app'] ) && $options['potential_action_app'] === 'on' ) {
+				$action_array = array(
+					"@type"       => "SearchAction",
+					"target"      => isset( $options['target_app'] ) ? $options['target_app'] . "{search_term_string}" : "",
+					"query-input" => isset( $options['target_app'] ) ? "required name=search_term_string" : ""
+				);
+				$search_array[] = $action_array;
+			}
+
+			$potential_action["potentialAction"] = $search_array;
 			$args = array_merge( $args, $potential_action );
 		}
 
