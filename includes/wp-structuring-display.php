@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @author  Justin Frydman
- * @version 3.0.4
+ * @version 3.1.0
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -12,8 +12,8 @@ class Structuring_Markup_Display {
 	/**
 	 * Text Domain
 	 *
-	 * @since   3.0.0
 	 * @version 3.0.0
+	 * @since   3.0.0
 	 */
 	private $text_domain = 'wp-structuring-markup';
 
@@ -30,8 +30,8 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org
 	 *
+	 * @version 3.1.0
 	 * @since   1.0.0
-	 * @version 3.0.3
 	 * @param   Structuring_Markup_Admin_Db $db
 	 */
 	private function set_schema ( Structuring_Markup_Admin_Db $db ) {
@@ -61,8 +61,8 @@ class Structuring_Markup_Display {
 		);
 		$post_types = get_post_types( $args, 'objects' );
 
-		unset($post_types['schema_event_post']);
-		unset($post_types['schema_video_post']);
+		unset( $post_types['schema_event_post'] );
+		unset( $post_types['schema_video_post'] );
 
 		foreach ( $post_types as $post_type ) {
 			if ( is_singular( $post_type->name ) ) {
@@ -75,14 +75,14 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting JSON-LD Template
 	 *
+	 * @version 3.1.0
 	 * @since   1.0.0
-	 * @version 3.0.0
 	 * @param   string $output
 	 * @param   array  $structuring_markup_args
 	 */
 	private function get_schema_data ( $output, array $structuring_markup_args ) {
 
-		foreach ($structuring_markup_args as $row) {
+		foreach ( $structuring_markup_args as $row ) {
 			/** Output page check. */
 			$output_args = unserialize( $row->output );
 			if ( array_key_exists( $output, $output_args ) ) {
@@ -128,6 +128,11 @@ class Structuring_Markup_Display {
 								$this->set_schema_person( unserialize( $row->options ) );
 							}
 							break;
+						case 'site_navigation':
+							if ( isset( $row->options ) && $row->options ) {
+								$this->set_schema_site_navigation( unserialize( $row->options ) );
+							}
+							break;
 						case 'video':
 							$this->set_schema_video();
 							break;
@@ -145,8 +150,8 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting JSON-LD Template
 	 *
-	 * @since 1.0.0
 	 * @since 3.0.0
+	 * @since 1.0.0
 	 * @param array   $args
 	 * @param boolean $error
 	 */
@@ -168,20 +173,24 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting JSON-LD Template
 	 *
+	 * @version 3.1.0
 	 * @since   1.1.3
-	 * @version 2.0.0
 	 * @param   string $text
 	 * @return  string $text
 	 */
-	private function escape_text_tags ( $text ) {
-		return (string) str_replace( array( "\r", "\n" ), '', strip_tags( $text ) );
+	private function escape_text ( $text ) {
+		$text = strip_tags( $text );
+		$text = strip_shortcodes( $text );
+		$text = str_replace( array( "\r", "\n" ), '', $text );
+
+		return (string) $text;
 	}
 
 	/**
 	 * Return image dimensions
 	 *
-	 * @since   2.3.3
 	 * @version 2.4.2
+	 * @since   2.3.3
 	 * @author  Justin Frydman
 	 * @param   string $url
 	 * @return  array  $dimensions
@@ -254,14 +263,14 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org Article
 	 *
+	 * @version 3.1.0
 	 * @since   1.1.0
-	 * @version 3.0.0
 	 * @param   array $options
 	 */
 	private function set_schema_article ( array $options ) {
 		global $post;
 
-		$options['logo'] = isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "";
+		$options['logo'] = isset( $options['logo'] ) ? esc_url( $options['logo'] ) : "";
 		$args = array(
 			"@context" => "http://schema.org",
 			"@type"    => "Article"
@@ -269,15 +278,15 @@ class Structuring_Markup_Display {
 
 		if ( has_post_thumbnail( $post->ID ) && $logo = $this->get_image_dimensions( $options['logo'] ) ) {
 			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-			$excerpt = $this->escape_text_tags( $post->post_excerpt );
-			$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
+			$excerpt = $this->escape_text( $post->post_excerpt );
+			$content = $excerpt === "" ? mb_substr( $this->escape_text( $post->post_content ), 0, 110 ) : $excerpt;
 
 			$schema_args = array(
 				"mainEntityOfPage" => array(
 					"@type" => "WebPage",
 					"@id"   => get_permalink( $post->ID )
 				),
-				"headline" => $this->escape_text_tags( $post->post_title ),
+				"headline" => esc_html( $post->post_title ),
 				"image"    => array(
 					"@type"  => "ImageObject",
 					"url"    => $images[0],
@@ -288,7 +297,7 @@ class Structuring_Markup_Display {
 				"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
 				"author" => array(
 					"@type" => "Person",
-					"name"  => $this->escape_text_tags( get_the_author_meta( 'display_name', $post->post_author ) )
+					"name"  => esc_html( get_the_author_meta( 'display_name', $post->post_author ) )
 				),
 				"publisher" => array(
 					"@type" => "Organization",
@@ -318,8 +327,8 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org BlogPosting
 	 *
+	 * @version 3.1.0
 	 * @since   1.2.0
-	 * @version 3.0.0
 	 * @param   array $options
 	 */
 	private function set_schema_blog_posting ( array $options ) {
@@ -333,15 +342,15 @@ class Structuring_Markup_Display {
 
 		if ( has_post_thumbnail( $post->ID ) && $logo = $this->get_image_dimensions( $options['logo'] ) ) {
 			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-			$excerpt = $this->escape_text_tags( $post->post_excerpt );
-			$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
+			$excerpt = $this->escape_text( $post->post_excerpt );
+			$content = $excerpt === "" ? mb_substr( $this->escape_text( $post->post_content ), 0, 110 ) : $excerpt;
 
 			$schema_args = array(
 				"mainEntityOfPage" => array(
 					"@type" => "WebPage",
 					"@id"   => get_permalink( $post->ID )
 				),
-				"headline" => $this->escape_text_tags( $post->post_title ),
+				"headline" => esc_html( $post->post_title ),
 				"image"    => array(
 					"@type"  => "ImageObject",
 					"url"    => $images[0],
@@ -352,7 +361,7 @@ class Structuring_Markup_Display {
 				"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
 				"author" => array(
 					"@type" => "Person",
-					"name"  => $this->escape_text_tags( get_the_author_meta( 'display_name', $post->post_author ) )
+					"name"  => esc_html( get_the_author_meta( 'display_name', $post->post_author ) )
 				),
 				"publisher" => array(
 					"@type" => "Organization",
@@ -382,8 +391,8 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org Breadcrumb
 	 *
+	 * @version 3.1.0
 	 * @since   2.0.0
-	 * @version 2.0.0
 	 * @param   array $options
 	 */
 	private function set_schema_breadcrumb ( array $options ) {
@@ -406,8 +415,8 @@ class Structuring_Markup_Display {
 
 			/** Breadcrumb Schema build */
 			$args = array(
-				"@context" => "http://schema.org",
-				"@type"    => "BreadcrumbList",
+				"@context"        => "http://schema.org",
+				"@type"           => "BreadcrumbList",
 				"itemListElement" => $item_list_element
 			);
 
@@ -418,8 +427,8 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org Event
 	 *
+	 * @version 3.1.0
 	 * @since   2.1.0
-	 * @version 3.0.0
 	 */
 	private function set_schema_event () {
 		global $post;
@@ -441,19 +450,19 @@ class Structuring_Markup_Display {
 			$args = array(
 				"@context"  => "http://schema.org",
 				"@type"     => "Event",
-				"name"      => $this->escape_text_tags( $meta['schema_event_name'] ),
-				"startDate" => $this->escape_text_tags( $meta['schema_event_date'] ) . 'T' . $this->escape_text_tags( $meta['schema_event_time'] ),
+				"name"      => esc_html( $meta['schema_event_name'] ),
+				"startDate" => esc_html( $meta['schema_event_date'] ) . 'T' . esc_html( $meta['schema_event_time'] ),
 				"url"       => esc_url( $meta['schema_event_url'] ),
 				"location"  => array(
 					"@type"   => "Place",
 					"sameAs"  => esc_url( $meta['schema_event_place_url'] ),
-					"name"    => $this->escape_text_tags( $meta['schema_event_place_name'] ),
-					"address" => $this->escape_text_tags( $meta['schema_event_place_address'] )
+					"name"    => esc_html( $meta['schema_event_place_name'] ),
+					"address" => esc_html( $meta['schema_event_place_address'] )
 				),
 				"offers"    => array(
 					"@type"         => "Offer",
-					"price"         => $this->escape_text_tags( $meta['schema_event_offers_price'] ),
-					"priceCurrency" => $this->escape_text_tags( $meta['schema_event_offers_currency'] ),
+					"price"         => esc_html( $meta['schema_event_offers_price'] ),
+					"priceCurrency" => esc_html( $meta['schema_event_offers_currency'] ),
 					"url"           => esc_url( $meta['schema_event_url'] )
 				)
 			);
@@ -464,8 +473,8 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org LocalBusiness
 	 *
-	 * @since   2.3.0
 	 * @version 3.0.4
+	 * @since   2.3.0
 	 * @param   array $options
 	 */
 	private function set_schema_local_business ( array $options ) {
@@ -575,8 +584,8 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org NewsArticle
 	 *
+	 * @version 3.1.0
 	 * @since   1.0.0
-	 * @version 3.0.0
 	 * @param   array $options
 	 */
 	private function set_schema_news_article ( array $options ) {
@@ -590,15 +599,15 @@ class Structuring_Markup_Display {
 
 		if ( has_post_thumbnail( $post->ID ) && $logo = $this->get_image_dimensions( $options['logo'] ) ) {
 			$images  = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-			$excerpt = $this->escape_text_tags( $post->post_excerpt );
-			$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
+			$excerpt = $this->escape_text( $post->post_excerpt );
+			$content = $excerpt === "" ? mb_substr( $this->escape_text( $post->post_content ), 0, 110 ) : $excerpt;
 
 			$schema_args = array(
 				"mainEntityOfPage" => array(
 					"@type" => "WebPage",
 					"@id"   => get_permalink( $post->ID )
 				),
-				"headline" => $this->escape_text_tags( $post->post_title ),
+				"headline" => esc_html( $post->post_title ),
 				"image"    => array(
 					"@type"  => "ImageObject",
 					"url"    => $images[0],
@@ -609,7 +618,7 @@ class Structuring_Markup_Display {
 				"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
 				"author" => array(
 					"@type" => "Person",
-					"name"  => $this->escape_text_tags( get_the_author_meta( 'display_name', $post->post_author ) )
+					"name"  => esc_html( get_the_author_meta( 'display_name', $post->post_author ) )
 				),
 				"publisher" => array(
 					"@type" => "Organization",
@@ -639,8 +648,8 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org Organization
 	 *
-	 * @since   1.0.0
 	 * @version 3.0.0
+	 * @since   1.0.0
 	 * @param   array $options
 	 */
 	private function set_schema_organization ( array $options ) {
@@ -658,7 +667,7 @@ class Structuring_Markup_Display {
 			$contact_point["contactPoint"] = array(
 				array(
 					"@type"       => "ContactPoint",
-					"telephone"   => isset( $options['telephone'] ) ? esc_html( $options['telephone'] ) : "",
+					"telephone"   => isset( $options['telephone'] )    ? esc_html( $options['telephone'] ) : "",
 					"contactType" => isset( $options['contact_type'] ) ? esc_html( $options['contact_type'] ) : ""
 				)
 			);
@@ -684,8 +693,8 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org Person
 	 *
-	 * @since   2.4.0
 	 * @version 3.0.4
+	 * @since   2.4.0
 	 * @param   array $options
 	 */
 	private function set_schema_person ( array $options ) {
@@ -712,12 +721,44 @@ class Structuring_Markup_Display {
 		}
 		$this->set_schema_json( $args );
 	}
-	
+
+	/**
+	 * Setting schema.org Site Navigation
+	 *
+	 * @version 3.1.0
+	 * @since   3.1.0
+	 * @param   array $options
+	 */
+	private function set_schema_site_navigation ( array $options ) {
+		$args = array();
+
+		if ( isset( $options['menu_name'] ) && wp_get_nav_menu_items( $options['menu_name'], $args ) ) {
+			$items_array = wp_get_nav_menu_items( $options['menu_name'], $args );
+			$name_array  = array();
+			$url_array   = array();
+
+			foreach ( (array) $items_array as $key => $menu_item ) {
+				$url_array[]  = $menu_item->url;
+				$name_array[] = $menu_item->title;
+			}
+
+			if ( count( $items_array ) > 0 ) {
+				$args = array(
+					"@context" => "http://schema.org",
+					"@type"    => "SiteNavigationElement",
+					"name"     => $name_array,
+					"url"      => $url_array
+				);
+				$this->set_schema_json ( $args );
+			}
+		}
+	}
+
 	/**
 	 * Setting schema.org Video
 	 *
+	 * @version 3.1.0
 	 * @since   3.0.0
-	 * @version 3.0.0
 	 */
 	private function set_schema_video () {
 		global $post;
@@ -725,13 +766,13 @@ class Structuring_Markup_Display {
 
 		$args = array(
 			"@context" => "http://schema.org",
-			"@type" => "VideoObject"
+			"@type"    => "VideoObject"
 		);
 
 		if ( has_post_thumbnail( $post->ID ) ) {
 			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-			$excerpt = $this->escape_text_tags( $post->post_excerpt );
-			$content = $excerpt === "" ? mb_substr( $this->escape_text_tags( $post->post_content ), 0, 110 ) : $excerpt;
+			$excerpt = $this->escape_text( $post->post_excerpt );
+			$content = $excerpt === "" ? mb_substr( $this->escape_text( $post->post_content ), 0, 110 ) : $excerpt;
 
 			if ( isset( $meta[0] ) ) {
 				$meta = unserialize( $meta[0] );
@@ -743,7 +784,7 @@ class Structuring_Markup_Display {
 				if ( !isset( $meta['schema_video_expires_date'] ) )      $meta['schema_video_expires_date'] = '';
 				if ( !isset( $meta['schema_video_expires_time'] ) )      $meta['schema_video_expires_time'] = '';
 
-				$args["name"]         = $this->escape_text_tags( $post->post_title );
+				$args["name"]         = esc_html( $post->post_title );
 				$args["description"]  = $content;
 				$args["thumbnailUrl"] = $images[0];
 				$args["uploadDate"]   = get_post_modified_time( DATE_ISO8601, __return_false(), $post->ID );
@@ -761,7 +802,7 @@ class Structuring_Markup_Display {
 					$args["interactionCount"] = esc_html( $meta['schema_video_interaction_count'] );
 				}
 				if ( !empty( $meta['schema_video_expires_date'] ) && !empty( $meta['schema_video_expires_time'] ) ) {
-					$args["expires"] = $this->escape_text_tags( $meta['schema_video_expires_date'] ) . 'T' . $this->escape_text_tags( $meta['schema_video_expires_time'] );
+					$args["expires"] = esc_html( $meta['schema_video_expires_date'] ) . 'T' . esc_html( $meta['schema_video_expires_time'] );
 				}
 				$this->set_schema_json( $args );
 			}
@@ -774,8 +815,8 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org WebSite
 	 *
+	 * @version 3.1.0
 	 * @since   1.0.0
-	 * @version 2.2.0
 	 * @param   array $options
 	 */
 	private function set_schema_website ( array $options ) {
@@ -787,12 +828,28 @@ class Structuring_Markup_Display {
 			"url"           => isset( $options['url'] ) ? esc_url( $options['url'] ) : ""
 		);
 
+		$search_array = array();
+
 		if ( isset( $options['potential_action'] ) && $options['potential_action'] === 'on' ) {
-			$potential_action["potentialAction"] = array(
+			$action_array = array(
 				"@type"       => "SearchAction",
 				"target"      => isset( $options['target'] ) ? esc_url( $options['target'] ) . "{search_term_string}" : "",
 				"query-input" => isset( $options['target'] ) ? "required name=search_term_string" : ""
 			);
+			$search_array[] = $action_array;
+		}
+
+		if ( count( $search_array ) > 0 ) {
+			if ( isset( $options['potential_action_app'] ) && $options['potential_action_app'] === 'on' ) {
+				$action_array = array(
+					"@type"       => "SearchAction",
+					"target"      => isset( $options['target_app'] ) ? $options['target_app'] . "{search_term_string}" : "",
+					"query-input" => isset( $options['target_app'] ) ? "required name=search_term_string" : ""
+				);
+				$search_array[] = $action_array;
+			}
+
+			$potential_action["potentialAction"] = $search_array;
 			$args = array_merge( $args, $potential_action );
 		}
 

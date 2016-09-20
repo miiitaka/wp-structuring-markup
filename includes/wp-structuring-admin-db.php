@@ -3,16 +3,16 @@
  * Schema.org Admin DB Connection.
  *
  * @author  Kazuya Takami
+ * @version 3.1.0
  * @since   1.0.0
- * @version 3.0.0
  */
 class Structuring_Markup_Admin_Db {
 
 	/**
 	 * Variable definition.
 	 *
+	 * @version 3.1.0
 	 * @since   1.0.0
-	 * @version 3.0.0
 	 */
 	private $table_name;
 
@@ -26,6 +26,7 @@ class Structuring_Markup_Admin_Db {
 		"news_article"   => "News Article",
 		"organization"   => "Organization",
 		"person"         => "Person",
+		"site_navigation"=> "Site Navigation",
 		"video"          => "Video",
 		"website"        => "Web Site"
 	);
@@ -33,8 +34,8 @@ class Structuring_Markup_Admin_Db {
 	/**
 	 * Constructor Define.
 	 *
-	 * @since   1.0.0
 	 * @version 1.3.2
+	 * @since   1.0.0
 	 */
 	public function __construct () {
 		global $wpdb;
@@ -44,8 +45,8 @@ class Structuring_Markup_Admin_Db {
 	/**
 	 * Create Table.
 	 *
+	 * @version 3.1.0
 	 * @since   1.0.0
-	 * @version 2.1.1
 	 * @param   string $text_domain
 	 * @param   string $version
 	 */
@@ -76,8 +77,8 @@ class Structuring_Markup_Admin_Db {
 			/**
 			 * version up process.
 			 *
+			 * @version 3.1.0
 			 * @since   2.0.0
-			 * @version 2.1.1
 			 * */
 			$options = get_option( $text_domain );
 
@@ -108,11 +109,6 @@ class Structuring_Markup_Admin_Db {
 								'register_date' => date( "Y-m-d H:i:s" ),
 								'update_date'   => date( "Y-m-d H:i:s" )
 							);
-
-							/** LocalBusiness Convert data(In the case of version 2.3.x) */
-							if ( $key === 'local_business' && $activate === 'on' && strpos( $options['version'], '2.3.' ) !== false ) {
-								$args['options'] = $this->convert_local_business( $list->options );
-							}
 						}
 					}
 					$this->insert_options( $args );
@@ -122,47 +118,10 @@ class Structuring_Markup_Admin_Db {
 	}
 
 	/**
-	 * To convert the data for the new version of the "LocalBusiness".
-	 * version 2.3.3 -> 2.4.0
-	 *
-	 * @since   2.4.0
-	 * @param   string $options
-	 * @return  string $convert
-	 */
-	private function convert_local_business( $options ) {
-		$options = unserialize( $options );
-		$convert = $options;
-
-		$convert['Mo']                     = isset( $options['mon'] )       ? $options['mon']       : "";
-		$convert['week']['Mo'][0]['open']  = isset( $options['mon-open'] )  ? $options['mon-open']  : "";
-		$convert['week']['Mo'][0]['close'] = isset( $options['mon-close'] ) ? $options['mon-close'] : "";
-		$convert['Tu']                     = isset( $options['tue'] )       ? $options['tue']       : "";
-		$convert['week']['Tu'][0]['open']  = isset( $options['tue-open'] )  ? $options['tue-open']  : "";
-		$convert['week']['Tu'][0]['close'] = isset( $options['tue-close'] ) ? $options['tue-close'] : "";
-		$convert['We']                     = isset( $options['wed'] )       ? $options['wed']       : "";
-		$convert['week']['We'][0]['open']  = isset( $options['wed-open'] )  ? $options['wed-open']  : "";
-		$convert['week']['We'][0]['close'] = isset( $options['wed-close'] ) ? $options['wed-close'] : "";
-		$convert['Th']                     = isset( $options['thu'] )       ? $options['mon']       : "";
-		$convert['week']['Th'][0]['open']  = isset( $options['thu-open'] )  ? $options['thu-open']  : "";
-		$convert['week']['Th'][0]['close'] = isset( $options['thu-close'] ) ? $options['thu-close'] : "";
-		$convert['Fr']                     = isset( $options['fri'] )       ? $options['fri']       : "";
-		$convert['week']['Fr'][0]['open']  = isset( $options['fri-open'] )  ? $options['fri-open']  : "";
-		$convert['week']['Fr'][0]['close'] = isset( $options['fri-close'] ) ? $options['fri-close'] : "";
-		$convert['Sa']                     = isset( $options['sat'] )       ? $options['sat']       : "";
-		$convert['week']['Sa'][0]['open']  = isset( $options['sat-open'] )  ? $options['sat-open']  : "";
-		$convert['week']['Sa'][0]['close'] = isset( $options['sat-close'] ) ? $options['sat-close'] : "";
-		$convert['Su']                     = isset( $options['sun'] )       ? $options['sun']       : "";
-		$convert['week']['Su'][0]['open']  = isset( $options['sun-open'] )  ? $options['sun-open']  : "";
-		$convert['week']['Su'][0]['close'] = isset( $options['sun-close'] ) ? $options['sun-close'] : "";
-
-		return (string) serialize( $convert );
-	}
-
-	/**
 	 * Create table execute
 	 *
-	 * @since   2.0.0
 	 * @version 2.1.1
+	 * @since   2.0.0
 	 * @param   string $charset_collate
 	 * @param   string $text_domain
 	 * @param   string $version
@@ -187,8 +146,8 @@ class Structuring_Markup_Admin_Db {
 	/**
 	 * Get Data.
 	 *
-	 * @since   1.0.0
 	 * @version 2.1.0
+	 * @since   1.0.0
 	 * @param   integer $id
 	 * @return  array   $results
 	 */
@@ -228,8 +187,8 @@ class Structuring_Markup_Admin_Db {
 	/**
 	 * Get Type Data.
 	 *
-	 * @since   2.0.0
 	 * @version 2.1.0
+	 * @since   2.0.0
 	 * @param   string $type
 	 * @return  array  $results
 	 */
@@ -255,8 +214,8 @@ class Structuring_Markup_Admin_Db {
 	/**
 	 * Insert Data.
 	 *
-	 * @since   1.0.0
 	 * @version 2.0.0
+	 * @since   1.0.0
 	 * @param   array $args
 	 */
 	private function insert_options ( array $args ) {
@@ -269,8 +228,8 @@ class Structuring_Markup_Admin_Db {
 	/**
 	 * Update Data.
 	 *
-	 * @since   1.0.0
 	 * @version 2.0.0
+	 * @since   1.0.0
 	 * @param   array   $post($_POST)
 	 * @return  integer $post['id']
 	 */
