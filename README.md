@@ -15,6 +15,7 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 - NewsArticle: http://schema.org/NewsArticle
 - Organization: https://schema.org/Organization
 - Person: https://schema.org/Person
+- SiteNavigation: https://schema.org/SiteNavigationElement
 - Video: https://schema.org/Video
 - Website: https://schema.org/WebSite
 
@@ -38,6 +39,12 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 - Option : class="class_name" attribute additional ol element.
 
 ## Change Log
+
+### 3.1.0 (2016-09-20)
+- Added : Schema.org type "SiteNavigation".
+- Checked : WordPress version 4.6.1 operation check.
+- Updated : Application URL input item of Schema.org type "WebSite".
+- Fixed : LocalBusiness Convert data(In the case of version 2.3.x) Logic remove.
 
 ### 3.0.5 (2016-09-06)
 - Fixed : CSS & JavaScript version control.
