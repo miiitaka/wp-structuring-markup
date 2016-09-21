@@ -40,7 +40,7 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
-### 3.1.0 (2016-09-20)
+### 3.1.1 (2016-09-20)
 - Added : Schema.org type "SiteNavigation".
 - Checked : WordPress version 4.6.1 operation check.
 - Updated : Application URL input item of Schema.org type "WebSite".
