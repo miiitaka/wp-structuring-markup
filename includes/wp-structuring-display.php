@@ -693,7 +693,7 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org Person
 	 *
-	 * @version 3.0.4
+	 * @version 3.1.2
 	 * @since   2.4.0
 	 * @param   array $options
 	 */
@@ -705,6 +705,18 @@ class Structuring_Markup_Display {
 			"name"     => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
 			"url"      => isset( $options['url'] )  ? esc_url( $options['url'] )   : ""
 		);
+
+		/** Place */
+		if ( isset( $options['addressCountry'] ) ) {
+			$place["homeLocation"] = array(
+				"@type"   => "Place",
+				"address" => array(
+					"@type"          => "PostalAddress",
+					"addressCountry" => $options['addressCountry']
+				)
+			);
+			$args = array_merge( $args, $place );
+		}
 
 		/** Social Profiles */
 		if ( isset( $options['social'] ) ) {
