@@ -118,7 +118,7 @@ class Structuring_Markup_Admin_Post {
 	/**
 	 * Setting Page of the Admin Screen.
 	 *
-	 * @version 3.1.0
+	 * @version 3.1.2
 	 * @since   1.0.0
 	 * @param   array  $options
 	 * @param   string $status
@@ -158,7 +158,7 @@ class Structuring_Markup_Admin_Post {
 		$html .= '<input type="checkbox" name="activate" value="on"';
 		$html .= ( isset( $options['activate'] ) && $options['activate'] === "on" ) ? ' checked' : '';
 		$html .= '></td></tr>';
-		$html .= '<tr><th>' . esc_html__( 'Output On', $this->text_domain ) . ' : </th><td>';
+		$html .= '<tr><th class="require">' . esc_html__( 'Output On', $this->text_domain ) . ' : </th><td>';
 		echo $html;
 
 		switch ( $options['type'] ) {
