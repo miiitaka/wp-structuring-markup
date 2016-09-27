@@ -40,6 +40,9 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 3.1.2 (2016-09-27)
+- Updated : homeLocation input item of Schema.org type "Person".
+
 ### 3.1.1 (2016-09-20)
 - Added : Schema.org type "SiteNavigation".
 - Checked : WordPress version 4.6.1 operation check.

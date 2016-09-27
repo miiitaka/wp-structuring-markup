@@ -3,7 +3,7 @@
  * Schema.org Type Person
  *
  * @author  Kazuya Takami
- * @version 3.0.5
+ * @version 3.1.2
  * @since   2.4.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/Person
@@ -40,16 +40,19 @@ class Structuring_Markup_Type_Person {
 	 */
 	public function __construct ( array $option ) {
 		/** Default Value Set */
-		if ( empty( $option ) ) {
-			$option = $this->get_default_options( $option );
+		$option_array = $this->get_default_options();
+
+		if ( !empty( $option ) ) {
+			$option_array = array_merge( $option_array, $option );
 		}
-		$this->page_render( $option );
+
+		$this->page_render( $option_array );
 	}
 
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 3.0.5
+	 * @version 3.1.2
 	 * @since   2.4.0
 	 * @param   array $option
 	 */
@@ -64,6 +67,16 @@ class Structuring_Markup_Type_Person {
 		$html .= '<tr><th class="require"><label for="url">url :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "url" . ']" id="url" class="regular-text" required value="' . esc_attr( $option['url'] ) . '">';
 		$html .= '<small>Default : bloginfo("url")</small>';
+		$html .= '</td></tr>';
+		$html .= '</table>';
+		echo $html;
+
+		/** Place Settings */
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>Place Settings</caption>';
+		$html .= '<tr><th class="require"><label for="addressCountry">addressCountry :</label></th><td>';
+		$html .= '<input type="text" name="option[' . "addressCountry" . ']" id="addressCountry" class="regular-text" required value="' . esc_attr( $option['addressCountry'] ) . '">';
+		$html .= '<small>e.g. Japan</small>';
 		$html .= '</td></tr>';
 		$html .= '</table>';
 		echo $html;
@@ -86,14 +99,14 @@ class Structuring_Markup_Type_Person {
 	/**
 	 * Return the default options array
 	 *
-	 * @since   2.4.0
+	 * @since   3.1.2
 	 * @version 2.4.0
-	 * @param   array $args
 	 * @return  array $args
 	 */
-	private function get_default_options ( array $args ) {
-		$args['name'] = get_bloginfo('name');
-		$args['url']  = get_bloginfo('url');
+	private function get_default_options () {
+		$args['name']           = get_bloginfo('name');
+		$args['url']            = get_bloginfo('url');
+		$args['addressCountry'] = '';
 
 		foreach ( $this->social_array as $value ) {
 			$args['social'][$value['type']] = '';
