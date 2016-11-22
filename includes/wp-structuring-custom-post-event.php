@@ -3,8 +3,8 @@
  * Schema.org Custom Post "Event"
  *
  * @author  Kazuya Takami
+ * @version 3.1.3
  * @since   2.1.0
- * @version 2.2.1
  */
 class Structuring_Markup_Custom_Post_Event {
 
@@ -18,10 +18,38 @@ class Structuring_Markup_Custom_Post_Event {
 	private $custom_type = 'schema_event_post';
 
 	/**
+	 * Event Type.
+	 *
+	 * @version 3.1.3
+	 * @since   3.1.3
+	 */
+	private $event_type = array(
+		"Event",
+		"BusinessEvent",
+		"ChildrensEvent",
+		"ComedyEvent",
+		"DanceEvent",
+		"DeliveryEvent",
+		"EducationEvent",
+		"ExhibitionEvent",
+		"Festival",
+		"FoodEvent",
+		"LiteraryEvent",
+		"MusicEvent",
+		"PublicationEvent",
+		"SaleEvent",
+		"ScreeningEvent",
+		"SocialEvent",
+		"SportsEvent",
+		"TheaterEvent",
+		"VisualArtsEvent"
+	);
+
+	/**
 	 * Constructor Define.
 	 *
-	 * @since   2.1.0
 	 * @version 3.0.0
+	 * @since   2.1.0
 	 * @param   String $text_domain
 	 */
 	public function __construct ( $text_domain ) {
@@ -57,8 +85,8 @@ class Structuring_Markup_Custom_Post_Event {
 	/**
 	 * admin init.
 	 *
-	 * @since   2.1.0
 	 * @version 2.1.0
+	 * @since   2.1.0
 	 */
 	public function admin_init () {
 		add_action( 'save_post_' . $this->custom_type, array( $this, 'save_post' ) );
@@ -67,8 +95,8 @@ class Structuring_Markup_Custom_Post_Event {
 	/**
 	 * admin meta boxes.
 	 *
-	 * @since   2.1.0
 	 * @version 2.1.0
+	 * @since   2.1.0
 	 */
 	public function admin_menu () {
 		$custom_field_title = esc_html__( 'Schema.org Type Event', $this->text_domain );
@@ -78,25 +106,41 @@ class Structuring_Markup_Custom_Post_Event {
 	/**
 	 * Set custom fields.
 	 *
+	 * @version 3.1.3
 	 * @since   2.1.0
-	 * @version 2.1.0
 	 */
 	public function set_custom_fields () {
 		$args = get_post_meta( get_the_ID(), $this->custom_type, false );
 		$args = isset( $args[0] ) ? unserialize( $args[0] ) : "";
 
-		if ( !isset( $args['schema_event_name'] ) ) $args['schema_event_name'] = '';
-		if ( !isset( $args['schema_event_date'] ) ) $args['schema_event_date'] = date( 'Y-m-d' );
-		if ( !isset( $args['schema_event_time'] ) ) $args['schema_event_time'] = date( 'h:i' );
-		if ( !isset( $args['schema_event_url'] ) )  $args['schema_event_url']  = '';
-		if ( !isset( $args['schema_event_place_name'] ) )      $args['schema_event_place_name']    = '';
-		if ( !isset( $args['schema_event_place_url'] ) )       $args['schema_event_place_url']     = '';
-		if ( !isset( $args['schema_event_place_address'] ) )   $args['schema_event_place_address'] = '';
-		if ( !isset( $args['schema_event_offers_price'] ) )    $args['schema_event_offers_price'] = 0;
+		if ( !isset( $args['schema_event_type'] ) )            $args['schema_event_type']            = 'Event';
+		if ( !isset( $args['schema_event_name'] ) )            $args['schema_event_name']            = '';
+		if ( !isset( $args['schema_event_date'] ) )            $args['schema_event_date']            = date( 'Y-m-d' );
+		if ( !isset( $args['schema_event_time'] ) )            $args['schema_event_time']            = date( 'h:i' );
+		if ( !isset( $args['schema_event_date_end'] ) )        $args['schema_event_date_end']        = date( 'Y-m-d' );
+		if ( !isset( $args['schema_event_time_end'] ) )        $args['schema_event_time_end']        = date( 'h:i' );
+		if ( !isset( $args['schema_event_url'] ) )             $args['schema_event_url']             = '';
+		if ( !isset( $args['schema_event_place_name'] ) )      $args['schema_event_place_name']      = '';
+		if ( !isset( $args['schema_event_place_url'] ) )       $args['schema_event_place_url']       = '';
+		if ( !isset( $args['schema_event_place_address'] ) )   $args['schema_event_place_address']   = '';
+		if ( !isset( $args['schema_event_offers_price'] ) )    $args['schema_event_offers_price']    = 0;
 		if ( !isset( $args['schema_event_offers_currency'] ) ) $args['schema_event_offers_currency'] = esc_html__( 'USD', $this->text_domain );
 
 		$html  = '';
 		$html .= '<table>';
+		$html .= '<tr><th><label for="schema_event_type">';
+		$html .= esc_html__( 'Event Type', $this->text_domain );
+		$html .= '</label></th><td>';
+		$html .= '<select name="option[' . "schema_event_type" . ']" id="schema_event_type">';
+		foreach( $this->event_type as $value) {
+			$html .= '<option';
+			if ( $value === $args['schema_event_type'] ) {
+				$html .= ' selected="selected"';
+			}
+			$html .=  ' value="' . $value . '">' . $value . '</option>';
+		}
+		$html .= '</select>';
+		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="schema_event_name">';
 		$html .= esc_html__( 'Event Name', $this->text_domain );
 		$html .= '</label></th><td>';
@@ -147,8 +191,8 @@ class Structuring_Markup_Custom_Post_Event {
 	/**
 	 * Save custom post.
 	 *
-	 * @since   2.1.0
 	 * @version 2.1.0
+	 * @since   2.1.0
 	 * @param   integer $post_id The post ID.
 	 */
 	public function save_post ( $post_id ) {

@@ -1,6 +1,14 @@
 /** List Setting */
-.schema-admin-table-list th:nth-child(1) {
+.schema-admin-table-list .schema-admin-table-list-status {
 	width: 10em;
+}
+
+.schema-admin-table-list .schema-admin-table-list-type {
+	width: 15%;
+}
+
+.schema-admin-table-list .schema-admin-table-list-output {
+	width: 30%;
 }
 
 .schema-admin-table-list td {
@@ -17,6 +25,10 @@
 .schema-admin-table-list td:nth-child(1) span.active {
 	background: #00a0d2;
 	color: #fff;
+}
+
+.schema-admin-table-list tr.active {
+	background: #efefef;
 }
 
 .schema-admin-table-list td:nth-child(1) span.stop {

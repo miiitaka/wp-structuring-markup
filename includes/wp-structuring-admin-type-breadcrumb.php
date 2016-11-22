@@ -3,7 +3,7 @@
  * Schema.org Type Breadcrumb
  *
  * @author  Kazuya Takami
- * @version 2.5.1
+ * @version 3.1.3
  * @since   2.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/BreadcrumbList
@@ -46,6 +46,15 @@ class Structuring_Markup_Type_Breadcrumb {
 		$html .= '<tr><th><label for="home_name">Home Name :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "home_name" . ']" id="home_name" class="regular-text" value="' . esc_attr( $option['home_name'] ) . '">';
 		$html .= '<small>Default : bloginfo("name")</small>';
+		$html .= '</td></tr>';
+		$html .= '</table>';
+		echo $html;
+
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>Short Code</caption>';
+		$html .= '<tr><th><label for="home_on">Short Code Copy :</label></th><td>';
+		$html .= '<input type="text" onfocus="this.select();" readonly="readonly" value="[wp-structuring-markup-breadcrumb]" class="large-text code">';
+		$html .= '<small>Option : id="id_name" and class="class_name" attribute additional ol element.</small>';
 		$html .= '</td></tr>';
 		$html .= '</table>';
 		echo $html;
