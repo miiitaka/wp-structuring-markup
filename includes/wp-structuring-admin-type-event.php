@@ -3,7 +3,7 @@
  * Schema.org Type Event
  *
  * @author  Kazuya Takami
- * @version 3.0.5
+ * @version 3.1.3
  * @since   2.1.0
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/Event
@@ -25,12 +25,13 @@ class Structuring_Markup_Type_Event {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 3.0.5
+	 * @version 3.1.3
 	 * @since   2.1.0
 	 */
 	private function page_render () {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Basic Setting</caption>';
+		$html .= '<tr><th class="require">type :</th><td><small>Select a event type: field name "schema_event_type"</small></td></tr>';
 		$html .= '<tr><th class="require">name :</th><td><small>Input a custom post: field name "schema_event_name"</small></td></tr>';
 		$html .= '<tr><th class="require">startDate :</th><td><small>Input a custom post: field name "schema_event_date" & "schema_event_time"</small></td></tr>';
 		$html .= '<tr><th>url :</th><td><small>Input a custom post: field name "schema_event_url"</small></td></tr>';

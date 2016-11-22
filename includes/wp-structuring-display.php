@@ -427,7 +427,7 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org Event
 	 *
-	 * @version 3.1.0
+	 * @version 3.1.3
 	 * @since   2.1.0
 	 */
 	private function set_schema_event () {
@@ -437,6 +437,7 @@ class Structuring_Markup_Display {
 		if ( isset( $meta[0] ) ) {
 			$meta = unserialize( $meta[0] );
 
+			if ( !isset( $meta['schema_event_type']) )             $meta['schema_event_type'] = 'Event';
 			if ( !isset( $meta['schema_event_name']) )             $meta['schema_event_name'] = '';
 			if ( !isset( $meta['schema_event_date']) )             $meta['schema_event_date'] = date('Y-m-d');
 			if ( !isset( $meta['schema_event_time']) )             $meta['schema_event_time'] = date('h:i');
@@ -449,7 +450,7 @@ class Structuring_Markup_Display {
 
 			$args = array(
 				"@context"  => "http://schema.org",
-				"@type"     => "Event",
+				"@type"     => esc_html( $meta['schema_event_type'] ),
 				"name"      => esc_html( $meta['schema_event_name'] ),
 				"startDate" => esc_html( $meta['schema_event_date'] ) . 'T' . esc_html( $meta['schema_event_time'] ),
 				"url"       => esc_url( $meta['schema_event_url'] ),
@@ -466,6 +467,7 @@ class Structuring_Markup_Display {
 					"url"           => esc_url( $meta['schema_event_url'] )
 				)
 			);
+
 			$this->set_schema_json( $args );
 		}
 	}
