@@ -40,6 +40,10 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 3.1.3 (2016-11-22)
+- Updated : Event Type select item of Schema.org type "Event".
+- Updated : Short Code display changed of Schema.org type "BreadcrumbList".
+
 ### 3.1.2 (2016-09-27)
 - Updated : homeLocation input item of Schema.org type "Person".
 
