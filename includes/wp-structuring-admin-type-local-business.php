@@ -191,21 +191,25 @@ class Structuring_Markup_Type_LocalBusiness {
 	/**
 	 * Constructor Define.
 	 *
-	 * @since 2.3.0
-	 * @param array $option
+	 * @version 3.1.4
+	 * @since   2.3.0
+	 * @param   array $option
 	 */
 	public function __construct ( array $option ) {
 		/** Default Value Set */
-		if ( empty( $option ) ) {
-			$option = $this->get_default_options( $option );
+		$option_array = $this->get_default_options();
+
+		if ( !empty( $option ) ) {
+			$option_array = array_merge( $option_array, $option );
 		}
-		$this->page_render( $option );
+
+		$this->page_render( $option_array );
 	}
 
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 3.0.5
+	 * @version 3.1.4
 	 * @since   2.3.3
 	 * @param   array $option
 	 */
@@ -214,6 +218,7 @@ class Structuring_Markup_Type_LocalBusiness {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Local Business</caption>';
 		$html .= $this->set_form_select( 'business_type', 'Local Business Type', $option['business_type'], 'Default : "Local Business"' );
+		$html .= $this->set_form_text( 'image', 'An image of the business', $option['image'], true, 'Default : bloginfo("url")' );
 		$html .= $this->set_form_text( 'name', 'Business Name', $option['name'], true, 'Default : bloginfo("name")' );
 		$html .= $this->set_form_text( 'url', 'Url', $option['url'], true, 'Default : bloginfo("url")' );
 		$html .= $this->set_form_text( 'telephone', 'Telephone', $option['telephone'], false, 'e.g. : +1-880-555-1212' );
@@ -223,15 +228,10 @@ class Structuring_Markup_Type_LocalBusiness {
 		/** For food establishments */
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>For food establishments</caption>';
-		if ( !isset( $option['food_active'] ) ) {
-			$option['food_active'] = "";
-		}
 		$html .= $this->set_form_checkbox( 'food_active', 'Setting', $option['food_active'], 'Enabled' );
 		$html .= $this->set_form_text( 'menu', 'Menu url', $option['menu'], false, 'For food establishments, the fully-qualified URL of the menu.' );
-		if ( !isset( $option['accepts_reservations'] ) ) {
-			$option['accepts_reservations'] = "";
-		}
 		$html .= $this->set_form_checkbox( 'accepts_reservations', 'Accepts Reservations', $option['accepts_reservations'], 'For food establishments, and whether it is possible to accept a reservation?' );
+		$html .= $this->set_form_text( 'serves_cuisine', 'Serves Cuisine', $option['serves_cuisine'], false, 'If marking up a restaurant, provide the type of cuisine they serve.' );
 		$html .= '</table>';
 		echo $html;
 
@@ -249,12 +249,6 @@ class Structuring_Markup_Type_LocalBusiness {
 		/** Geo Circle */
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Geo Circle</caption>';
-		if ( !isset( $option['geo_circle_active'] ) ) {
-			$option['geo_circle_active'] = "";
-		}
-		if ( !isset( $option['geo_circle_radius'] ) ) {
-			$option['geo_circle_radius'] = "";
-		}
 		$html .= $this->set_form_checkbox( 'geo_circle_active', 'Setting', $option['geo_circle_active'], 'Enabled' );
 		$html .= $this->set_form_text( 'geo_circle_radius', 'geoRadius', $option['geo_circle_radius'], false );
 		$html .= '</table>';
@@ -263,9 +257,6 @@ class Structuring_Markup_Type_LocalBusiness {
 		/** Geo Coordinates */
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Geo Coordinates</caption>';
-		if ( !isset( $option['geo_active'] ) ) {
-			$option['geo_active'] = "";
-		}
 		$html .= $this->set_form_checkbox( 'geo_active', 'Setting', $option['geo_active'], 'Enabled' );
 		$html .= $this->set_form_text( 'latitude', 'Latitude', $option['latitude'], false );
 		$html .= $this->set_form_text( 'longitude', 'Longitude', $option['longitude'], false );
@@ -308,26 +299,18 @@ class Structuring_Markup_Type_LocalBusiness {
 		/** Holiday Opening Hours */
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Holiday Opening Hours</caption>';
-		if ( !isset( $option['holiday_active'] ) ) {
-			$option['holiday_active'] = "";
-		}
-		if ( !isset( $option['holiday_open'] ) ) {
-			$option['holiday_open'] = "";
-		}
-		if ( !isset( $option['holiday_close'] ) ) {
-			$option['holiday_close'] = "";
-		}
-		if ( !isset( $option['holiday_valid_from'] ) ) {
-			$option['holiday_valid_from'] = "";
-		}
-		if ( !isset( $option['holiday_valid_through'] ) ) {
-			$option['holiday_valid_through'] = "";
-		}
 		$html .= $this->set_form_checkbox( 'holiday_active', 'Setting', $option['holiday_active'], 'Enabled' );
 		$html .= $this->set_form_time_holiday( $option['holiday_open'], $option['holiday_close'] );
 		$html .= $this->set_form_date( 'holiday_valid_from', 'validFrom', $option['holiday_valid_from'], false );
 		$html .= $this->set_form_date( 'holiday_valid_through', 'validThrough', $option['holiday_valid_through'], false );
 
+		$html .= '</table>';
+		echo $html;
+
+		/** Price Range */
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>Price Range</caption>';
+		$html .= $this->set_form_text( 'price_range', 'Price Range', $option['price_range'], false, 'The price range of the business, for example $$$.' );
 		$html .= '</table>';
 		echo $html;
 
@@ -338,24 +321,27 @@ class Structuring_Markup_Type_LocalBusiness {
 	/**
 	 * Return the default options array
 	 *
-	 * @since   2.3.0
+	 * @since   3.1.4
 	 * @version 2.5.0
-	 * @param   array $args
 	 * @return  array $args
 	 */
-	private function get_default_options ( array $args ) {
+	private function get_default_options () {
 		$args['business_type']        = 'local_business';
 		$args['name']                 = get_bloginfo('name');
+		$args['image']                = get_bloginfo('url');
 		$args['url']                  = get_bloginfo('url');
 		$args['telephone']            = '';
 		$args['food_active']          = '';
 		$args['menu']                 = '';
 		$args['accepts_reservations'] = '';
+		$args['serves_cuisine']       = '';
 		$args['street_address']       = '';
 		$args['address_locality']     = '';
 		$args['address_region']       = '';
 		$args['postal_code']          = '';
 		$args['address_country']      = '';
+		$args['geo_circle_active']    = '';
+		$args['geo_circle_radius']    = '';
 		$args['geo_active']           = '';
 		$args['latitude']             = '';
 		$args['longitude']            = '';
@@ -372,6 +358,7 @@ class Structuring_Markup_Type_LocalBusiness {
 		$args['holiday_close']         = '';
 		$args['holiday_valid_from']    = '';
 		$args['holiday_valid_through'] = '';
+		$args['price_range']           = '';
 
 		return (array) $args;
 	}

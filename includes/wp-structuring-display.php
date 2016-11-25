@@ -478,7 +478,7 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org LocalBusiness
 	 *
-	 * @version 3.0.4
+	 * @version 3.1.4
 	 * @since   2.3.0
 	 * @param   array $options
 	 */
@@ -499,6 +499,7 @@ class Structuring_Markup_Display {
 			"@context"  => "http://schema.org",
 			"@type"     => isset( $options['business_type'] ) ? esc_html( $options['business_type'] ) : "",
 			"name"      => isset( $options['name'] )          ? esc_html( $options['name'] ) : "",
+			"image"     => isset( $options['image'] )         ? esc_html( $options['image'] ) : "",
 			"url"       => isset( $options['url'] )           ? esc_url( $options['url'] ) : "",
 			"telephone" => isset( $options['telephone'] )     ? esc_html( $options['telephone'] ) : ""
 		);
@@ -511,6 +512,9 @@ class Structuring_Markup_Display {
 				$args['acceptsReservations'] = "True";
 			} else {
 				$args['acceptsReservations'] = "False";
+			}
+			if ( isset( $options['serves_cuisine'] ) && $options['serves_cuisine'] !== '' ) {
+				$args['servesCuisine'] = esc_html( $options['serves_cuisine'] );
 			}
 		}
 
@@ -581,6 +585,11 @@ class Structuring_Markup_Display {
 				"validThrough" => isset( $options['holiday_valid_through'] ) ? esc_html( $options['holiday_valid_through'] ) : ""
 			);
 			$args = array_merge( $args, $holiday_array );
+		}
+
+		if ( isset( $options['price_range'] ) && $options['price_range'] !== '' ) {
+			$price_array["priceRange"] = $options['price_range'];
+			$args = array_merge( $args, $price_array );
 		}
 
 		$this->set_schema_json( $args );
