@@ -3,7 +3,7 @@
  * Schema.org Type News Article
  *
  * @author  Kazuya Takami
- * @version 3.0.5
+ * @version 3.1.4
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/NewsArticle
@@ -29,7 +29,7 @@ class Structuring_Markup_Type_NewsArticle {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 3.0.5
+	 * @version 3.1.4
 	 * @since   1.0.0
 	 * @param   array $option
 	 */
@@ -56,6 +56,14 @@ class Structuring_Markup_Type_NewsArticle {
 		$html .= '<tr><th class="require">url :</th><td><small>Default : thumbnail</small></td></tr>';
 		$html .= '<tr><th class="require">height :</th><td><small>Auto : The height of the image, in pixels.</small></td></tr>';
 		$html .= '<tr><th class="require">width :</th><td><small>Auto : The width of the image, in pixels. Images should be at least 696 pixels wide.</small></td></tr>';
+		$html .= '</table>';
+		echo $html;
+
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>author</caption>';
+		$html .= '<tr><th>@type :</th><td><small>"Person"</small></td></tr>';
+		$html .= '<tr><th class="require">name :</th><td><small>Default : get_the_author_meta( "display_name", author )</small>';
+		$html .= '</td></tr>';
 		$html .= '</table>';
 		echo $html;
 

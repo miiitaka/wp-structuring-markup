@@ -3,7 +3,7 @@
  * Schema.org Type Organization
  *
  * @author  Kazuya Takami
- * @version 3.0.5
+ * @version 3.1.4
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/Organization
@@ -62,7 +62,7 @@ class Structuring_Markup_Type_Organization {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 3.0.5
+	 * @version 3.1.4
 	 * @since   1.0.0
 	 * @param   array $option
 	 */
@@ -80,7 +80,7 @@ class Structuring_Markup_Type_Organization {
 		$html .= '</td></tr>';
 		$html .= '<tr><th class="require"><label for="logo">logo :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "logo" . ']" id="logo" class="regular-text" required value="' . esc_attr( $option['logo'] ) . '">';
-		$html .= '<small>Default : bloginfo("logo") + "/images/logo.png"</small>';
+		$html .= '<small>Default : bloginfo("url") + "/images/logo.png"</small>';
 		$html .= '</td></tr>';
 		$html .= '</table>';
 		echo $html;
