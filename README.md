@@ -40,6 +40,9 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 3.1.5 (2016-12-08)
+- Checked : WordPress version 4.7.0 operation check.
+
 ### 3.1.4 (2016-11-25)
 - Added : Schema.org type "LocalBusiness" item added. "Image", "priceRange" and "servesCuisine".
 - Added : Print plugin version in comments.
