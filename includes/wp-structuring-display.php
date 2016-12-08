@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @author  Justin Frydman
- * @version 3.1.4
+ * @version 3.1.5
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -192,16 +192,16 @@ class Structuring_Markup_Display {
 	/**
 	 * Return image dimensions
 	 *
-	 * @version 2.4.2
+	 * @version 3.1.5
 	 * @since   2.3.3
 	 * @author  Justin Frydman
+	 * @author  Kazuya Takami
 	 * @param   string $url
-	 * @return  array  $dimensions
+	 * @return  array | boolean $dimensions
 	 */
 	private function get_image_dimensions ( $url ) {
-		$cache = new Structuring_Markup_Cache( $url );
-
 		/** check for cached dimensions */
+		$cache = new Structuring_Markup_Cache( $url );
 		if ( $cache->get() !== false ) {
 			return $cache->get();
 		}
@@ -260,7 +260,7 @@ class Structuring_Markup_Display {
 			return $dimensions;
 		}
 
-		return false;
+		return __return_false();
 	}
 
 	/**
