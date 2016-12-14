@@ -18,7 +18,7 @@ new Structuring_Markup();
  * Schema.org Basic Class
  *
  * @author  Kazuya Takami
- * @version 3.1.5
+ * @version 3.1.6
  * @since   1.0.0
  */
 class Structuring_Markup {
@@ -144,7 +144,7 @@ class Structuring_Markup {
 	/**
 	 * Add Menu to the Admin Screen.
 	 *
-	 * @version 3.0.5
+	 * @version 3.1.6
 	 * @since   1.0.0
 	 */
 	public function admin_menu () {
@@ -168,33 +168,6 @@ class Structuring_Markup {
 		add_action( 'admin_print_styles-'  . $list_page, array( $this, 'add_style' ) );
 		add_action( 'admin_print_styles-'  . $post_page, array( $this, 'add_style' ) );
 		add_action( 'admin_print_scripts-' . $post_page, array( $this, 'admin_scripts' ) );
-
-		/** Custom post menu controls */
-		if ( isset( $_GET['page'] ) && $_GET['page'] === $this->text_domain . '-post' && !empty( $_POST ) ) {
-			if ( isset( $_POST['activate'] ) && $_POST['activate'] === 'on' ) {
-				flush_rewrite_rules();
-			}
-			if ( !isset( $_POST['activate'] ) && isset( $_GET['type'] ) && $_GET['type'] === 'event' ) {
-				remove_menu_page('edit.php?post_type=schema_event_post');
-			}
-			if ( !isset( $_POST['activate'] ) && isset( $_GET['type'] ) && $_GET['type'] === 'video' ) {
-				remove_menu_page('edit.php?post_type=schema_video_post');
-			}
-		} else {
-			/** DB Connect */
-			$db = new Structuring_Markup_Admin_Db();
-			$results = $db->get_type_options('event');
-
-			if ( !isset( $results['activate'] ) || $results['activate'] !== 'on' ) {
-				remove_menu_page( 'edit.php?post_type=schema_event_post' );
-			}
-
-			$results = $db->get_type_options('video');
-
-			if ( !isset( $results['activate'] ) || $results['activate'] !== 'on' ) {
-				remove_menu_page( 'edit.php?post_type=schema_video_post' );
-			}
-		}
 	}
 
 	/**
