@@ -3,7 +3,7 @@
  * Schema.org Custom Post "Video"
  *
  * @author  Kazuya Takami
- * @since   3.0.0
+ * @since   3.1.6
  * @version 3.0.0
  */
 class Structuring_Markup_Custom_Post_Video {
@@ -20,12 +20,28 @@ class Structuring_Markup_Custom_Post_Video {
 	/**
 	 * Constructor Define.
 	 *
-	 * @since   3.0.0
+	 * @since   3.1.6
 	 * @version 3.0.0
 	 * @param   String $text_domain
 	 */
 	public function __construct ( $text_domain ) {
 		$this->text_domain = $text_domain;
+
+		/** Custom post menu controls */
+		$show_flag = __return_false();
+		if ( isset( $_POST['type'] ) && $_POST['type'] === 'video' ) {
+			if ( isset( $_POST['activate'] ) && $_POST['activate'] === 'on' ) {
+				$show_flag = __return_true();
+			}
+		} else {
+			/** DB Connect */
+			$db = new Structuring_Markup_Admin_Db();
+			$results = $db->get_type_options('video');
+
+			if ( isset( $results['activate'] ) && $results['activate'] == 'on' ) {
+				$show_flag = __return_true();
+			}
+		}
 
 		register_post_type(
 			$this->custom_type,
@@ -39,11 +55,11 @@ class Structuring_Markup_Custom_Post_Video {
 				'has_archive'     => true,
 				'hierarchical'    => false,
 				'menu_position'   => 5,
-				'public'          => true,
+				'public'          => $show_flag,
 				'query_var'       => false,
 				'rewrite'         => array( 'with_front' => true, 'slug' => 'videos' ),
-				'show_in_menu'    => true,
-				'show_ui'         => true,
+				'show_in_menu'    => $show_flag,
+				'show_ui'         => $show_flag,
 				'supports'        => array( 'title', 'editor', 'author', 'thumbnail' )
 			)
 		);
