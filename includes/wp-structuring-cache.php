@@ -3,7 +3,8 @@
  * WP Structuring Markup Transient Cache
  *
  * @author  Justin Frydman
- * @since   2.4.2
+ * @author  Kazuya Takami
+ * @since   3.1.6
  * @version 2.4.2
  */
 class Structuring_Markup_Cache {
@@ -28,20 +29,20 @@ class Structuring_Markup_Cache {
 	/**
 	 * Constructor Define.
 	 *
-	 * @since   2.4.2
+	 * @since   3.1.6
 	 * @version 2.4.2
 	 * @param   string $key Unique key for this transient
 	 */
 	public function __construct ( $key ) {
-		assert( !empty( $key ) );
-		
+		@assert( !empty( $key ) );
+
 		$this->key = (string) $key;
 	}
 
 	/**
 	 * Store a transient
 	 *
-	 * @since   2.4.2
+	 * @since   3.1.6
 	 * @version 2.4.2
 	 * @see     https://codex.wordpress.org/Easier_Expression_of_Time_Constants
 	 * @param   string $value - The value to be stored in the cache
@@ -49,8 +50,8 @@ class Structuring_Markup_Cache {
 	 * @return  bool - If the transient was set properly
 	 */	
 	public function set( $value, $ttl ) {
-		assert( !empty( $value ) );
-		assert( !empty( $ttl ) );
+		@assert( !empty( $value ) );
+		@assert( !empty( $ttl ) );
 		
 		return set_transient( $this->prepared_key(), $value, $ttl );
 	}

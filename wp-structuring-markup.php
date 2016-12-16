@@ -3,7 +3,7 @@
 Plugin Name: Markup (JSON-LD) structured in schema.org
 Plugin URI: https://wordpress.org/plugins/wp-structuring-markup/
 Description: Allows you to include schema.org JSON-LD syntax markup on your website
-Version: 3.1.4
+Version: 3.1.6
 Author: Kazuya Takami
 Author URI: http://programp.com/
 License: GPLv2 or later
@@ -18,7 +18,7 @@ new Structuring_Markup();
  * Schema.org Basic Class
  *
  * @author  Kazuya Takami
- * @version 3.1.4
+ * @version 3.1.6
  * @since   1.0.0
  */
 class Structuring_Markup {
@@ -26,11 +26,11 @@ class Structuring_Markup {
 	/**
 	 * Variable definition.
 	 *
-	 * @version 3.1.4
+	 * @version 3.1.6
 	 * @since   1.3.0
 	 */
 	private $text_domain = 'wp-structuring-markup';
-	private $version     = '3.1.4';
+	private $version     = '3.1.6';
 
 	/**
 	 * Constructor Define.
@@ -144,7 +144,7 @@ class Structuring_Markup {
 	/**
 	 * Add Menu to the Admin Screen.
 	 *
-	 * @version 3.0.5
+	 * @version 3.1.6
 	 * @since   1.0.0
 	 */
 	public function admin_menu () {
@@ -168,33 +168,6 @@ class Structuring_Markup {
 		add_action( 'admin_print_styles-'  . $list_page, array( $this, 'add_style' ) );
 		add_action( 'admin_print_styles-'  . $post_page, array( $this, 'add_style' ) );
 		add_action( 'admin_print_scripts-' . $post_page, array( $this, 'admin_scripts' ) );
-
-		/** Custom post menu controls */
-		if ( isset( $_GET['page'] ) && $_GET['page'] === $this->text_domain . '-post' && !empty( $_POST ) ) {
-			if ( isset( $_POST['activate'] ) && $_POST['activate'] === 'on' ) {
-				flush_rewrite_rules();
-			}
-			if ( !isset( $_POST['activate'] ) && isset( $_GET['type'] ) && $_GET['type'] === 'event' ) {
-				remove_menu_page('edit.php?post_type=schema_event_post');
-			}
-			if ( !isset( $_POST['activate'] ) && isset( $_GET['type'] ) && $_GET['type'] === 'video' ) {
-				remove_menu_page('edit.php?post_type=schema_video_post');
-			}
-		} else {
-			/** DB Connect */
-			$db = new Structuring_Markup_Admin_Db();
-			$results = $db->get_type_options('event');
-
-			if ( !isset( $results['activate'] ) || $results['activate'] !== 'on' ) {
-				remove_menu_page( 'edit.php?post_type=schema_event_post' );
-			}
-
-			$results = $db->get_type_options('video');
-
-			if ( !isset( $results['activate'] ) || $results['activate'] !== 'on' ) {
-				remove_menu_page( 'edit.php?post_type=schema_video_post' );
-			}
-		}
 	}
 
 	/**
