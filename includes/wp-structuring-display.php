@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @author  Justin Frydman
- * @version 3.1.5
+ * @version 3.1.6
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -266,42 +266,49 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org Article
 	 *
-	 * @version 3.1.0
+	 * @version 3.1.6
 	 * @since   1.1.0
 	 * @param   array $options
 	 */
 	private function set_schema_article ( array $options ) {
 		global $post;
 
-		$options['logo'] = isset( $options['logo'] ) ? esc_url( $options['logo'] ) : "";
+		$excerpt = $this->escape_text( $post->post_excerpt );
+		$content = $excerpt === "" ? mb_substr( $this->escape_text( $post->post_content ), 0, 110 ) : $excerpt;
+
 		$args = array(
 			"@context" => "http://schema.org",
-			"@type"    => "Article"
+			"@type"    => "Article",
+			"mainEntityOfPage" => array(
+				"@type" => "WebPage",
+				"@id"   => get_permalink( $post->ID )
+			),
+			"headline" => esc_html( $post->post_title ),
+			"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
+			"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
+			"author" => array(
+				"@type" => "Person",
+				"name"  => esc_html( get_the_author_meta( 'display_name', $post->post_author ) )
+			),
+			"description" => $content
 		);
 
-		if ( has_post_thumbnail( $post->ID ) && $logo = $this->get_image_dimensions( $options['logo'] ) ) {
+		if ( has_post_thumbnail( $post->ID ) ) {
 			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-			$excerpt = $this->escape_text( $post->post_excerpt );
-			$content = $excerpt === "" ? mb_substr( $this->escape_text( $post->post_content ), 0, 110 ) : $excerpt;
-
-			$schema_args = array(
-				"mainEntityOfPage" => array(
-					"@type" => "WebPage",
-					"@id"   => get_permalink( $post->ID )
-				),
-				"headline" => esc_html( $post->post_title ),
-				"image"    => array(
+			$images_args = array(
+				"image" => array(
 					"@type"  => "ImageObject",
 					"url"    => $images[0],
 					"width"  => $images[1],
 					"height" => $images[2]
-				),
-				"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
-				"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
-				"author" => array(
-					"@type" => "Person",
-					"name"  => esc_html( get_the_author_meta( 'display_name', $post->post_author ) )
-				),
+				)
+			);
+			$args = array_merge( $args, $images_args );
+		}
+
+		$options['logo'] = isset( $options['logo'] ) ? esc_url( $options['logo'] ) : "";
+		if ( $logo = $this->get_image_dimensions( $options['logo'] ) ) {
+			$publisher_args = array(
 				"publisher" => array(
 					"@type" => "Organization",
 					"name"  => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
@@ -312,60 +319,60 @@ class Structuring_Markup_Display {
 						"height" => $logo[1]
 					)
 				),
-				"description" => $content
 			);
-			$args = array_merge( $args, $schema_args );
-			$this->set_schema_json( $args );
-		} else {
-			if ( !has_post_thumbnail( $post->ID ) ) {
-				$args["message"][] = __( "Featured Image not set.", $this->text_domain );
-			}
-			if ( !$this->get_image_dimensions( $options['logo'] ) ) {
-				$args["message"][] = __( "Logo Image not set.", $this->text_domain );
-			}
-			$this->set_schema_json( $args, __return_true() );
+			$args = array_merge( $args, $publisher_args );
 		}
+
+		$this->set_schema_json( $args );
 	}
 
 	/**
 	 * Setting schema.org BlogPosting
 	 *
-	 * @version 3.1.0
+	 * @version 3.1.6
 	 * @since   1.2.0
 	 * @param   array $options
 	 */
 	private function set_schema_blog_posting ( array $options ) {
 		global $post;
 
-		$options['logo'] = isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "";
+		$excerpt = $this->escape_text( $post->post_excerpt );
+		$content = $excerpt === "" ? mb_substr( $this->escape_text( $post->post_content ), 0, 110 ) : $excerpt;
+
 		$args = array(
 			"@context" => "http://schema.org",
-			"@type"    => "BlogPosting"
+			"@type"    => "BlogPosting",
+			"mainEntityOfPage" => array(
+				"@type" => "WebPage",
+				"@id"   => get_permalink( $post->ID )
+			),
+			"headline" => esc_html( $post->post_title ),
+			"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
+			"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
+			"author" => array(
+				"@type" => "Person",
+				"name"  => esc_html( get_the_author_meta( 'display_name', $post->post_author ) )
+			),
+			"description" => $content
 		);
 
-		if ( has_post_thumbnail( $post->ID ) && $logo = $this->get_image_dimensions( $options['logo'] ) ) {
+		if ( has_post_thumbnail( $post->ID ) ) {
 			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-			$excerpt = $this->escape_text( $post->post_excerpt );
-			$content = $excerpt === "" ? mb_substr( $this->escape_text( $post->post_content ), 0, 110 ) : $excerpt;
 
-			$schema_args = array(
-				"mainEntityOfPage" => array(
-					"@type" => "WebPage",
-					"@id"   => get_permalink( $post->ID )
-				),
-				"headline" => esc_html( $post->post_title ),
-				"image"    => array(
+			$images_args = array(
+				"image" => array(
 					"@type"  => "ImageObject",
 					"url"    => $images[0],
 					"width"  => $images[1],
 					"height" => $images[2]
-				),
-				"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
-				"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
-				"author" => array(
-					"@type" => "Person",
-					"name"  => esc_html( get_the_author_meta( 'display_name', $post->post_author ) )
-				),
+				)
+			);
+			$args = array_merge( $args, $images_args );
+		}
+
+		$options['logo'] = isset( $options['logo'] ) ? esc_url( $options['logo'] ) : "";
+		if ( $logo = $this->get_image_dimensions( $options['logo'] ) ) {
+			$publisher_args = array(
 				"publisher" => array(
 					"@type" => "Organization",
 					"name"  => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
@@ -376,19 +383,11 @@ class Structuring_Markup_Display {
 						"height" => $logo[1]
 					)
 				),
-				"description" => $content
 			);
-			$args = array_merge( $args, $schema_args );
-			$this->set_schema_json( $args );
-		} else {
-			if ( !has_post_thumbnail( $post->ID ) ) {
-				$args["message"][] = __( "Featured Image not set.", $this->text_domain );
-			}
-			if ( !$this->get_image_dimensions( $options['logo'] ) ) {
-				$args["message"][] = __( "Logo Image not set.", $this->text_domain );
-			}
-			$this->set_schema_json( $args, __return_true() );
+			$args = array_merge( $args, $publisher_args );
 		}
+
+		$this->set_schema_json( $args );
 	}
 
 	/**
@@ -598,42 +597,50 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org NewsArticle
 	 *
-	 * @version 3.1.0
+	 * @version 3.1.6
 	 * @since   1.0.0
 	 * @param   array $options
 	 */
 	private function set_schema_news_article ( array $options ) {
 		global $post;
 
-		$options['logo'] = isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "";
+		$excerpt = $this->escape_text( $post->post_excerpt );
+		$content = $excerpt === "" ? mb_substr( $this->escape_text( $post->post_content ), 0, 110 ) : $excerpt;
+
 		$args = array(
 			"@context" => "http://schema.org",
-			"@type"    => "NewsArticle"
+			"@type"    => "NewsArticle",
+			"mainEntityOfPage" => array(
+				"@type" => "WebPage",
+				"@id"   => get_permalink( $post->ID )
+			),
+			"headline" => esc_html( $post->post_title ),
+			"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
+			"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
+			"author" => array(
+				"@type" => "Person",
+				"name"  => esc_html( get_the_author_meta( 'display_name', $post->post_author ) )
+			),
+			"description" => $content
 		);
 
-		if ( has_post_thumbnail( $post->ID ) && $logo = $this->get_image_dimensions( $options['logo'] ) ) {
+		if ( has_post_thumbnail( $post->ID ) ) {
 			$images  = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-			$excerpt = $this->escape_text( $post->post_excerpt );
-			$content = $excerpt === "" ? mb_substr( $this->escape_text( $post->post_content ), 0, 110 ) : $excerpt;
 
-			$schema_args = array(
-				"mainEntityOfPage" => array(
-					"@type" => "WebPage",
-					"@id"   => get_permalink( $post->ID )
-				),
-				"headline" => esc_html( $post->post_title ),
+			$images_args = array(
 				"image"    => array(
 					"@type"  => "ImageObject",
 					"url"    => $images[0],
 					"width"  => $images[1],
 					"height" => $images[2]
-				),
-				"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
-				"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
-				"author" => array(
-					"@type" => "Person",
-					"name"  => esc_html( get_the_author_meta( 'display_name', $post->post_author ) )
-				),
+				)
+			);
+			$args = array_merge( $args, $images_args );
+		}
+
+		$options['logo'] = isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "";
+		if ( $logo = $this->get_image_dimensions( $options['logo'] ) ) {
+			$publisher_args = array(
 				"publisher" => array(
 					"@type" => "Organization",
 					"name"  => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
@@ -644,19 +651,10 @@ class Structuring_Markup_Display {
 						"height" => $logo[1]
 					)
 				),
-				"description" => $content
 			);
-			$args = array_merge( $args, $schema_args );
-			$this->set_schema_json( $args );
-		} else {
-			if ( !has_post_thumbnail( $post->ID ) ) {
-				$args["message"][] = __( "Featured Image not set.", $this->text_domain );
-			}
-			if ( !$this->get_image_dimensions( $options['logo'] ) ) {
-				$args["message"][] = __( "Logo Image not set.", $this->text_domain );
-			}
-			$this->set_schema_json( $args, __return_true() );
+			$args = array_merge( $args, $publisher_args );
 		}
+		$this->set_schema_json( $args );
 	}
 
 	/**
