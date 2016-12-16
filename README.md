@@ -40,6 +40,10 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 3.1.6 (2016-12-16)
+- Updated : Change ImageObject attribute of Schema.org type "Article", "BlogPosting", "NewsArticle" from "required" to "recommended".
+- Fixed : Custom post menu control.
+
 ### 3.1.5 (2016-12-08)
 - Checked : WordPress version 4.7.0 operation check.
 
