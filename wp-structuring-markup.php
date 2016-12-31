@@ -5,7 +5,7 @@ Plugin URI: https://wordpress.org/plugins/wp-structuring-markup/
 Description: Allows you to include schema.org JSON-LD syntax markup on your website
 Version: 3.1.6
 Author: Kazuya Takami
-Author URI: http://programp.com/
+Author URI: http://www.terakoya.work/
 License: GPLv2 or later
 Text Domain: wp-structuring-markup
 Domain Path: /languages
