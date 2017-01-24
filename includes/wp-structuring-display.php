@@ -680,6 +680,7 @@ class Structuring_Markup_Display {
 				array(
 					"@type"       => "ContactPoint",
 					"telephone"   => isset( $options['telephone'] )    ? esc_html( $options['telephone'] ) : "",
+					"email"   => isset( $options['email'] )    ? esc_html( $options['email'] ) : "",
 					"contactType" => isset( $options['contact_type'] ) ? esc_html( $options['contact_type'] ) : ""
 				)
 			);
