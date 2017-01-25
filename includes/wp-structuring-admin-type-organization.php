@@ -99,6 +99,10 @@ class Structuring_Markup_Type_Organization {
 		$html .= '<input type="text" name="option[' . "telephone" . ']" id="telephone" class="regular-text" value="' . esc_attr( $option['telephone'] ) . '">';
 		$html .= '<small>e.g. : +1-880-555-1212</small>';
 		$html .= '</td></tr>';
+		$html .= '<tr><th><label for="email"> email :</label></th><td>';
+		$html .= '<input type="email" name="option[' . "email" . ']" id="email" class="regular-text" value="' . esc_attr( $option['email'] ) . '">';
+		$html .= '<small>e.g. : jane-doe@xyz.edu</small>';
+		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="contact_type">contactType :</label></th><td>';
 		$html .= '<select id="contact_type" name="option[' . "contact_type" . ']">';
 		foreach ( $this->contact_type_array as $value ) {
@@ -163,6 +167,7 @@ class Structuring_Markup_Type_Organization {
 		$args['logo']               = get_bloginfo('url') . '/images/logo.png';
 		$args['contact_point']      = '';
 		$args['telephone']          = '';
+		$args['email']          = '';
 		$args['contact_type']       = 'customer_service';
 		$args['area_served']        = 'US';
 		$args['contact_option_1']   = '';
