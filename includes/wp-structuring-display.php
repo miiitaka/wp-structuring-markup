@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @author  Justin Frydman
- * @version 3.1.6
+ * @version 3.2.0
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -660,7 +660,7 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org Organization
 	 *
-	 * @version 3.0.0
+	 * @version 3.2.0
 	 * @since   1.0.0
 	 * @param   array $options
 	 */
@@ -676,14 +676,29 @@ class Structuring_Markup_Display {
 
 		/** Corporate Contact */
 		if ( isset( $options['contact_point'] ) && $options['contact_point'] === 'on' ) {
-			$contact_point["contactPoint"] = array(
-				array(
-					"@type"       => "ContactPoint",
-					"telephone"   => isset( $options['telephone'] )    ? esc_html( $options['telephone'] ) : "",
-					"email"   => isset( $options['email'] )    ? esc_html( $options['email'] ) : "",
-					"contactType" => isset( $options['contact_type'] ) ? esc_html( $options['contact_type'] ) : ""
-				)
+			$contact_point_data = array(
+				"@type"       => "ContactPoint",
+				"telephone"   => isset( $options['telephone'] )    ? esc_html( $options['telephone'] ) : "",
+				"contactType" => isset( $options['contact_type'] ) ? esc_html( $options['contact_type'] ) : ""
 			);
+
+			if ( !empty( $options['email'] ) ) {
+				$contact_point_data['email'] = isset( $options['email'] ) ? esc_html( $options['email'] ) : "";
+			}
+			if ( !empty( $options['area_served'] ) ) {
+				$contact_point_data['areaServed'][] = isset( $options['area_served'] ) ? esc_html( $options['area_served'] ) : "";
+			}
+			if ( isset( $options['contact_point_1'] ) &&  $options['contact_point_1'] === 'on' ) {
+				$contact_point_data['contactOption'][] = 'HearingImpairedSupported';
+			}
+			if ( isset( $options['contact_point_2'] ) &&  $options['contact_point_2'] === 'on' ) {
+				$contact_point_data['contactOption'][] = 'TollFree';
+			}
+			if ( !empty( $options['available_language'] ) ) {
+				$contact_point_data['availableLanguage'][] = isset( $options['available_language'] ) ? esc_html( $options['available_language'] ) : "";
+			}
+
+			$contact_point["contactPoint"] = array( $contact_point_data	);
 			$args = array_merge( $args, $contact_point );
 		}
 
