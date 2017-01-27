@@ -3,7 +3,7 @@
  * Breadcrumb ShortCode Settings
  *
  * @author  Kazuya Takami
- * @version 2.3.1
+ * @version 3.2.0
  * @since   2.0.0
  */
 class Structuring_Markup_ShortCode_Breadcrumb {
@@ -62,7 +62,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	/**
 	 * Breadcrumb array setting.
 	 *
-	 * @version 2.2.1
+	 * @version 3.2.0
 	 * @since   2.0.0
 	 * @access  public
 	 * @param   array $options
@@ -122,7 +122,9 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 		} elseif ( is_404() ) {
 			$item_array[] = $this->set_schema_breadcrumb_item( $current_url, '404 Not Found' );
 		} elseif ( is_post_type_archive() ) {
-			$item_array[] = $this->set_schema_breadcrumb_item( get_post_type_archive_link( get_post_type() ), post_type_archive_title( '', false ) );
+			if ( get_post_type_archive_link( get_post_type() ) ) {
+				$item_array[] = $this->set_schema_breadcrumb_item( get_post_type_archive_link( get_post_type() ), post_type_archive_title( '', false) );
+			}
 		} elseif ( is_archive() ) {
 			$taxonomies = get_the_taxonomies( $post->ID );
 			if ( !empty( $taxonomies ) ) {
@@ -134,7 +136,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 				}
 			}
 		} elseif ( is_singular( 'post' ) ) {
-			$categories = get_the_category($post->ID);
+			$categories = get_the_category( $post->ID );
 			if ( isset( $categories[0] ) ) {
 				$cat = $categories[0];
 
@@ -148,7 +150,9 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 			}
 			$item_array[] = $this->set_schema_breadcrumb_item( $current_url, $post->post_title );
 		} elseif ( is_single() ) {
-			$item_array[] = $this->set_schema_breadcrumb_item( get_post_type_archive_link( get_post_type() ), get_post_type_object( get_post_type() )->label );
+			if ( get_post_type_archive_link( get_post_type() ) ) {
+				$item_array[] = $this->set_schema_breadcrumb_item( get_post_type_archive_link( get_post_type() ), get_post_type_object( get_post_type() )->label );
+			}
 			$taxonomies = get_the_taxonomies( $post->ID );
 			if ( !empty( $taxonomies ) ) {
 				foreach ( array_keys( $taxonomies ) as $key ) {
