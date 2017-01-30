@@ -62,7 +62,7 @@ class Structuring_Markup_Type_Organization {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 3.1.4
+	 * @version 3.2.0
 	 * @since   1.0.0
 	 * @param   array $option
 	 */
@@ -111,18 +111,22 @@ class Structuring_Markup_Type_Organization {
 		$html .= '</select>';
 		$html .= '<small>Default : "customer service"</small>';
 		$html .= '</td></tr>';
+		$html .= '<tr><th><label for="email">email :</label></th><td>';
+		$html .= '<input type="email" name="option[' . "email" . ']" id="email" class="regular-text" value="' . esc_attr( $option['email'] ) . '">';
+		$html .= '<small>e.g. : info@example.com</small>';
+		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="area_served">areaServed :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "area_served" . ']" id="area_served" class="regular-text" value="' . esc_attr( $option['area_served'] ) . '">';
 		$html .= '<small>Default : "US"&nbsp;&nbsp;Multiple : "US,CA"</small>';
 		$html .= '</td></tr>';
 		$html .= '<tr><th>contactOption :</th><td>';
 		$html .= '<label><input type="checkbox" name="option[' . "contact_point_1" . ']" id="contact_point_1" value="on"';
-		if ( isset( $option['contact_point_1'] ) &&  $option['contact_point_1'] === 'on' ) {
+		if ( isset( $option['contact_point_1'] ) && $option['contact_point_1'] === 'on' ) {
 			$html .= ' checked="checked"';
 		}
 		$html .= '>HearingImpairedSupported</label><br>';
 		$html .= '<label><input type="checkbox" name="option[' . "contact_point_2" . ']" id="contact_point_2" value="on"';
-		if ( isset( $option['contact_point_2'] ) &&  $option['contact_point_2'] === 'on' ) {
+		if ( isset( $option['contact_point_2'] ) && $option['contact_point_2'] === 'on' ) {
 			$html .= ' checked="checked"';
 		}
 		$html .= '>TollFree</label><br>';
@@ -152,8 +156,8 @@ class Structuring_Markup_Type_Organization {
 	/**
 	 * Return the default options array
 	 *
+	 * @version 3.2.0
 	 * @since   1.0.0
-	 * @version 2.3.0
 	 * @param   array $args
 	 * @return  array $args
 	 */
@@ -164,6 +168,7 @@ class Structuring_Markup_Type_Organization {
 		$args['contact_point']      = '';
 		$args['telephone']          = '';
 		$args['contact_type']       = 'customer_service';
+		$args['email']              = '';
 		$args['area_served']        = 'US';
 		$args['contact_option_1']   = '';
 		$args['contact_option_2']   = '';
