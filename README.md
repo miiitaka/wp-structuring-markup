@@ -40,6 +40,12 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 3.2.0 (2017-01-30)
+- Fixed : Invalid breadcrumb markup.
+- Fixed : Some items are not displayed on "Organization schema.org".
+- Added : Add items to e-mail to "Organization schema.org".
+- Checked : WordPress version 4.7.2 operation check.
+
 ### 3.1.7 (2017-01-12)
 - Checked : WordPress version 4.7.1 operation check.
 
