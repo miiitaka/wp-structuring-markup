@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @author  Justin Frydman
- * @version 3.2.0
+ * @version 3.2.1
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -192,7 +192,7 @@ class Structuring_Markup_Display {
 	/**
 	 * Return image dimensions
 	 *
-	 * @version 3.1.5
+	 * @version 3.2.1
 	 * @since   2.3.3
 	 * @author  Justin Frydman
 	 * @author  Kazuya Takami
@@ -200,73 +200,19 @@ class Structuring_Markup_Display {
 	 * @return  array | boolean $dimensions
 	 */
 	private function get_image_dimensions ( $url ) {
-		/** check for cached dimensions */
-		$cache = new Structuring_Markup_Cache( $url );
-		if ( $cache->get() !== false ) {
-			return $cache->get();
+		$image = wp_get_image_editor( $url );
+
+		if ( ! is_wp_error( $image ) ) {
+			return $image->get_size();
+		} else {
+			return __return_false();
 		}
-
-		if ( function_exists( 'curl_version' ) ) {
-			$headers = array( 'Range: bytes=0-32768' );
-
-			$curl = curl_init( $url );
-			curl_setopt( $curl, CURLOPT_HTTPHEADER, $headers );
-			curl_setopt( $curl, CURLOPT_RETURNTRANSFER, 1 );
-			curl_setopt( $curl, CURLOPT_SSL_VERIFYHOST, 0 );
-			curl_setopt( $curl, CURLOPT_SSL_VERIFYPEER, 0 );
-			$data = curl_exec( $curl );
-			curl_close( $curl );
-
-			$image = @imagecreatefromstring( $data );
-
-			if ( $image ) {
-				$width  = imagesx( $image );
-				$height = imagesy( $image );
-
-				$dimensions = array( $width, $height );
-
-				/** cache for an hour */
-				$cache->set( $dimensions, HOUR_IN_SECONDS );
-
-				return $dimensions;
-			}
-		}
-
-		if ( $image = @getimagesize( $url ) ) {
-			$dimensions = array( $image[0], $image[1] );
-
-			/** cache for an hour */
-			$cache->set( $dimensions, HOUR_IN_SECONDS );
-
-			return $dimensions;
-		}
-
-		if ( $image = @getimagesize( str_replace( 'https://', 'http://', $url ) ) ) {
-			$dimensions = array( $image[0], $image[1] );
-
-			/** cache for an hour */
-			$cache->set( $dimensions, HOUR_IN_SECONDS );
-
-			return $dimensions;
-		}
-
-		/** this hits the database and be very slow if the user is using a URL that doesn't exist in the WP Library */
-		if ( $image = wp_get_attachment_image_src( attachment_url_to_postid( $url ), 'full' ) ) {
-			$dimensions = array( $image[1], $image[2] );
-
-			// cache for an hour
-			$cache->set( $dimensions, HOUR_IN_SECONDS );
-
-			return $dimensions;
-		}
-
-		return __return_false();
 	}
 
 	/**
 	 * Setting schema.org Article
 	 *
-	 * @version 3.1.6
+	 * @version 3.2.1
 	 * @since   1.1.0
 	 * @param   array $options
 	 */
@@ -314,11 +260,11 @@ class Structuring_Markup_Display {
 					"name"  => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
 					"logo"  => array(
 						"@type"  => "ImageObject",
-						"url"    => isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "",
-						"width"  => $logo[0],
-						"height" => $logo[1]
+						"url"    => $options['logo'],
+						"width"  => $logo['width'],
+						"height" => $logo['height']
 					)
-				),
+				)
 			);
 			$args = array_merge( $args, $publisher_args );
 		}
@@ -329,7 +275,7 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org BlogPosting
 	 *
-	 * @version 3.1.6
+	 * @version 3.2.1
 	 * @since   1.2.0
 	 * @param   array $options
 	 */
@@ -378,11 +324,11 @@ class Structuring_Markup_Display {
 					"name"  => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
 					"logo"  => array(
 						"@type"  => "ImageObject",
-						"url"    => isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "",
-						"width"  => $logo[0],
-						"height" => $logo[1]
+						"url"    => $options['logo'],
+						"width"  => $logo['width'],
+						"height" => $logo['height']
 					)
-				),
+				)
 			);
 			$args = array_merge( $args, $publisher_args );
 		}
@@ -597,7 +543,7 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org NewsArticle
 	 *
-	 * @version 3.1.6
+	 * @version 3.2.1
 	 * @since   1.0.0
 	 * @param   array $options
 	 */
@@ -625,7 +571,7 @@ class Structuring_Markup_Display {
 		);
 
 		if ( has_post_thumbnail( $post->ID ) ) {
-			$images  = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
 
 			$images_args = array(
 				"image"    => array(
@@ -646,11 +592,11 @@ class Structuring_Markup_Display {
 					"name"  => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
 					"logo"  => array(
 						"@type"  => "ImageObject",
-						"url"    => isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "",
-						"width"  => $logo[0],
-						"height" => $logo[1]
+						"url"    => $options['logo'],
+						"width"  => $logo['width'],
+						"height" => $logo['height']
 					)
-				),
+				)
 			);
 			$args = array_merge( $args, $publisher_args );
 		}
