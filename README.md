@@ -40,6 +40,9 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 3.2.1 (2017-02-21)
+- Fixed : Call to undefined function imagecreatefromstring().
+
 ### 3.2.0 (2017-01-30)
 - Fixed : Invalid breadcrumb markup.
 - Fixed : Some items are not displayed on "Organization schema.org".
