@@ -3,7 +3,7 @@
  * Schema.org Type BlogPosting
  *
  * @author  Kazuya Takami
- * @version 3.1.6
+ * @version 3.2.2
  * @since   1.2.0
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/BlogPosting
@@ -14,22 +14,25 @@ class Structuring_Markup_Type_Blog_Posting {
 	/**
 	 * Constructor Define.
 	 *
-	 * @version 2.2.0
+	 * @version 3.2.2
 	 * @since   1.0.0
 	 * @param   array $option
 	 */
 	public function __construct ( array $option ) {
 		/** Default Value Set */
-		if ( empty( $option ) ) {
-			$option = $this->get_default_options( $option );
+		$option_array = $this->get_default_options();
+
+		if ( !empty( $option ) ) {
+			$option_array = array_merge( $option_array, $option );
 		}
-		$this->page_render( $option );
+
+		$this->page_render( $option_array );
 	}
 
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 3.1.6
+	 * @version 3.2.2
 	 * @since   1.2.0
 	 * @param   array $option
 	 */
@@ -53,7 +56,7 @@ class Structuring_Markup_Type_Blog_Posting {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>image</caption>';
 		$html .= '<tr><th>@type :</th><td><small>"ImageObject"</small></td></tr>';
-		$html .= '<tr><th>url :</th><td><small>Default : thumbnail</small></td></tr>';
+		$html .= '<tr><th>url :</th><td><small>Default : Featured Image</small></td></tr>';
 		$html .= '<tr><th>height :</th><td><small>Auto : The height of the image, in pixels.</small></td></tr>';
 		$html .= '<tr><th>width :</th><td><small>Auto : The width of the image, in pixels. Images should be at least 696 pixels wide.</small></td></tr>';
 		$html .= '</table>';
@@ -82,10 +85,16 @@ class Structuring_Markup_Type_Blog_Posting {
 		$html .= '<tr><th>@type :</th><td><small>"ImageObject"</small></td></tr>';
 		$html .= '<tr><th><label for="logo">url :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "logo" . ']" id="logo" class="regular-text" value="' . esc_attr( $option['logo'] ) . '">';
-		$html .= '<small>Logos should be no wider than 600px, and no taller than 60px.</small>';
+		$html .= '<button id="media-upload" class="schema-admin-media-button dashicons-before dashicons-admin-media"><span>Add Media</span></button>';
 		$html .= '</td></tr>';
-		$html .= '<tr><th>height :</th><td><small>Auto : height <= 60px.</small></td></tr>';
-		$html .= '<tr><th>width :</th><td><small>Auto : width <= 600px.</small></td></tr>';
+		$html .= '<tr><th><label for="logo-width">width :</label></th><td>';
+		$html .= '<input type="number" name="option[' . "logo-width" . ']" id="logo-width" min="0" value="' . esc_attr( $option['logo-width'] ) . '">px';
+		$html .= '<small>height <= 600px.</small>';
+		$html .= '</td></tr>';
+		$html .= '<tr><th><label for="logo-height">height :</label></th><td>';
+		$html .= '<input type="number" name="option[' . "logo-height" . ']" id="logo-height" min="0" value="' . esc_attr( $option['logo-height'] ) . '">px';
+		$html .= '<small>height <= 60px.</small>';
+		$html .= '</td></tr>';
 		$html .= '</table>';
 		echo $html;
 
@@ -96,14 +105,15 @@ class Structuring_Markup_Type_Blog_Posting {
 	/**
 	 * Return the default options array
 	 *
-	 * @version 3.1.6
+	 * @version 3.2.2
 	 * @since   2.2.0
-	 * @param   array $args
 	 * @return  array $args
 	 */
-	private function get_default_options ( array $args ) {
-		$args['name'] = get_bloginfo('name');
-		$args['logo'] = "";
+	private function get_default_options () {
+		$args['name']        = get_bloginfo('name');
+		$args['logo']        = "";
+		$args['logo-height'] = 0;
+		$args['logo-width']  = 0;
 
 		return (array) $args;
 	}

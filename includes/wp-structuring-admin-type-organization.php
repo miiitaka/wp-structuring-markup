@@ -80,6 +80,7 @@ class Structuring_Markup_Type_Organization {
 		$html .= '</td></tr>';
 		$html .= '<tr><th class="require"><label for="logo">logo :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "logo" . ']" id="logo" class="regular-text" required value="' . esc_attr( $option['logo'] ) . '">';
+		$html .= '<button id="media-upload" class="schema-admin-media-button dashicons-before dashicons-admin-media"><span>Add Media</span></button>';
 		$html .= '<small>Default : bloginfo("url") + "/images/logo.png"</small>';
 		$html .= '</td></tr>';
 		$html .= '</table>';

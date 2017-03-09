@@ -3,7 +3,7 @@
 Plugin Name: Markup (JSON-LD) structured in schema.org
 Plugin URI: https://github.com/miiitaka/wp-structuring-markup
 Description: Allows you to include schema.org JSON-LD syntax markup on your website
-Version: 3.2.1
+Version: 3.2.2
 Author: Kazuya Takami
 Author URI: https://www.terakoya.work/
 License: GPLv2 or later
@@ -18,7 +18,7 @@ new Structuring_Markup();
  * Schema.org Basic Class
  *
  * @author  Kazuya Takami
- * @version 3.2.1
+ * @version 3.2.2
  * @since   1.0.0
  */
 class Structuring_Markup {
@@ -26,11 +26,11 @@ class Structuring_Markup {
 	/**
 	 * Variable definition.
 	 *
-	 * @version 3.2.1
+	 * @version 3.2.2
 	 * @since   1.3.0
 	 */
 	private $text_domain = 'wp-structuring-markup';
-	private $version     = '3.2.1';
+	private $version     = '3.2.2';
 
 	/**
 	 * Constructor Define.
@@ -128,20 +128,6 @@ class Structuring_Markup {
 	}
 
 	/**
-	 * admin_scripts
-	 *
-	 * @author  Justin Frydman
-	 * @author  Kazuya Takami
-	 * @version 3.0.5
-	 * @since   2.4.0
-	 */
-	public function admin_scripts () {
-		if ( isset( $_GET["type"] ) && $_GET["type"] === 'local_business' ) {
-			wp_enqueue_script ( 'wp-structuring-markup-admin-main-js', plugins_url ( 'js/main.min.js', __FILE__ ), array( 'jquery' ), $this->version );
-		}
-	}
-
-	/**
 	 * Add Menu to the Admin Screen.
 	 *
 	 * @version 3.1.6
@@ -178,6 +164,31 @@ class Structuring_Markup {
 	 */
 	public function add_style () {
 		wp_enqueue_style( 'wp-structuring-markup-admin-style' );
+	}
+
+	/**
+	 * admin_scripts
+	 *
+	 * @author  Justin Frydman
+	 * @author  Kazuya Takami
+	 * @version 3.2.2
+	 * @since   2.4.0
+	 */
+	public function admin_scripts () {
+		if ( isset( $_GET["type"] ) && $_GET["type"] === 'local_business' ) {
+			wp_enqueue_script ( 'wp-structuring-markup-admin-main-js', plugins_url ( 'js/main.min.js', __FILE__ ), array( 'jquery' ), $this->version );
+		}
+		if ( isset( $_GET["type"] ) ) {
+			switch ( $_GET["type"] ) {
+				case "article":
+				case "blog_posting":
+				case "news_article":
+				case "organization":
+					wp_enqueue_script ( 'wp-structuring-markup-admin-media-js', plugins_url ( 'js/media-uploader-main.js', __FILE__ ), array( 'jquery' ), $this->version );
+					wp_enqueue_media();
+					break;
+			}
+		}
 	}
 
 	/**
