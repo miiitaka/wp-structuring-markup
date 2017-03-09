@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @author  Justin Frydman
- * @version 3.2.1
+ * @version 3.2.2
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -212,7 +212,7 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org Article
 	 *
-	 * @version 3.2.1
+	 * @version 3.2.2
 	 * @since   1.1.0
 	 * @param   array $options
 	 */
@@ -252,7 +252,7 @@ class Structuring_Markup_Display {
 			$args = array_merge( $args, $images_args );
 		}
 
-		$options['logo'] = isset( $options['logo'] ) ? esc_url( $options['logo'] ) : "";
+		$options['logo'] = isset( $options['logo'] ) ? esc_html( $options['logo'] ) : "";
 		if ( $logo = $this->get_image_dimensions( $options['logo'] ) ) {
 			$publisher_args = array(
 				"publisher" => array(
@@ -267,6 +267,20 @@ class Structuring_Markup_Display {
 				)
 			);
 			$args = array_merge( $args, $publisher_args );
+		} else if ( !empty( $options['logo'] ) ) {
+			$publisher_args = array(
+				"publisher" => array(
+					"@type" => "Organization",
+					"name"  => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
+					"logo"  => array(
+						"@type"  => "ImageObject",
+						"url"    => $options['logo'],
+						"width"  => isset( $options['logo-width'] )  ? (int) $options['logo-width']  : 0,
+						"height" => isset( $options['logo-height'] ) ? (int) $options['logo-height'] : 0
+					)
+				)
+			);
+			$args = array_merge( $args, $publisher_args );
 		}
 
 		$this->set_schema_json( $args );
@@ -275,7 +289,7 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org BlogPosting
 	 *
-	 * @version 3.2.1
+	 * @version 3.2.2
 	 * @since   1.2.0
 	 * @param   array $options
 	 */
@@ -316,7 +330,7 @@ class Structuring_Markup_Display {
 			$args = array_merge( $args, $images_args );
 		}
 
-		$options['logo'] = isset( $options['logo'] ) ? esc_url( $options['logo'] ) : "";
+		$options['logo'] = isset( $options['logo'] ) ? esc_html( $options['logo'] ) : "";
 		if ( $logo = $this->get_image_dimensions( $options['logo'] ) ) {
 			$publisher_args = array(
 				"publisher" => array(
@@ -327,6 +341,20 @@ class Structuring_Markup_Display {
 						"url"    => $options['logo'],
 						"width"  => $logo['width'],
 						"height" => $logo['height']
+					)
+				)
+			);
+			$args = array_merge( $args, $publisher_args );
+		} else if ( !empty( $options['logo'] ) ) {
+			$publisher_args = array(
+				"publisher" => array(
+					"@type" => "Organization",
+					"name"  => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
+					"logo"  => array(
+						"@type"  => "ImageObject",
+						"url"    => $options['logo'],
+						"width"  => isset( $options['logo-width'] )  ? (int) $options['logo-width']  : 0,
+						"height" => isset( $options['logo-height'] ) ? (int) $options['logo-height'] : 0
 					)
 				)
 			);
@@ -543,7 +571,7 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org NewsArticle
 	 *
-	 * @version 3.2.1
+	 * @version 3.2.2
 	 * @since   1.0.0
 	 * @param   array $options
 	 */
@@ -584,7 +612,7 @@ class Structuring_Markup_Display {
 			$args = array_merge( $args, $images_args );
 		}
 
-		$options['logo'] = isset( $options['logo'] )  ? esc_url( $options['logo'] ) : "";
+		$options['logo'] = isset( $options['logo'] )  ? esc_html( $options['logo'] ) : "";
 		if ( $logo = $this->get_image_dimensions( $options['logo'] ) ) {
 			$publisher_args = array(
 				"publisher" => array(
@@ -599,7 +627,22 @@ class Structuring_Markup_Display {
 				)
 			);
 			$args = array_merge( $args, $publisher_args );
+		} else if ( !empty( $options['logo'] ) ) {
+			$publisher_args = array(
+				"publisher" => array(
+					"@type" => "Organization",
+					"name"  => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
+					"logo"  => array(
+						"@type"  => "ImageObject",
+						"url"    => $options['logo'],
+						"width"  => isset( $options['logo-width'] )  ? (int) $options['logo-width']  : 0,
+						"height" => isset( $options['logo-height'] ) ? (int) $options['logo-height'] : 0
+					)
+				)
+			);
+			$args = array_merge( $args, $publisher_args );
 		}
+
 		$this->set_schema_json( $args );
 	}
 
