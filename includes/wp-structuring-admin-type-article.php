@@ -85,7 +85,7 @@ class Structuring_Markup_Type_Article {
 		$html .= '<tr><th>@type :</th><td><small>"ImageObject"</small></td></tr>';
 		$html .= '<tr><th><label for="logo">url :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "logo" . ']" id="logo" class="regular-text" value="' . esc_attr( $option['logo'] ) . '">';
-		$html .= '<small>Logos should be no wider than 600px, and no taller than 60px.</small>';
+		$html .= '<button id="media-upload" class="schema-admin-media-button dashicons-before dashicons-admin-media"><span>Add Media</span></button>';
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="logo-width">width :</label></th><td>';
 		$html .= '<input type="number" name="option[' . "logo-width" . ']" id="logo-width" min="0" value="' . esc_attr( $option['logo-width'] ) . '">px';
