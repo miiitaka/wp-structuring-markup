@@ -40,6 +40,11 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 3.2.2 (2017-03-09)
+- Fixed : Article, BlogPosting, and NewsArticle can not display the Publisher attribute.
+- Added : Add media selection function to the field for inputting image path.
+- Checked : WordPress version 4.7.3 operation check.
+
 ### 3.2.1 (2017-02-21)
 - Fixed : Call to undefined function imagecreatefromstring().
 
