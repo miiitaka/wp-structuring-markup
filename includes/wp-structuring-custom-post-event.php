@@ -11,8 +11,8 @@ class Structuring_Markup_Custom_Post_Event {
 	/**
 	 * Variable definition.
 	 *
-	 * @since   2.1.0
 	 * @version 2.1.0
+	 * @since   2.1.0
 	 */
 	private $text_domain;
 	private $custom_type = 'schema_event_post';
@@ -214,8 +214,8 @@ class Structuring_Markup_Custom_Post_Event {
 	/**
 	 * Return the default options array
 	 *
+	 * @version 3.2.3
 	 * @since   3.2.3
-	 * @version 2.2.0
 	 * @return  array $args
 	 */
 	private function get_default_options () {
