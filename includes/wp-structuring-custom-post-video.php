@@ -3,16 +3,17 @@
  * Schema.org Custom Post "Video"
  *
  * @author  Kazuya Takami
- * @since   3.1.6
- * @version 3.0.0
+ * @version 3.2.3
+ * @since   3.0.0
+ * @link    https://developers.google.com/search/docs/data-types/videos
  */
 class Structuring_Markup_Custom_Post_Video {
 
 	/**
 	 * Variable definition.
 	 *
-	 * @since   3.0.0
 	 * @version 3.0.0
+	 * @since   3.0.0
 	 */
 	private $text_domain;
 	private $custom_type = 'schema_video_post';
@@ -20,8 +21,8 @@ class Structuring_Markup_Custom_Post_Video {
 	/**
 	 * Constructor Define.
 	 *
-	 * @since   3.1.6
-	 * @version 3.0.0
+	 * @version 3.1.6
+	 * @since   3.0.0
 	 * @param   String $text_domain
 	 */
 	public function __construct ( $text_domain ) {
@@ -73,8 +74,8 @@ class Structuring_Markup_Custom_Post_Video {
 	/**
 	 * admin init.
 	 *
-	 * @since   3.0.0
 	 * @version 3.0.0
+	 * @since   3.0.0
 	 */
 	public function admin_init () {
 		add_action( 'save_post_' . $this->custom_type, array( $this, 'save_post' ) );
@@ -83,8 +84,8 @@ class Structuring_Markup_Custom_Post_Video {
 	/**
 	 * admin meta boxes.
 	 *
-	 * @since   3.0.0
 	 * @version 3.0.0
+	 * @since   3.0.0
 	 */
 	public function admin_menu () {
 		$custom_field_title = esc_html__( 'Schema.org Type Video', $this->text_domain );
@@ -94,19 +95,19 @@ class Structuring_Markup_Custom_Post_Video {
 	/**
 	 * Set custom fields.
 	 *
+	 * @version 3.2.3
 	 * @since   3.0.0
-	 * @version 3.0.0
 	 */
 	public function set_custom_fields () {
-		$args = get_post_meta( get_the_ID(), $this->custom_type, false );
-		$args = isset( $args[0] ) ? unserialize( $args[0] ) : "";
+		$custom_array = get_post_meta( get_the_ID(), $this->custom_type, false );
+		$custom_array = isset( $custom_array[0] ) ? unserialize( $custom_array[0] ) : array();
 
-		if ( !isset( $args['schema_video_duration'] ) )          $args['schema_video_duration'] = '';
-		if ( !isset( $args['schema_video_content_url'] ) )       $args['schema_video_content_url'] = '';
-		if ( !isset( $args['schema_video_embed_url'] ) )         $args['schema_video_embed_url'] = '';
-		if ( !isset( $args['schema_video_interaction_count'] ) ) $args['schema_video_interaction_count'] = '';
-		if ( !isset( $args['schema_video_expires_date'] ) )      $args['schema_video_expires_date'] = '';
-		if ( !isset( $args['schema_video_expires_time'] ) )      $args['schema_video_expires_time'] = '';
+		/** Default Value Set */
+		$args = $this->get_default_options();
+
+		if ( !empty( $args ) ) {
+			$args = array_merge( $args, $custom_array );
+		}
 
 		$html  = '';
 		$html .= '<table>';
@@ -144,13 +145,33 @@ class Structuring_Markup_Custom_Post_Video {
 	/**
 	 * Save custom post.
 	 *
-	 * @since   3.0.0
 	 * @version 3.0.0
+	 * @since   3.0.0
 	 * @param   integer $post_id The post ID.
 	 */
 	public function save_post ( $post_id ) {
 		if ( isset( $_POST['option'] ) ) {
 			update_post_meta( $post_id, $this->custom_type, serialize( $_POST['option'] ) );
 		}
+	}
+
+	/**
+	 * Return the default options array
+	 *
+	 * @version 3.2.3
+	 * @since   3.2.3
+	 * @return  array $args
+	 */
+	private function get_default_options () {
+		$args = array(
+			'schema_video_duration'          => '',
+			'schema_video_content_url'       => '',
+			'schema_video_embed_url'         => '',
+			'schema_video_interaction_count' => '',
+			'schema_video_expires_date'      => '',
+			'schema_video_expires_time'      => '',
+		);
+
+		return (array) $args;
 	}
 }
