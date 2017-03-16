@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @author  Justin Frydman
- * @version 3.2.2
+ * @version 3.2.3
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -403,7 +403,7 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org Event
 	 *
-	 * @version 3.1.3
+	 * @version 3.2.3
 	 * @since   2.1.0
 	 */
 	private function set_schema_event () {
@@ -413,11 +413,12 @@ class Structuring_Markup_Display {
 		if ( isset( $meta[0] ) ) {
 			$meta = unserialize( $meta[0] );
 
-			if ( !isset( $meta['schema_event_type']) )             $meta['schema_event_type'] = 'Event';
-			if ( !isset( $meta['schema_event_name']) )             $meta['schema_event_name'] = '';
-			if ( !isset( $meta['schema_event_date']) )             $meta['schema_event_date'] = date('Y-m-d');
-			if ( !isset( $meta['schema_event_time']) )             $meta['schema_event_time'] = date('h:i');
-			if ( !isset( $meta['schema_event_url']) )              $meta['schema_event_url']  = '';
+			/* required items */
+			if ( !isset( $meta['schema_event_type']) )             $meta['schema_event_type']            = 'Event';
+			if ( !isset( $meta['schema_event_name']) )             $meta['schema_event_name']            = '';
+			if ( !isset( $meta['schema_event_date']) )             $meta['schema_event_date']            = date('Y-m-d');
+			if ( !isset( $meta['schema_event_time']) )             $meta['schema_event_time']            = date('h:i');
+			if ( !isset( $meta['schema_event_url']) )              $meta['schema_event_url']             = '';
 			if ( !isset( $meta['schema_event_place_name'] ) )      $meta['schema_event_place_name']      = '';
 			if ( !isset( $meta['schema_event_place_url'] ) )       $meta['schema_event_place_url']       = '';
 			if ( !isset( $meta['schema_event_place_address'] ) )   $meta['schema_event_place_address']   = '';
@@ -443,6 +444,17 @@ class Structuring_Markup_Display {
 					"url"           => esc_url( $meta['schema_event_url'] )
 				)
 			);
+
+			/* recommended items */
+			if ( isset( $meta['schema_event_description'] ) && $meta['schema_event_description'] !== '' ) {
+				$args['description'] = esc_html( $meta['schema_event_description'] );
+			}
+			if ( isset( $meta['schema_event_image'] ) && $meta['schema_event_image'] !== '' ) {
+				$args['image'] = esc_html( $meta['schema_event_image'] );
+			}
+			if ( isset( $meta['schema_event_date_end'] ) && $meta['schema_event_date_end'] !== '' && isset( $meta['schema_event_time_end'] ) && $meta['schema_event_time_end'] !== '' ) {
+				$args['endDate'] = esc_html( $meta['schema_event_date_end'] ) . 'T' . esc_html( $meta['schema_event_time_end'] );
+			}
 
 			$this->set_schema_json( $args );
 		}
