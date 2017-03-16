@@ -5,6 +5,8 @@
  * @author  Kazuya Takami
  * @version 3.2.3
  * @since   2.1.0
+ * @link    https://schema.org/Event
+ * @link    https://developers.google.com/search/docs/data-types/events
  */
 class Structuring_Markup_Custom_Post_Event {
 
@@ -156,12 +158,28 @@ class Structuring_Markup_Custom_Post_Event {
 		$html .= '</label></th><td>';
 		$html .= '<input type="text" name="option[' . "schema_event_name" . ']" id="schema_event_name" class="regular-text" required value="' . esc_attr( $args['schema_event_name'] ) . '">';
 		$html .= '&nbsp;(required)</td></tr>';
+		$html .= '<tr><th><label for="schema_event_description">';
+		$html .= esc_html__( 'Event Description', $this->text_domain );
+		$html .= '</label></th><td>';
+		$html .= '<textarea name="option[' . "schema_event_description" . ']" id="schema_event_description" class="large-text code" rows="3">' . esc_attr( $args['schema_event_description'] ) . '</textarea>';
+		$html .= '&nbsp;(recommended)</td></tr>';
+		$html .= '<tr><th><label for="schema_event_image">';
+		$html .= esc_html__( 'Event Image', $this->text_domain );
+		$html .= '</label></th><td>';
+		$html .= '<input type="text" name="option[' . "schema_event_image" . ']" id="schema_event_image" class="large-text" value="' . esc_attr( $args['schema_event_image'] ) . '">';
+		$html .= '&nbsp;(recommended)</td></tr>';
 		$html .= '<tr><th><label for="schema_event_date">';
 		$html .= esc_html__( 'Start Date', $this->text_domain );
 		$html .= '</label></th><td>';
 		$html .= '<input type="date" name="option[' . "schema_event_date" . ']" id="schema_event_date" required value="' . esc_attr( $args['schema_event_date'] ) . '">';
 		$html .= '<input type="time" name="option[' . "schema_event_time" . ']" id="schema_event_time" required value="' . esc_attr( $args['schema_event_time'] ) . '">';
 		$html .= '&nbsp;(required)</td></tr>';
+		$html .= '<tr><th><label for="schema_event_date_end">';
+		$html .= esc_html__( 'End Date', $this->text_domain );
+		$html .= '</label></th><td>';
+		$html .= '<input type="date" name="option[' . "schema_event_date_end" . ']" id="schema_event_date" value="' . esc_attr( $args['schema_event_date_end'] ) . '">';
+		$html .= '<input type="time" name="option[' . "schema_event_time_end" . ']" id="schema_event_time" value="' . esc_attr( $args['schema_event_time_end'] ) . '">';
+		$html .= '&nbsp;(recommended)</td></tr>';
 		$html .= '<tr><th><label for="schema_event_url">';
 		$html .= esc_html__( 'Event URL', $this->text_domain );
 		$html .= '</label></th><td>';
@@ -222,10 +240,12 @@ class Structuring_Markup_Custom_Post_Event {
 		$args = array(
 			'schema_event_type'            => 'Event',
 			'schema_event_name'            => '',
+			'schema_event_description'     => '',
+			'schema_event_image'           => '',
 			'schema_event_date'            => date( 'Y-m-d' ),
 			'schema_event_time'            => date( 'h:i' ),
-			'schema_event_date_end'        => date( 'Y-m-d' ),
-			'schema_event_time_end'        => date( 'h:i' ),
+			'schema_event_date_end'        => '',
+			'schema_event_time_end'        => '',
 			'schema_event_url'             => '',
 			'schema_event_place_name'      => '',
 			'schema_event_place_url'       => '',
