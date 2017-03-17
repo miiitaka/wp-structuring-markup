@@ -36,8 +36,25 @@ class Structuring_Markup_Type_Site_Navigation {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Basic Setting</caption>';
 		$html .= '<tr><th class="require"><label for="menu_name">Menu Name :</label></th><td>';
-		$html .= '<input type="text" name="option[' . "menu_name" . ']" id="menu_name" class="regular-text" required value="' . esc_attr( $option['menu_name'] ) . '">';
-		$html .= '<small>Menu ID, name, or slug</small>';
+
+		$nav_menus = wp_get_nav_menus();
+
+		if ( count( $nav_menus ) > 0 ) {
+			$html .= '<select name="option[' . "menu_name" . ']" id="menu_name">';
+
+			foreach ( (array) $nav_menus as $menu ) {
+				if ( $option['menu_name'] === $menu->name ) {
+					$html .= '<option value="' . esc_attr( $menu->name ) . '" selected>';
+				} else {
+					$html .= '<option value="' . esc_attr( $menu->name ) . '">';
+				}
+				$html .= esc_html( $menu->name );
+				$html .= '</option>';
+			}
+
+			$html .= '</select>';
+		}
+
 		$html .= '</td></tr>';
 		$html .= '</table>';
 		echo $html;

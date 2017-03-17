@@ -766,15 +766,13 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org Site Navigation
 	 *
-	 * @version 3.1.0
+	 * @version 3.2.3
 	 * @since   3.1.0
 	 * @param   array $options
 	 */
 	private function set_schema_site_navigation ( array $options ) {
-		$args = array();
-
-		if ( isset( $options['menu_name'] ) && wp_get_nav_menu_items( $options['menu_name'], $args ) ) {
-			$items_array = wp_get_nav_menu_items( $options['menu_name'], $args );
+		if ( isset( $options['menu_name'] ) && wp_get_nav_menu_items( $options['menu_name'] ) ) {
+			$items_array = wp_get_nav_menu_items( $options['menu_name'] );
 			$name_array  = array();
 			$url_array   = array();
 
