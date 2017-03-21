@@ -3,16 +3,18 @@
  * Schema.org Custom Post "Video"
  *
  * @author  Kazuya Takami
- * @since   3.1.6
- * @version 3.0.0
+ * @version 3.2.3
+ * @since   3.0.0
+ * @link    https://schema.org/VideoObject
+ * @link    https://developers.google.com/search/docs/data-types/videos
  */
 class Structuring_Markup_Custom_Post_Video {
 
 	/**
 	 * Variable definition.
 	 *
-	 * @since   3.0.0
 	 * @version 3.0.0
+	 * @since   3.0.0
 	 */
 	private $text_domain;
 	private $custom_type = 'schema_video_post';
@@ -20,8 +22,8 @@ class Structuring_Markup_Custom_Post_Video {
 	/**
 	 * Constructor Define.
 	 *
-	 * @since   3.1.6
-	 * @version 3.0.0
+	 * @version 3.1.6
+	 * @since   3.0.0
 	 * @param   String $text_domain
 	 */
 	public function __construct ( $text_domain ) {
@@ -73,8 +75,8 @@ class Structuring_Markup_Custom_Post_Video {
 	/**
 	 * admin init.
 	 *
-	 * @since   3.0.0
 	 * @version 3.0.0
+	 * @since   3.0.0
 	 */
 	public function admin_init () {
 		add_action( 'save_post_' . $this->custom_type, array( $this, 'save_post' ) );
@@ -83,8 +85,8 @@ class Structuring_Markup_Custom_Post_Video {
 	/**
 	 * admin meta boxes.
 	 *
-	 * @since   3.0.0
 	 * @version 3.0.0
+	 * @since   3.0.0
 	 */
 	public function admin_menu () {
 		$custom_field_title = esc_html__( 'Schema.org Type Video', $this->text_domain );
@@ -94,45 +96,66 @@ class Structuring_Markup_Custom_Post_Video {
 	/**
 	 * Set custom fields.
 	 *
+	 * @version 3.2.3
 	 * @since   3.0.0
-	 * @version 3.0.0
 	 */
 	public function set_custom_fields () {
-		$args = get_post_meta( get_the_ID(), $this->custom_type, false );
-		$args = isset( $args[0] ) ? unserialize( $args[0] ) : "";
+		$custom_array = get_post_meta( get_the_ID(), $this->custom_type, false );
+		$custom_array = isset( $custom_array[0] ) ? unserialize( $custom_array[0] ) : array();
 
-		if ( !isset( $args['schema_video_duration'] ) )          $args['schema_video_duration'] = '';
-		if ( !isset( $args['schema_video_content_url'] ) )       $args['schema_video_content_url'] = '';
-		if ( !isset( $args['schema_video_embed_url'] ) )         $args['schema_video_embed_url'] = '';
-		if ( !isset( $args['schema_video_interaction_count'] ) ) $args['schema_video_interaction_count'] = '';
-		if ( !isset( $args['schema_video_expires_date'] ) )      $args['schema_video_expires_date'] = '';
-		if ( !isset( $args['schema_video_expires_time'] ) )      $args['schema_video_expires_time'] = '';
+		/** Default Value Set */
+		$args = $this->get_default_options();
+
+		if ( !empty( $args ) ) {
+			$args = array_merge( $args, $custom_array );
+		}
 
 		$html  = '';
 		$html .= '<table>';
-		$html .= '<tr><th><label for="schema_video_duration">';
+		$html .= '<tr><td><label for="schema_video_name">';
+		$html .= esc_html__( 'Video Name', $this->text_domain );
+		$html .= '&nbsp;(required)</label></td><td>';
+		$html .= '<input type="text" name="option[' . "schema_video_name" . ']" id="schema_video_name" class="regular-text" required value="' . esc_attr( $args['schema_video_name'] ) . '">';
+		$html .= '</td></tr>';
+		$html .= '<tr><td><label for="schema_video_description">';
+		$html .= esc_html__( 'Video Description', $this->text_domain );
+		$html .= '&nbsp;(required)</label></td><td>';
+		$html .= '<textarea name="option[' . "schema_video_description" . ']" id="schema_video_description" class="large-text code" required rows="3">' . esc_attr( $args['schema_video_description'] ) . '</textarea>';
+		$html .= '</td></tr>';
+		$html .= '<tr><td><label for="schema_video_thumbnail_url">';
+		$html .= esc_html__( 'Thumbnail Url', $this->text_domain );
+		$html .= '&nbsp;(required)</label></td><td>';
+		$html .= '<input type="text" name="option[' . "schema_video_thumbnail_url" . ']" id="schema_video_thumbnail_url" class="regular-text" required value="' . esc_attr( $args['schema_video_thumbnail_url'] ) . '">';
+		$html .= '</td></tr>';
+		$html .= '<tr><td><label for="schema_video_upload_date">';
+		$html .= esc_html__( 'Upload Date', $this->text_domain );
+		$html .= '&nbsp;(required)</label></td><td>';
+		$html .= '<input type="date" name="option[' . "schema_video_upload_date" . ']" id="schema_video_upload_date" required value="' . esc_attr( $args['schema_video_upload_date'] ) . '">';
+		$html .= '<input type="time" name="option[' . "schema_video_upload_time" . ']" id="schema_video_upload_time" required value="' . esc_attr( $args['schema_video_upload_time'] ) . '">';
+		$html .= '</td></tr>';
+		$html .= '<tr><td><label for="schema_video_duration">';
 		$html .= esc_html__( 'duration', $this->text_domain );
-		$html .= '</label></th><td>';
+		$html .= '&nbsp;(recommended)</label></td><td>';
 		$html .= '<input type="text" name="option[' . "schema_video_duration" . ']" id="schema_video_duration" class="regular-text" value="' . esc_attr( $args['schema_video_duration'] ) . '">';
 		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="schema_video_content_url">';
+		$html .= '<tr><td><label for="schema_video_content_url">';
 		$html .= esc_html__( 'contentURL', $this->text_domain );
-		$html .= '</label></th><td>';
+		$html .= '&nbsp;(recommended)</label></td><td>';
 		$html .= '<input type="text" name="option[' . "schema_video_content_url" . ']" id="schema_video_content_url" class="regular-text" value="' . esc_attr( $args['schema_video_content_url'] ) . '">';
 		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="schema_video_embed_url">';
+		$html .= '<tr><td><label for="schema_video_embed_url">';
 		$html .= esc_html__( 'embedURL', $this->text_domain );
-		$html .= '</label></th><td>';
+		$html .= '&nbsp;(recommended)</label></td><td>';
 		$html .= '<input type="text" name="option[' . "schema_video_embed_url" . ']" id="schema_video_embed_url" class="regular-text" value="' . esc_attr( $args['schema_video_embed_url'] ) . '">';
 		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="schema_video_interaction_count">';
+		$html .= '<tr><td><label for="schema_video_interaction_count">';
 		$html .= esc_html__( 'interactionCount', $this->text_domain );
-		$html .= '</label></th><td>';
+		$html .= '&nbsp;(recommended)</label></td><td>';
 		$html .= '<input type="text" name="option[' . "schema_video_interaction_count" . ']" id="schema_video_interaction_count" class="regular-text" value="' . esc_attr( $args['schema_video_interaction_count'] ) . '">';
 		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="schema_video_expires_date">';
+		$html .= '<tr><td><label for="schema_video_expires_date">';
 		$html .= esc_html__( 'expires', $this->text_domain );
-		$html .= '</label></th><td>';
+		$html .= '&nbsp;(recommended)</label></td><td>';
 		$html .= '<input type="date" name="option[' . "schema_video_expires_date" . ']" id="schema_video_expires_date" value="' . esc_attr( $args['schema_video_expires_date'] ) . '">';
 		$html .= '<input type="time" name="option[' . "schema_video_expires_time" . ']" id="schema_video_expires_time" value="' . esc_attr( $args['schema_video_expires_time'] ) . '">';
 		$html .= '</td></tr>';
@@ -144,13 +167,38 @@ class Structuring_Markup_Custom_Post_Video {
 	/**
 	 * Save custom post.
 	 *
-	 * @since   3.0.0
 	 * @version 3.0.0
+	 * @since   3.0.0
 	 * @param   integer $post_id The post ID.
 	 */
 	public function save_post ( $post_id ) {
 		if ( isset( $_POST['option'] ) ) {
 			update_post_meta( $post_id, $this->custom_type, serialize( $_POST['option'] ) );
 		}
+	}
+
+	/**
+	 * Return the default options array
+	 *
+	 * @version 3.2.3
+	 * @since   3.2.3
+	 * @return  array $args
+	 */
+	private function get_default_options () {
+		$args = array(
+			'schema_video_name'              => '',
+			'schema_video_description'       => '',
+			'schema_video_thumbnail_url'     => '',
+			'schema_video_upload_date'       => '',
+			'schema_video_upload_time'       => '',
+			'schema_video_duration'          => '',
+			'schema_video_content_url'       => '',
+			'schema_video_embed_url'         => '',
+			'schema_video_interaction_count' => '',
+			'schema_video_expires_date'      => '',
+			'schema_video_expires_time'      => '',
+		);
+
+		return (array) $args;
 	}
 }

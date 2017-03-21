@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @author  Justin Frydman
- * @version 3.2.2
+ * @version 3.2.3
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -403,7 +403,7 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org Event
 	 *
-	 * @version 3.1.3
+	 * @version 3.2.3
 	 * @since   2.1.0
 	 */
 	private function set_schema_event () {
@@ -413,11 +413,12 @@ class Structuring_Markup_Display {
 		if ( isset( $meta[0] ) ) {
 			$meta = unserialize( $meta[0] );
 
-			if ( !isset( $meta['schema_event_type']) )             $meta['schema_event_type'] = 'Event';
-			if ( !isset( $meta['schema_event_name']) )             $meta['schema_event_name'] = '';
-			if ( !isset( $meta['schema_event_date']) )             $meta['schema_event_date'] = date('Y-m-d');
-			if ( !isset( $meta['schema_event_time']) )             $meta['schema_event_time'] = date('h:i');
-			if ( !isset( $meta['schema_event_url']) )              $meta['schema_event_url']  = '';
+			/* required items */
+			if ( !isset( $meta['schema_event_type']) )             $meta['schema_event_type']            = 'Event';
+			if ( !isset( $meta['schema_event_name']) )             $meta['schema_event_name']            = '';
+			if ( !isset( $meta['schema_event_date']) )             $meta['schema_event_date']            = date('Y-m-d');
+			if ( !isset( $meta['schema_event_time']) )             $meta['schema_event_time']            = date('h:i');
+			if ( !isset( $meta['schema_event_url']) )              $meta['schema_event_url']             = '';
 			if ( !isset( $meta['schema_event_place_name'] ) )      $meta['schema_event_place_name']      = '';
 			if ( !isset( $meta['schema_event_place_url'] ) )       $meta['schema_event_place_url']       = '';
 			if ( !isset( $meta['schema_event_place_address'] ) )   $meta['schema_event_place_address']   = '';
@@ -443,6 +444,17 @@ class Structuring_Markup_Display {
 					"url"           => esc_url( $meta['schema_event_url'] )
 				)
 			);
+
+			/* recommended items */
+			if ( isset( $meta['schema_event_description'] ) && $meta['schema_event_description'] !== '' ) {
+				$args['description'] = esc_html( $meta['schema_event_description'] );
+			}
+			if ( isset( $meta['schema_event_image'] ) && $meta['schema_event_image'] !== '' ) {
+				$args['image'] = esc_html( $meta['schema_event_image'] );
+			}
+			if ( isset( $meta['schema_event_date_end'] ) && $meta['schema_event_date_end'] !== '' && isset( $meta['schema_event_time_end'] ) && $meta['schema_event_time_end'] !== '' ) {
+				$args['endDate'] = esc_html( $meta['schema_event_date_end'] ) . 'T' . esc_html( $meta['schema_event_time_end'] );
+			}
 
 			$this->set_schema_json( $args );
 		}
@@ -754,15 +766,13 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org Site Navigation
 	 *
-	 * @version 3.1.0
+	 * @version 3.2.3
 	 * @since   3.1.0
 	 * @param   array $options
 	 */
 	private function set_schema_site_navigation ( array $options ) {
-		$args = array();
-
-		if ( isset( $options['menu_name'] ) && wp_get_nav_menu_items( $options['menu_name'], $args ) ) {
-			$items_array = wp_get_nav_menu_items( $options['menu_name'], $args );
+		if ( isset( $options['menu_name'] ) && wp_get_nav_menu_items( $options['menu_name'] ) ) {
+			$items_array = wp_get_nav_menu_items( $options['menu_name'] );
 			$name_array  = array();
 			$url_array   = array();
 
@@ -786,58 +796,58 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org Video
 	 *
-	 * @version 3.1.0
+	 * @version 3.2.3
 	 * @since   3.0.0
 	 */
 	private function set_schema_video () {
 		global $post;
 		$meta = get_post_meta( $post->ID, 'schema_video_post', false );
 
-		$args = array(
-			"@context" => "http://schema.org",
-			"@type"    => "VideoObject"
-		);
+		if ( isset( $meta[0] ) ) {
+			$meta = unserialize( $meta[0] );
 
-		if ( has_post_thumbnail( $post->ID ) ) {
-			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-			$excerpt = $this->escape_text( $post->post_excerpt );
-			$content = $excerpt === "" ? mb_substr( $this->escape_text( $post->post_content ), 0, 110 ) : $excerpt;
-
-			if ( isset( $meta[0] ) ) {
-				$meta = unserialize( $meta[0] );
-
-				if ( !isset( $meta['schema_video_duration'] ) )          $meta['schema_video_duration'] = '';
-				if ( !isset( $meta['schema_video_content_url'] ) )       $meta['schema_video_content_url'] = '';
-				if ( !isset( $meta['schema_video_embed_url'] ) )         $meta['schema_video_embed_url'] = '';
-				if ( !isset( $meta['schema_video_interaction_count'] ) ) $meta['schema_video_interaction_count'] = '';
-				if ( !isset( $meta['schema_video_expires_date'] ) )      $meta['schema_video_expires_date'] = '';
-				if ( !isset( $meta['schema_video_expires_time'] ) )      $meta['schema_video_expires_time'] = '';
-
-				$args["name"]         = esc_html( $post->post_title );
-				$args["description"]  = $content;
-				$args["thumbnailUrl"] = $images[0];
-				$args["uploadDate"]   = get_post_modified_time( DATE_ISO8601, __return_false(), $post->ID );
-
-				if ( !empty( $meta['schema_video_duration'] ) ) {
-					$args["duration"] = esc_html( $meta['schema_video_duration'] );
-				}
-				if ( !empty( $meta['schema_video_content_url'] ) ) {
-					$args["contentUrl"] = esc_url( $meta['schema_video_content_url'] );
-				}
-				if ( empty( $meta['schema_video_embed_url'] ) ) {
-					$args["embedUrl"] = esc_url( $meta['schema_video_embed_url'] );
-				}
-				if ( !empty( $meta['schema_video_interaction_count'] ) ) {
-					$args["interactionCount"] = esc_html( $meta['schema_video_interaction_count'] );
-				}
-				if ( !empty( $meta['schema_video_expires_date'] ) && !empty( $meta['schema_video_expires_time'] ) ) {
-					$args["expires"] = esc_html( $meta['schema_video_expires_date'] ) . 'T' . esc_html( $meta['schema_video_expires_time'] );
-				}
-				$this->set_schema_json( $args );
+			if ( has_post_thumbnail( $post->ID ) ) {
+				$images  = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
+				$excerpt = $this->escape_text( $post->post_excerpt );
+				$content = $excerpt === "" ? mb_substr( $this->escape_text( $post->post_content ), 0, 110 ) : $excerpt;
+			} else {
+				$images[0] = '';
+				$content   = '';
 			}
-		} else {
-			$args["message"][] = __( "Featured Image not set.", $this->text_domain );
-			$this->set_schema_json( $args, __return_true() );
+
+			/* required items */
+			if ( !isset( $meta['schema_video_name']) )           $meta['schema_video_name']        = esc_html( $post->post_title );
+			if ( !isset( $meta['schema_video_description'] ) )   $meta['schema_video_description'] = esc_html( $content );
+			if ( !isset( $meta['schema_video_thumbnail_url'] ) ) $meta['schema_video_description'] = esc_html( $images[0] );
+			if ( !isset( $meta['schema_video_upload_date'] ) )   $meta['schema_video_upload_date'] = get_post_modified_time( 'Y-m-d', __return_false(), $post->ID );
+			if ( !isset( $meta['schema_video_upload_time'] ) )   $meta['schema_video_upload_time'] = get_post_modified_time( 'H:i:s', __return_false(), $post->ID );
+
+			$args = array(
+				"@context"     => "http://schema.org",
+				"@type"        => "VideoObject",
+				"name"         => esc_html( $meta['schema_video_name'] ),
+				"description"  => esc_html( $meta['schema_video_description'] ),
+				"thumbnailUrl" => esc_html( $meta['schema_video_thumbnail_url'] ),
+				"uploadDate"   => esc_html( $meta['schema_video_upload_date'] ) . 'T' . esc_html( $meta['schema_video_upload_time'] )
+			);
+
+			/* recommended items */
+			if ( isset( $meta['schema_video_duration'] ) && $meta['schema_video_duration'] !== '' ) {
+				$args["duration"] = esc_html( $meta['schema_video_duration'] );
+			}
+			if ( isset( $meta['schema_video_content_url'] ) && $meta['schema_video_content_url'] !== '' ) {
+				$args["contentUrl"] = esc_url( $meta['schema_video_content_url'] );
+			}
+			if ( isset( $meta['schema_video_embed_url'] ) && $meta['schema_video_embed_url'] !== '' ) {
+				$args["embedUrl"] = esc_url( $meta['schema_video_embed_url'] );
+			}
+			if ( isset( $meta['schema_video_interaction_count'] ) && $meta['schema_video_interaction_count'] !== '' ) {
+				$args["interactionCount"] = esc_html( $meta['schema_video_interaction_count'] );
+			}
+			if ( isset( $meta['schema_video_expires_date'] ) && $meta['schema_video_expires_date'] !== '' && isset( $meta['schema_video_expires_time'] ) && $meta['schema_video_expires_time'] !== '' ) {
+				$args["expires"] = esc_html( $meta['schema_video_expires_date'] ) . 'T' . esc_html( $meta['schema_video_expires_time'] );
+			}
+			$this->set_schema_json( $args );
 		}
 	}
 
