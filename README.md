@@ -40,6 +40,12 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 3.2.3 (2017-03-21)
+- Fixed : "Warning: Illegal string offset" error occurred on Video and Event Schema.org.
+- Updated : Event Types add fields.
+- Updated : Video Types add fields.
+- Updated : Change selection method of SiteNavigation type.
+
 ### 3.2.2 (2017-03-09)
 - Fixed : Article, BlogPosting, and NewsArticle can not display the Publisher attribute.
 - Added : Add media selection function to the field for inputting image path.

@@ -3,7 +3,7 @@ Contributors: miiitaka
 Tags: schema, schema.org, json, json-ld, seo, post, posts, google, shortcode, breadcrumb
 Requires at least: 4.3.1
 Tested up to: 4.7.3
-Stable tag: 3.2.2
+Stable tag: 3.2.3
 
 Allows you to include schema.org JSON-LD syntax markup on your website
 
@@ -53,6 +53,12 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 * Open 'Schema.org Setting' menu.
 
 == Changelog ==
+
+= 3.2.3 (2017-03-21) =
+* Fixed : "Warning: Illegal string offset" error occurred on Video and Event Schema.org.
+* Updated : Event Types add fields.
+* Updated : Video Types add fields.
+* Updated : Change selection method of SiteNavigation type.
 
 = 3.2.2 (2017-03-09) =
 * Fixed : Article, BlogPosting, and NewsArticle can not display the Publisher attribute.
