@@ -3,7 +3,7 @@
  * Schema.org Admin List
  *
  * @author  Kazuya Takami
- * @version 3.1.3
+ * @version 3.2.4
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  */
@@ -32,7 +32,7 @@ class Structuring_Markup_Admin_List {
 	/**
 	 * LIST Page HTML Render.
 	 *
-	 * @version 3.1.3
+	 * @version 3.2.4
 	 * @since   1.0.0
 	 */
 	private function page_render () {
