@@ -28,6 +28,10 @@
 }
 
 .schema-admin-table-list tr.active {
+	background: #ffffff;
+}
+
+.schema-admin-table-list tr.stop {
 	background: #efefef;
 }
 
