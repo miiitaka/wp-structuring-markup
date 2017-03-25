@@ -63,7 +63,7 @@ class Structuring_Markup_Admin_List {
 				if ( $row->activate === 'on' ) {
 					$html = '<tr class="active"><td><span class="active">Enabled';
 				} else {
-					$html = '<tr><td><span class="stop">Disabled';
+					$html = '<tr class="stop"><td><span class="stop">Disabled';
 				}
 				$html .= '</span></td>';
 				$html .= '<td><a href="';
