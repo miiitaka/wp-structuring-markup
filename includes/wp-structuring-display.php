@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @author  Justin Frydman
- * @version 3.2.3
+ * @version 3.2.4
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -212,7 +212,7 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org Article
 	 *
-	 * @version 3.2.2
+	 * @version 3.2.4
 	 * @since   1.1.0
 	 * @param   array $options
 	 */
@@ -229,7 +229,7 @@ class Structuring_Markup_Display {
 				"@type" => "WebPage",
 				"@id"   => get_permalink( $post->ID )
 			),
-			"headline" => esc_html( $post->post_title ),
+			"headline"      => mb_substr( esc_html( $post->post_title ), 0, 110 ),
 			"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
 			"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
 			"author" => array(
@@ -289,7 +289,7 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org BlogPosting
 	 *
-	 * @version 3.2.2
+	 * @version 3.2.4
 	 * @since   1.2.0
 	 * @param   array $options
 	 */
@@ -306,7 +306,7 @@ class Structuring_Markup_Display {
 				"@type" => "WebPage",
 				"@id"   => get_permalink( $post->ID )
 			),
-			"headline" => esc_html( $post->post_title ),
+			"headline"      => mb_substr( esc_html( $post->post_title ), 0, 110 ),
 			"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
 			"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
 			"author" => array(
@@ -583,7 +583,7 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org NewsArticle
 	 *
-	 * @version 3.2.2
+	 * @version 3.2.4
 	 * @since   1.0.0
 	 * @param   array $options
 	 */
@@ -600,7 +600,7 @@ class Structuring_Markup_Display {
 				"@type" => "WebPage",
 				"@id"   => get_permalink( $post->ID )
 			),
-			"headline" => esc_html( $post->post_title ),
+			"headline"      => mb_substr( esc_html( $post->post_title ), 0, 110 ),
 			"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
 			"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
 			"author" => array(
