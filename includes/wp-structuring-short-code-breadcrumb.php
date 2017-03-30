@@ -75,11 +75,22 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 		$item_array = array();
 		$current_url = esc_url( home_url() . $_SERVER['REQUEST_URI'] );
 
-		if ( isset( $options['home_on'] ) &&  $options['home_on'] === 'on' ) {
+		if ( get_option( 'show_on_front' ) == 'page' ) {
+			$front_page_id = get_option( 'page_on_front' );
+		} else {
+			$front_page_id = null;
+		}
+
+		if ( isset( $options['home_on'] ) && $options['home_on'] === 'on' ) {
 			if ( isset( $options['home_name'] ) && $options['home_name'] !== '' ) {
 				$item_array[] = $this->set_schema_breadcrumb_item( home_url(), $options['home_name'] );
 			} else {
-				$item_array[] = $this->set_schema_breadcrumb_item( home_url(), get_bloginfo('name') );
+				if ( is_null( $front_page_id ) ) {
+					$item_array[] = $this->set_schema_breadcrumb_item( home_url(), get_bloginfo( 'name' ) );
+				} else {
+					$front_page   = get_post( $front_page_id );
+					$item_array[] = $this->set_schema_breadcrumb_item( home_url(), esc_html( $front_page->post_title ) );
+				}
 			}
 		}
 
@@ -106,7 +117,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 			$item_array[] = $this->set_schema_breadcrumb_item( get_category_link( $categories->term_id ), $categories->name );
 		} elseif ( is_author() ) {
 			$item_array[] = $this->set_schema_breadcrumb_item( $current_url, get_the_author_meta( 'display_name', get_query_var( 'author' ) ) );
-		} elseif ( is_page() ) {
+		} elseif ( is_page() && $front_page_id != $post->ID ) {
 			if( $post->post_parent !== 0 ) {
 				$ancestors = array_reverse( get_post_ancestors( $post->ID ) );
 				foreach( $ancestors as $ancestor ){
