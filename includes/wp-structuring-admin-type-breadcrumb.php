@@ -3,7 +3,7 @@
  * Schema.org Type Breadcrumb
  *
  * @author  Kazuya Takami
- * @version 3.1.3
+ * @version 3.2.4
  * @since   2.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/BreadcrumbList
@@ -28,7 +28,7 @@ class Structuring_Markup_Type_Breadcrumb {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 2.5.1
+	 * @version 3.2.4
 	 * @since   2.3.3
 	 * @param   array $option
 	 */
@@ -45,7 +45,7 @@ class Structuring_Markup_Type_Breadcrumb {
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="home_name">Home Name :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "home_name" . ']" id="home_name" class="regular-text" value="' . esc_attr( $option['home_name'] ) . '">';
-		$html .= '<small>Default : bloginfo("name")</small>';
+		$html .= '<small>Default : bloginfo("name")<br>* In the case of the pattern set for the static page on the front page its title is the default value.</small>';
 		$html .= '</td></tr>';
 		$html .= '</table>';
 		echo $html;
