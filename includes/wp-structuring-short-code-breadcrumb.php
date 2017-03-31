@@ -3,7 +3,7 @@
  * Breadcrumb ShortCode Settings
  *
  * @author  Kazuya Takami
- * @version 3.2.0
+ * @version 3.2.4
  * @since   2.0.0
  */
 class Structuring_Markup_ShortCode_Breadcrumb {
@@ -62,7 +62,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	/**
 	 * Breadcrumb array setting.
 	 *
-	 * @version 3.2.0
+	 * @version 3.2.4
 	 * @since   2.0.0
 	 * @access  public
 	 * @param   array $options
@@ -75,11 +75,22 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 		$item_array = array();
 		$current_url = esc_url( home_url() . $_SERVER['REQUEST_URI'] );
 
-		if ( isset( $options['home_on'] ) &&  $options['home_on'] === 'on' ) {
+		if ( get_option( 'show_on_front' ) == 'page' ) {
+			$front_page_id = get_option( 'page_on_front' );
+		} else {
+			$front_page_id = null;
+		}
+
+		if ( isset( $options['home_on'] ) && $options['home_on'] === 'on' ) {
 			if ( isset( $options['home_name'] ) && $options['home_name'] !== '' ) {
 				$item_array[] = $this->set_schema_breadcrumb_item( home_url(), $options['home_name'] );
 			} else {
-				$item_array[] = $this->set_schema_breadcrumb_item( home_url(), get_bloginfo('name') );
+				if ( is_null( $front_page_id ) ) {
+					$item_array[] = $this->set_schema_breadcrumb_item( home_url(), get_bloginfo( 'name' ) );
+				} else {
+					$front_page   = get_post( $front_page_id );
+					$item_array[] = $this->set_schema_breadcrumb_item( home_url(), esc_html( $front_page->post_title ) );
+				}
 			}
 		}
 
@@ -106,7 +117,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 			$item_array[] = $this->set_schema_breadcrumb_item( get_category_link( $categories->term_id ), $categories->name );
 		} elseif ( is_author() ) {
 			$item_array[] = $this->set_schema_breadcrumb_item( $current_url, get_the_author_meta( 'display_name', get_query_var( 'author' ) ) );
-		} elseif ( is_page() ) {
+		} elseif ( is_page() && $front_page_id != $post->ID ) {
 			if( $post->post_parent !== 0 ) {
 				$ancestors = array_reverse( get_post_ancestors( $post->ID ) );
 				foreach( $ancestors as $ancestor ){
@@ -136,17 +147,31 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 				}
 			}
 		} elseif ( is_singular( 'post' ) ) {
-			$categories = get_the_category( $post->ID );
-			if ( isset( $categories[0] ) ) {
-				$cat = $categories[0];
+			$terms       = get_the_terms( $post->ID, 'category' );
+			$term_bottom = array();
 
-				if ( $cat->parent !== 0 ) {
-					$ancestors = array_reverse( get_ancestors( $cat->cat_ID, 'category' ) );
-					foreach ( $ancestors as $ancestor ) {
-						$item_array[] = $this->set_schema_breadcrumb_item( get_category_link( $ancestor ), get_cat_name( $ancestor ) );
+			if ( $terms && ! is_wp_error( $terms ) ) {
+				$parent_ids  = array();
+
+				foreach ( $terms as $term ) {
+					if ( $term->parent != 0 ) {
+						$parent_ids[] = $term->parent;
 					}
 				}
-				$item_array[] = $this->set_schema_breadcrumb_item( get_category_link( $cat->term_id ), $cat->name );
+				foreach ( $terms as $term ) {
+					if ( !in_array( $term->term_id, $parent_ids ) ) {
+						$term_bottom[] = $term->term_id;
+					}
+				}
+			}
+
+			if ( count( $term_bottom ) > 0 ) {
+				$ancestors   = array_reverse( get_ancestors( $term_bottom[0], 'category' ) );
+				$ancestors[] = $term_bottom[0];
+
+				foreach ( $ancestors as $ancestor ) {
+					$item_array[] = $this->set_schema_breadcrumb_item( get_category_link( $ancestor ), get_cat_name( $ancestor ) );
+				}
 			}
 			$item_array[] = $this->set_schema_breadcrumb_item( $current_url, $post->post_title );
 		} elseif ( is_single() ) {

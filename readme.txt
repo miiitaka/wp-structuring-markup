@@ -3,7 +3,7 @@ Contributors: miiitaka
 Tags: schema, schema.org, json, json-ld, seo, post, posts, google, shortcode, breadcrumb
 Requires at least: 4.3.1
 Tested up to: 4.7.3
-Stable tag: 3.2.3
+Stable tag: 3.2.4
 
 Allows you to include schema.org JSON-LD syntax markup on your website
 
@@ -53,6 +53,12 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 * Open 'Schema.org Setting' menu.
 
 == Changelog ==
+
+= 3.2.4 (2017-03-30) =
+* Fixed : BreadcrumbList - Ignore the Home setting when setting the head fixed page.
+* Fixed : BreadcrumbList - Categories of two or more levels are not displayed.
+* Fixed : Minor bug fixed.
+* Updated : Article,BlogPosting and NewsArticle - Limit headline to 110 chars.
 
 = 3.2.3 (2017-03-21) =
 * Fixed : "Warning: Illegal string offset" error occurred on Video and Event Schema.org.

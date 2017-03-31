@@ -3,7 +3,7 @@
  * Schema.org Type Event
  *
  * @author  Kazuya Takami
- * @version 3.1.3
+ * @version 3.2.4
  * @since   2.1.0
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/Event
@@ -25,7 +25,7 @@ class Structuring_Markup_Type_Event {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 3.1.3
+	 * @version 3.2.4
 	 * @since   2.1.0
 	 */
 	private function page_render () {
@@ -33,7 +33,10 @@ class Structuring_Markup_Type_Event {
 		$html .= '<caption>Basic Setting</caption>';
 		$html .= '<tr><th class="require">type :</th><td><small>Select a event type: field name "schema_event_type"</small></td></tr>';
 		$html .= '<tr><th class="require">name :</th><td><small>Input a custom post: field name "schema_event_name"</small></td></tr>';
+		$html .= '<tr><th class="require">description :</th><td><small>Input a custom post: field name "schema_event_description"</small></td></tr>';
+		$html .= '<tr><th class="require">image :</th><td><small>Input a custom post: field name "schema_event_image"</small></td></tr>';
 		$html .= '<tr><th class="require">startDate :</th><td><small>Input a custom post: field name "schema_event_date" & "schema_event_time"</small></td></tr>';
+		$html .= '<tr><th class="require">endtDate :</th><td><small>Input a custom post: field name "schema_event_date_end" & "schema_event_time_end"</small></td></tr>';
 		$html .= '<tr><th>url :</th><td><small>Input a custom post: field name "schema_event_url"</small></td></tr>';
 		$html .= '</table>';
 		echo $html;

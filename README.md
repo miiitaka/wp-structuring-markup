@@ -40,6 +40,12 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 3.2.4 (2017-03-30)
+- Fixed : BreadcrumbList - Ignore the Home setting when setting the head fixed page.
+- Fixed : BreadcrumbList - Categories of two or more levels are not displayed.
+- Fixed : Minor bug fixed.
+- Updated : Article,BlogPosting and NewsArticle - Limit headline to 110 chars.
+
 ### 3.2.3 (2017-03-21)
 - Fixed : "Warning: Illegal string offset" error occurred on Video and Event Schema.org.
 - Updated : Event Types add fields.
