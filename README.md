@@ -40,6 +40,9 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 3.2.5 (2017-04-24)
+* Checked : WordPress version 4.7.4 operation check.
+
 ### 3.2.4 (2017-03-30)
 - Fixed : BreadcrumbList - Ignore the Home setting when setting the head fixed page.
 - Fixed : BreadcrumbList - Categories of two or more levels are not displayed.
