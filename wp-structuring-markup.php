@@ -223,11 +223,10 @@ class Structuring_Markup {
 	/**
 	 * Display Page Template Require.
 	 *
-	 * @version 3.2.1
+	 * @version 4.0.0
 	 * @since   1.3.0
 	 */
 	public function wp_head () {
-		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-opening-hours.php' );
 		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-display.php' );
 		new Structuring_Markup_Display( $this->version );
 	}
