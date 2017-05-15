@@ -58,6 +58,7 @@ class Structuring_Markup {
 			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		} else {
 			add_action( 'wp_head', array( $this, 'wp_head' ) );
+			add_filter( 'amp_post_template_metadata', array( $this, 'amp_post_template_metadata' ) );
 		}
 	}
 
@@ -229,5 +230,17 @@ class Structuring_Markup {
 	public function wp_head () {
 		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-display.php' );
 		new Structuring_Markup_Display( $this->version );
+	}
+
+	/**
+	 * Display Page Template Require.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 */
+	public function amp_post_template_metadata () {
+		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-display-amp.php' );
+		$amp = new Structuring_Markup_Display_Amp( $this->version );
+		return $amp->json_ld;
 	}
 }
