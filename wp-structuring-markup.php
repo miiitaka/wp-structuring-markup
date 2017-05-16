@@ -42,7 +42,7 @@ class Structuring_Markup {
 	/**
 	 * Constructor Define.
 	 *
-	 * @version 2.4.0
+	 * @version 4.0.0
 	 * @since   1.0.0
 	 */
 	public function __construct() {
@@ -58,7 +58,7 @@ class Structuring_Markup {
 			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		} else {
 			add_action( 'wp_head', array( $this, 'wp_head' ) );
-			add_filter( 'amp_post_template_metadata', array( $this, 'amp_post_template_metadata' ) );
+			add_filter( 'amp_post_template_metadata', array( $this, 'amp_post_template_metadata' ), 9 );
 		}
 	}
 
@@ -237,10 +237,16 @@ class Structuring_Markup {
 	 *
 	 * @version 4.0.0
 	 * @since   4.0.0
+	 * @param   array $metadata
+	 * @return  array $metadata
 	 */
-	public function amp_post_template_metadata () {
+	public function amp_post_template_metadata ( array $metadata ) {
 		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-display-amp.php' );
-		$amp = new Structuring_Markup_Display_Amp( $this->version );
-		return $amp->json_ld;
+		$amp = new Structuring_Markup_Display_Amp();
+
+		if ( !empty( $amp->json_ld ) ) {
+			$metadata = $amp->json_ld;
+		}
+		return (array) $metadata;
 	}
 }
