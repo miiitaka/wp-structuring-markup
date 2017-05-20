@@ -40,8 +40,11 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 3.2.6 (2017-05-20)
+- Checked : WordPress version 4.7.5 operation check.
+
 ### 3.2.5 (2017-04-24)
-* Checked : WordPress version 4.7.4 operation check.
+- Checked : WordPress version 4.7.4 operation check.
 
 ### 3.2.4 (2017-03-30)
 - Fixed : BreadcrumbList - Ignore the Home setting when setting the head fixed page.
