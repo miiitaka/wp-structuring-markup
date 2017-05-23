@@ -141,7 +141,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 			if ( !empty( $taxonomies ) ) {
 				foreach ( array_keys( $taxonomies ) as $key ) {
 					$terms = get_the_terms( $post->ID, $key );
-					for ( $i = 0; $i < count( $terms ); $i++) {
+					for ( $i = 0; $i < count( $terms ); $i++ ) {
 						$item_array[] = $this->set_schema_breadcrumb_item( get_term_link( $terms[$i]->term_id, $key ), $terms[$i]->name );
 					}
 				}
@@ -182,7 +182,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 			if ( !empty( $taxonomies ) ) {
 				foreach ( array_keys( $taxonomies ) as $key ) {
 					$terms = get_the_terms( $post->ID, $key );
-					for ( $i = 0; $i < count( $terms ); $i++) {
+					for ( $i = 0; $i < count( $terms ); $i++ ) {
 						$item_array[] = $this->set_schema_breadcrumb_item( get_term_link( $terms[$i]->term_id, $key ), $terms[$i]->name );
 					}
 				}
