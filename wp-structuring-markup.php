@@ -10,7 +10,7 @@ License: GPLv2 or later
 Text Domain: wp-structuring-markup
 Domain Path: /languages
 */
-require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-admin-db.php' );
+require_once( plugin_dir_path( __FILE__ ) . 'includes/admin/wp-structuring-admin-db.php' );
 
 new Structuring_Markup();
 
@@ -18,7 +18,7 @@ new Structuring_Markup();
  * Schema.org Basic Class
  *
  * @author  Kazuya Takami
- * @version 3.2.6
+ * @version 4.0.0
  * @since   1.0.0
  */
 class Structuring_Markup {
@@ -26,10 +26,10 @@ class Structuring_Markup {
 	/**
 	 * Variable definition version.
 	 *
-	 * @version 3.2.6
+	 * @version 4.0.0
 	 * @since   1.3.0
 	 */
-	private $version = '3.2.6';
+	private $version = '4.0.0';
 
 	/**
 	 * Variable definition Text Domain.
@@ -42,7 +42,7 @@ class Structuring_Markup {
 	/**
 	 * Constructor Define.
 	 *
-	 * @version 2.4.0
+	 * @version 4.0.0
 	 * @since   1.0.0
 	 */
 	public function __construct() {
@@ -58,6 +58,7 @@ class Structuring_Markup {
 			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		} else {
 			add_action( 'wp_head', array( $this, 'wp_head' ) );
+			add_filter( 'amp_post_template_metadata', array( $this, 'amp_post_template_metadata' ), 9 );
 		}
 	}
 
@@ -108,13 +109,13 @@ class Structuring_Markup {
 	/**
 	 * Create custom post type.
 	 *
-	 * @version 3.0.0
+	 * @version 4.0.0
 	 * @since   2.1.0
 	 */
 	function create_post_type () {
-		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-custom-post-event.php' );
+		require_once( plugin_dir_path( __FILE__ ) . 'includes/custom/wp-structuring-custom-post-event.php' );
 		new Structuring_Markup_Custom_Post_Event( $this->text_domain );
-		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-custom-post-video.php' );
+		require_once( plugin_dir_path( __FILE__ ) . 'includes/custom/wp-structuring-custom-post-video.php' );
 		new Structuring_Markup_Custom_Post_Video( $this->text_domain );
 	}
 
@@ -201,34 +202,51 @@ class Structuring_Markup {
 	/**
 	 * LIST Page Template Require.
 	 *
-	 * @version 1.3.0
+	 * @version 4.0.0
 	 * @since   1.0.0
 	 */
 	public function list_page_render () {
-		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-admin-list.php' );
+		require_once( plugin_dir_path( __FILE__ ) . 'includes/admin/wp-structuring-admin-list.php' );
 		new Structuring_Markup_Admin_List( $this->text_domain );
 	}
 
 	/**
 	 * POST Page Template Require.
 	 *
-	 * @version 1.3.0
+	 * @version 4.0.0
 	 * @since   1.0.0
 	 */
 	public function post_page_render () {
-		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-admin-post.php' );
+		require_once( plugin_dir_path( __FILE__ ) . 'includes/admin/wp-structuring-admin-post.php' );
 		new Structuring_Markup_Admin_Post( $this->text_domain );
 	}
 
 	/**
 	 * Display Page Template Require.
 	 *
-	 * @version 3.2.1
+	 * @version 4.0.0
 	 * @since   1.3.0
 	 */
 	public function wp_head () {
-		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-opening-hours.php' );
 		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-display.php' );
 		new Structuring_Markup_Display( $this->version );
+	}
+
+	/**
+	 * Display Page Template Require.
+	 *
+	 * @version 4.0.0
+	 * @since   4.0.0
+	 * @param   array $metadata
+	 * @return  array $metadata
+	 */
+	public function amp_post_template_metadata ( array $metadata ) {
+		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-display-amp.php' );
+		$amp = new Structuring_Markup_Display_Amp();
+
+		if ( !empty( $amp->json_ld ) ) {
+			$metadata = $amp->json_ld;
+		}
+		return (array) $metadata;
 	}
 }
