@@ -62,7 +62,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	/**
 	 * Breadcrumb array setting.
 	 *
-	 * @version 3.2.4
+	 * @version 4.0.0
 	 * @since   2.0.0
 	 * @access  public
 	 * @param   array $options
@@ -72,7 +72,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 		global $post;
 
 		/** item build */
-		$item_array = array();
+		$item_array  = array();
 		$current_url = esc_url( home_url() . $_SERVER['REQUEST_URI'] );
 
 		if ( get_option( 'show_on_front' ) == 'page' ) {
@@ -137,60 +137,83 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 				$item_array[] = $this->set_schema_breadcrumb_item( get_post_type_archive_link( get_post_type() ), post_type_archive_title( '', false) );
 			}
 		} elseif ( is_archive() ) {
-			$taxonomies = get_the_taxonomies( $post->ID );
-			if ( !empty( $taxonomies ) ) {
-				foreach ( array_keys( $taxonomies ) as $key ) {
-					$terms = get_the_terms( $post->ID, $key );
-					for ( $i = 0; $i < count( $terms ); $i++ ) {
-						$item_array[] = $this->set_schema_breadcrumb_item( get_term_link( $terms[$i]->term_id, $key ), $terms[$i]->name );
+			if ( get_post_type_archive_link( get_post_type() ) ) {
+				$item_array[] = $this->set_schema_breadcrumb_item( get_post_type_archive_link( get_post_type() ), get_post_type_object( get_post_type() )->label );
+			}
+			if( is_tax() ){
+				$tax_slug  = get_query_var( 'taxonomy' );
+				$term_slug = get_query_var( 'term' );
+				$term      = get_term_by( "slug", $term_slug, $tax_slug );
+
+				if( $term->parent !== 0 ) {
+					$ancestors = array_reverse( get_ancestors( $term->term_taxonomy_id, $tax_slug ) );
+					foreach( $ancestors as $ancestor ) {
+						$item_array[] = $this->set_schema_breadcrumb_item( get_category_link( $ancestor ), get_cat_name( $ancestor ) );
 					}
 				}
+				$item_array[] = $this->set_schema_breadcrumb_item( get_term_link( $term_slug, $tax_slug ), esc_html( $term->name ) );
 			}
 		} elseif ( is_singular( 'post' ) ) {
-			$terms       = get_the_terms( $post->ID, 'category' );
-			$term_bottom = array();
-
-			if ( $terms && ! is_wp_error( $terms ) ) {
-				$parent_ids  = array();
-
-				foreach ( $terms as $term ) {
-					if ( $term->parent != 0 ) {
-						$parent_ids[] = $term->parent;
-					}
-				}
-				foreach ( $terms as $term ) {
-					if ( !in_array( $term->term_id, $parent_ids ) ) {
-						$term_bottom[] = $term->term_id;
-					}
-				}
-			}
-
-			if ( count( $term_bottom ) > 0 ) {
-				$ancestors   = array_reverse( get_ancestors( $term_bottom[0], 'category' ) );
-				$ancestors[] = $term_bottom[0];
-
-				foreach ( $ancestors as $ancestor ) {
-					$item_array[] = $this->set_schema_breadcrumb_item( get_category_link( $ancestor ), get_cat_name( $ancestor ) );
-				}
+			$args = $this->set_taxonomy_item( $post->ID, 'category' );
+			if ( count( $args ) > 0 ) {
+				$item_array = array_merge( $item_array, $args );
 			}
 			$item_array[] = $this->set_schema_breadcrumb_item( $current_url, $post->post_title );
 		} elseif ( is_single() ) {
 			if ( get_post_type_archive_link( get_post_type() ) ) {
 				$item_array[] = $this->set_schema_breadcrumb_item( get_post_type_archive_link( get_post_type() ), get_post_type_object( get_post_type() )->label );
 			}
-			$taxonomies = get_the_taxonomies( $post->ID );
-			if ( !empty( $taxonomies ) ) {
-				foreach ( array_keys( $taxonomies ) as $key ) {
-					$terms = get_the_terms( $post->ID, $key );
-					for ( $i = 0; $i < count( $terms ); $i++ ) {
-						$item_array[] = $this->set_schema_breadcrumb_item( get_term_link( $terms[$i]->term_id, $key ), $terms[$i]->name );
-					}
+			$taxonomy_names = get_post_taxonomies();
+			if ( count( $taxonomy_names ) > 0 ) {
+				$args = $this->set_taxonomy_item( $post->ID, $taxonomy_names[0] );
+				if ( count( $args ) > 0 ) {
+					$item_array = array_merge( $item_array, $args );
 				}
 			}
 			$item_array[] = $this->set_schema_breadcrumb_item( $current_url, $post->post_title );
 		}
 
 		return (array) $item_array;
+	}
+
+	/**
+	 * taxonomy item settings
+	 *
+	 * @since   4.0.0
+	 * @version 4.0.0
+	 * @param   int    $id
+	 * @param   string $taxonomy
+	 * @return  array  $args
+	 */
+	private function set_taxonomy_item ( $id, $taxonomy ) {
+		$terms       = get_the_terms( $id, $taxonomy );
+		$term_bottom = array();
+		$args        = array();
+
+		if ( $terms && ! is_wp_error( $terms ) ) {
+			$parent_ids  = array();
+
+			foreach ( $terms as $term ) {
+				if ( $term->parent != 0 ) {
+					$parent_ids[] = $term->parent;
+				}
+			}
+			foreach ( $terms as $term ) {
+				if ( !in_array( $term->term_id, $parent_ids ) ) {
+					$term_bottom[] = $term->term_id;
+				}
+			}
+		}
+
+		if ( count( $term_bottom ) > 0 ) {
+			$ancestors   = array_reverse( get_ancestors( $term_bottom[0], $taxonomy ) );
+			$ancestors[] = $term_bottom[0];
+
+			foreach ( $ancestors as $ancestor ) {
+				$args[] = $this->set_schema_breadcrumb_item( get_category_link( $ancestor ), get_cat_name( $ancestor ) );
+			}
+		}
+		return (array) $args;
 	}
 
 	/**
