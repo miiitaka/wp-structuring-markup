@@ -258,7 +258,8 @@ class Structuring_Markup_Admin_Post {
 				new Structuring_Markup_Type_Person( $options['option'] );
 				break;
 			case 'site_navigation':
-				$html  = $this->output_checkbox_render( $options['output'], "all", esc_html__( 'All Pages (In Header)', $this->text_domain ) );
+				$html  = $this->output_checkbox_render( $options['output'], "all",  esc_html__( 'All Pages (In Header)', $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "home", esc_html__( 'Homepage',              $this->text_domain ) );
 				$html .= '</td></tr></table><hr>';
 				echo $html;
 
