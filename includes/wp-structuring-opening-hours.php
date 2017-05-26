@@ -134,8 +134,8 @@ class Structuring_Markup_Opening_Hours {
 		$object       = $this;
 
 		return (array) array_reduce( $grouped_days, function($result, $group) use ( $days, $object ) {
-	        return array_merge( $result, $object->group_periods_to_day_range( $group ) );
-	    }, array() );
+			return array_merge( $result, $object->group_periods_to_day_range( $group ) );
+		}, array() );
 	}
 
 	/**
@@ -186,15 +186,15 @@ class Structuring_Markup_Opening_Hours {
 
 		arsort($consecutive_days);
 
-	    $sort_by_day_func = function( $a, $b ) use ( $days ) {
-	        $aKey = array_search( $a['start'], $days );
-	        $bKey = array_search( $b['start'], $days );
-	        return $aKey === $bKey ? 1 : $aKey < $bKey ? -1 : 1;
-	    };
+		$sort_by_day_func = function( $a, $b ) use ( $days ) {
+			$aKey = array_search( $a['start'], $days );
+			$bKey = array_search( $b['start'], $days );
+			return $aKey === $bKey ? 1 : $aKey < $bKey ? -1 : 1;
+		};
 
-	    usort($consecutive_days, $sort_by_day_func);
+		usort($consecutive_days, $sort_by_day_func);
 
-	    return (array) $consecutive_days;
+		return (array) $consecutive_days;
 	}
 
 	/**

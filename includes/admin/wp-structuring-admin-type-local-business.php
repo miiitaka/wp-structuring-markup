@@ -1,6 +1,6 @@
 <?php
 /**
- * Schema.org Type Organization
+ * Schema.org Type LocalBusiness
  *
  * @author  Kazuya Takami
  * @version 3.0.5

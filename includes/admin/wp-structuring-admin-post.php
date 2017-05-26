@@ -3,7 +3,7 @@
  * Schema.org Admin Post
  *
  * @author  Kazuya Takami
- * @version 3.1.0
+ * @version 4.0.0
  * @since   1.0.0
  */
 class Structuring_Markup_Admin_Post {
@@ -118,7 +118,7 @@ class Structuring_Markup_Admin_Post {
 	/**
 	 * Setting Page of the Admin Screen.
 	 *
-	 * @version 3.1.2
+	 * @version 4.0.0
 	 * @since   1.0.0
 	 * @param   array  $options
 	 * @param   string $status
@@ -163,8 +163,9 @@ class Structuring_Markup_Admin_Post {
 
 		switch ( $options['type'] ) {
 			case 'article':
-				$html  = $this->output_checkbox_render( $options['output'], "post", esc_html__( 'Posts', $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "page", esc_html__( 'Pages', $this->text_domain ) );
+				$html  = $this->output_checkbox_render( $options['output'], "post", esc_html__( 'Posts',      $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "page", esc_html__( 'Pages',      $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "amp",  esc_html__( 'Posts(AMP)', $this->text_domain ) );
 				$html .= '</td></tr>';
 				$html .= $this->output_custom_posts_render( $options['output'] );
 				$html .= '</table><hr>';
@@ -174,8 +175,9 @@ class Structuring_Markup_Admin_Post {
 				new Structuring_Markup_Type_Article( $options['option'] );
 				break;
 			case 'blog_posting':
-				$html  = $this->output_checkbox_render( $options['output'], "post", esc_html__( 'Posts', $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "page", esc_html__( 'Pages', $this->text_domain ) );
+				$html  = $this->output_checkbox_render( $options['output'], "post", esc_html__( 'Posts',      $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "page", esc_html__( 'Pages',      $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "amp",  esc_html__( 'Posts(AMP)', $this->text_domain ) );
 				$html .= '</td></tr>';
 				$html .= $this->output_custom_posts_render( $options['output'] );
 				$html .= '</table><hr>';
@@ -215,8 +217,9 @@ class Structuring_Markup_Admin_Post {
 				new Structuring_Markup_Type_LocalBusiness( $options['option'] );
 				break;
 			case 'news_article':
-				$html  = $this->output_checkbox_render( $options['output'], "post", esc_html__( 'Posts', $this->text_domain ) );
-				$html .= $this->output_checkbox_render( $options['output'], "page", esc_html__( 'Pages', $this->text_domain ) );
+				$html  = $this->output_checkbox_render( $options['output'], "post", esc_html__( 'Posts',      $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "page", esc_html__( 'Pages',      $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "amp",  esc_html__( 'Posts(AMP)', $this->text_domain ) );
 				$html .= '</td></tr>';
 				$html .= $this->output_custom_posts_render( $options['output'] );
 				$html .= '</table><hr>';
@@ -255,7 +258,8 @@ class Structuring_Markup_Admin_Post {
 				new Structuring_Markup_Type_Person( $options['option'] );
 				break;
 			case 'site_navigation':
-				$html  = $this->output_checkbox_render( $options['output'], "all", esc_html__( 'All Pages (In Header)', $this->text_domain ) );
+				$html  = $this->output_checkbox_render( $options['output'], "all",  esc_html__( 'All Pages (In Header)', $this->text_domain ) );
+				$html .= $this->output_checkbox_render( $options['output'], "home", esc_html__( 'Homepage',              $this->text_domain ) );
 				$html .= '</td></tr></table><hr>';
 				echo $html;
 
