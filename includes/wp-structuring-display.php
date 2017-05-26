@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @author  Justin Frydman
- * @version 4.0.0
+ * @version 4.0.1
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -180,12 +180,12 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting JSON-LD Template
 	 *
-	 * @since 3.0.0
+	 * @since 4.0.1
 	 * @since 1.0.0
 	 * @param array   $args
 	 * @param boolean $error
 	 */
-	private function set_schema_json ( array $args, $error = false ) {
+	private function set_schema_json ( $args, $error = false ) {
 		if ( $error ) {
 			/** Error Display */
 			if ( isset( $args["@type"] ) ) {
@@ -194,9 +194,11 @@ class Structuring_Markup_Display {
 				}
 			}
 		} else {
-			echo '<script type="application/ld+json">', PHP_EOL;
-			echo json_encode( $args, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ), PHP_EOL;
-			echo '</script>', PHP_EOL;
+			if ( is_array( $args ) ) {
+				echo '<script type="application/ld+json">', PHP_EOL;
+				echo json_encode( $args, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ), PHP_EOL;
+				echo '</script>', PHP_EOL;
+			}
 		}
 	}
 }
