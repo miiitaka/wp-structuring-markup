@@ -40,6 +40,11 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 4.0.1 (2017-05-25)
+- Added : Hook point of AMP plug-ins (Automattic, Inc. release). https://wordpress.org/plugins/amp/
+- Added : Site Navigation on only Home Page.
+- Fixed : Problem with custom taxonomies.(BreadcrumbList)
+
 ### 3.2.6 (2017-05-20)
 - Checked : WordPress version 4.7.5 operation check.
 
