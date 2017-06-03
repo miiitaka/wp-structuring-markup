@@ -48,7 +48,7 @@ class Structuring_Markup_Admin_List {
 		$html .= '<table class="wp-list-table widefat fixed striped posts schema-admin-table-list">';
 		$html .= '<tr>';
 		$html .= '<th scope="row" class="schema-admin-table-list-type column-primary">' . esc_html__( 'Status', $this->text_domain ) . '&nbsp;&nbsp;/&nbsp;&nbsp;' . esc_html__( 'Schema.org Type', $this->text_domain ) . '</th>';
-		$html .= '<th scope="row" class="schema-admin-table-list-output">' . esc_html__( 'Output On',       $this->text_domain ) . '</th>';
+		$html .= '<th scope="row" class="schema-admin-table-list-output">' . esc_html__( 'Output On', $this->text_domain ) . '</th>';
 		$html .= '</tr>';
 		echo $html;
 
@@ -72,7 +72,7 @@ class Structuring_Markup_Admin_List {
 				$html .= '</a></span></div>';
 				$html .= '<button type="button" class="toggle-row"><span class="screen-reader-text">' . __( 'Show more details', $this->text_domain ) . '</span></button>';
 				$html .= '</td>';
-				$html .= '<td data-colname="' . esc_html__( 'Output On',       $this->text_domain ) . '">' . $this->unserialize_output( $row->output ) . '</td>';
+				$html .= '<td data-colname="' . esc_html__( 'Output On', $this->text_domain ) . '">' . $this->unserialize_output( $row->output ) . '</td>';
 				$html .= '</tr>';
 				echo $html;
 			}
