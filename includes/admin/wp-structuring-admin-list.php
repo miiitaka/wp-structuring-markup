@@ -47,8 +47,7 @@ class Structuring_Markup_Admin_List {
 		$html  = '<hr>';
 		$html .= '<table class="wp-list-table widefat fixed striped posts schema-admin-table-list">';
 		$html .= '<tr>';
-		$html .= '<th scope="row" class="schema-admin-table-list-status column-primary">' . esc_html__( 'Status',          $this->text_domain ) . '</th>';
-		$html .= '<th scope="row" class="schema-admin-table-list-type">'   . esc_html__( 'Schema.org Type', $this->text_domain ) . '</th>';
+		$html .= '<th scope="row" class="schema-admin-table-list-type column-primary">' . esc_html__( 'Status', $this->text_domain ) . '&nbsp;&nbsp;/&nbsp;&nbsp;' . esc_html__( 'Schema.org Type', $this->text_domain ) . '</th>';
 		$html .= '<th scope="row" class="schema-admin-table-list-output">' . esc_html__( 'Output On',       $this->text_domain ) . '</th>';
 		$html .= '</tr>';
 		echo $html;
@@ -60,24 +59,25 @@ class Structuring_Markup_Admin_List {
 		if ( $results ) {
 			foreach ( $results as $row ) {
 				if ( $row->activate === 'on' ) {
-					$html = '<tr class="active"><td class="column-primary"><span class="active">Enabled';
+					$html = '<tr class="active"><td class="column-primary"><span><span class="active">Enabled';
 				} else {
-					$html = '<tr class="stop"><td class="column-primary"><span class="stop">Disabled';
+					$html = '<tr class="stop"><td class="column-primary"><span><span class="stop">Disabled';
 				}
-				$html .= '</span>';
-				$html .= '<button type="button" class="toggle-row"><span class="screen-reader-text">' . __( 'Show more details', $this->text_domain ) . '</span></button></td>';
-				$html .= '<td data-colname="'   . esc_html__( 'Schema.org Type', $this->text_domain ) . '"><a href="';
+				$html .= '</span></span>';
+				$html .= '<strong><a href="';
 				$html .= admin_url( $post_url . '&type=' . esc_html( $row->type ) . '&schema_post_id=' . esc_html( $row->id ) ) . '">' . $type_array[esc_html( $row->type )];
-				$html .= '</a></td>';
+				$html .= '</a></strong>';
+				$html .= '<div class="row-actions"><span class="edit"><a href="';
+				$html .= admin_url( $post_url . '&type=' . esc_html( $row->type ) . '&schema_post_id=' . esc_html( $row->id ) ) . '" class="edit" aria-label="編集">' . esc_html__( 'Edit', $this->text_domain );
+				$html .= '</a></span></div>';
+				$html .= '<button type="button" class="toggle-row"><span class="screen-reader-text">' . __( 'Show more details', $this->text_domain ) . '</span></button>';
+				$html .= '</td>';
 				$html .= '<td data-colname="' . esc_html__( 'Output On',       $this->text_domain ) . '">' . $this->unserialize_output( $row->output ) . '</td>';
-//				$html .= '<td><a href="';
-//				$html .= admin_url( $post_url . '&type=' . esc_html( $row->type ) . '&schema_post_id=' . esc_html( $row->id ) ) . '">' . esc_html__( 'Edit', $this->text_domain );
-//				$html .= '</a></td>';
 				$html .= '</tr>';
 				echo $html;
 			}
 		} else {
-			echo '<td colspan="5">' . esc_html__( 'Without registration.', $this->text_domain ) . '</td>';
+			echo '<td colspan="2">' . esc_html__( 'Without registration.', $this->text_domain ) . '</td>';
 		}
 		$html  = '</table>';
 		$html .= '</div>';
