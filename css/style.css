@@ -1,8 +1,4 @@
 /** List Setting */
-.schema-admin-table-list .schema-admin-table-list-status {
-	width: 10em;
-}
-
 .schema-admin-table-list .schema-admin-table-list-type {
 	width: 15%;
 }
@@ -15,14 +11,20 @@
 	vertical-align: middle;
 }
 
-.schema-admin-table-list td:nth-child(1) span {
+.schema-admin-table-list td:nth-child(1) > span {
+	float: left;
+	height: 2em;
+}
+
+.schema-admin-table-list td:nth-child(1) > span span {
 	display: inline-block;
+	margin: 0 10px 0 0;
 	padding: 0 1em 0 1em;
 	text-align: center;
 	width: 8em;
 }
 
-.schema-admin-table-list td:nth-child(1) span.active {
+.schema-admin-table-list td:nth-child(1) > span span.active {
 	background: #00a0d2;
 	color: #fff;
 }
@@ -35,7 +37,7 @@
 	background: #efefef;
 }
 
-.schema-admin-table-list td:nth-child(1) span.stop {
+.schema-admin-table-list td:nth-child(1) > span span.stop {
 	background: #ddd;
 }
 
