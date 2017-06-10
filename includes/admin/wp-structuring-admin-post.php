@@ -44,7 +44,7 @@ class Structuring_Markup_Admin_Post {
 	/**
 	 * Constructor Define.
 	 *
-	 * @version 3.0.2
+	 * @version 4.0.2
 	 * @since   1.0.0
 	 * @param   String $text_domain
 	 */
@@ -54,6 +54,10 @@ class Structuring_Markup_Admin_Post {
 			'_builtin' => false
 		);
 		$post_types = get_post_types( $args, 'objects' );
+
+		unset( $post_types['schema_event_post'] );
+		unset( $post_types['schema_video_post'] );
+
 		foreach ( $post_types as $post_type ) {
 			$this->post_args[] = array(
 				'label' => esc_html( $post_type->label ),
@@ -317,17 +321,20 @@ class Structuring_Markup_Admin_Post {
 	/**
 	 * Custom Posts Build Render
 	 *
-	 * @version 2.5.0
+	 * @version 4.0.2
 	 * @since   2.5.0
 	 * @param   array  $option['output']
 	 * @return  string $html
 	 */
 	private function output_custom_posts_render ( array $option ) {
-		$html  = '<tr><th>' . esc_html__( 'Output On(Custom Posts)', $this->text_domain ) . ' : </th><td>';
-		foreach ( $this->post_args as $post_type ) {
-			$html .= $this->output_checkbox_render( $option, $post_type['value'], $post_type['label'] );
+		$html = '';
+		if ( count( $this->post_args ) > 0 ) {
+			$html .= '<tr><th>' . esc_html__( 'Output On(Custom Posts)', $this->text_domain ) . ' : </th><td>';
+			foreach ( $this->post_args as $post_type ) {
+				$html .= $this->output_checkbox_render( $option, $post_type['value'], $post_type['label'] );
+			}
+			$html .= '</td></tr>';
 		}
-		$html .= '</td></tr>';
 		return (string) $html;
 	}
 
