@@ -1,10 +1,21 @@
 /** List Setting */
+.schema-admin-table-list {
+	border-collapse: collapse;
+}
 .schema-admin-table-list .schema-admin-table-list-type {
 	width: 15%;
 }
 
 .schema-admin-table-list .schema-admin-table-list-output {
 	width: 30%;
+}
+
+.schema-admin-table-list tr {
+	border-bottom: solid 1px #ddd;
+}
+
+.schema-admin-table-list tr:last-child {
+	border-bottom: none;
 }
 
 .schema-admin-table-list td {
