@@ -40,6 +40,11 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 4.0.2 (2017-06-14)
+- Checked : WordPress version 4.8.0 operation check.
+- Updated : Warning: Event type schema.org ( availability, validFrom and performer. )
+- Fixed : Events and videos of custom posts should not appear in choices.
+
 ### 4.0.1 (2017-05-25)
 - Added : Hook point of AMP plug-ins (Automattic, Inc. release). https://wordpress.org/plugins/amp/
 - Added : Site Navigation on only Home Page.

@@ -1,8 +1,7 @@
 /** List Setting */
-.schema-admin-table-list .schema-admin-table-list-status {
-	width: 10em;
+.schema-admin-table-list {
+	border-collapse: collapse;
 }
-
 .schema-admin-table-list .schema-admin-table-list-type {
 	width: 15%;
 }
@@ -11,18 +10,32 @@
 	width: 30%;
 }
 
+.schema-admin-table-list tr {
+	border-bottom: solid 1px #ddd;
+}
+
+.schema-admin-table-list tr:last-child {
+	border-bottom: none;
+}
+
 .schema-admin-table-list td {
 	vertical-align: middle;
 }
 
-.schema-admin-table-list td:nth-child(1) span {
+.schema-admin-table-list td:nth-child(1) > span {
+	float: left;
+	height: 2em;
+}
+
+.schema-admin-table-list td:nth-child(1) > span span {
 	display: inline-block;
+	margin: 0 10px 0 0;
 	padding: 0 1em 0 1em;
 	text-align: center;
 	width: 8em;
 }
 
-.schema-admin-table-list td:nth-child(1) span.active {
+.schema-admin-table-list td:nth-child(1) > span span.active {
 	background: #00a0d2;
 	color: #fff;
 }
@@ -35,7 +48,7 @@
 	background: #efefef;
 }
 
-.schema-admin-table-list td:nth-child(1) span.stop {
+.schema-admin-table-list td:nth-child(1) > span span.stop {
 	background: #ddd;
 }
 
@@ -97,7 +110,8 @@
 }
 
 .schema-admin-table input:invalid {
-	box-shadow: 0 0 1px 1px #a00;
+	border: solid 1px #d8000c;
+	background: #ffbaba;
 }
 
 /** LocalBusiness */
