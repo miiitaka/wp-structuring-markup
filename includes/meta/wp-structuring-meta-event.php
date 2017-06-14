@@ -3,7 +3,7 @@
  * Schema.org Type Event
  *
  * @author  Kazuya Takami
- * @version 4.0.0
+ * @version 4.0.2
  * @since   4.0.0
  * @link    http://schema.org/Event
  * @link    http://schema.org/Place
@@ -15,7 +15,7 @@ class Structuring_Markup_Meta_Event {
 	/**
 	 * Setting schema.org Event
 	 *
-	 * @version 4.0.0
+	 * @version 4.0.2
 	 * @since   4.0.0
 	 * @return  array $args
 	 */
@@ -26,7 +26,7 @@ class Structuring_Markup_Meta_Event {
 		if ( isset( $meta[0] ) ) {
 			$meta = unserialize( $meta[0] );
 
-			/* required items */
+			// @type: Event
 			if ( !isset( $meta['schema_event_type']) )             $meta['schema_event_type']            = 'Event';
 			if ( !isset( $meta['schema_event_name']) )             $meta['schema_event_name']            = '';
 			if ( !isset( $meta['schema_event_date']) )             $meta['schema_event_date']            = date('Y-m-d');
@@ -49,16 +49,10 @@ class Structuring_Markup_Meta_Event {
 					"sameAs"  => esc_url( $meta['schema_event_place_url'] ),
 					"name"    => esc_html( $meta['schema_event_place_name'] ),
 					"address" => esc_html( $meta['schema_event_place_address'] )
-				),
-				"offers"    => array(
-					"@type"         => "Offer",
-					"price"         => esc_html( $meta['schema_event_offers_price'] ),
-					"priceCurrency" => esc_html( $meta['schema_event_offers_currency'] ),
-					"url"           => esc_url( $meta['schema_event_url'] )
 				)
 			);
 
-			/* recommended items */
+			// @type: Event recommended items
 			if ( isset( $meta['schema_event_description'] ) && $meta['schema_event_description'] !== '' ) {
 				$args['description'] = esc_html( $meta['schema_event_description'] );
 			}
@@ -67,6 +61,32 @@ class Structuring_Markup_Meta_Event {
 			}
 			if ( isset( $meta['schema_event_date_end'] ) && $meta['schema_event_date_end'] !== '' && isset( $meta['schema_event_time_end'] ) && $meta['schema_event_time_end'] !== '' ) {
 				$args['endDate'] = esc_html( $meta['schema_event_date_end'] ) . 'T' . esc_html( $meta['schema_event_time_end'] );
+			}
+
+			// @type: Offer
+			$offer = array(
+				"@type"         => "Offer",
+				"price"         => esc_html( $meta['schema_event_offers_price'] ),
+				"priceCurrency" => esc_html( $meta['schema_event_offers_currency'] ),
+				"url"           => esc_url( $meta['schema_event_url'] )
+			);
+
+			// @type: Offer recommended items
+			if ( isset( $meta['schema_event_offers_availability'] ) && $meta['schema_event_offers_availability'] !== '' ) {
+				$offer['availability'] = "http://schema.org/" . esc_html( $meta['schema_event_offers_availability'] );
+			}
+			if ( isset( $meta['schema_event_offers_date'] ) && $meta['schema_event_offers_date'] !== '' && isset( $meta['schema_event_offers_time'] ) && $meta['schema_event_offers_time'] !== '' ) {
+				$offer['validFrom'] = esc_html( $meta['schema_event_offers_date'] ) . 'T' . esc_html( $meta['schema_event_offers_time'] );
+			}
+
+			$args['offers'] = $offer;
+
+			// @type: PerformingGroup recommended items
+			if ( isset( $meta['schema_event_performer_name'] ) && $meta['schema_event_performer_name'] !== '' ) {
+				$args['performer'] = array(
+					"@type" => "PerformingGroup",
+					"name"  => esc_html( $meta['schema_event_performer_name'] )
+				);
 			}
 
 			return (array) $args;

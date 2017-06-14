@@ -3,7 +3,7 @@
  * Schema.org Type Event
  *
  * @author  Kazuya Takami
- * @version 3.2.4
+ * @version 4.0.2
  * @since   2.1.0
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/Event
@@ -25,7 +25,7 @@ class Structuring_Markup_Type_Event {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 3.2.4
+	 * @version 4.0.2
 	 * @since   2.1.0
 	 */
 	private function page_render () {
@@ -44,16 +44,23 @@ class Structuring_Markup_Type_Event {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Location Type "Place" Setting</caption>';
 		$html .= '<tr><th class="require">name :</th><td><small>Input a custom post: field name "schema_event_place_name"</small></td></tr>';
-		$html .= '<tr><th>url(sameAs) :</th><td><small>Input a custom post: field name "schema_event_place_url"</small></td></tr>';
+		$html .= '<tr><th>url(sameAs) :</th><td><small>Input a custom post: field name "schema_event_url"</small></td></tr>';
 		$html .= '<tr><th class="require">address :</th><td><small>Input a custom post: field name "schema_event_place_address"</small></td></tr>';
 		$html .= '</table>';
 		echo $html;
 
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Location Type "Offers" Setting</caption>';
-		$html .= '<tr><th>price :</th><td><small>Input a custom post: field name "schema_event_place_name"</small></td></tr>';
-		$html .= '<tr><th class="require">priceCurrency :</th><td><small>Input a custom post: field name "schema_event_place_address"</small></td></tr>';
+		$html .= '<tr><th>price :</th><td><small>Input a custom post: field name "schema_event_offers_price"</small></td></tr>';
+		$html .= '<tr><th class="require">priceCurrency :</th><td><small>Input a custom post: field name "schema_event_offers_currency"</small></td></tr>';
 		$html .= '<tr><th>url :</th><td><small>Input a custom post: field name "schema_event_place_url"</small></td></tr>';
+		$html .= '<tr><th>validFrom :</th><td><small>Input a custom post: field name "schema_event_offers_date" & "schema_event_offers_time"</small></td></tr>';
+		$html .= '</table>';
+		echo $html;
+
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>Location Type "PerformingGroup" Setting</caption>';
+		$html .= '<tr><th>name :</th><td><small>Input a custom post: field name "schema_event_performer_name"</small></td></tr>';
 		$html .= '</table>';
 		echo $html;
 
