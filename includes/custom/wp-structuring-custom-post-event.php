@@ -3,7 +3,7 @@
  * Schema.org Custom Post "Event"
  *
  * @author  Kazuya Takami
- * @version 3.2.3
+ * @version 4.0.2
  * @since   2.1.0
  * @link    https://schema.org/Event
  * @link    https://developers.google.com/search/docs/data-types/events
@@ -45,6 +45,18 @@ class Structuring_Markup_Custom_Post_Event {
 		"SportsEvent",
 		"TheaterEvent",
 		"VisualArtsEvent"
+	);
+
+	/**
+	 * Event Type.
+	 *
+	 * @version 4.0.2
+	 * @since   4.0.2
+	 */
+	private $offers_availability = array(
+		"InStock",
+		"SoldOut",
+		"PreOrder"
 	);
 
 	/**
@@ -124,7 +136,7 @@ class Structuring_Markup_Custom_Post_Event {
 	/**
 	 * Set custom fields.
 	 *
-	 * @version 3.2.3
+	 * @version 4.0.2
 	 * @since   2.1.0
 	 */
 	public function set_custom_fields () {
@@ -149,7 +161,7 @@ class Structuring_Markup_Custom_Post_Event {
 			if ( $value === $args['schema_event_type'] ) {
 				$html .= ' selected="selected"';
 			}
-			$html .=  ' value="' . $value . '">' . $value . '</option>';
+			$html .= ' value="' . $value . '">' . $value . '</option>';
 		}
 		$html .= '</select>';
 		$html .= '</td></tr>';
@@ -200,6 +212,19 @@ class Structuring_Markup_Custom_Post_Event {
 		$html .= '&nbsp;(required)</label></td><td>';
 		$html .= '<input type="text" name="option[' . "schema_event_place_address" . ']" id="schema_event_place_address" class="regular-text" required value="' . esc_attr( $args['schema_event_place_address'] ) . '">';
 		$html .= '</td></tr>';
+		$html .= '<tr><td><label for="schema_event_type">';
+		$html .= esc_html__( 'Availability', $this->text_domain );
+		$html .= '&nbsp;(required)</label></td><td>';
+		$html .= '<select name="option[' . "schema_event_offers_availability" . ']" id="schema_event_offers_availability">';
+		foreach( $this->offers_availability as $value) {
+			$html .= '<option';
+			if ( $value === $args['schema_event_offers_availability'] ) {
+				$html .= ' selected="selected"';
+			}
+			$html .= ' value="' . $value . '">' . $value . '</option>';
+		}
+		$html .= '</select>';
+		$html .= '</td></tr>';
 		$html .= '<tr><td><label for="schema_event_offers_price">';
 		$html .= esc_html__( 'Price', $this->text_domain );
 		$html .= '&nbsp;(required)</label></td><td>';
@@ -210,6 +235,17 @@ class Structuring_Markup_Custom_Post_Event {
 		$html .= '&nbsp;(required)</label></td><td>';
 		$html .= '<input type="text" name="option[' . "schema_event_offers_currency" . ']" id="schema_event_offers_currency" maxlength="3" required value="' . esc_attr( $args['schema_event_offers_currency'] ) . '">';
 		$html .= '&nbsp;&nbsp;<small>( with <a hre="https://en.wikipedia.org/wiki/ISO_4217#Active_codes" target="_blank">ISO 4217 codes</a> e.g. "USD" )</small>';
+		$html .= '</td></tr>';
+		$html .= '<tr><td><label for="schema_event_offers_date">';
+		$html .= esc_html__( 'validFrom', $this->text_domain );
+		$html .= '&nbsp;(recommended)</label></td><td>';
+		$html .= '<input type="date" name="option[' . "schema_event_offers_date" . ']" id="schema_event_offers_date" value="' . esc_attr( $args['schema_event_offers_date'] ) . '">';
+		$html .= '<input type="time" name="option[' . "schema_event_offers_time" . ']" id="schema_event_offers_time" value="' . esc_attr( $args['schema_event_offers_time'] ) . '">';
+		$html .= '</td></tr>';
+		$html .= '<tr><td><label for="schema_event_performer_name">';
+		$html .= esc_html__( 'Event Performer', $this->text_domain );
+		$html .= '&nbsp;(recommended)</label></td><td>';
+		$html .= '<input type="text" name="option[' . "schema_event_performer_name" . ']" id="schema_event_performer_name" class="regular-text" required value="' . esc_attr( $args['schema_event_performer_name'] ) . '">';
 		$html .= '</td></tr>';
 		$html .= '</table>';
 
@@ -232,26 +268,30 @@ class Structuring_Markup_Custom_Post_Event {
 	/**
 	 * Return the default options array
 	 *
-	 * @version 3.2.3
+	 * @version 4.0.2
 	 * @since   3.2.3
 	 * @return  array $args
 	 */
 	private function get_default_options () {
 		$args = array(
-			'schema_event_type'            => 'Event',
-			'schema_event_name'            => '',
-			'schema_event_description'     => '',
-			'schema_event_image'           => '',
-			'schema_event_date'            => date( 'Y-m-d' ),
-			'schema_event_time'            => date( 'h:i' ),
-			'schema_event_date_end'        => '',
-			'schema_event_time_end'        => '',
-			'schema_event_url'             => '',
-			'schema_event_place_name'      => '',
-			'schema_event_place_url'       => '',
-			'schema_event_place_address'   => '',
-			'schema_event_offers_price'    => 0,
-			'schema_event_offers_currency' => esc_html__( 'USD', $this->text_domain )
+			'schema_event_type'                => 'Event',
+			'schema_event_name'                => '',
+			'schema_event_description'         => '',
+			'schema_event_image'               => '',
+			'schema_event_date'                => date( 'Y-m-d' ),
+			'schema_event_time'                => date( 'h:i' ),
+			'schema_event_date_end'            => '',
+			'schema_event_time_end'            => '',
+			'schema_event_url'                 => '',
+			'schema_event_place_name'          => '',
+			'schema_event_place_url'           => '',
+			'schema_event_place_address'       => '',
+			'schema_event_offers_availability' => 'InStock',
+			'schema_event_offers_price'        => 0,
+			'schema_event_offers_currency'     => esc_html__( 'USD', $this->text_domain ),
+			'schema_event_offers_date'         => '',
+			'schema_event_offers_time'         => '',
+			'schema_event_performer_name'      => ''
 		);
 
 		return (array) $args;
