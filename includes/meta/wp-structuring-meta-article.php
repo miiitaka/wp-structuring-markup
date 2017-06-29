@@ -71,8 +71,20 @@ class Structuring_Markup_Meta_Article {
 				)
 			);
 			$args = array_merge( $args, $images_args );
-		} elseif ( isset( $option['content_image'] ) &&  $option['content_image'] === 'on' ) {
-
+		} elseif ( isset( $options['content_image'] ) &&  $options['content_image'] === 'on' ) {
+			if ( $images = $this->utility->get_content_image( $post->post_content ) ) {
+				if ( $size = $this->utility->get_image_dimensions( $images ) ) {
+					$images_args = array(
+						"image" => array(
+							"@type"  => "ImageObject",
+							"url"    => $images,
+							"width"  => $size['width'],
+							"height" => $size['height']
+						)
+					);
+					$args = array_merge( $args, $images_args );
+				}
+			}
 		}
 
 		$options['logo'] = isset( $options['logo'] ) ? esc_html( $options['logo'] ) : "";

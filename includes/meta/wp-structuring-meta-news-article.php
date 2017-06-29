@@ -3,7 +3,7 @@
  * Schema.org Type News Article
  *
  * @author  Kazuya Takami
- * @version 4.0.0
+ * @version 4.1.0
  * @since   4.0.0
  * @link    http://schema.org/NewsArticle
  * @link    https://developers.google.com/search/docs/data-types/articles
@@ -32,7 +32,7 @@ class Structuring_Markup_Meta_NewsArticle {
 	/**
 	 * Setting schema.org NewsArticle
 	 *
-	 * @version 4.0.0
+	 * @version 4.1.0
 	 * @since   4.0.0
 	 * @param   array $options
 	 * @return  array $args
@@ -72,6 +72,20 @@ class Structuring_Markup_Meta_NewsArticle {
 				)
 			);
 			$args = array_merge( $args, $images_args );
+		} elseif ( isset( $options['content_image'] ) &&  $options['content_image'] === 'on' ) {
+			if ( $images = $this->utility->get_content_image( $post->post_content ) ) {
+				if ( $size = $this->utility->get_image_dimensions( $images ) ) {
+					$images_args = array(
+						"image" => array(
+							"@type"  => "ImageObject",
+							"url"    => $images,
+							"width"  => $size['width'],
+							"height" => $size['height']
+						)
+					);
+					$args = array_merge( $args, $images_args );
+				}
+			}
 		}
 
 		$options['logo'] = isset( $options['logo'] )  ? esc_html( $options['logo'] ) : "";

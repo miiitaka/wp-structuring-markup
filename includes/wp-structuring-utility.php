@@ -49,13 +49,20 @@ class Structuring_Markup_Utility {
 	 * @version 4.1.0
 	 * @since   4.1.0
 	 * @author  Kazuya Takami
-	 * @param   string $url
-	 * @return  array | boolean $dimensions
+	 * @param   string $content
+	 * @return  array | boolean $images
 	 */
-	public function get_content_image ( $url ) {
-		$searchPattern = '/<img.*?src=(["\'])(.+?)\1.*?>/i';
-		if(preg_match($searchPattern, $str[0], $imgurl)){
-			echo $imgurl[2];
+	public function get_content_image ( $content ) {
+		$pattern = '/<img.*?src=(["\'])(.+?)\1.*?>/i';
+
+		if ( preg_match( $pattern, $content, $images ) ){
+			if ( is_array( $images ) && isset( $images[2] ) ) {
+				return $images[2];
+			} else {
+				return __return_false();
+			}
+		} else {
+			return __return_false();
 		}
 	}
 }

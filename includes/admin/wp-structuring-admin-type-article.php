@@ -118,10 +118,10 @@ class Structuring_Markup_Type_Article {
 	 */
 	private function get_default_options () {
 		$args['name']          = get_bloginfo('name');
+		$args['content_image'] = '';
 		$args['logo']          = '';
 		$args['logo-height']   = 0;
 		$args['logo-width']    = 0;
-		$args['content_image'] = '';
 
 		return (array) $args;
 	}
