@@ -3,7 +3,7 @@
  * Schema.org Type Organization
  *
  * @author  Kazuya Takami
- * @version 3.1.4
+ * @version 4.1.0
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/Organization
@@ -48,15 +48,18 @@ class Structuring_Markup_Type_Organization {
 	/**
 	 * Constructor Define.
 	 *
-	 * @since 1.0.0
-	 * @param array $option
+	 * @version 4.1.0
+	 * @since   1.0.0
+	 * @param   array $option
 	 */
 	public function __construct ( array $option ) {
 		/** Default Value Set */
-		if ( empty( $option ) ) {
-			$option = $this->get_default_options( $option );
+		$option_array = $this->get_default_options();
+
+		if ( !empty( $option ) ) {
+			$option_array = array_merge( $option_array, $option );
 		}
-		$this->page_render( $option );
+		$this->page_render( $option_array );
 	}
 
 	/**
@@ -157,12 +160,11 @@ class Structuring_Markup_Type_Organization {
 	/**
 	 * Return the default options array
 	 *
-	 * @version 3.2.0
+	 * @version 4.1.0
 	 * @since   1.0.0
-	 * @param   array $args
 	 * @return  array $args
 	 */
-	private function get_default_options ( array $args ) {
+	private function get_default_options () {
 		$args['name']               = get_bloginfo('name');
 		$args['url']                = get_bloginfo('url');
 		$args['logo']               = get_bloginfo('url') . '/images/logo.png';
