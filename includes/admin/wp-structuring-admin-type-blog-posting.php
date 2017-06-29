@@ -3,7 +3,7 @@
  * Schema.org Type BlogPosting
  *
  * @author  Kazuya Takami
- * @version 3.2.2
+ * @version 4.1.0
  * @since   1.2.0
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/BlogPosting
@@ -32,7 +32,7 @@ class Structuring_Markup_Type_Blog_Posting {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 3.2.2
+	 * @version 4.1.0
 	 * @since   1.2.0
 	 * @param   array $option
 	 */
@@ -59,6 +59,13 @@ class Structuring_Markup_Type_Blog_Posting {
 		$html .= '<tr><th>url :</th><td><small>Default : Featured Image</small></td></tr>';
 		$html .= '<tr><th>height :</th><td><small>Auto : The height of the image, in pixels.</small></td></tr>';
 		$html .= '<tr><th>width :</th><td><small>Auto : The width of the image, in pixels. Images should be at least 696 pixels wide.</small></td></tr>';
+		$html .= '<tr><th><label for="content_image">Setting image url :</label></th><td>';
+		$html .= '<input type="checkbox" name="option[' . "content_image" . ']" id="content_image" value="on"';
+		if ( isset( $option['content_image'] ) &&  $option['content_image'] === 'on' ) {
+			$html .= ' checked="checked"';
+		}
+		$html .= '>Set the first image in the content.<br><small>Pattern without feature image set (feature image takes precedence)</small>';
+		$html .= '</td></tr>';
 		$html .= '</table>';
 		echo $html;
 
@@ -110,10 +117,11 @@ class Structuring_Markup_Type_Blog_Posting {
 	 * @return  array $args
 	 */
 	private function get_default_options () {
-		$args['name']        = get_bloginfo('name');
-		$args['logo']        = "";
-		$args['logo-height'] = 0;
-		$args['logo-width']  = 0;
+		$args['name']          = get_bloginfo('name');
+		$args['content_image'] = '';
+		$args['logo']          = '';
+		$args['logo-height']   = 0;
+		$args['logo-width']    = 0;
 
 		return (array) $args;
 	}
