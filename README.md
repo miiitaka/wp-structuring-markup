@@ -40,6 +40,12 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 4.1.0 (2017-07-03)
+- Added : If there is no feature image setting, set the first image of the post.
+- Updated : Oganization Image recommended.(Article / NewsArticle / BlogPosting)
+- Fixed : Events and videos of custom posts should not appear in choices.
+- Fixed : Organization type Notice Error.
+
 ### 4.0.2 (2017-06-14)
 - Checked : WordPress version 4.8.0 operation check.
 - Updated : Warning: Event type schema.org ( availability, validFrom and performer. )
