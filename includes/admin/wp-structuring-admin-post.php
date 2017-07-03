@@ -3,7 +3,7 @@
  * Schema.org Admin Post
  *
  * @author  Kazuya Takami
- * @version 4.0.0
+ * @version 4.1.0
  * @since   1.0.0
  */
 class Structuring_Markup_Admin_Post {
@@ -44,7 +44,7 @@ class Structuring_Markup_Admin_Post {
 	/**
 	 * Constructor Define.
 	 *
-	 * @version 4.0.2
+	 * @version 4.1.0
 	 * @since   1.0.0
 	 * @param   String $text_domain
 	 */
@@ -54,9 +54,6 @@ class Structuring_Markup_Admin_Post {
 			'_builtin' => false
 		);
 		$post_types = get_post_types( $args, 'objects' );
-
-		unset( $post_types['schema_event_post'] );
-		unset( $post_types['schema_video_post'] );
 
 		foreach ( $post_types as $post_type ) {
 			$this->post_args[] = array(

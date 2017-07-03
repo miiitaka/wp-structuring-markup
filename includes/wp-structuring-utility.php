@@ -3,7 +3,7 @@
  * Utility
  *
  * @author  Kazuya Takami
- * @version 4.0.0
+ * @version 4.1.0
  * @since   4.0.0
  */
 class Structuring_Markup_Utility {
@@ -38,6 +38,29 @@ class Structuring_Markup_Utility {
 
 		if ( ! is_wp_error( $image ) ) {
 			return $image->get_size();
+		} else {
+			return __return_false();
+		}
+	}
+
+	/**
+	 * Return image dimensions
+	 *
+	 * @version 4.1.0
+	 * @since   4.1.0
+	 * @author  Kazuya Takami
+	 * @param   string $content
+	 * @return  array | boolean $images
+	 */
+	public function get_content_image ( $content ) {
+		$pattern = '/<img.*?src=(["\'])(.+?)\1.*?>/i';
+
+		if ( preg_match( $pattern, $content, $images ) ){
+			if ( is_array( $images ) && isset( $images[2] ) ) {
+				return $images[2];
+			} else {
+				return __return_false();
+			}
 		} else {
 			return __return_false();
 		}

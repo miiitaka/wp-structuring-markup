@@ -3,7 +3,7 @@ Contributors: miiitaka
 Tags: schema, schema.org, json, json-ld, seo, post, posts, google, shortcode, breadcrumb
 Requires at least: 4.3.1
 Tested up to: 4.8.0
-Stable tag: 4.0.2
+Stable tag: 4.1.0
 
 Allows you to include schema.org JSON-LD syntax markup on your website
 
@@ -53,6 +53,12 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 * Open 'Schema.org Setting' menu.
 
 == Changelog ==
+
+= 4.1.0 (2017-07-03) =
+* Added : If there is no feature image setting, set the first image of the post.
+* Updated : Oganization Image recommended.(Article / NewsArticle / BlogPosting)
+* Fixed : Events and videos of custom posts should not appear in choices.
+* Fixed : Organization type Notice Error.
 
 = 4.0.2 (2017-06-14) =
 * Checked : WordPress version 4.8.0 operation check.

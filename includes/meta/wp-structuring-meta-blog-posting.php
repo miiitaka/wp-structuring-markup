@@ -3,7 +3,7 @@
  * Schema.org Type BlogPosting
  *
  * @author  Kazuya Takami
- * @version 4.0.0
+ * @version 4.1.0
  * @since   4.0.0
  * @link    http://schema.org/BlogPosting
  * @link    https://developers.google.com/search/docs/data-types/articles
@@ -32,7 +32,7 @@ class Structuring_Markup_Meta_Blog_Posting {
 	/**
 	 * Setting schema.org BlogPosting
 	 *
-	 * @version 4.0.0
+	 * @version 4.1.0
 	 * @since   4.0.0
 	 * @param   array $options
 	 * @return  array $args
@@ -72,36 +72,47 @@ class Structuring_Markup_Meta_Blog_Posting {
 				)
 			);
 			$args = array_merge( $args, $images_args );
+		} elseif ( isset( $options['content_image'] ) &&  $options['content_image'] === 'on' ) {
+			if ( $images = $this->utility->get_content_image( $post->post_content ) ) {
+				if ( $size = $this->utility->get_image_dimensions( $images ) ) {
+					$images_args = array(
+						"image" => array(
+							"@type"  => "ImageObject",
+							"url"    => $images,
+							"width"  => $size['width'],
+							"height" => $size['height']
+						)
+					);
+					$args = array_merge( $args, $images_args );
+				}
+			}
 		}
 
-		$options['logo'] = isset( $options['logo'] ) ? esc_html( $options['logo'] ) : "";
-		if ( $logo = $this->utility->get_image_dimensions( $options['logo'] ) ) {
+		if ( isset( $options['name'] ) ) {
 			$publisher_args = array(
 				"publisher" => array(
 					"@type" => "Organization",
-					"name"  => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
-					"logo"  => array(
-						"@type"  => "ImageObject",
-						"url"    => $options['logo'],
-						"width"  => $logo['width'],
-						"height" => $logo['height']
-					)
+					"name"  => esc_html( $options['name'] ),
 				)
 			);
-			$args = array_merge( $args, $publisher_args );
-		} else if ( !empty( $options['logo'] ) ) {
-			$publisher_args = array(
-				"publisher" => array(
-					"@type" => "Organization",
-					"name"  => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
-					"logo"  => array(
-						"@type"  => "ImageObject",
-						"url"    => $options['logo'],
-						"width"  => isset( $options['logo-width'] )  ? (int) $options['logo-width']  : 0,
-						"height" => isset( $options['logo-height'] ) ? (int) $options['logo-height'] : 0
-					)
-				)
-			);
+
+			$options['logo'] = isset( $options['logo'] ) ? esc_html( $options['logo'] ) : "";
+
+			if ( $logo = $this->utility->get_image_dimensions( $options['logo'] ) ) {
+				$publisher_args['publisher']['logo'] = array(
+					"@type"  => "ImageObject",
+					"url"    => $options['logo'],
+					"width"  => $logo['width'],
+					"height" => $logo['height']
+				);
+			} else if ( !empty( $options['logo'] ) ) {
+				$publisher_args['publisher']['logo'] = array(
+					"@type"  => "ImageObject",
+					"url"    => $options['logo'],
+					"width"  => isset( $options['logo-width'] )  ? (int) $options['logo-width']  : 0,
+					"height" => isset( $options['logo-height'] ) ? (int) $options['logo-height'] : 0
+				);
+			}
 			$args = array_merge( $args, $publisher_args );
 		}
 
