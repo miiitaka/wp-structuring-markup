@@ -18,7 +18,7 @@ new Structuring_Markup();
  * Schema.org Basic Class
  *
  * @author  Kazuya Takami
- * @version 4.1.0
+ * @version 4.1.1
  * @since   1.0.0
  */
 class Structuring_Markup {
@@ -42,7 +42,7 @@ class Structuring_Markup {
 	/**
 	 * Constructor Define.
 	 *
-	 * @version 4.0.0
+	 * @version 4.1.1
 	 * @since   1.0.0
 	 */
 	public function __construct() {
@@ -56,6 +56,7 @@ class Structuring_Markup {
 		if ( is_admin() ) {
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
 			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
+			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'plugin_action_links' ) );
 		} else {
 			add_action( 'wp_head', array( $this, 'wp_head' ) );
 			add_filter( 'amp_post_template_metadata', array( $this, 'amp_post_template_metadata' ), 9 );
@@ -162,6 +163,21 @@ class Structuring_Markup {
 		add_action( 'admin_print_styles-'  . $list_page, array( $this, 'add_style' ) );
 		add_action( 'admin_print_styles-'  . $post_page, array( $this, 'add_style' ) );
 		add_action( 'admin_print_scripts-' . $post_page, array( $this, 'admin_scripts' ) );
+	}
+
+	/**
+	 * Add Menu to the Admin Screen.
+	 *
+	 * @version 4.1.1
+	 * @since   4.1.1
+	 * @param   array  $links
+	 * @return  array  $links
+	 */
+	public function plugin_action_links( $links ) {
+		$url = admin_url( 'admin.php?page=' . $this->text_domain . '/' . $this->text_domain . '.php' );
+		$url = '<a href="' . esc_url( $url ) . '">' . __( 'Settings' ) . '</a>';
+		array_unshift( $links, $url );
+		return $links;
 	}
 
 	/**
