@@ -26,10 +26,10 @@ class Structuring_Markup {
 	/**
 	 * Variable definition version.
 	 *
-	 * @version 4.1.0
+	 * @version 4.1.1
 	 * @since   1.3.0
 	 */
-	private $version = '4.1.0';
+	private $version = '4.1.1';
 
 	/**
 	 * Variable definition Text Domain.
