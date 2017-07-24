@@ -3,7 +3,7 @@
  * Schema.org Custom Post "Event"
  *
  * @author  Kazuya Takami
- * @version 4.0.2
+ * @version 4.1.1
  * @since   2.1.0
  * @link    https://schema.org/Event
  * @link    https://developers.google.com/search/docs/data-types/events
@@ -136,7 +136,7 @@ class Structuring_Markup_Custom_Post_Event {
 	/**
 	 * Set custom fields.
 	 *
-	 * @version 4.0.2
+	 * @version 4.1.1
 	 * @since   2.1.0
 	 */
 	public function set_custom_fields () {
@@ -151,10 +151,10 @@ class Structuring_Markup_Custom_Post_Event {
 		}
 
 		$html  = '';
-		$html .= '<table>';
-		$html .= '<tr><td><label for="schema_event_type">';
+		$html .= '<table class="schema-admin-custom-post">';
+		$html .= '<tr><td><label class="schema-admin-required" for="schema_event_type">';
 		$html .= esc_html__( 'Event Type', $this->text_domain );
-		$html .= '&nbsp;(required)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<select name="option[' . "schema_event_type" . ']" id="schema_event_type">';
 		foreach( $this->event_type as $value) {
 			$html .= '<option';
@@ -165,56 +165,56 @@ class Structuring_Markup_Custom_Post_Event {
 		}
 		$html .= '</select>';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_event_name">';
+		$html .= '<tr><td><label class="schema-admin-required" for="schema_event_name">';
 		$html .= esc_html__( 'Event Name', $this->text_domain );
-		$html .= '&nbsp;(required)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<input type="text" name="option[' . "schema_event_name" . ']" id="schema_event_name" class="regular-text" required value="' . esc_attr( $args['schema_event_name'] ) . '">';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_event_description">';
+		$html .= '<tr><td><label class="schema-admin-recommended" for="schema_event_description">';
 		$html .= esc_html__( 'Event Description', $this->text_domain );
-		$html .= '&nbsp;(recommended)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<textarea name="option[' . "schema_event_description" . ']" id="schema_event_description" class="large-text code" rows="3">' . esc_attr( $args['schema_event_description'] ) . '</textarea>';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_event_image">';
+		$html .= '<tr><td><label class="schema-admin-recommended" for="schema_event_image">';
 		$html .= esc_html__( 'Event Image', $this->text_domain );
-		$html .= '&nbsp;(recommended)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<input type="text" name="option[' . "schema_event_image" . ']" id="schema_event_image" class="large-text" value="' . esc_attr( $args['schema_event_image'] ) . '">';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_event_date">';
+		$html .= '<tr><td><label class="schema-admin-required" for="schema_event_date">';
 		$html .= esc_html__( 'Start Date', $this->text_domain );
-		$html .= '&nbsp;(required)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<input type="date" name="option[' . "schema_event_date" . ']" id="schema_event_date" required value="' . esc_attr( $args['schema_event_date'] ) . '">';
 		$html .= '<input type="time" name="option[' . "schema_event_time" . ']" id="schema_event_time" required value="' . esc_attr( $args['schema_event_time'] ) . '">';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_event_date_end">';
+		$html .= '<tr><td><label class="schema-admin-recommended" for="schema_event_date_end">';
 		$html .= esc_html__( 'End Date', $this->text_domain );
-		$html .= '&nbsp;(recommended)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<input type="date" name="option[' . "schema_event_date_end" . ']" id="schema_event_date" value="' . esc_attr( $args['schema_event_date_end'] ) . '">';
 		$html .= '<input type="time" name="option[' . "schema_event_time_end" . ']" id="schema_event_time" value="' . esc_attr( $args['schema_event_time_end'] ) . '">';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_event_url">';
+		$html .= '<tr><td><label class="schema-admin-required" for="schema_event_url">';
 		$html .= esc_html__( 'Event URL', $this->text_domain );
-		$html .= '&nbsp;(required)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<input type="text" name="option[' . "schema_event_url" . ']" id="schema_event_url" class="regular-text" required value="' . esc_attr( $args['schema_event_url'] ) . '">';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_event_place_name">';
+		$html .= '<tr><td><label class="schema-admin-required" for="schema_event_place_name">';
 		$html .= esc_html__( 'Place Name', $this->text_domain );
-		$html .= '&nbsp;(required)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<input type="text" name="option[' . "schema_event_place_name" . ']" id="schema_event_place_name" class="regular-text" required value="' . esc_attr( $args['schema_event_place_name'] ) . '">';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_event_place_url">';
+		$html .= '<tr><td><label class="schema-admin-required" for="schema_event_place_url">';
 		$html .= esc_html__( 'Place URL', $this->text_domain );
-		$html .= '&nbsp;(required)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<input type="text" name="option[' . "schema_event_place_url" . ']" id="schema_event_place_url" class="regular-text" required value="' . esc_attr( $args['schema_event_place_url'] ) . '">';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_event_place_address">';
+		$html .= '<tr><td><label class="schema-admin-required" for="schema_event_place_address">';
 		$html .= esc_html__( 'Place Address', $this->text_domain );
-		$html .= '&nbsp;(required)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<input type="text" name="option[' . "schema_event_place_address" . ']" id="schema_event_place_address" class="regular-text" required value="' . esc_attr( $args['schema_event_place_address'] ) . '">';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_event_type">';
+		$html .= '<tr><td><label class="schema-admin-required" for="schema_event_type">';
 		$html .= esc_html__( 'Availability', $this->text_domain );
-		$html .= '&nbsp;(required)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<select name="option[' . "schema_event_offers_availability" . ']" id="schema_event_offers_availability">';
 		foreach( $this->offers_availability as $value) {
 			$html .= '<option';
@@ -225,26 +225,26 @@ class Structuring_Markup_Custom_Post_Event {
 		}
 		$html .= '</select>';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_event_offers_price">';
+		$html .= '<tr><td><label class="schema-admin-required" for="schema_event_offers_price">';
 		$html .= esc_html__( 'Price', $this->text_domain );
-		$html .= '&nbsp;(required)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<input type="number" name="option[' . "schema_event_offers_price" . ']" id="schema_event_offers_price" required value="' . esc_attr( $args['schema_event_offers_price'] ) . '">';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_event_offers_currency">';
+		$html .= '<tr><td><label class="schema-admin-required" for="schema_event_offers_currency">';
 		$html .= esc_html__( 'Currency', $this->text_domain );
-		$html .= '&nbsp;(required)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<input type="text" name="option[' . "schema_event_offers_currency" . ']" id="schema_event_offers_currency" maxlength="3" required value="' . esc_attr( $args['schema_event_offers_currency'] ) . '">';
 		$html .= '&nbsp;&nbsp;<small>( with <a hre="https://en.wikipedia.org/wiki/ISO_4217#Active_codes" target="_blank">ISO 4217 codes</a> e.g. "USD" )</small>';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_event_offers_date">';
+		$html .= '<tr><td><label class="schema-admin-recommended" for="schema_event_offers_date">';
 		$html .= esc_html__( 'validFrom', $this->text_domain );
-		$html .= '&nbsp;(recommended)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<input type="date" name="option[' . "schema_event_offers_date" . ']" id="schema_event_offers_date" value="' . esc_attr( $args['schema_event_offers_date'] ) . '">';
 		$html .= '<input type="time" name="option[' . "schema_event_offers_time" . ']" id="schema_event_offers_time" value="' . esc_attr( $args['schema_event_offers_time'] ) . '">';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_event_performer_name">';
+		$html .= '<tr><td><label class="schema-admin-recommended" for="schema_event_performer_name">';
 		$html .= esc_html__( 'Event Performer', $this->text_domain );
-		$html .= '&nbsp;(recommended)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<input type="text" name="option[' . "schema_event_performer_name" . ']" id="schema_event_performer_name" class="regular-text" required value="' . esc_attr( $args['schema_event_performer_name'] ) . '">';
 		$html .= '</td></tr>';
 		$html .= '</table>';
