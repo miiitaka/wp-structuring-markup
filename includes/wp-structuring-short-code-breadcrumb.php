@@ -173,6 +173,10 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 			$item_array[] = $this->set_schema_breadcrumb_item( $current_url, $post->post_title );
 		}
 
+		if ( !isset( $options['current_on'] ) || $options['current_on'] !== 'on' ) {
+			array_pop( $item_array );
+		}
+
 		return (array) $item_array;
 	}
 
