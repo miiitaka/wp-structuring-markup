@@ -123,7 +123,7 @@ class Structuring_Markup {
 	/**
 	 * admin init.
 	 *
-	 * @version 3.0.5
+	 * @version 4.1.1
 	 * @since   1.3.1
 	 */
 	public function admin_init () {
@@ -134,12 +134,13 @@ class Structuring_Markup {
 		}
 
 		wp_register_style( 'wp-structuring-markup-admin-style', plugins_url( 'css/style.css', __FILE__ ), array(), $this->version );
+		wp_register_style( 'wp-structuring-markup-admin-post',  plugins_url( 'css/schema-custom-post.css', __FILE__ ), array(), $this->version );
 	}
 
 	/**
 	 * Add Menu to the Admin Screen.
 	 *
-	 * @version 3.1.6
+	 * @version 4.1.1
 	 * @since   1.0.0
 	 */
 	public function admin_menu () {
@@ -160,6 +161,7 @@ class Structuring_Markup {
 		);
 
 		/** Using registered $page handle to hook stylesheet loading */
+		add_action( 'admin_print_styles-post.php',       array( $this, 'add_style_post' ) );
 		add_action( 'admin_print_styles-'  . $list_page, array( $this, 'add_style' ) );
 		add_action( 'admin_print_styles-'  . $post_page, array( $this, 'add_style' ) );
 		add_action( 'admin_print_scripts-' . $post_page, array( $this, 'admin_scripts' ) );
@@ -178,6 +180,16 @@ class Structuring_Markup {
 		$url = '<a href="' . esc_url( $url ) . '">' . __( 'Settings' ) . '</a>';
 		array_unshift( $links, $url );
 		return $links;
+	}
+
+	/**
+	 * CSS admin add. (Custom Post)
+	 *
+	 * @version 4.1.1
+	 * @since   4.1.1
+	 */
+	public function add_style_post () {
+		wp_enqueue_style( 'wp-structuring-markup-admin-post' );
 	}
 
 	/**

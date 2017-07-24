@@ -3,7 +3,7 @@
  * Schema.org Custom Post "Video"
  *
  * @author  Kazuya Takami
- * @version 3.2.3
+ * @version 4.1.1
  * @since   3.0.0
  * @link    https://schema.org/VideoObject
  * @link    https://developers.google.com/search/docs/data-types/videos
@@ -96,7 +96,7 @@ class Structuring_Markup_Custom_Post_Video {
 	/**
 	 * Set custom fields.
 	 *
-	 * @version 3.2.3
+	 * @version 4.1.1
 	 * @since   3.0.0
 	 */
 	public function set_custom_fields () {
@@ -111,51 +111,51 @@ class Structuring_Markup_Custom_Post_Video {
 		}
 
 		$html  = '';
-		$html .= '<table>';
-		$html .= '<tr><td><label for="schema_video_name">';
+		$html .= '<table class="schema-admin-custom-post">';
+		$html .= '<tr><td><label class="schema-admin-required" for="schema_video_name">';
 		$html .= esc_html__( 'Video Name', $this->text_domain );
-		$html .= '&nbsp;(required)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<input type="text" name="option[' . "schema_video_name" . ']" id="schema_video_name" class="regular-text" required value="' . esc_attr( $args['schema_video_name'] ) . '">';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_video_description">';
+		$html .= '<tr><td><label class="schema-admin-required" for="schema_video_description">';
 		$html .= esc_html__( 'Video Description', $this->text_domain );
-		$html .= '&nbsp;(required)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<textarea name="option[' . "schema_video_description" . ']" id="schema_video_description" class="large-text code" required rows="3">' . esc_attr( $args['schema_video_description'] ) . '</textarea>';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_video_thumbnail_url">';
+		$html .= '<tr><td><label class="schema-admin-required" for="schema_video_thumbnail_url">';
 		$html .= esc_html__( 'Thumbnail Url', $this->text_domain );
-		$html .= '&nbsp;(required)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<input type="text" name="option[' . "schema_video_thumbnail_url" . ']" id="schema_video_thumbnail_url" class="regular-text" required value="' . esc_attr( $args['schema_video_thumbnail_url'] ) . '">';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_video_upload_date">';
+		$html .= '<tr><td><label class="schema-admin-required" for="schema_video_upload_date">';
 		$html .= esc_html__( 'Upload Date', $this->text_domain );
-		$html .= '&nbsp;(required)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<input type="date" name="option[' . "schema_video_upload_date" . ']" id="schema_video_upload_date" required value="' . esc_attr( $args['schema_video_upload_date'] ) . '">';
 		$html .= '<input type="time" name="option[' . "schema_video_upload_time" . ']" id="schema_video_upload_time" required value="' . esc_attr( $args['schema_video_upload_time'] ) . '">';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_video_duration">';
+		$html .= '<tr><td><label class="schema-admin-recommended" for="schema_video_duration">';
 		$html .= esc_html__( 'duration', $this->text_domain );
-		$html .= '&nbsp;(recommended)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<input type="text" name="option[' . "schema_video_duration" . ']" id="schema_video_duration" class="regular-text" value="' . esc_attr( $args['schema_video_duration'] ) . '">';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_video_content_url">';
+		$html .= '<tr><td><label class="schema-admin-recommended" for="schema_video_content_url">';
 		$html .= esc_html__( 'contentURL', $this->text_domain );
-		$html .= '&nbsp;(recommended)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<input type="text" name="option[' . "schema_video_content_url" . ']" id="schema_video_content_url" class="regular-text" value="' . esc_attr( $args['schema_video_content_url'] ) . '">';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_video_embed_url">';
+		$html .= '<tr><td><label class="schema-admin-recommended" for="schema_video_embed_url">';
 		$html .= esc_html__( 'embedURL', $this->text_domain );
-		$html .= '&nbsp;(recommended)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<input type="text" name="option[' . "schema_video_embed_url" . ']" id="schema_video_embed_url" class="regular-text" value="' . esc_attr( $args['schema_video_embed_url'] ) . '">';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_video_interaction_count">';
+		$html .= '<tr><td><label class="schema-admin-recommended" for="schema_video_interaction_count">';
 		$html .= esc_html__( 'interactionCount', $this->text_domain );
-		$html .= '&nbsp;(recommended)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<input type="text" name="option[' . "schema_video_interaction_count" . ']" id="schema_video_interaction_count" class="regular-text" value="' . esc_attr( $args['schema_video_interaction_count'] ) . '">';
 		$html .= '</td></tr>';
-		$html .= '<tr><td><label for="schema_video_expires_date">';
+		$html .= '<tr><td><label class="schema-admin-recommended" for="schema_video_expires_date">';
 		$html .= esc_html__( 'expires', $this->text_domain );
-		$html .= '&nbsp;(recommended)</label></td><td>';
+		$html .= '</label></td><td>';
 		$html .= '<input type="date" name="option[' . "schema_video_expires_date" . ']" id="schema_video_expires_date" value="' . esc_attr( $args['schema_video_expires_date'] ) . '">';
 		$html .= '<input type="time" name="option[' . "schema_video_expires_time" . ']" id="schema_video_expires_time" value="' . esc_attr( $args['schema_video_expires_time'] ) . '">';
 		$html .= '</td></tr>';
