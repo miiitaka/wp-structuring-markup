@@ -3,7 +3,7 @@
  * Breadcrumb ShortCode Settings
  *
  * @author  Kazuya Takami
- * @version 3.2.4
+ * @version 4.1.1
  * @since   2.0.0
  */
 class Structuring_Markup_ShortCode_Breadcrumb {
@@ -62,7 +62,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	/**
 	 * Breadcrumb array setting.
 	 *
-	 * @version 4.0.0
+	 * @version 4.1.1
 	 * @since   2.0.0
 	 * @access  public
 	 * @param   array $options
@@ -95,7 +95,10 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 		}
 
 		if ( is_search() ) {
-			$item_array[] = $this->set_schema_breadcrumb_item( $current_url, get_search_query() );
+			$search_query = get_search_query();
+			if ( $search_query !== '' ) {
+				$item_array[] = $this->set_schema_breadcrumb_item( $current_url, get_search_query() );
+			}
 		} elseif ( is_tag() ) {
 			$item_array[] = $this->set_schema_breadcrumb_item( $current_url, single_tag_title( '', false ) );
 		} elseif ( is_date() ) {
