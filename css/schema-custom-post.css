@@ -1,0 +1,21 @@
+/** Event & Video Style */
+.schema-admin-custom-post label:before {
+	border-radius: 2px;
+	box-shadow: inset 0 -1px 0 rgba(27,31,35,0.12);
+	line-height: 1;
+	margin: 0 5px 0 0;
+}
+
+.schema-admin-required:before {
+	background: #efefef;
+	color: #a00;
+	content: 'required';
+	padding: 3px 41px 3px 5px;
+}
+
+.schema-admin-recommended:before {
+	background: #efefef;
+	color: #0073aa;
+	content: 'recommended';
+	padding: 3px 5px;
+}

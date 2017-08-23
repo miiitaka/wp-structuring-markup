@@ -40,9 +40,14 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 4.1.1 (2017-07-26)
+- Added : Correct to display / hide the current page.(BreadcrumbList schema.org)
+- Updated : Event and Video type css update.
+- Fixed : Do not display when the search query is empty.
+
 ### 4.1.0 (2017-07-03)
 - Added : If there is no feature image setting, set the first image of the post.
-- Updated : Oganization Image recommended.(Article / NewsArticle / BlogPosting)
+- Updated : Organization Image recommended.(Article / NewsArticle / BlogPosting)
 - Fixed : Events and videos of custom posts should not appear in choices.
 - Fixed : Organization type Notice Error.
 

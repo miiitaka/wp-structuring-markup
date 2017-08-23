@@ -3,7 +3,7 @@
  * Schema.org Type Breadcrumb
  *
  * @author  Kazuya Takami
- * @version 3.2.4
+ * @version 4.1.1
  * @since   2.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/BreadcrumbList
@@ -14,21 +14,25 @@ class Structuring_Markup_Type_Breadcrumb {
 	/**
 	 * Constructor Define.
 	 *
-	 * @since 2.0.0
+	 * @version 4.1.1
+	 * @since   2.0.0
 	 * @param array $option
 	 */
 	public function __construct ( array $option ) {
 		/** Default Value Set */
-		if ( empty( $option ) ) {
-			$option = $this->get_default_options( $option );
+		$option_array = $this->get_default_options();
+
+		if ( !empty( $option ) ) {
+			$option_array = array_merge( $option_array, $option );
 		}
-		$this->page_render( $option );
+
+		$this->page_render( $option_array );
 	}
 
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 3.2.4
+	 * @version 4.1.1
 	 * @since   2.3.3
 	 * @param   array $option
 	 */
@@ -41,11 +45,19 @@ class Structuring_Markup_Type_Breadcrumb {
 			$html .= ' checked="checked"';
 		}
 		$html .= '>Enabled';
-		$html .= '<small>( Installed the HOME to breadcrumbs )</small>';
+		$html .= '<small>Installed the HOME to breadcrumbs.</small>';
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="home_name">Home Name :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "home_name" . ']" id="home_name" class="regular-text" value="' . esc_attr( $option['home_name'] ) . '">';
 		$html .= '<small>Default : bloginfo("name")<br>* In the case of the pattern set for the static page on the front page its title is the default value.</small>';
+		$html .= '</td></tr>';
+		$html .= '<tr><th><label for="current_on">Display Current Page :</label></th><td>';
+		$html .= '<input type="checkbox" name="option[' . "current_on" . ']" id="current_on" value="on"';
+		if ( isset( $option['current_on'] ) &&  $option['current_on'] === 'on' ) {
+			$html .= ' checked="checked"';
+		}
+		$html .= '>Enabled';
+		$html .= '<small>Installed the Current Page to breadcrumbs.</small>';
 		$html .= '</td></tr>';
 		$html .= '</table>';
 		echo $html;
@@ -66,14 +78,14 @@ class Structuring_Markup_Type_Breadcrumb {
 	/**
 	 * Return the default options array
 	 *
-	 * @version 2.0.2
+	 * @version 4.1.1
 	 * @since   2.0.0
-	 * @param   array $args
 	 * @return  array $args
 	 */
-	private function get_default_options ( array $args ) {
-		$args['home_on']   = '';
-		$args['home_name'] = '';
+	private function get_default_options () {
+		$args['home_on']    = '';
+		$args['home_name']  = '';
+		$args['current_on'] = '';
 
 		return (array) $args;
 	}

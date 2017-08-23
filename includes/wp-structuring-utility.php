@@ -53,11 +53,11 @@ class Structuring_Markup_Utility {
 	 * @return  array | boolean $images
 	 */
 	public function get_content_image ( $content ) {
-		$pattern = '/<img.*?src=(["\'])(.+?)\1.*?>/i';
+		$pattern = '/<img.*?src\s*=\s*[\"|\'](.*?)[\"|\'].*?>/i';
 
 		if ( preg_match( $pattern, $content, $images ) ){
-			if ( is_array( $images ) && isset( $images[2] ) ) {
-				return $images[2];
+			if ( is_array( $images ) && isset( $images[1] ) ) {
+				return $images[1];
 			} else {
 				return __return_false();
 			}
