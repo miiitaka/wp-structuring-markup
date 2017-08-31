@@ -147,13 +147,17 @@
 
 /** Media Uploader */
 .schema-admin-media-button {
-	display: block;
-	margin: 3px 0 3px 1px;
-	padding: 5px 8px;
+	border: 0;
+	font-size: 12px;
+	padding: 6px 8px 2px 8px;
 }
 
-.schema-admin-media-button span {
-	display: inline-block;
-	margin: 0 0 0 5px;
-	vertical-align: middle;
+.schema-admin-media-button:before {
+	font-size: 16px;
+	height: 16px;
+	width: 16px;
+}
+
+.schema-admin-media-button:hover {
+	cursor: pointer;
 }

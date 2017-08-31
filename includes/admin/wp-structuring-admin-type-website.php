@@ -3,7 +3,7 @@
  * Schema.org Type WebSite
  *
  * @author  Kazuya Takami
- * @version 3.1.0
+ * @version 4.1.3
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/WebSite
@@ -33,7 +33,7 @@ class Structuring_Markup_Type_Website {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 3.1.0
+	 * @version 4.1.3
 	 * @since   2.3.3
 	 * @param   array $option
 	 */
@@ -42,15 +42,12 @@ class Structuring_Markup_Type_Website {
 		$html .= '<caption>Basic Setting</caption>';
 		$html .= '<tr><th class="require"><label for="name">name :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "name" . ']" id="name" class="regular-text" required value="' . esc_attr( $option['name'] ) . '">';
-		$html .= '<small>Default : bloginfo("name")</small>';
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="alternateName">alternateName :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "alternateName" . ']" id="alternateName" class="regular-text" value="' . esc_attr( $option['alternateName'] ) . '">';
-		$html .= '<small>Default : bloginfo("name")</small>';
 		$html .= '</td></tr>';
 		$html .= '<tr><th class="require"><label for="url">url :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "url" . ']" id="url" class="regular-text" required value="' . esc_attr( $option['url'] ) . '">';
-		$html .= '<small>Default : bloginfo("url")</small>';
 		$html .= '</td></tr>';
 		$html .= '</table>';
 		echo $html;
@@ -66,7 +63,6 @@ class Structuring_Markup_Type_Website {
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="target">target :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "target" . ']" id="target" class="regular-text" value="' . esc_attr( $option['target'] ) . '">';
-		$html .= '<small>Default : bloginfo("url") + /?s=</small>';
 		$html .= '</td></tr>';
 		$html .= '</table>';
 		echo $html;
@@ -82,7 +78,6 @@ class Structuring_Markup_Type_Website {
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="target_app">target :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "target_app" . ']" id="target_app" class="regular-text" value="' . esc_attr( $option['target_app'] ) . '">';
-		$html .= '<small>e.g. android-app://com.example/https/query.example.com/search/?q=</small>';
 		$html .= '</td></tr>';
 		$html .= '</table>';
 		echo $html;
@@ -94,18 +89,18 @@ class Structuring_Markup_Type_Website {
 	/**
 	 * Return the default options array
 	 *
-	 * @version 3.1.0
+	 * @version 4.1.3
 	 * @since   1.0.0
 	 * @return  array $args
 	 */
 	private function get_default_options () {
 		$args = array();
 
-		$args['name']                 = get_bloginfo('name');
-		$args['alternateName']        = $args['name'];
-		$args['url']                  = get_bloginfo('url');
+		$args['name']                 = '';
+		$args['alternateName']        = '';
+		$args['url']                  = '';
 		$args['potential_action']     = '';
-		$args['target']               = $args['url'] . '/?s=';
+		$args['target']               = '';
 		$args['potential_action_app'] = '';
 		$args['target_app']           = '';
 

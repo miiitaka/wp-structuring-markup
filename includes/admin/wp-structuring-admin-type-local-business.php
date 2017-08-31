@@ -3,7 +3,7 @@
  * Schema.org Type LocalBusiness
  *
  * @author  Kazuya Takami
- * @version 3.0.5
+ * @version 4.1.3
  * @since   2.3.3
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/LocalBusiness
@@ -15,7 +15,8 @@ class Structuring_Markup_Type_LocalBusiness {
 	/**
 	 * Variable definition.
 	 *
-	 * @since 2.3.0
+	 * @version 2.3.0
+	 * @since   2.3.0
 	 */
 	/** LocalBusiness Type defined. */
 	private $business_type_array = array(
@@ -209,7 +210,7 @@ class Structuring_Markup_Type_LocalBusiness {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 3.1.4
+	 * @version 4.1.3
 	 * @since   2.3.3
 	 * @param   array $option
 	 */
@@ -217,10 +218,10 @@ class Structuring_Markup_Type_LocalBusiness {
 		/** Local Business Type */
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Local Business</caption>';
-		$html .= $this->set_form_select( 'business_type', 'Local Business Type', $option['business_type'], 'Default : "Local Business"' );
-		$html .= $this->set_form_text( 'image', 'An image of the business', $option['image'], true, 'Default : bloginfo("url")' );
-		$html .= $this->set_form_text( 'name', 'Business Name', $option['name'], true, 'Default : bloginfo("name")' );
-		$html .= $this->set_form_text( 'url', 'Url', $option['url'], true, 'Default : bloginfo("url")' );
+		$html .= $this->set_form_select( 'business_type', 'Local Business Type', $option['business_type'] );
+		$html .= $this->set_form_text( 'image', 'An image of the business', $option['image'], true );
+		$html .= $this->set_form_text( 'name', 'Business Name', $option['name'], true );
+		$html .= $this->set_form_text( 'url', 'Url', $option['url'], true );
 		$html .= $this->set_form_text( 'telephone', 'Telephone', $option['telephone'], false, 'e.g. : +1-880-555-1212' );
 		$html .= '</table>';
 		echo $html;
@@ -321,15 +322,15 @@ class Structuring_Markup_Type_LocalBusiness {
 	/**
 	 * Return the default options array
 	 *
-	 * @since   3.1.4
+	 * @since   4.1.3
 	 * @version 2.5.0
 	 * @return  array $args
 	 */
 	private function get_default_options () {
 		$args['business_type']        = 'local_business';
-		$args['name']                 = get_bloginfo('name');
-		$args['image']                = get_bloginfo('url');
-		$args['url']                  = get_bloginfo('url');
+		$args['name']                 = '';
+		$args['image']                = '';
+		$args['url']                  = '';
 		$args['telephone']            = '';
 		$args['food_active']          = '';
 		$args['menu']                 = '';
@@ -366,7 +367,7 @@ class Structuring_Markup_Type_LocalBusiness {
 	/**
 	 * Return the form text
 	 *
-	 * @version 3.0.5
+	 * @version 4.1.3
 	 * @since   2.3.0
 	 * @param   string  $id
 	 * @param   string  $display
@@ -389,7 +390,11 @@ class Structuring_Markup_Type_LocalBusiness {
 		if ( $required ) {
 			$format .= ' required';
 		}
-		$format .= '><small>%s</small></td></tr>';
+		if ( $note === "" ) {
+			$format .= '></td></tr>';
+		} else {
+			$format .= '><small>%s</small></td></tr>';
+		}
 
 		return (string) sprintf( $format, $id, $display, $id, $id, $value, $note );
 	}
