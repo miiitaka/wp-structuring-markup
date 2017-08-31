@@ -3,7 +3,7 @@
  * Schema.org Type Article
  *
  * @author  Kazuya Takami
- * @version 4.1.0
+ * @version 4.1.3
  * @since   1.1.0
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/Article
@@ -32,7 +32,7 @@ class Structuring_Markup_Type_Article {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 4.1.0
+	 * @version 4.1.3
 	 * @since   1.1.0
 	 * @param   array $option
 	 */
@@ -82,7 +82,6 @@ class Structuring_Markup_Type_Article {
 		$html .= '<tr><th>@type :</th><td><small>"Organization"</small></td></tr>';
 		$html .= '<tr><th><label for="name">Organization Name :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "name" . ']" id="name" class="regular-text" value="' . esc_attr( $option['name'] ) . '">';
-		$html .= '<small>Default : bloginfo("name")</small>';
 		$html .= '</td></tr>';
 		$html .= '</table>';
 		echo $html;
@@ -92,15 +91,13 @@ class Structuring_Markup_Type_Article {
 		$html .= '<tr><th>@type :</th><td><small>"ImageObject"</small></td></tr>';
 		$html .= '<tr><th><label for="logo">url :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "logo" . ']" id="logo" class="regular-text" value="' . esc_attr( $option['logo'] ) . '">';
-		$html .= '<button id="media-upload" class="schema-admin-media-button dashicons-before dashicons-admin-media"><span>Add Media</span></button>';
+		$html .= '<button id="media-upload" class="dashicons-before dashicons-admin-media schema-admin-media-button"></button>';
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="logo-width">width :</label></th><td>';
-		$html .= '<input type="number" name="option[' . "logo-width" . ']" id="logo-width" min="0" value="' . esc_attr( $option['logo-width'] ) . '">px';
-		$html .= '<small>height <= 600px.</small>';
+		$html .= '<input type="number" name="option[' . "logo-width" . ']" id="logo-width" min="0" value="' . esc_attr( $option['logo-width'] ) . '" placeholder="width <= 600px.">px';
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="logo-height">height :</label></th><td>';
-		$html .= '<input type="number" name="option[' . "logo-height" . ']" id="logo-height" min="0" value="' . esc_attr( $option['logo-height'] ) . '">px';
-		$html .= '<small>height <= 60px.</small>';
+		$html .= '<input type="number" name="option[' . "logo-height" . ']" id="logo-height" min="0" value="' . esc_attr( $option['logo-height'] ) . '" placeholder="height <= 60px.">px';
 		$html .= '</td></tr>';
 		$html .= '</table>';
 		echo $html;
@@ -112,12 +109,12 @@ class Structuring_Markup_Type_Article {
 	/**
 	 * Return the default options array
 	 *
-	 * @since   4.1.0
+	 * @since   4.1.3
 	 * @version 2.2.0
 	 * @return  array $args
 	 */
 	private function get_default_options () {
-		$args['name']          = get_bloginfo('name');
+		$args['name']          = '';
 		$args['content_image'] = '';
 		$args['logo']          = '';
 		$args['logo-height']   = 0;
