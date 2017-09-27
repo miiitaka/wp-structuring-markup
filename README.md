@@ -40,6 +40,11 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 4.1.3 (2017-09-27)
+- Checked : WordPress version 4.8.2 operation check.
+- Updated : Stop setting the default value.
+- Fixed : availableLanguage and area_served array setting ( Organization )
+
 ### 4.1.2 (2017-08-23)
 - Checked : WordPress version 4.8.1 operation check.
 

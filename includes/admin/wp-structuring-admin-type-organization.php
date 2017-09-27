@@ -3,7 +3,7 @@
  * Schema.org Type Organization
  *
  * @author  Kazuya Takami
- * @version 4.1.0
+ * @version 4.1.3
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/Organization
@@ -65,7 +65,7 @@ class Structuring_Markup_Type_Organization {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 3.2.0
+	 * @version 4.1.3
 	 * @since   1.0.0
 	 * @param   array $option
 	 */
@@ -75,16 +75,13 @@ class Structuring_Markup_Type_Organization {
 		$html .= '<caption>Logos</caption>';
 		$html .= '<tr><th class="require"><label for="name">Organization Name :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "name" . ']" id="name" class="regular-text" required value="' . esc_attr( $option['name'] ) . '">';
-		$html .= '<small>Default : bloginfo("name")</small>';
 		$html .= '</td></tr>';
 		$html .= '<tr><th class="require"><label for="url">url :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "url" . ']" id="url" class="regular-text" required value="' . esc_attr( $option['url'] ) . '">';
-		$html .= '<small>Default : bloginfo("url")</small>';
 		$html .= '</td></tr>';
 		$html .= '<tr><th class="require"><label for="logo">logo :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "logo" . ']" id="logo" class="regular-text" required value="' . esc_attr( $option['logo'] ) . '">';
-		$html .= '<button id="media-upload" class="schema-admin-media-button dashicons-before dashicons-admin-media"><span>Add Media</span></button>';
-		$html .= '<small>Default : bloginfo("url") + "/images/logo.png"</small>';
+		$html .= '<button id="media-upload" class="dashicons-before dashicons-admin-media schema-admin-media-button"></button>';
 		$html .= '</td></tr>';
 		$html .= '</table>';
 		echo $html;
@@ -100,8 +97,7 @@ class Structuring_Markup_Type_Organization {
 		$html .= '>Enabled';
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="telephone">telephone :</label></th><td>';
-		$html .= '<input type="text" name="option[' . "telephone" . ']" id="telephone" class="regular-text" value="' . esc_attr( $option['telephone'] ) . '">';
-		$html .= '<small>e.g. : +1-880-555-1212</small>';
+		$html .= '<input type="text" name="option[' . "telephone" . ']" id="telephone" class="regular-text" value="' . esc_attr( $option['telephone'] ) . '" placeholder="e.g. : +1-880-555-1212">';
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="contact_type">contactType :</label></th><td>';
 		$html .= '<select id="contact_type" name="option[' . "contact_type" . ']">';
@@ -113,11 +109,9 @@ class Structuring_Markup_Type_Organization {
 			$html .= '>' . $value['display'] . '</option>';
 		}
 		$html .= '</select>';
-		$html .= '<small>Default : "customer service"</small>';
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="email">email :</label></th><td>';
-		$html .= '<input type="email" name="option[' . "email" . ']" id="email" class="regular-text" value="' . esc_attr( $option['email'] ) . '">';
-		$html .= '<small>e.g. : info@example.com</small>';
+		$html .= '<input type="email" name="option[' . "email" . ']" id="email" class="regular-text" value="' . esc_attr( $option['email'] ) . '" placeholder="e.g. : info@example.com">';
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="area_served">areaServed :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "area_served" . ']" id="area_served" class="regular-text" value="' . esc_attr( $option['area_served'] ) . '">';
@@ -160,14 +154,14 @@ class Structuring_Markup_Type_Organization {
 	/**
 	 * Return the default options array
 	 *
-	 * @version 4.1.0
+	 * @version 4.1.3
 	 * @since   1.0.0
 	 * @return  array $args
 	 */
 	private function get_default_options () {
-		$args['name']               = get_bloginfo('name');
-		$args['url']                = get_bloginfo('url');
-		$args['logo']               = get_bloginfo('url') . '/images/logo.png';
+		$args['name']               = '';
+		$args['url']                = '';
+		$args['logo']               = '';
 		$args['contact_point']      = '';
 		$args['telephone']          = '';
 		$args['contact_type']       = 'customer_service';

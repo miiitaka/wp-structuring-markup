@@ -3,7 +3,7 @@
  * Schema.org Type Organization
  *
  * @author  Kazuya Takami
- * @version 4.0.0
+ * @version 4.1.3
  * @since   4.0.0
  * @link    https://schema.org/Organization
  * @link    https://developers.google.com/search/docs/guides/enhance-site
@@ -13,7 +13,7 @@ class Structuring_Markup_Meta_Organization {
 	/**
 	 * Setting schema.org Organization
 	 *
-	 * @version 4.0.0
+	 * @version 4.1.3
 	 * @since   4.0.0
 	 * @param   array $options
 	 * @return  array $args
@@ -40,7 +40,10 @@ class Structuring_Markup_Meta_Organization {
 				$contact_point_data['email'] = isset( $options['email'] ) ? esc_html( $options['email'] ) : "";
 			}
 			if ( !empty( $options['area_served'] ) ) {
-				$contact_point_data['areaServed'][] = isset( $options['area_served'] ) ? esc_html( $options['area_served'] ) : "";
+				$array = explode( ',', esc_html(  $options['area_served'] ) );
+				for ( $i = 0; $i < count( $array ); $i++ ) {
+					$contact_point_data['areaServed'][] = isset( $options['area_served'] ) ? $array[$i] : "";
+				}
 			}
 			if ( isset( $options['contact_point_1'] ) &&  $options['contact_point_1'] === 'on' ) {
 				$contact_point_data['contactOption'][] = 'HearingImpairedSupported';
@@ -49,7 +52,10 @@ class Structuring_Markup_Meta_Organization {
 				$contact_point_data['contactOption'][] = 'TollFree';
 			}
 			if ( !empty( $options['available_language'] ) ) {
-				$contact_point_data['availableLanguage'][] = isset( $options['available_language'] ) ? esc_html( $options['available_language'] ) : "";
+				$array = explode( ',', esc_html( $options['available_language'] ) );
+				for ( $i = 0; $i < count( $array ); $i++ ) {
+					$contact_point_data['availableLanguage'][] = isset( $options['available_language'] ) ? $array[$i] : "";
+				}
 			}
 
 			$contact_point["contactPoint"] = array( $contact_point_data	);
