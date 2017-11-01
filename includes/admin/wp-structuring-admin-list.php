@@ -3,7 +3,7 @@
  * Schema.org Admin List
  *
  * @author  Kazuya Takami
- * @version 3.2.4
+ * @version 4.1.4
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  */
@@ -32,7 +32,7 @@ class Structuring_Markup_Admin_List {
 	/**
 	 * LIST Page HTML Render.
 	 *
-	 * @version 3.2.4
+	 * @version 4.1.4
 	 * @since   1.0.0
 	 */
 	private function page_render () {
@@ -68,7 +68,7 @@ class Structuring_Markup_Admin_List {
 				$html .= admin_url( $post_url . '&type=' . esc_html( $row->type ) . '&schema_post_id=' . esc_html( $row->id ) ) . '">' . $type_array[esc_html( $row->type )];
 				$html .= '</a></strong>';
 				$html .= '<div class="row-actions"><span class="edit"><a href="';
-				$html .= admin_url( $post_url . '&type=' . esc_html( $row->type ) . '&schema_post_id=' . esc_html( $row->id ) ) . '" class="edit" aria-label="編集">' . esc_html__( 'Edit', $this->text_domain );
+				$html .= admin_url( $post_url . '&type=' . esc_html( $row->type ) . '&schema_post_id=' . esc_html( $row->id ) ) . '" class="edit" aria-label="' . esc_html__( 'Edit', $this->text_domain ) . '">' . esc_html__( 'Edit', $this->text_domain );
 				$html .= '</a></span></div>';
 				$html .= '<button type="button" class="toggle-row"><span class="screen-reader-text">' . __( 'Show more details', $this->text_domain ) . '</span></button>';
 				$html .= '</td>';
