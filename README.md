@@ -40,6 +40,9 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 4.1.5 (2017-11-22)
+* Checked : WordPress version 4.9.0 operation check.
+
 ### 4.1.4 (2017-11-01)
 - Checked : WordPress version 4.8.3 operation check.
 - Fixed : Error setting aria-label.
