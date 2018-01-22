@@ -40,6 +40,9 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 4.1.7 (2018-01-22)
+- Checked : WordPress version 4.9.2 operation check.
+
 ### 4.1.6 (2017-12-12)
 - Checked : WordPress version 4.9.1 operation check.
 - Fixed : Hidden if addressRegion and telephone is empty.
