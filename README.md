@@ -40,6 +40,10 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 4.1.8 (2018-02-16)
+- Checked : WordPress version 4.9.4 operation check.
+- Checked : WordPress version 4.9.3 operation check.
+
 ### 4.1.7 (2018-01-22)
 - Checked : WordPress version 4.9.2 operation check.
 
