@@ -3,7 +3,7 @@
  * Breadcrumb ShortCode Settings
  *
  * @author  Kazuya Takami
- * @version 4.1.1
+ * @version 4.2.0
  * @since   2.0.0
  */
 class Structuring_Markup_ShortCode_Breadcrumb {
@@ -11,8 +11,8 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	/**
 	 * ShortCode Display.
 	 *
-	 * @since   2.0.0
 	 * @version 2.3.1
+	 * @since   2.0.0
 	 * @access  public
 	 * @param   array  $options
 	 * @param   string $args
@@ -186,8 +186,8 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	/**
 	 * taxonomy item settings
 	 *
+	 * @version 4.2.0
 	 * @since   4.0.0
-	 * @version 4.0.0
 	 * @param   int    $id
 	 * @param   string $taxonomy
 	 * @return  array  $args
@@ -217,7 +217,8 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 			$ancestors[] = $term_bottom[0];
 
 			foreach ( $ancestors as $ancestor ) {
-				$args[] = $this->set_schema_breadcrumb_item( get_category_link( $ancestor ), get_cat_name( $ancestor ) );
+				$term   = get_term( $ancestor, $taxonomy );
+				$args[] = $this->set_schema_breadcrumb_item( esc_url( get_term_link( $ancestor ) ), esc_html( $term->name ) );
 			}
 		}
 		return (array) $args;
@@ -226,8 +227,8 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	/**
 	 * Breadcrumb item settings
 	 *
-	 * @since   2.0.0
 	 * @version 2.0.0
+	 * @since   2.0.0
 	 * @param   string $id
 	 * @param   string $name
 	 * @return  array  $args
