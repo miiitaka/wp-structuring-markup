@@ -40,6 +40,9 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 4.2.0 (2018-03-23)
+- Fixed : Taxonomy name of custom posting is not displayed.
+
 ### 4.1.8 (2018-02-16)
 - Checked : WordPress version 4.9.4 operation check.
 - Checked : WordPress version 4.9.3 operation check.
