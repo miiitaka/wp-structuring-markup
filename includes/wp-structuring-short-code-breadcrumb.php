@@ -151,7 +151,8 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 				if( $term->parent !== 0 ) {
 					$ancestors = array_reverse( get_ancestors( $term->term_taxonomy_id, $tax_slug ) );
 					foreach( $ancestors as $ancestor ) {
-						$item_array[] = $this->set_schema_breadcrumb_item( get_category_link( $ancestor ), get_cat_name( $ancestor ) );
+						$ancestor_term = get_term( $ancestor, $tax_slug );
+						$item_array[] = $this->set_schema_breadcrumb_item( esc_url( get_term_link( $ancestor ) ), esc_html( $ancestor_term->name ) );
 					}
 				}
 				$item_array[] = $this->set_schema_breadcrumb_item( get_term_link( $term_slug, $tax_slug ), esc_html( $term->name ) );
