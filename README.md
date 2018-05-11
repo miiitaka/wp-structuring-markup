@@ -40,6 +40,10 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 4.2.2 (2018-05-11)
+- Fixed : If there is a child element on that page in the top fixed page, the parent element duplicates.
+- Fixed : Taxonomy name of custom posting is not displayed in a custom taxonomy archive page.
+
 ### 4.2.1 (2018-03-23)
 - Fixed : Taxonomy name of custom posting is not displayed.
 
