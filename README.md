@@ -40,6 +40,9 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 4.3.0 (2018-0x-xx)
+- Updated : Enable / disable function of link setting of current page of breadcrumbs.
+
 ### 4.2.2 (2018-05-15)
 - Checked : WordPress version 4.9.5 operation check.
 - Fixed : If there is a child element on that page in the top fixed page, the parent element duplicates.
