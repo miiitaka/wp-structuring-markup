@@ -18,7 +18,7 @@ new Structuring_Markup();
  * Schema.org Basic Class
  *
  * @author  Kazuya Takami
- * @version 4.2.2
+ * @version 4.3.0
  * @since   1.0.0
  */
 class Structuring_Markup {
@@ -26,10 +26,10 @@ class Structuring_Markup {
 	/**
 	 * Variable definition version.
 	 *
-	 * @version 4.2.2
+	 * @version 4.3.0
 	 * @since   1.3.0
 	 */
-	private $version = '4.2.2';
+	private $version = '4.3.0';
 
 	/**
 	 * Variable definition Text Domain.
