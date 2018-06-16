@@ -3,7 +3,7 @@
  * Schema.org Type Breadcrumb
  *
  * @author  Kazuya Takami
- * @version 4.1.1
+ * @version 4.3.0
  * @since   2.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/BreadcrumbList
@@ -32,7 +32,7 @@ class Structuring_Markup_Type_Breadcrumb {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 4.1.1
+	 * @version 4.3.0
 	 * @since   2.3.3
 	 * @param   array $option
 	 */
@@ -59,6 +59,14 @@ class Structuring_Markup_Type_Breadcrumb {
 		$html .= '>Enabled';
 		$html .= '<small>Installed the Current Page to breadcrumbs.</small>';
 		$html .= '</td></tr>';
+		$html .= '<tr><th><label for="current_link">Current Page Link :</label></th><td>';
+		$html .= '<input type="checkbox" name="option[' . "current_link" . ']" id="current_link" value="on"';
+		if ( isset( $option['current_link'] ) &&  $option['current_link'] === 'on' ) {
+			$html .= ' checked="checked"';
+		}
+		$html .= '>Enabled';
+		$html .= '<small>Link setting of the current page of breadcrumbs.</small>';
+		$html .= '</td></tr>';
 		$html .= '</table>';
 		echo $html;
 
@@ -78,14 +86,15 @@ class Structuring_Markup_Type_Breadcrumb {
 	/**
 	 * Return the default options array
 	 *
-	 * @version 4.1.1
+	 * @version 4.3.0
 	 * @since   2.0.0
 	 * @return  array $args
 	 */
 	private function get_default_options () {
-		$args['home_on']    = '';
-		$args['home_name']  = '';
-		$args['current_on'] = '';
+		$args['home_on']      = '';
+		$args['home_name']    = '';
+		$args['current_on']   = '';
+		$args['current_link'] = '';
 
 		return (array) $args;
 	}

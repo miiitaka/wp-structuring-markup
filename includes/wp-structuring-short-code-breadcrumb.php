@@ -3,7 +3,7 @@
  * Breadcrumb ShortCode Settings
  *
  * @author  Kazuya Takami
- * @version 4.2.2
+ * @version 4.3.0
  * @since   2.0.0
  */
 class Structuring_Markup_ShortCode_Breadcrumb {
@@ -11,7 +11,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	/**
 	 * ShortCode Display.
 	 *
-	 * @version 2.3.1
+	 * @version 4.3.0
 	 * @since   2.0.0
 	 * @access  public
 	 * @param   array  $options
@@ -45,12 +45,20 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 				$html .= '<ol>';
 			}
 			$html .= PHP_EOL;
+
+			$count  = 1;
+			$length = count( $item_array );
 			foreach ( $item_array as $item ) {
 				$html .= '<li>';
-				$html .= '<a href="' . esc_url( $item['@id'] ) . '">';
-				$html .= esc_html( $item['name'] );
-				$html .= '</a>';
+				if ( $count === $length && ( !isset( $options['current_link'] ) || $options['current_link'] !== 'on' ) ) {
+					$html .= esc_html( $item['name'] );
+				} else {
+					$html .= '<a href="' . esc_url( $item['@id'] ) . '">';
+					$html .= esc_html( $item['name'] );
+					$html .= '</a>';
+				}
 				$html .= '</li>' . PHP_EOL;
+				$count++;
 			}
 			$html .= '</ol>' . PHP_EOL;
 			$html .= '<!-- Markup (JSON-LD) structured in schema.org Breadcrumb END -->' . PHP_EOL;
