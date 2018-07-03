@@ -3,7 +3,7 @@
  * Schema.org Type BlogPosting
  *
  * @author  Kazuya Takami
- * @version 4.1.3
+ * @version 4.4.0
  * @since   1.2.0
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/BlogPosting
@@ -32,7 +32,7 @@ class Structuring_Markup_Type_Blog_Posting {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 4.1.3
+	 * @version 4.4.0
 	 * @since   1.2.0
 	 * @param   array $option
 	 */
@@ -65,6 +65,11 @@ class Structuring_Markup_Type_Blog_Posting {
 			$html .= ' checked="checked"';
 		}
 		$html .= '>Set the first image in the content.<br><small>Pattern without feature image set (feature image takes precedence)</small>';
+		$html .= '</td></tr>';
+		$html .= '<tr><th><label for="default_image">Default image url :</label></th><td>';
+		$html .= '<input type="text" name="option[' . "default_image" . ']" id="default_image" class="regular-text" value="' . esc_attr( $option['default_image'] ) . '">';
+		$html .= '<button id="media-upload-default" class="dashicons-before dashicons-admin-media schema-admin-media-button"></button><br>';
+		$html .= '<small>Image output when feature image or content image check is not set.</small>';
 		$html .= '</td></tr>';
 		$html .= '</table>';
 		echo $html;
@@ -109,13 +114,14 @@ class Structuring_Markup_Type_Blog_Posting {
 	/**
 	 * Return the default options array
 	 *
-	 * @version 4.1.3
+	 * @version 4.4.0
 	 * @since   2.2.0
 	 * @return  array $args
 	 */
 	private function get_default_options () {
 		$args['name']          = '';
 		$args['content_image'] = '';
+		$args['default_image'] = '';
 		$args['logo']          = '';
 		$args['logo-height']   = 0;
 		$args['logo-width']    = 0;
