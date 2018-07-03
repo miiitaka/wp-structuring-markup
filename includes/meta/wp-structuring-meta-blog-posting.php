@@ -3,7 +3,7 @@
  * Schema.org Type BlogPosting
  *
  * @author  Kazuya Takami
- * @version 4.1.0
+ * @version 4.4.0
  * @since   4.0.0
  * @link    http://schema.org/BlogPosting
  * @link    https://developers.google.com/search/docs/data-types/articles
@@ -32,7 +32,7 @@ class Structuring_Markup_Meta_Blog_Posting {
 	/**
 	 * Setting schema.org BlogPosting
 	 *
-	 * @version 4.1.0
+	 * @version 4.4.0
 	 * @since   4.0.0
 	 * @param   array $options
 	 * @return  array $args
@@ -85,6 +85,18 @@ class Structuring_Markup_Meta_Blog_Posting {
 					);
 					$args = array_merge( $args, $images_args );
 				}
+			}
+		} elseif ( isset( $options['default_image'] ) ) {
+			if ( $size = $this->utility->get_image_dimensions( $options['default_image'] ) ) {
+				$images_args = array(
+					"image" => array(
+						"@type"  => "ImageObject",
+						"url"    => esc_html( $options['default_image'] ),
+						"width"  => $size['width'],
+						"height" => $size['height']
+					)
+				);
+				$args = array_merge( $args, $images_args );
 			}
 		}
 
