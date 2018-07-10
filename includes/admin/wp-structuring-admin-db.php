@@ -3,7 +3,7 @@
  * Schema.org Admin DB Connection.
  *
  * @author  Kazuya Takami
- * @version 4.3.0
+ * @version 4.4.0
  * @since   1.0.0
  */
 class Structuring_Markup_Admin_Db {
@@ -77,7 +77,7 @@ class Structuring_Markup_Admin_Db {
 			/**
 			 * version up process.
 			 *
-			 * @version 4.3.0
+			 * @version 4.4.0
 			 * @since   2.0.0
 			 * */
 			$options = get_option( $text_domain );
@@ -102,7 +102,7 @@ class Structuring_Markup_Admin_Db {
 							$activate = isset( $list->activate ) ? $list->activate : "";
 
 							// version up default value setting.
-							if ( $version === '4.3.0' && $key === 'breadcrumb' ) {
+							if ( $version >= '4.3.0' && $key === 'breadcrumb' ) {
 								$works = unserialize( $list->options );
 								$works['current_link'] = 'on';
 								$list->options = serialize( $works );
