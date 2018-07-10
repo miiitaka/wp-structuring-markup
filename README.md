@@ -40,6 +40,10 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 4.4.0 (2018-07-10)
+- Checked : WordPress version 4.9.7 operation check.
+- Updated : Schema.ory Type "Image", "BlogPosting", "NewsArticle" image property added so that default image URL can be set.
+
 ### 4.3.0 (2018-06-16)
 - Checked : WordPress version 4.9.6 operation check.
 - Updated : Enable / disable function of link setting of current page of breadcrumbs.
