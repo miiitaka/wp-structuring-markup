@@ -3,12 +3,13 @@
  * Schema.org Type WebSite
  *
  * @author  Kazuya Takami
- * @version 4.1.3
+ * @version 4.5.0
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/WebSite
  * @link    https://developers.google.com/search/docs/guides/enhance-site#add-a-sitelinks-searchbox-for-your-site
  * @link    https://developers.google.com/search/docs/data-types/sitename
+ * @link    https://developers.google.com/search/docs/data-types/speakable
  */
 class Structuring_Markup_Type_Website {
 
@@ -33,7 +34,7 @@ class Structuring_Markup_Type_Website {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 4.1.3
+	 * @version 4.5.0
 	 * @since   2.3.3
 	 * @param   array $option
 	 */
@@ -55,11 +56,11 @@ class Structuring_Markup_Type_Website {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Sitelink Search Box [ Site ]</caption>';
 		$html .= '<tr><th><label for="potential_action">potentialAction Active :</label></th><td>';
-		$html .= '<input type="checkbox" name="option[' . "potential_action" . ']" id="potential_action" value="on"';
+		$html .= '<label><input type="checkbox" name="option[' . "potential_action" . ']" id="potential_action" value="on"';
 		if ( isset( $option['potential_action'] ) &&  $option['potential_action'] === 'on' ) {
 			$html .= ' checked="checked"';
 		}
-		$html .= '>Enabled';
+		$html .= '>Enabled</label>';
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="target">target :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "target" . ']" id="target" class="regular-text" value="' . esc_attr( $option['target'] ) . '">';
@@ -70,14 +71,45 @@ class Structuring_Markup_Type_Website {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Sitelink Search Box [ App ] *required Sitelink Search Box [ Site ]</caption>';
 		$html .= '<tr><th><label for="potential_action_app">potentialAction Active :</label></th><td>';
-		$html .= '<input type="checkbox" name="option[' . "potential_action_app" . ']" id="potential_action_app" value="on"';
+		$html .= '<label><input type="checkbox" name="option[' . "potential_action_app" . ']" id="potential_action_app" value="on"';
 		if ( isset( $option['potential_action_app'] ) &&  $option['potential_action_app'] === 'on' ) {
 			$html .= ' checked="checked"';
 		}
-		$html .= '>Enabled';
+		$html .= '>Enabled</label>';
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="target_app">target :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "target_app" . ']" id="target_app" class="regular-text" value="' . esc_attr( $option['target_app'] ) . '">';
+		$html .= '</td></tr>';
+		$html .= '</table>';
+		echo $html;
+
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>Speakable</caption>';
+		$html .= '<tr><th><label for="potential_action_speakable">speakable Active :</label></th><td>';
+		$html .= '<label><input type="checkbox" name="option[' . "potential_action_speakable" . ']" id="potential_action_speakable" value="on"';
+		if ( isset( $option['potential_action_speakable'] ) &&  $option['potential_action_speakable'] === 'on' ) {
+			$html .= ' checked="checked"';
+		}
+		$html .= '>Enabled</label>';
+		$html .= '</td></tr>';
+		$html .= '<tr><th><label for="speakable_type_css">cssSelector OR xpath :</label></th><td>';
+
+		if( $option['speakable_type'] !== 'xpath' ) {
+			$checked['css']   = ' checked';
+			$checked['xpath'] = '';
+		} else {
+			$checked['css']   = '';
+			$checked['xpath'] = ' checked';
+		}
+
+		$html .= '<label><input type="radio" name="option[' . "speakable_type" . ']" id="speakable_type_css" value="css"' . $checked['css'] . '>CSS selectors&nbsp;&nbsp;</label>';
+		$html .= '<label><input type="radio" name="option[' . "speakable_type" . ']" id="speakable_type_xpath" value="xpath"' . $checked['xpath'] . '>xPaths</label>';
+		$html .= '</td></tr>';
+		$html .= '<tr><th><label for="speakable_headline">headline :</label></th><td>';
+		$html .= '<input type="text" name="option[' . "speakable_headline" . ']" id="speakable_headline" class="regular-text" value="' . esc_attr( $option['speakable_headline'] ) . '">';
+		$html .= '</td></tr>';
+		$html .= '<tr><th><label for="speakable_summary">summary :</label></th><td>';
+		$html .= '<input type="text" name="option[' . "speakable_summary" . ']" id="speakable_summary" class="regular-text" value="' . esc_attr( $option['speakable_summary'] ) . '">';
 		$html .= '</td></tr>';
 		$html .= '</table>';
 		echo $html;
@@ -89,7 +121,7 @@ class Structuring_Markup_Type_Website {
 	/**
 	 * Return the default options array
 	 *
-	 * @version 4.1.3
+	 * @version 4.5.0
 	 * @since   1.0.0
 	 * @return  array $args
 	 */
@@ -103,6 +135,9 @@ class Structuring_Markup_Type_Website {
 		$args['target']               = '';
 		$args['potential_action_app'] = '';
 		$args['target_app']           = '';
+		$args['speakable_type']       = '';
+		$args['speakable_headline']   = '';
+		$args['speakable_summary']    = '';
 
 		return (array) $args;
 	}
