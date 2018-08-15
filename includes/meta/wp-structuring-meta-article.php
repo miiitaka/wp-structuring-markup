@@ -3,10 +3,11 @@
  * Schema.org Type Article
  *
  * @author  Kazuya Takami
- * @version 4.4.0
+ * @version 4.5.0
  * @since   4.0.0
  * @link    http://schema.org/Article
  * @link    https://developers.google.com/search/docs/data-types/articles
+ * @link    https://developers.google.com/search/docs/data-types/speakable
  */
 class Structuring_Markup_Meta_Article {
 
@@ -32,7 +33,7 @@ class Structuring_Markup_Meta_Article {
 	/**
 	 * Setting schema.org Article
 	 *
-	 * @version 4.4.0
+	 * @version 4.5.0
 	 * @since   4.0.0
 	 * @param   array $options
 	 * @return  array $args
@@ -125,6 +126,21 @@ class Structuring_Markup_Meta_Article {
 				);
 			}
 			$args = array_merge( $args, $publisher_args );
+		}
+
+		if ( isset( $options['speakable_action'] ) && $options['speakable_action'] === 'on' ) {
+			$speakable_type = isset( $options['speakable_type'] ) ? $options['speakable_type'] : '';
+
+			if ( !empty( $speakable_type ) ) {
+				$action_array = array(
+					"@type" => "SpeakableSpecification"
+				);
+				$action_array[$speakable_type] = array(
+					isset( $options['speakable_headline'] ) ? stripslashes( $options['speakable_headline'] ) : '',
+					isset( $options['speakable_summary'] )  ? stripslashes( $options['speakable_summary'] )  : ''
+				);
+				$args['speakable'] = $action_array;
+			}
 		}
 
 		return (array) $args;

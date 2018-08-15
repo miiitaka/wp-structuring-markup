@@ -9,7 +9,6 @@
  * @link    https://schema.org/WebSite
  * @link    https://developers.google.com/search/docs/guides/enhance-site#add-a-sitelinks-searchbox-for-your-site
  * @link    https://developers.google.com/search/docs/data-types/sitename
- * @link    https://developers.google.com/search/docs/data-types/speakable
  */
 class Structuring_Markup_Type_Website {
 
@@ -83,37 +82,6 @@ class Structuring_Markup_Type_Website {
 		$html .= '</table>';
 		echo $html;
 
-		$html  = '<table class="schema-admin-table">';
-		$html .= '<caption>Speakable</caption>';
-		$html .= '<tr><th><label for="potential_action_speakable">speakable Active :</label></th><td>';
-		$html .= '<label><input type="checkbox" name="option[' . "potential_action_speakable" . ']" id="potential_action_speakable" value="on"';
-		if ( isset( $option['potential_action_speakable'] ) &&  $option['potential_action_speakable'] === 'on' ) {
-			$html .= ' checked="checked"';
-		}
-		$html .= '>Enabled</label>';
-		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="speakable_type_css">cssSelector OR xpath :</label></th><td>';
-
-		if( $option['speakable_type'] !== 'xpath' ) {
-			$checked['css']   = ' checked';
-			$checked['xpath'] = '';
-		} else {
-			$checked['css']   = '';
-			$checked['xpath'] = ' checked';
-		}
-
-		$html .= '<label><input type="radio" name="option[' . "speakable_type" . ']" id="speakable_type_css" value="css"' . $checked['css'] . '>CSS selectors&nbsp;&nbsp;</label>';
-		$html .= '<label><input type="radio" name="option[' . "speakable_type" . ']" id="speakable_type_xpath" value="xpath"' . $checked['xpath'] . '>xPaths</label>';
-		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="speakable_headline">headline :</label></th><td>';
-		$html .= '<input type="text" name="option[' . "speakable_headline" . ']" id="speakable_headline" class="regular-text" value="' . esc_attr( $option['speakable_headline'] ) . '">';
-		$html .= '</td></tr>';
-		$html .= '<tr><th><label for="speakable_summary">summary :</label></th><td>';
-		$html .= '<input type="text" name="option[' . "speakable_summary" . ']" id="speakable_summary" class="regular-text" value="' . esc_attr( $option['speakable_summary'] ) . '">';
-		$html .= '</td></tr>';
-		$html .= '</table>';
-		echo $html;
-
 		echo '<p>Setting Knowledge : <a href="https://developers.google.com/search/docs/data-types/sitename" target="_blank">https://developers.google.com/search/docs/data-types/sitename</a></p>';
 		submit_button();
 	}
@@ -135,9 +103,6 @@ class Structuring_Markup_Type_Website {
 		$args['target']               = '';
 		$args['potential_action_app'] = '';
 		$args['target_app']           = '';
-		$args['speakable_type']       = '';
-		$args['speakable_headline']   = '';
-		$args['speakable_summary']    = '';
 
 		return (array) $args;
 	}
