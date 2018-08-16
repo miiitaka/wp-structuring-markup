@@ -3,7 +3,7 @@
  * Schema.org Type WebSite
  *
  * @author  Kazuya Takami
- * @version 4.1.3
+ * @version 4.5.0
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/WebSite
@@ -33,7 +33,7 @@ class Structuring_Markup_Type_Website {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 4.1.3
+	 * @version 4.5.0
 	 * @since   2.3.3
 	 * @param   array $option
 	 */
@@ -55,11 +55,11 @@ class Structuring_Markup_Type_Website {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Sitelink Search Box [ Site ]</caption>';
 		$html .= '<tr><th><label for="potential_action">potentialAction Active :</label></th><td>';
-		$html .= '<input type="checkbox" name="option[' . "potential_action" . ']" id="potential_action" value="on"';
+		$html .= '<label><input type="checkbox" name="option[' . "potential_action" . ']" id="potential_action" value="on"';
 		if ( isset( $option['potential_action'] ) &&  $option['potential_action'] === 'on' ) {
 			$html .= ' checked="checked"';
 		}
-		$html .= '>Enabled';
+		$html .= '>Enabled</label>';
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="target">target :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "target" . ']" id="target" class="regular-text" value="' . esc_attr( $option['target'] ) . '">';
@@ -70,11 +70,11 @@ class Structuring_Markup_Type_Website {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Sitelink Search Box [ App ] *required Sitelink Search Box [ Site ]</caption>';
 		$html .= '<tr><th><label for="potential_action_app">potentialAction Active :</label></th><td>';
-		$html .= '<input type="checkbox" name="option[' . "potential_action_app" . ']" id="potential_action_app" value="on"';
+		$html .= '<label><input type="checkbox" name="option[' . "potential_action_app" . ']" id="potential_action_app" value="on"';
 		if ( isset( $option['potential_action_app'] ) &&  $option['potential_action_app'] === 'on' ) {
 			$html .= ' checked="checked"';
 		}
-		$html .= '>Enabled';
+		$html .= '>Enabled</label>';
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="target_app">target :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "target_app" . ']" id="target_app" class="regular-text" value="' . esc_attr( $option['target_app'] ) . '">';
@@ -89,7 +89,7 @@ class Structuring_Markup_Type_Website {
 	/**
 	 * Return the default options array
 	 *
-	 * @version 4.1.3
+	 * @version 4.5.0
 	 * @since   1.0.0
 	 * @return  array $args
 	 */

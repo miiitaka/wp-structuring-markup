@@ -3,11 +3,12 @@
  * Schema.org Type BlogPosting
  *
  * @author  Kazuya Takami
- * @version 4.4.0
+ * @version 4.5.0
  * @since   1.2.0
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/BlogPosting
  * @link    https://developers.google.com/search/docs/data-types/articles
+ * @link    https://developers.google.com/search/docs/data-types/speakable
  */
 class Structuring_Markup_Type_Blog_Posting {
 
@@ -32,7 +33,7 @@ class Structuring_Markup_Type_Blog_Posting {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 4.4.0
+	 * @version 4.5.0
 	 * @since   1.2.0
 	 * @param   array $option
 	 */
@@ -107,6 +108,38 @@ class Structuring_Markup_Type_Blog_Posting {
 		$html .= '</table>';
 		echo $html;
 
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>Speakable</caption>';
+		$html .= '<tr><th><label for="speakable_action">speakable Active :</label></th><td>';
+		$html .= '<label><input type="checkbox" name="option[' . "speakable_action" . ']" id="speakable_action" value="on"';
+
+		if ( isset( $option['speakable_action'] ) &&  $option['speakable_action'] === 'on' ) {
+			$html .= ' checked="checked"';
+		}
+		$html .= '>Enabled</label>';
+		$html .= '</td></tr>';
+		$html .= '<tr><th><label for="speakable_type_css">cssSelector OR xpath :</label></th><td>';
+
+		if( $option['speakable_type'] !== 'xpath' ) {
+			$checked['css']   = ' checked';
+			$checked['xpath'] = '';
+		} else {
+			$checked['css']   = '';
+			$checked['xpath'] = ' checked';
+		}
+
+		$html .= '<label><input type="radio" name="option[' . "speakable_type" . ']" id="speakable_type_css" value="cssSelector"' . $checked['css'] . '>CSS selectors&nbsp;&nbsp;</label>';
+		$html .= '<label><input type="radio" name="option[' . "speakable_type" . ']" id="speakable_type_xpath" value="xpath"' . $checked['xpath'] . '>xPaths</label>';
+		$html .= '</td></tr>';
+		$html .= '<tr><th><label for="speakable_headline">headline :</label></th><td>';
+		$html .= '<input type="text" name="option[' . "speakable_headline" . ']" id="speakable_headline" class="regular-text" value="' . esc_attr( stripslashes( $option['speakable_headline'] ) ) . '">';
+		$html .= '</td></tr>';
+		$html .= '<tr><th><label for="speakable_summary">summary :</label></th><td>';
+		$html .= '<input type="text" name="option[' . "speakable_summary" . ']" id="speakable_summary" class="regular-text" value="' . esc_attr( stripslashes( $option['speakable_summary'] ) ) . '">';
+		$html .= '</td></tr>';
+		$html .= '</table>';
+		echo $html;
+
 		echo '<p>Setting Knowledge : <a href="https://developers.google.com/search/docs/data-types/articles" target="_blank">https://developers.google.com/search/docs/data-types/articles</a></p>';
 		submit_button();
 	}
@@ -114,7 +147,7 @@ class Structuring_Markup_Type_Blog_Posting {
 	/**
 	 * Return the default options array
 	 *
-	 * @version 4.4.0
+	 * @version 4.5.0
 	 * @since   2.2.0
 	 * @return  array $args
 	 */
@@ -125,6 +158,10 @@ class Structuring_Markup_Type_Blog_Posting {
 		$args['logo']          = '';
 		$args['logo-height']   = 0;
 		$args['logo-width']    = 0;
+		$args['speakable_action']   = '';
+		$args['speakable_type']     = '';
+		$args['speakable_headline'] = '';
+		$args['speakable_summary']  = '';
 
 		return (array) $args;
 	}
