@@ -18,7 +18,7 @@ new Structuring_Markup();
  * Schema.org Basic Class
  *
  * @author  Kazuya Takami
- * @version 4.4.0
+ * @version 4.5.0
  * @since   1.0.0
  */
 class Structuring_Markup {
@@ -140,13 +140,21 @@ class Structuring_Markup {
 	/**
 	 * Add Menu to the Admin Screen.
 	 *
-	 * @version 4.1.1
+	 * @version 4.5.0
 	 * @since   1.0.0
 	 */
 	public function admin_menu () {
-		$list_page = add_menu_page(
+		add_menu_page(
 			esc_html__( 'Schema.org Settings', $this->text_domain ),
 			esc_html__( 'Schema.org Settings', $this->text_domain ),
+			'manage_options',
+			plugin_basename( __FILE__ ),
+			array( $this, 'list_page_render' )
+		);
+		$list_page = add_submenu_page(
+			__FILE__,
+			esc_html__( 'Schema.org List', $this->text_domain ),
+			esc_html__( 'Schema.org List', $this->text_domain ),
 			'manage_options',
 			plugin_basename( __FILE__ ),
 			array( $this, 'list_page_render' )
@@ -159,12 +167,21 @@ class Structuring_Markup {
 			$this->text_domain . '-post',
 			array( $this, 'post_page_render' )
 		);
+		$config_page = add_submenu_page(
+			__FILE__,
+			esc_html__( 'Schema.org Config', $this->text_domain ),
+			esc_html__( 'Schema.org Config', $this->text_domain ),
+			'manage_options',
+			$this->text_domain . '-config',
+			array( $this, 'config_page_render' )
+		);
 
 		/** Using registered $page handle to hook stylesheet loading */
-		add_action( 'admin_print_styles-post.php',       array( $this, 'add_style_post' ) );
-		add_action( 'admin_print_styles-'  . $list_page, array( $this, 'add_style' ) );
-		add_action( 'admin_print_styles-'  . $post_page, array( $this, 'add_style' ) );
-		add_action( 'admin_print_scripts-' . $post_page, array( $this, 'admin_scripts' ) );
+		add_action( 'admin_print_styles-post.php',         array( $this, 'add_style_post' ) );
+		add_action( 'admin_print_styles-'  . $list_page,   array( $this, 'add_style' ) );
+		add_action( 'admin_print_styles-'  . $post_page,   array( $this, 'add_style' ) );
+		add_action( 'admin_print_styles-'  . $config_page, array( $this, 'add_style' ) );
+		add_action( 'admin_print_scripts-' . $post_page,   array( $this, 'admin_scripts' ) );
 	}
 
 	/**
@@ -250,14 +267,25 @@ class Structuring_Markup {
 	}
 
 	/**
+	 * POST Page Template Require.
+	 *
+	 * @version 4.5.0
+	 * @since   1.0.0
+	 */
+	public function config_page_render () {
+		require_once( plugin_dir_path( __FILE__ ) . 'includes/admin/wp-structuring-admin-config.php' );
+		new Structuring_Markup_Admin_Config( $this->text_domain );
+	}
+
+	/**
 	 * Display Page Template Require.
 	 *
-	 * @version 4.0.0
+	 * @version 4.5.0
 	 * @since   1.3.0
 	 */
 	public function wp_head () {
 		require_once( plugin_dir_path( __FILE__ ) . 'includes/wp-structuring-display.php' );
-		new Structuring_Markup_Display( $this->version );
+		new Structuring_Markup_Display( $this->version, $this->text_domain );
 	}
 
 	/**
