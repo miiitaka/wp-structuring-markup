@@ -2,8 +2,8 @@
 Contributors: miiitaka
 Tags: schema, schema.org, json, json-ld, seo, post, posts, google, shortcode, breadcrumb
 Requires at least: 4.3.1
-Tested up to: 4.9.7
-Stable tag: 4.4.0
+Tested up to: 4.9.8
+Stable tag: 4.5.0
 
 Allows you to include schema.org JSON-LD syntax markup on your website
 
@@ -23,6 +23,7 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 * Organization: https://schema.org/Organization
 * Person: https://schema.org/Person
 * SiteNavigation: https://schema.org/SiteNavigationElement
+* Speakable: https://pending.schema.org/speakable
 * Video: https://schema.org/Video
 * Website: https://schema.org/WebSite
 
@@ -53,6 +54,11 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 * Open 'Schema.org Setting' menu.
 
 == Changelog ==
+
+= 4.5.0 (2018-08-17) =
+* Checked : WordPress version 4.9.8 operation check.
+* Added : Speakable structured markup is implemented in "Article", "BlogPosting", "NewsArticle".
+* Added : Added function to compress output data.
 
 = 4.4.0 (2018-07-10) =
 * Checked : WordPress version 4.9.7 operation check.
