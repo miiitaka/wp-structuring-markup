@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @author  Justin Frydman
- * @version 4.0.1
+ * @version 4.5.0
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -18,15 +18,26 @@ class Structuring_Markup_Display {
 	private $utility;
 
 	/**
+	 * wp_options data
+	 *
+	 * @version 4.5.0
+	 * @since   4.5.0
+	 */
+	private $options;
+
+	/**
 	 * Constructor Define.
 	 *
-	 * @version 4.0.0
+	 * @version 4.5.0
 	 * @since   1.0.0
 	 * @param   string $version
+	 * @param   string $text_domain
 	 */
-	public function __construct ( $version ) {
+	public function __construct ( $version, $text_domain ) {
 		require_once( plugin_dir_path( __FILE__ ) . 'wp-structuring-utility.php' );
 		$this->utility = new Structuring_Markup_Utility();
+
+		$this->options = get_option( $text_domain );
 
 		$db = new Structuring_Markup_Admin_Db();
 		$this->set_schema( $db, $version );
@@ -35,7 +46,7 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting schema.org
 	 *
-	 * @version 3.1.4
+	 * @version 4.5.0
 	 * @since   1.0.0
 	 * @param   Structuring_Markup_Admin_Db $db
 	 * @param   string $version
@@ -43,7 +54,9 @@ class Structuring_Markup_Display {
 	private function set_schema ( Structuring_Markup_Admin_Db $db, $version ) {
 		$structuring_markup_args = $db->get_list_options();
 
-		echo '<!-- Markup (JSON-LD) structured in schema.org ver.' . $version . ' START -->' . PHP_EOL;
+		if ( !isset( $this->options['compress'] ) || $this->options['compress'] !== 'on' ) {
+			echo '<!-- Markup (JSON-LD) structured in schema.org ver.' . $version . ' START -->' . PHP_EOL;
+		}
 
 		$this->get_schema_data( 'all', $structuring_markup_args );
 		if ( is_home() || is_front_page() ) {
@@ -75,7 +88,10 @@ class Structuring_Markup_Display {
 				$this->get_schema_data( $post_type->name, $structuring_markup_args );
 			}
 		}
-		echo '<!-- Markup (JSON-LD) structured in schema.org END -->' . PHP_EOL;
+
+		if ( !isset( $this->options['compress'] ) || $this->options['compress'] !== 'on' ) {
+			echo '<!-- Markup (JSON-LD) structured in schema.org END -->' . PHP_EOL;
+		}
 	}
 
 	/**
@@ -180,7 +196,7 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting JSON-LD Template
 	 *
-	 * @since 4.0.1
+	 * @since 4.5.0
 	 * @since 1.0.0
 	 * @param array   $args
 	 * @param boolean $error
@@ -195,9 +211,15 @@ class Structuring_Markup_Display {
 			}
 		} else {
 			if ( is_array( $args ) ) {
-				echo '<script type="application/ld+json">', PHP_EOL;
-				echo json_encode( $args, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ), PHP_EOL;
-				echo '</script>', PHP_EOL;
+				if ( isset( $this->options['compress'] ) && $this->options['compress'] === 'on' ) {
+					echo '<script type="application/ld+json">';
+					echo json_encode( $args, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
+					echo '</script>';
+				} else {
+					echo '<script type="application/ld+json">', PHP_EOL;
+					echo json_encode( $args, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ), PHP_EOL;
+					echo '</script>', PHP_EOL;
+				}
 			}
 		}
 	}

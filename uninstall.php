@@ -8,7 +8,7 @@ new Structuring_Markup_Uninstall();
  * Schema.org Plugin Uninstall
  *
  * @author  Kazuya Takami
- * @version 3.0.0
+ * @version 4.5.0
  * @since   1.0.0
  */
 class Structuring_Markup_Uninstall {
@@ -16,17 +16,18 @@ class Structuring_Markup_Uninstall {
 	/**
 	 * Variable definition.
 	 *
+	 * @version 4.5.0
 	 * @since   2.1.0
-	 * @version 3.0.0
 	 */
+	private $text_domain       = 'wp-structuring-markup';
 	private $custom_type_event = 'schema_event_post';
 	private $custom_type_video = 'schema_video_post';
 
 	/**
 	 * Constructor Define.
 	 *
+	 * @version 4.5.0
 	 * @since   1.0.0
-	 * @version 3.0.0
 	 */
 	public function __construct () {
 		$this->drop_table( 'structuring_markup' );
@@ -34,14 +35,14 @@ class Structuring_Markup_Uninstall {
 		$this->delete_post_meta( $this->custom_type_event );
 		$this->delete_custom_post( $this->custom_type_video );
 		$this->delete_post_meta( $this->custom_type_video );
-		delete_option( 'wp_structuring_markup' );
+		delete_option( $this->text_domain );
 	}
 
 	/**
 	 * Drop Table.
 	 *
-	 * @since   1.0.0
 	 * @version 2.1.0
+	 * @since   1.0.0
 	 * @param   string $table_name
 	 */
 	private function drop_table ( $table_name = null ) {
@@ -53,8 +54,8 @@ class Structuring_Markup_Uninstall {
 	/**
 	 * Delete custom post.
 	 *
-	 * @since   2.1.0
 	 * @version 2.1.0
+	 * @since   2.1.0
 	 * @param   string $custom_type
 	 */
 	private function delete_custom_post ( $custom_type = null ) {
@@ -70,8 +71,8 @@ class Structuring_Markup_Uninstall {
 	/**
 	 * Delete post meta.
 	 *
-	 * @since   2.1.0
 	 * @version 2.1.0
+	 * @since   2.1.0
 	 * @param   string $custom_type
 	 */
 	private function delete_post_meta ( $custom_type = null ) {
