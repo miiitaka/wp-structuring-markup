@@ -54,7 +54,7 @@ class Structuring_Markup_Display {
 	private function set_schema ( Structuring_Markup_Admin_Db $db, $version ) {
 		$structuring_markup_args = $db->get_list_options();
 
-		if ( !isset( $this->options['compress'] ) || empty( $this->options['compress'] ) ) {
+		if ( !isset( $this->options['compress'] ) || $this->options['compress'] !== 'on' ) {
 			echo '<!-- Markup (JSON-LD) structured in schema.org ver.' . $version . ' START -->' . PHP_EOL;
 		}
 
@@ -89,7 +89,7 @@ class Structuring_Markup_Display {
 			}
 		}
 
-		if ( !isset( $this->options['compress'] ) || empty( $this->options['compress'] ) ) {
+		if ( !isset( $this->options['compress'] ) || $this->options['compress'] !== 'on' ) {
 			echo '<!-- Markup (JSON-LD) structured in schema.org END -->' . PHP_EOL;
 		}
 	}
@@ -211,14 +211,14 @@ class Structuring_Markup_Display {
 			}
 		} else {
 			if ( is_array( $args ) ) {
-				if ( isset( $this->options['compress'] ) && empty( $this->options['compress'] === 'on' ) ) {
-					echo '<script type="application/ld+json">', PHP_EOL;
-					echo json_encode($args, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT), PHP_EOL;
-					echo '</script>', PHP_EOL;
-				} else {
+				if ( isset( $this->options['compress'] ) && $this->options['compress'] === 'on' ) {
 					echo '<script type="application/ld+json">';
-					echo json_encode($args, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+					echo json_encode( $args, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
 					echo '</script>';
+				} else {
+					echo '<script type="application/ld+json">', PHP_EOL;
+					echo json_encode( $args, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ), PHP_EOL;
+					echo '</script>', PHP_EOL;
 				}
 			}
 		}
