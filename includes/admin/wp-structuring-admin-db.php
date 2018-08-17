@@ -3,7 +3,7 @@
  * Schema.org Admin DB Connection.
  *
  * @author  Kazuya Takami
- * @version 4.4.0
+ * @version 4.5.0
  * @since   1.0.0
  */
 class Structuring_Markup_Admin_Db {
@@ -127,7 +127,7 @@ class Structuring_Markup_Admin_Db {
 	/**
 	 * Create table execute
 	 *
-	 * @version 2.1.1
+	 * @version 4.5.0
 	 * @since   2.0.0
 	 * @param   string $charset_collate
 	 * @param   string $text_domain
@@ -146,8 +146,13 @@ class Structuring_Markup_Admin_Db {
 
 		dbDelta( $query );
 
-		$options = array( 'version' => $version );
-		update_option( $text_domain, $options, 'yes' );
+		$args = array( 'version' => $version );
+		$options = get_option( $text_domain );
+
+		if ( $options ) {
+			$options = array_merge( $options, $args );
+		}
+		update_option( $text_domain, $options );
 	}
 
 	/**
@@ -257,5 +262,29 @@ class Structuring_Markup_Admin_Db {
 		$wpdb->update( $this->table_name, $data, $key, $prepared, $key_prepared );
 
 		return (integer) $post['id'];
+	}
+
+	/**
+	 * Update Config Data.
+	 *
+	 * @version 4.5.0
+	 * @since   4.5.0
+	 * @param   array   $post
+	 * @param   string  $text_domain
+	 * @return  boolean
+	 */
+	public function update_config ( array $post, $text_domain ) {
+		$options = get_option( $text_domain );
+
+		if ( !$options ) {
+			return __return_false();
+		} else {
+			$args = array(
+				'compress' => isset( $post['compress'] ) ? $post['compress'] : ''
+			);
+			$options = array_merge( $options, $args );
+			update_option( $text_domain, $options );
+			return __return_true();
+		}
 	}
 }
