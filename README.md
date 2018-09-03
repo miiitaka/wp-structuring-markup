@@ -41,6 +41,9 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 4.5.1 (2018-09-03)
+- Fixed : Changed title fixing of breadcrumbs on page 404.
+
 ### 4.5.0 (2018-08-17)
 - Checked : WordPress version 4.9.8 operation check.
 - Added : Speakable structured markup is implemented in "Article", "BlogPosting", "NewsArticle".
