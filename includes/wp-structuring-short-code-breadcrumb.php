@@ -3,7 +3,7 @@
  * Breadcrumb ShortCode Settings
  *
  * @author  Kazuya Takami
- * @version 4.3.0
+ * @version 4.5.1
  * @since   2.0.0
  */
 class Structuring_Markup_ShortCode_Breadcrumb {
@@ -11,7 +11,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	/**
 	 * ShortCode Display.
 	 *
-	 * @version 4.3.0
+	 * @version 4.5.1
 	 * @since   2.0.0
 	 * @access  public
 	 * @param   array  $options
@@ -144,7 +144,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 			}
 			$item_array[] = $this->set_schema_breadcrumb_item( $current_url, $post->post_title );
 		} elseif ( is_404() ) {
-			$item_array[] = $this->set_schema_breadcrumb_item( $current_url, '404 Not Found' );
+			$item_array[] = $this->set_schema_breadcrumb_item( $current_url, wp_get_document_title() );
 		} elseif ( is_post_type_archive() ) {
 			if ( get_post_type_archive_link( get_post_type() ) ) {
 				$item_array[] = $this->set_schema_breadcrumb_item( get_post_type_archive_link( get_post_type() ), post_type_archive_title( '', false) );
