@@ -3,12 +3,12 @@
  * Schema.org Type WebSite
  *
  * @author  Kazuya Takami
- * @version 4.5.0
+ * @version 4.5.3
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/WebSite
- * @link    https://developers.google.com/search/docs/guides/enhance-site#add-a-sitelinks-searchbox-for-your-site
- * @link    https://developers.google.com/search/docs/data-types/sitename
+ * @link    https://schema.org/SearchAction
+ * @link    https://developers.google.com/search/docs/data-types/sitelinks-searchbox
  */
 class Structuring_Markup_Type_Website {
 
@@ -33,7 +33,7 @@ class Structuring_Markup_Type_Website {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.3
 	 * @since   2.3.3
 	 * @param   array $option
 	 */
@@ -82,7 +82,17 @@ class Structuring_Markup_Type_Website {
 		$html .= '</table>';
 		echo $html;
 
-		echo '<p>Setting Knowledge : <a href="https://developers.google.com/search/docs/data-types/sitename" target="_blank">https://developers.google.com/search/docs/data-types/sitename</a></p>';
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>Setting Knowledge</caption>';
+		$html .= '<tr><th>schema.org SearchAction :</th>';
+		$html .= '<td><a href="https://schema.org/WebSite" target="_blank">https://schema.org/WebSite</a></td></tr>';
+		$html .= '<tr><th>schema.org WebSite :</th>';
+		$html .= '<td><a href="https://schema.org/SearchAction" target="_blank">https://schema.org/SearchAction</a></td></tr>';
+		$html .= '<tr><th>Google Search Sitelinks Searchbox :</th>';
+		$html .= '<td><a href="https://developers.google.com/search/docs/data-types/sitelinks-searchbox" target="_blank">https://developers.google.com/search/docs/data-types/sitelinks-searchbox</a></td></tr>';
+		$html .= '</table>';
+		echo $html;
+
 		submit_button();
 	}
 

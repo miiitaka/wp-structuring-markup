@@ -7,7 +7,7 @@
  * @since   3.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/VideoObject
- * @link    https://developers.google.com/search/docs/data-types/videos
+ * @link    https://developers.google.com/search/docs/data-types/video
  */
 class Structuring_Markup_Type_Videos {
 
@@ -41,9 +41,18 @@ class Structuring_Markup_Type_Videos {
 		$html .= '</table>';
 		echo $html;
 
-		echo '<p>Custom post name "schema_video_post"</p>';
-		echo '<p>Archive rewrite name "videos"</p>';
-		echo '<p>Setting Knowledge : <a href="https://developers.google.com/search/docs/data-types/videos" target="_blank">https://developers.google.com/search/docs/data-types/videos</a></p>';
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>Setting Knowledge</caption>';
+		$html .= '<tr><th>Custom post name :</th>';
+		$html .= '<td>schema_video_post</td></tr>';
+		$html .= '<tr><th>Archive rewrite name :</th>';
+		$html .= '<td>videos</td></tr>';
+		$html .= '<tr><th>schema.org VideoObject :</th>';
+		$html .= '<td><a href="https://schema.org/VideoObject" target="_blank">https://schema.org/VideoObject</a></td></tr>';
+		$html .= '<tr><th>Google Search Video :</th>';
+		$html .= '<td><a href="https://developers.google.com/search/docs/data-types/video" target="_blank">https://developers.google.com/search/docs/data-types/video</a></td></tr>';
+		$html .= '</table>';
+		echo $html;
 
 		submit_button();
 	}

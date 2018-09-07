@@ -3,7 +3,7 @@
  * Schema.org Type Breadcrumb
  *
  * @author  Kazuya Takami
- * @version 4.3.0
+ * @version 4.5.3
  * @since   2.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/BreadcrumbList
@@ -32,7 +32,7 @@ class Structuring_Markup_Type_Breadcrumb {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 4.3.0
+	 * @version 4.5.3
 	 * @since   2.3.3
 	 * @param   array $option
 	 */
@@ -79,7 +79,15 @@ class Structuring_Markup_Type_Breadcrumb {
 		$html .= '</table>';
 		echo $html;
 
-		echo '<p>Setting Knowledge : <a href="https://developers.google.com/search/docs/data-types/breadcrumbs" target="_blank">https://developers.google.com/search/docs/data-types/breadcrumbs</a></p>';
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>Setting Knowledge</caption>';
+		$html .= '<tr><th>schema.org BreadcrumbList :</th>';
+		$html .= '<td><a href="https://schema.org/BreadcrumbList" target="_blank">https://schema.org/BreadcrumbList</a></td></tr>';
+		$html .= '<tr><th>Google Search Breadcrumb :</th>';
+		$html .= '<td><a href="https://developers.google.com/search/docs/data-types/breadcrumbs" target="_blank">https://developers.google.com/search/docs/data-types/breadcrumbs</a></td></tr>';
+		$html .= '</table>';
+		echo $html;
+
 		submit_button();
 	}
 

@@ -3,11 +3,13 @@
  * Schema.org Type Organization
  *
  * @author  Kazuya Takami
- * @version 4.1.3
+ * @version 4.5.3
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/Organization
- * @link    https://developers.google.com/search/docs/guides/enhance-site
+ * @link    https://developers.google.com/search/docs/data-types/logo
+ * @link    https://developers.google.com/search/docs/data-types/corporate-contact
+ * @link    https://developers.google.com/search/docs/data-types/social-profile
  */
 class Structuring_Markup_Type_Organization {
 
@@ -65,7 +67,7 @@ class Structuring_Markup_Type_Organization {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 4.1.3
+	 * @version 4.5.3
 	 * @since   1.0.0
 	 * @param   array $option
 	 */
@@ -147,7 +149,19 @@ class Structuring_Markup_Type_Organization {
 		$html .= '</table>';
 		echo $html;
 
-		echo '<p>Setting Knowledge : <a href="https://developers.google.com/search/docs/guides/enhance-site" target="_blank">https://developers.google.com/search/docs/guides/enhance-site</a></p>';
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>Setting Knowledge</caption>';
+		$html .= '<tr><th>schema.org Organization :</th>';
+		$html .= '<td><a href="https://schema.org/Organization" target="_blank">https://schema.org/Organization</a></td></tr>';
+		$html .= '<tr><th>Google Search Logos :</th>';
+		$html .= '<td><a href="https://developers.google.com/search/docs/data-types/logo" target="_blank">https://developers.google.com/search/docs/data-types/logo</a></td></tr>';
+		$html .= '<tr><th>Google Search Corporate Contact :</th>';
+		$html .= '<td><a href="https://developers.google.com/search/docs/data-types/corporate-contact" target="_blank">https://developers.google.com/search/docs/data-types/corporate-contact</a></td></tr>';
+		$html .= '<tr><th>Google Search Social Profile :</th>';
+		$html .= '<td><a href="https://developers.google.com/search/docs/data-types/social-profile" target="_blank">https://developers.google.com/search/docs/data-types/social-profile</a></td></tr>';
+		$html .= '</table>';
+		echo $html;
+
 		submit_button();
 	}
 
