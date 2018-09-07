@@ -3,11 +3,11 @@
  * Schema.org Type Person
  *
  * @author  Kazuya Takami
- * @version 4.1.3
+ * @version 4.5.3
  * @since   2.4.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/Person
- * @link    https://developers.google.com/search/docs/data-types/social-profile-links
+ * @link    https://developers.google.com/search/docs/data-types/social-profile
  */
 class Structuring_Markup_Type_Person {
 
@@ -52,7 +52,7 @@ class Structuring_Markup_Type_Person {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 4.1.3
+	 * @version 4.5.3
 	 * @since   2.4.0
 	 * @param   array $option
 	 */
@@ -89,7 +89,15 @@ class Structuring_Markup_Type_Person {
 		$html .= '</table>';
 		echo $html;
 
-		echo '<p>Setting Knowledge : <a href="https://developers.google.com/search/docs/data-types/social-profile-links" target="_blank">https://developers.google.com/search/docs/data-types/social-profile-links</a></p>';
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>Setting Knowledge</caption>';
+		$html .= '<tr><th>schema.org Person :</th>';
+		$html .= '<td><a href="https://schema.org/Person" target="_blank">https://schema.org/Person</a></td></tr>';
+		$html .= '<tr><th>Google Search Social Profile :</th>';
+		$html .= '<td><a href="https://developers.google.com/search/docs/data-types/social-profile" target="_blank">https://developers.google.com/search/docs/data-types/social-profile</a></td></tr>';
+		$html .= '</table>';
+		echo $html;
+
 		submit_button();
 	}
 

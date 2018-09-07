@@ -3,10 +3,11 @@
  * Schema.org Type Article
  *
  * @author  Kazuya Takami
- * @version 4.5.0
+ * @version 4.5.3
  * @since   1.1.0
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/Article
+ * @link    https://pending.schema.org/speakable
  * @link    https://developers.google.com/search/docs/data-types/articles
  * @link    https://developers.google.com/search/docs/data-types/speakable
  */
@@ -33,7 +34,7 @@ class Structuring_Markup_Type_Article {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.3
 	 * @since   1.1.0
 	 * @param   array $option
 	 */
@@ -140,7 +141,19 @@ class Structuring_Markup_Type_Article {
 		$html .= '</table>';
 		echo $html;
 
-		echo '<p>Setting Knowledge : <a href="https://developers.google.com/search/docs/data-types/articles" target="_blank">https://developers.google.com/search/docs/data-types/articles</a></p>';
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>Setting Knowledge</caption>';
+		$html .= '<tr><th>schema.org Article :</th>';
+		$html .= '<td><a href="http://schema.org/Article" target="_blank">http://schema.org/Article</a></td></tr>';
+		$html .= '<tr><th>pending.schema.org Speakable :</th>';
+		$html .= '<td><a href="https://pending.schema.org/speakable" target="_blank">https://pending.schema.org/speakable</a></td></tr>';
+		$html .= '<tr><th>Google Search Article :</th>';
+		$html .= '<td><a href="https://developers.google.com/search/docs/data-types/articles" target="_blank">https://developers.google.com/search/docs/data-types/articles</a></td></tr>';
+		$html .= '<tr><th>Google Search Speakable (BETA) :</th>';
+		$html .= '<td><a href="https://developers.google.com/search/docs/data-types/speakable" target="_blank">https://developers.google.com/search/docs/data-types/speakable</a></td></tr>';
+		$html .= '</table>';
+		echo $html;
+
 		submit_button();
 	}
 

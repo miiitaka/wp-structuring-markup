@@ -3,7 +3,7 @@
  * Schema.org Admin Config
  *
  * @author  Kazuya Takami
- * @version 4.5.0
+ * @version 4.5.3
  * @since   4.5.0
  */
 class Structuring_Markup_Admin_Config {
@@ -28,7 +28,7 @@ class Structuring_Markup_Admin_Config {
 	/**
 	 * Constructor Define.
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.3
 	 * @since   4.5.0
 	 * @param   String $text_domain
 	 */
@@ -55,6 +55,9 @@ class Structuring_Markup_Admin_Config {
 			}
 		}
 		$options = get_option( $text_domain );
+		if ( !$options ) {
+			$options = array();
+		}
 
 		$this->page_render( $options, $status );
 	}
