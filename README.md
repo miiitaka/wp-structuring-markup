@@ -41,6 +41,10 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 4.5.3 (2018-09-07)
+- Fixed : Fixed broken links.
+- Fixed : Fixed bug when displaying Config menu.
+
 ### 4.5.2 (2018-09-03)
 - Fixed : Changed title fixing of breadcrumbs on page 404.
 
