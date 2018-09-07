@@ -3,7 +3,7 @@
  * Schema.org Type News Article
  *
  * @author  Kazuya Takami
- * @version 4.5.0
+ * @version 4.5.3
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/NewsArticle
@@ -33,7 +33,7 @@ class Structuring_Markup_Type_NewsArticle {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 4.5.0
+	 * @version 4.5.3
 	 * @since   1.0.0
 	 * @param   array $option
 	 */
@@ -140,24 +140,36 @@ class Structuring_Markup_Type_NewsArticle {
 		$html .= '</table>';
 		echo $html;
 
-		echo '<p>Setting Knowledge : <a href="https://developers.google.com/search/docs/data-types/articles" target="_blank">https://developers.google.com/search/docs/data-types/articles</a></p>';
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>Setting Knowledge</caption>';
+		$html .= '<tr><th>schema.org NewsArticle :</th>';
+		$html .= '<td><a href="http://schema.org/NewsArticle" target="_blank">http://schema.org/NewsArticle</a></td></tr>';
+		$html .= '<tr><th>pending.schema.org Speakable :</th>';
+		$html .= '<td><a href="https://pending.schema.org/speakable" target="_blank">https://pending.schema.org/speakable</a></td></tr>';
+		$html .= '<tr><th>Google Search Article :</th>';
+		$html .= '<td><a href="https://developers.google.com/search/docs/data-types/articles" target="_blank">https://developers.google.com/search/docs/data-types/articles</a></td></tr>';
+		$html .= '<tr><th>Google Search Speakable (BETA) :</th>';
+		$html .= '<td><a href="https://developers.google.com/search/docs/data-types/speakable" target="_blank">https://developers.google.com/search/docs/data-types/speakable</a></td></tr>';
+		$html .= '</table>';
+		echo $html;
+
 		submit_button();
 	}
 
 	/**
 	 * Return the default options array
 	 *
-	 * @since   4.5.0
+	 * @since   4.5.3
 	 * @version 2.2.0
 	 * @return  array $args
 	 */
 	private function get_default_options () {
-		$args['name']          = '';
-		$args['content_image'] = '';
-		$args['default_image'] = '';
-		$args['logo']          = '';
-		$args['logo-height']   = 0;
-		$args['logo-width']    = 0;
+		$args['name']               = '';
+		$args['content_image']      = '';
+		$args['default_image']      = '';
+		$args['logo']               = '';
+		$args['logo-height']        = 0;
+		$args['logo-width']         = 0;
 		$args['speakable_action']   = '';
 		$args['speakable_type']     = '';
 		$args['speakable_headline'] = '';

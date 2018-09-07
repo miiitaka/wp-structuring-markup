@@ -3,7 +3,7 @@
  * Schema.org Type Event
  *
  * @author  Kazuya Takami
- * @version 4.0.2
+ * @version 4.5.3
  * @since   2.1.0
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/Event
@@ -25,7 +25,7 @@ class Structuring_Markup_Type_Event {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 4.0.2
+	 * @version 4.5.3
 	 * @since   2.1.0
 	 */
 	private function page_render () {
@@ -64,9 +64,22 @@ class Structuring_Markup_Type_Event {
 		$html .= '</table>';
 		echo $html;
 
-		echo '<p>Custom post name "schema_event_post"</p>';
-		echo '<p>Archive rewrite name "events"</p>';
-		echo '<p>Setting Knowledge : <a href="https://developers.google.com/search/docs/data-types/events" target="_blank">https://developers.google.com/search/docs/data-types/events</a></p>';
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>Setting Knowledge</caption>';
+		$html .= '<tr><th>Custom post name :</th>';
+		$html .= '<td>schema_event_post</td></tr>';
+		$html .= '<tr><th>Archive rewrite name :</th>';
+		$html .= '<td>events</td></tr>';
+		$html .= '<tr><th>schema.org Event :</th>';
+		$html .= '<td><a href="http://schema.org/Event" target="_blank">http://schema.org/Event</a></td></tr>';
+		$html .= '<tr><th>schema.org Place :</th>';
+		$html .= '<td><a href="http://schema.org/Place" target="_blank">http://schema.org/Place</a></td></tr>';
+		$html .= '<tr><th>schema.org Offer :</th>';
+		$html .= '<td><a href="http://schema.org/Offer" target="_blank">http://schema.org/Offer</a></td></tr>';
+		$html .= '<tr><th>Google Search Breadcrumb :</th>';
+		$html .= '<td><a href="https://developers.google.com/search/docs/data-types/events" target="_blank">https://developers.google.com/search/docs/data-types/events</a></td></tr>';
+		$html .= '</table>';
+		echo $html;
 
 		submit_button();
 	}

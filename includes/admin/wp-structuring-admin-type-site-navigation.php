@@ -3,7 +3,7 @@
  * Schema.org Site Navigation Element
  *
  * @author  Kazuya Takami
- * @version 3.1.0
+ * @version 4.5.3
  * @since   3.1.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/SiteNavigationElement
@@ -28,7 +28,7 @@ class Structuring_Markup_Type_Site_Navigation {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 3.1.0
+	 * @version 4.5.3
 	 * @since   3.1.0
 	 * @param   array $option
 	 */
@@ -59,7 +59,13 @@ class Structuring_Markup_Type_Site_Navigation {
 		$html .= '</table>';
 		echo $html;
 
-		echo '<p>Setting Knowledge : <a href="https://schema.org/SiteNavigationElement" target="_blank">https://schema.org/SiteNavigationElement</a></p>';
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>Setting Knowledge</caption>';
+		$html .= '<tr><th>schema.org SiteNavigationElement :</th>';
+		$html .= '<td><a href="https://schema.org/SiteNavigationElement" target="_blank">https://schema.org/SiteNavigationElement</a></td></tr>';
+		$html .= '</table>';
+		echo $html;
+
 		submit_button();
 	}
 
