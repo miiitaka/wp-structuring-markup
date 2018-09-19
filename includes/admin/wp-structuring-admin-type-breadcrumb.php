@@ -3,7 +3,7 @@
  * Schema.org Type Breadcrumb
  *
  * @author  Kazuya Takami
- * @version 4.5.3
+ * @version 4.6.0
  * @since   2.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/BreadcrumbList
@@ -32,7 +32,7 @@ class Structuring_Markup_Type_Breadcrumb {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 4.5.3
+	 * @version 4.6.0
 	 * @since   2.3.3
 	 * @param   array $option
 	 */
@@ -50,6 +50,27 @@ class Structuring_Markup_Type_Breadcrumb {
 		$html .= '<tr><th><label for="home_name">Home Name :</label></th><td>';
 		$html .= '<input type="text" name="option[' . "home_name" . ']" id="home_name" class="regular-text" value="' . esc_attr( $option['home_name'] ) . '">';
 		$html .= '<small>Default : bloginfo("name")<br>* In the case of the pattern set for the static page on the front page its title is the default value.</small>';
+		$html .= '</td></tr>';
+		$html .= '<tr><th><label for="speakable_type_css">cssSelector OR xpath :</label></th><td>';
+
+		switch ( $option['home_url'] ) {
+			case 'home_url':
+				$checked['home_url'] = ' checked';
+				$checked['site_url'] = '';
+				break;
+			case 'site_url':
+				$checked['home_url'] = '';
+				$checked['site_url'] = ' checked';
+				break;
+			default:
+				$checked['home_url'] = ' checked';
+				$checked['site_url'] = '';
+				break;
+		}
+
+		$html .= '<label><input type="radio" name="option[' . "home_url" . ']" id="home_url" value="home_url"' . $checked['home_url'] . '>home_url()&nbsp;&nbsp;</label>';
+		$html .= '<label><input type="radio" name="option[' . "home_url" . ']" id="site_url" value="site_url"' . $checked['site_url'] . '>site_url()</label>';
+		$html .= '<small>Choose which function to set the home URL.</small>';
 		$html .= '</td></tr>';
 		$html .= '<tr><th><label for="current_on">Display Current Page :</label></th><td>';
 		$html .= '<input type="checkbox" name="option[' . "current_on" . ']" id="current_on" value="on"';
@@ -94,13 +115,14 @@ class Structuring_Markup_Type_Breadcrumb {
 	/**
 	 * Return the default options array
 	 *
-	 * @version 4.3.0
+	 * @version 4.6.0
 	 * @since   2.0.0
 	 * @return  array $args
 	 */
 	private function get_default_options () {
 		$args['home_on']      = '';
 		$args['home_name']    = '';
+		$args['home_url']     = '';
 		$args['current_on']   = '';
 		$args['current_link'] = '';
 
