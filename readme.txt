@@ -3,7 +3,7 @@ Contributors: miiitaka
 Tags: schema, schema.org, json, json-ld, seo, post, posts, google, shortcode, breadcrumb
 Requires at least: 4.3.1
 Tested up to: 4.9.8
-Stable tag: 4.6.0
+Stable tag: 4.6.1
 
 Allows you to include schema.org JSON-LD syntax markup on your website
 
