@@ -41,6 +41,9 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 4.6.1 (2018-09-19)
+- Fixed : Typo Error.
+
 ### 4.6.0 (2018-09-19)
 - Updated : Schema type Breadcrumbs: Added switching between home_url () and site_url ().
 - Updated : Organization schema.org type subdivision.
