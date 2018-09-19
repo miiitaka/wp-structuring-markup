@@ -3,7 +3,7 @@
  * Schema.org Type LocalBusiness
  *
  * @author  Kazuya Takami
- * @version 4.5.3
+ * @version 4.6.0
  * @since   2.3.3
  * @see     wp-structuring-admin-db.php
  * @link    http://schema.org/LocalBusiness
@@ -15,178 +15,178 @@ class Structuring_Markup_Type_LocalBusiness {
 	/**
 	 * Variable definition.
 	 *
-	 * @version 2.3.0
+	 * @version 4.6.0
 	 * @since   2.3.0
 	 */
 	/** LocalBusiness Type defined. */
 	private $business_type_array = array(
-		array( "type" => "LocalBusiness", "display" => "LocalBusiness" ),
+		array( 'type' => 'LocalBusiness', 'display' => 'LocalBusiness' ),
 
-		array( "type" => "AnimalShelter", "display" => "- AnimalShelter" ),
+		array( 'type' => 'AnimalShelter', 'display' => '- AnimalShelter' ),
 
-		array( "type" => "AutomotiveBusiness", "display" => "- AutomotiveBusiness" ),
-		array( "type" => "AutoBodyShop",       "display" => "-- AutoBodyShop" ),
-		array( "type" => "AutoDealer",         "display" => "-- AutoDealer" ),
-		array( "type" => "AutoPartsStore",     "display" => "-- AutoPartsStore" ),
-		array( "type" => "AutoRental",         "display" => "-- AutoRental" ),
-		array( "type" => "AutoRepair",         "display" => "-- AutoRepair" ),
-		array( "type" => "AutoWash",           "display" => "-- AutoWash" ),
-		array( "type" => "GasStation",         "display" => "-- GasStation" ),
-		array( "type" => "MotorcycleDealer",   "display" => "-- MotorcycleDealer" ),
-		array( "type" => "MotorcycleRepair",   "display" => "-- MotorcycleRepair" ),
+		array( 'type' => 'AutomotiveBusiness', 'display' => '- AutomotiveBusiness' ),
+		array( 'type' => 'AutoBodyShop',       'display' => '-- AutoBodyShop' ),
+		array( 'type' => 'AutoDealer',         'display' => '-- AutoDealer' ),
+		array( 'type' => 'AutoPartsStore',     'display' => '-- AutoPartsStore' ),
+		array( 'type' => 'AutoRental',         'display' => '-- AutoRental' ),
+		array( 'type' => 'AutoRepair',         'display' => '-- AutoRepair' ),
+		array( 'type' => 'AutoWash',           'display' => '-- AutoWash' ),
+		array( 'type' => 'GasStation',         'display' => '-- GasStation' ),
+		array( 'type' => 'MotorcycleDealer',   'display' => '-- MotorcycleDealer' ),
+		array( 'type' => 'MotorcycleRepair',   'display' => '-- MotorcycleRepair' ),
 
-		array( "type" => "ChildCare", "display" => "- ChildCare" ),
+		array( 'type' => 'ChildCare', 'display' => '- ChildCare' ),
 
-		array( "type" => "DryCleaningOrLaundry", "display" => "- DryCleaningOrLaundry" ),
+		array( 'type' => 'DryCleaningOrLaundry', 'display' => '- DryCleaningOrLaundry' ),
 
-		array( "type" => "EmergencyService", "display" => "- EmergencyService" ),
-		array( "type" => "FireStation",      "display" => "-- FireStation" ),
-		array( "type" => "Hospital",         "display" => "-- Hospital" ),
-		array( "type" => "PoliceStation",    "display" => "-- PoliceStation" ),
+		array( 'type' => 'EmergencyService', 'display' => '- EmergencyService' ),
+		array( 'type' => 'FireStation',      'display' => '-- FireStation' ),
+		array( 'type' => 'Hospital',         'display' => '-- Hospital' ),
+		array( 'type' => 'PoliceStation',    'display' => '-- PoliceStation' ),
 
-		array( "type" => "EmploymentAgency", "display" => "- EmploymentAgency" ),
+		array( 'type' => 'EmploymentAgency', 'display' => '- EmploymentAgency' ),
 
-		array( "type" => "EntertainmentBusiness", "display" => "- EntertainmentBusiness" ),
-		array( "type" => "AdultEntertainment",    "display" => "-- AdultEntertainment" ),
-		array( "type" => "AmusementPark",         "display" => "-- AmusementPark" ),
-		array( "type" => "ArtGallery",            "display" => "-- ArtGallery" ),
-		array( "type" => "Casino",                "display" => "-- Casino" ),
-		array( "type" => "ComedyClub",            "display" => "-- ComedyClub" ),
-		array( "type" => "MovieTheater",          "display" => "-- MovieTheater" ),
-		array( "type" => "NightClub",             "display" => "-- NightClub" ),
+		array( 'type' => 'EntertainmentBusiness', 'display' => '- EntertainmentBusiness' ),
+		array( 'type' => 'AdultEntertainment',    'display' => '-- AdultEntertainment' ),
+		array( 'type' => 'AmusementPark',         'display' => '-- AmusementPark' ),
+		array( 'type' => 'ArtGallery',            'display' => '-- ArtGallery' ),
+		array( 'type' => 'Casino',                'display' => '-- Casino' ),
+		array( 'type' => 'ComedyClub',            'display' => '-- ComedyClub' ),
+		array( 'type' => 'MovieTheater',          'display' => '-- MovieTheater' ),
+		array( 'type' => 'NightClub',             'display' => '-- NightClub' ),
 
-		array( "type" => "FinancialService",  "display" => "- FinancialService" ),
-		array( "type" => "AccountingService", "display" => "-- AccountingService" ),
-		array( "type" => "AutomatedTeller",   "display" => "-- AutomatedTeller" ),
-		array( "type" => "BankOrCreditUnion", "display" => "-- BankOrCreditUnion" ),
-		array( "type" => "InsuranceAgency",   "display" => "-- InsuranceAgency" ),
+		array( 'type' => 'FinancialService',  'display' => '- FinancialService' ),
+		array( 'type' => 'AccountingService', 'display' => '-- AccountingService' ),
+		array( 'type' => 'AutomatedTeller',   'display' => '-- AutomatedTeller' ),
+		array( 'type' => 'BankOrCreditUnion', 'display' => '-- BankOrCreditUnion' ),
+		array( 'type' => 'InsuranceAgency',   'display' => '-- InsuranceAgency' ),
 
-		array( "type" => "FoodEstablishment",  "display" => "- FoodEstablishment" ),
-		array( "type" => "Bakery",             "display" => "-- Bakery" ),
-		array( "type" => "BarOrPub",           "display" => "-- BarOrPub" ),
-		array( "type" => "Brewery",            "display" => "-- Brewery" ),
-		array( "type" => "CafeOrCoffeeShop",   "display" => "-- CafeOrCoffeeShop" ),
-		array( "type" => "FastFoodRestaurant", "display" => "-- FastFoodRestaurant" ),
-		array( "type" => "IceCreamShop",       "display" => "-- IceCreamShop" ),
-		array( "type" => "Restaurant",         "display" => "-- Restaurant" ),
-		array( "type" => "Winery",             "display" => "-- Winery" ),
+		array( 'type' => 'FoodEstablishment',  'display' => '- FoodEstablishment' ),
+		array( 'type' => 'Bakery',             'display' => '-- Bakery' ),
+		array( 'type' => 'BarOrPub',           'display' => '-- BarOrPub' ),
+		array( 'type' => 'Brewery',            'display' => '-- Brewery' ),
+		array( 'type' => 'CafeOrCoffeeShop',   'display' => '-- CafeOrCoffeeShop' ),
+		array( 'type' => 'FastFoodRestaurant', 'display' => '-- FastFoodRestaurant' ),
+		array( 'type' => 'IceCreamShop',       'display' => '-- IceCreamShop' ),
+		array( 'type' => 'Restaurant',         'display' => '-- Restaurant' ),
+		array( 'type' => 'Winery',             'display' => '-- Winery' ),
 
-		array( "type" => "GovernmentOffice", "display" => "- GovernmentOffice" ),
-		array( "type" => "PostOffice",       "display" => "-- PostOffice" ),
+		array( 'type' => 'GovernmentOffice', 'display' => '- GovernmentOffice' ),
+		array( 'type' => 'PostOffice',       'display' => '-- PostOffice' ),
 
-		array( "type" => "HealthAndBeautyBusiness", "display" => "- HealthAndBeautyBusiness" ),
-		array( "type" => "BeautySalon",             "display" => "-- BeautySalon" ),
-		array( "type" => "DaySpa",                  "display" => "-- DaySpa" ),
-		array( "type" => "HairSalon",               "display" => "-- HairSalon" ),
-		array( "type" => "HealthClub",              "display" => "-- HealthClub" ),
-		array( "type" => "NailSalon",               "display" => "-- NailSalon" ),
-		array( "type" => "TattooParlor",            "display" => "-- TattooParlor" ),
+		array( 'type' => 'HealthAndBeautyBusiness', 'display' => '- HealthAndBeautyBusiness' ),
+		array( 'type' => 'BeautySalon',             'display' => '-- BeautySalon' ),
+		array( 'type' => 'DaySpa',                  'display' => '-- DaySpa' ),
+		array( 'type' => 'HairSalon',               'display' => '-- HairSalon' ),
+		array( 'type' => 'HealthClub',              'display' => '-- HealthClub' ),
+		array( 'type' => 'NailSalon',               'display' => '-- NailSalon' ),
+		array( 'type' => 'TattooParlor',            'display' => '-- TattooParlor' ),
 
-		array( "type" => "HomeAndConstructionBusiness", "display" => "- HomeAndConstructionBusiness" ),
-		array( "type" => "Electrician",                 "display" => "-- Electrician" ),
-		array( "type" => "GeneralContractor",           "display" => "-- GeneralContractor" ),
-		array( "type" => "HVACBusiness",                "display" => "-- HVACBusiness" ),
-		array( "type" => "HousePainter",                "display" => "-- HousePainter" ),
-		array( "type" => "Locksmith",                   "display" => "-- Locksmith" ),
-		array( "type" => "MovingCompany",               "display" => "-- MovingCompany" ),
-		array( "type" => "Plumber",                     "display" => "-- Plumber" ),
-		array( "type" => "RoofingContractor",           "display" => "-- RoofingContractor" ),
+		array( 'type' => 'HomeAndConstructionBusiness', 'display' => '- HomeAndConstructionBusiness' ),
+		array( 'type' => 'Electrician',                 'display' => '-- Electrician' ),
+		array( 'type' => 'GeneralContractor',           'display' => '-- GeneralContractor' ),
+		array( 'type' => 'HVACBusiness',                'display' => '-- HVACBusiness' ),
+		array( 'type' => 'HousePainter',                'display' => '-- HousePainter' ),
+		array( 'type' => 'Locksmith',                   'display' => '-- Locksmith' ),
+		array( 'type' => 'MovingCompany',               'display' => '-- MovingCompany' ),
+		array( 'type' => 'Plumber',                     'display' => '-- Plumber' ),
+		array( 'type' => 'RoofingContractor',           'display' => '-- RoofingContractor' ),
 
-		array( "type" => "InternetCafe", "display" => "- InternetCafe" ),
+		array( 'type' => 'InternetCafe', 'display' => '- InternetCafe' ),
 
-		array( "type" => "LegalService", "display" => "- LegalService" ),
-		array( "type" => "Attorney",     "display" => "-- Attorney" ),
-		array( "type" => "Notary",       "display" => "-- Notary" ),
+		array( 'type' => 'LegalService', 'display' => '- LegalService' ),
+		array( 'type' => 'Attorney',     'display' => '-- Attorney' ),
+		array( 'type' => 'Notary',       'display' => '-- Notary' ),
 
-		array( "type" => "Library",         "display" => "- Library" ),
+		array( 'type' => 'Library',         'display' => '- Library' ),
 
-		array( "type" => "LodgingBusiness", "display" => "- LodgingBusiness" ),
-		array( "type" => "BedAndBreakfast", "display" => "-- BedAndBreakfast" ),
-		array( "type" => "Hostel",          "display" => "-- Hostel" ),
-		array( "type" => "Hotel",           "display" => "-- Hotel" ),
-		array( "type" => "Motel",           "display" => "-- Motel" ),
+		array( 'type' => 'LodgingBusiness', 'display' => '- LodgingBusiness' ),
+		array( 'type' => 'BedAndBreakfast', 'display' => '-- BedAndBreakfast' ),
+		array( 'type' => 'Hostel',          'display' => '-- Hostel' ),
+		array( 'type' => 'Hotel',           'display' => '-- Hotel' ),
+		array( 'type' => 'Motel',           'display' => '-- Motel' ),
 
-		array( "type" => "MedicalOrganization", "display" => "- MedicalOrganization" ),
-		array( "type" => "Dentist",             "display" => "-- Dentist" ),
-		array( "type" => "DiagnosticLab",       "display" => "-- DiagnosticLab" ),
-		array( "type" => "Hospital",            "display" => "-- Hospital" ),
-		array( "type" => "MedicalClinic",       "display" => "-- MedicalClinic" ),
-		array( "type" => "Optician",            "display" => "-- Optician" ),
-		array( "type" => "Pharmacy",            "display" => "-- Pharmacy" ),
-		array( "type" => "Physician",           "display" => "-- Physician" ),
-		array( "type" => "VeterinaryCare",      "display" => "-- VeterinaryCare" ),
+		array( 'type' => 'MedicalOrganization', 'display' => '- MedicalOrganization' ),
+		array( 'type' => 'Dentist',             'display' => '-- Dentist' ),
+		array( 'type' => 'DiagnosticLab',       'display' => '-- DiagnosticLab' ),
+		array( 'type' => 'Hospital',            'display' => '-- Hospital' ),
+		array( 'type' => 'MedicalClinic',       'display' => '-- MedicalClinic' ),
+		array( 'type' => 'Optician',            'display' => '-- Optician' ),
+		array( 'type' => 'Pharmacy',            'display' => '-- Pharmacy' ),
+		array( 'type' => 'Physician',           'display' => '-- Physician' ),
+		array( 'type' => 'VeterinaryCare',      'display' => '-- VeterinaryCare' ),
 
-		array( "type" => "ProfessionalService",  "display" => "- ProfessionalService" ),
+		array( 'type' => 'ProfessionalService',  'display' => '- ProfessionalService' ),
 
-		array( "type" => "RadioStation", "display" => "- RadioStation" ),
+		array( 'type' => 'RadioStation', 'display' => '- RadioStation' ),
 
-		array( "type" => "RealEstateAgent", "display" => "- RealEstateAgent" ),
+		array( 'type' => 'RealEstateAgent', 'display' => '- RealEstateAgent' ),
 
-		array( "type" => "RecyclingCenter", "display" => "- RecyclingCenter" ),
+		array( 'type' => 'RecyclingCenter', 'display' => '- RecyclingCenter' ),
 
-		array( "type" => "SelfStorage", "display" => "- SelfStorage" ),
+		array( 'type' => 'SelfStorage', 'display' => '- SelfStorage' ),
 
-		array( "type" => "ShoppingCenter",     "display" => "- ShoppingCenter" ),
+		array( 'type' => 'ShoppingCenter',     'display' => '- ShoppingCenter' ),
 
-		array( "type" => "SportsActivityLocation", "display" => "- SportsActivityLocation" ),
-		array( "type" => "BowlingAlley",           "display" => "-- BowlingAlley" ),
-		array( "type" => "ExerciseGym",            "display" => "-- ExerciseGym" ),
-		array( "type" => "GolfCourse",             "display" => "-- GolfCourse" ),
-		array( "type" => "HealthClub",             "display" => "-- HealthClub" ),
-		array( "type" => "PublicSwimmingPool",     "display" => "-- PublicSwimmingPool" ),
-		array( "type" => "SkiResort",              "display" => "-- SkiResort" ),
-		array( "type" => "SportsClub",             "display" => "-- SportsClub" ),
-		array( "type" => "StadiumOrArena",         "display" => "-- StadiumOrArena" ),
-		array( "type" => "TennisComplex",          "display" => "-- TennisComplex" ),
+		array( 'type' => 'SportsActivityLocation', 'display' => '- SportsActivityLocation' ),
+		array( 'type' => 'BowlingAlley',           'display' => '-- BowlingAlley' ),
+		array( 'type' => 'ExerciseGym',            'display' => '-- ExerciseGym' ),
+		array( 'type' => 'GolfCourse',             'display' => '-- GolfCourse' ),
+		array( 'type' => 'HealthClub',             'display' => '-- HealthClub' ),
+		array( 'type' => 'PublicSwimmingPool',     'display' => '-- PublicSwimmingPool' ),
+		array( 'type' => 'SkiResort',              'display' => '-- SkiResort' ),
+		array( 'type' => 'SportsClub',             'display' => '-- SportsClub' ),
+		array( 'type' => 'StadiumOrArena',         'display' => '-- StadiumOrArena' ),
+		array( 'type' => 'TennisComplex',          'display' => '-- TennisComplex' ),
 
-		array( "type" => "Store",                "display" => "- Store" ),
-		array( "type" => "AutoPartsStore",       "display" => "-- AutoPartsStore" ),
-		array( "type" => "BikeStore",            "display" => "-- BikeStore" ),
-		array( "type" => "BookStore",            "display" => "-- BookStore" ),
-		array( "type" => "ClothingStore",        "display" => "-- ClothingStore" ),
-		array( "type" => "ComputerStore",        "display" => "-- ComputerStore" ),
-		array( "type" => "ConvenienceStore",     "display" => "-- ConvenienceStore" ),
-		array( "type" => "DepartmentStore",      "display" => "-- DepartmentStore" ),
-		array( "type" => "ElectronicsStore",     "display" => "-- ElectronicsStore" ),
-		array( "type" => "Florist",              "display" => "-- Florist" ),
-		array( "type" => "FurnitureStore",       "display" => "-- FurnitureStore" ),
-		array( "type" => "GardenStore",          "display" => "-- GardenStore" ),
-		array( "type" => "GroceryStore",         "display" => "-- GroceryStore" ),
-		array( "type" => "HardwareStore",        "display" => "-- HardwareStore" ),
-		array( "type" => "HobbyShop",            "display" => "-- HobbyShop" ),
-		array( "type" => "HomeGoodsStore",       "display" => "-- HomeGoodsStore" ),
-		array( "type" => "JewelryStore",         "display" => "-- JewelryStore" ),
-		array( "type" => "LiquorStore",          "display" => "-- LiquorStore" ),
-		array( "type" => "MensClothingStore",    "display" => "-- MensClothingStore" ),
-		array( "type" => "MobilePhoneStore",     "display" => "-- MobilePhoneStore" ),
-		array( "type" => "MovieRentalStore",     "display" => "-- MovieRentalStore" ),
-		array( "type" => "MusicStore",           "display" => "-- MusicStore" ),
-		array( "type" => "OfficeEquipmentStore", "display" => "-- OfficeEquipmentStore" ),
-		array( "type" => "OutletStore",          "display" => "-- OutletStore" ),
-		array( "type" => "PawnShop",             "display" => "-- PawnShop" ),
-		array( "type" => "PetStore",             "display" => "-- PetStore" ),
-		array( "type" => "ShoeStore",            "display" => "-- ShoeStore" ),
-		array( "type" => "SportingGoodsStore",   "display" => "-- SportingGoodsStore" ),
-		array( "type" => "TireShop",             "display" => "-- TireShop" ),
-		array( "type" => "ToyStore",             "display" => "-- ToyStore" ),
-		array( "type" => "WholesaleStore",       "display" => "-- WholesaleStore" ),
+		array( 'type' => 'Store',                'display' => '- Store' ),
+		array( 'type' => 'AutoPartsStore',       'display' => '-- AutoPartsStore' ),
+		array( 'type' => 'BikeStore',            'display' => '-- BikeStore' ),
+		array( 'type' => 'BookStore',            'display' => '-- BookStore' ),
+		array( 'type' => 'ClothingStore',        'display' => '-- ClothingStore' ),
+		array( 'type' => 'ComputerStore',        'display' => '-- ComputerStore' ),
+		array( 'type' => 'ConvenienceStore',     'display' => '-- ConvenienceStore' ),
+		array( 'type' => 'DepartmentStore',      'display' => '-- DepartmentStore' ),
+		array( 'type' => 'ElectronicsStore',     'display' => '-- ElectronicsStore' ),
+		array( 'type' => 'Florist',              'display' => '-- Florist' ),
+		array( 'type' => 'FurnitureStore',       'display' => '-- FurnitureStore' ),
+		array( 'type' => 'GardenStore',          'display' => '-- GardenStore' ),
+		array( 'type' => 'GroceryStore',         'display' => '-- GroceryStore' ),
+		array( 'type' => 'HardwareStore',        'display' => '-- HardwareStore' ),
+		array( 'type' => 'HobbyShop',            'display' => '-- HobbyShop' ),
+		array( 'type' => 'HomeGoodsStore',       'display' => '-- HomeGoodsStore' ),
+		array( 'type' => 'JewelryStore',         'display' => '-- JewelryStore' ),
+		array( 'type' => 'LiquorStore',          'display' => '-- LiquorStore' ),
+		array( 'type' => 'MensClothingStore',    'display' => '-- MensClothingStore' ),
+		array( 'type' => 'MobilePhoneStore',     'display' => '-- MobilePhoneStore' ),
+		array( 'type' => 'MovieRentalStore',     'display' => '-- MovieRentalStore' ),
+		array( 'type' => 'MusicStore',           'display' => '-- MusicStore' ),
+		array( 'type' => 'OfficeEquipmentStore', 'display' => '-- OfficeEquipmentStore' ),
+		array( 'type' => 'OutletStore',          'display' => '-- OutletStore' ),
+		array( 'type' => 'PawnShop',             'display' => '-- PawnShop' ),
+		array( 'type' => 'PetStore',             'display' => '-- PetStore' ),
+		array( 'type' => 'ShoeStore',            'display' => '-- ShoeStore' ),
+		array( 'type' => 'SportingGoodsStore',   'display' => '-- SportingGoodsStore' ),
+		array( 'type' => 'TireShop',             'display' => '-- TireShop' ),
+		array( 'type' => 'ToyStore',             'display' => '-- ToyStore' ),
+		array( 'type' => 'WholesaleStore',       'display' => '-- WholesaleStore' ),
 
-		array( "type" => "TelevisionStation", "display" => "- TelevisionStation" ),
+		array( 'type' => 'TelevisionStation', 'display' => '- TelevisionStation' ),
 
-		array( "type" => "TouristInformationCenter", "display" => "- TouristInformationCenter" ),
+		array( 'type' => 'TouristInformationCenter', 'display' => '- TouristInformationCenter' ),
 
-		array( "type" => "TravelAgency", "display" => "- TravelAgency" )
+		array( 'type' => 'TravelAgency', 'display' => '- TravelAgency' )
 	);
 
 	/** weekType defined. */
 	private $week_array = array(
-		array("type" => "Mo", "display" => "Monday"),
-		array("type" => "Tu", "display" => "Tuesday"),
-		array("type" => "We", "display" => "Wednesday"),
-		array("type" => "Th", "display" => "Thursday"),
-		array("type" => "Fr", "display" => "Friday"),
-		array("type" => "Sa", "display" => "Saturday"),
-		array("type" => "Su", "display" => "Sunday")
+		array('type' => 'Mo', 'display' => 'Monday'),
+		array('type' => 'Tu', 'display' => 'Tuesday'),
+		array('type' => 'We', 'display' => 'Wednesday'),
+		array('type' => 'Th', 'display' => 'Thursday'),
+		array('type' => 'Fr', 'display' => 'Friday'),
+		array('type' => 'Sa', 'display' => 'Saturday'),
+		array('type' => 'Su', 'display' => 'Sunday')
 	);
 
 	/**
@@ -332,12 +332,12 @@ class Structuring_Markup_Type_LocalBusiness {
 	/**
 	 * Return the default options array
 	 *
-	 * @since   4.1.3
+	 * @since   4.6.0
 	 * @version 2.5.0
 	 * @return  array $args
 	 */
 	private function get_default_options () {
-		$args['business_type']        = 'local_business';
+		$args['business_type']        = 'LocalBusiness';
 		$args['name']                 = '';
 		$args['image']                = '';
 		$args['url']                  = '';

@@ -3,7 +3,7 @@
  * Schema.org Type Organization
  *
  * @author  Kazuya Takami
- * @version 4.5.3
+ * @version 4.6.0
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/Organization
@@ -16,35 +16,52 @@ class Structuring_Markup_Type_Organization {
 	/**
 	 * Variable definition.
 	 *
-	 * @version 2.3.2
+	 * @version 4.6.0
 	 * @since   1.0.0
 	 */
+	/** Organization Type defined */
+	private $organization_type_array = array(
+		array('type' => 'Organization',            'display' => 'Organization'),
+		array('type' => 'Airline',                 'display' => '- Airline'),
+		array('type' => 'Consortium',              'display' => '- Consortium'),
+		array('type' => 'Corporation',             'display' => '- Corporation'),
+		array('type' => 'EducationalOrganization', 'display' => '- EducationalOrganization'),
+		array('type' => 'GovernmentOrganization',  'display' => '- GovernmentOrganization'),
+		array('type' => 'LibrarySystem',           'display' => '- LibrarySystem'),
+		array('type' => 'LocalBusiness',           'display' => '- LocalBusiness'),
+		array('type' => 'MedicalOrganization',     'display' => '- MedicalOrganization'),
+		array('type' => 'NewsMediaOrganization',   'display' => '- NewsMediaOrganization'),
+		array('type' => 'NGO',                     'display' => '- NGO'),
+		array('type' => 'PerformingGroup',         'display' => '- PerformingGroup'),
+		array('type' => 'SportsOrganization',      'display' => '- SportsOrganization'),
+		array('type' => 'WorkersUnion',            'display' => '- WorkersUnion')
+	);
 	/** contactType defined. */
 	private $contact_type_array = array(
-		array("type" => "customer service",    "display" => "customer service"),
-		array("type" => "technical support",   "display" => "technical support"),
-		array("type" => "billing support",     "display" => "billing support"),
-		array("type" => "bill payment",        "display" => "bill payment"),
-		array("type" => "sales",               "display" => "sales"),
-		array("type" => "reservations",        "display" => "reservations"),
-		array("type" => "credit card_support", "display" => "credit card support"),
-		array("type" => "emergency",           "display" => "emergency"),
-		array("type" => "baggage tracking",    "display" => "baggage tracking"),
-		array("type" => "roadside assistance", "display" => "roadside assistance"),
-		array("type" => "package tracking",    "display" => "package tracking")
+		array('type' => 'customer service',    'display' => 'customer service'),
+		array('type' => 'technical support',   'display' => 'technical support'),
+		array('type' => 'billing support',     'display' => 'billing support'),
+		array('type' => 'bill payment',        'display' => 'bill payment'),
+		array('type' => 'sales',               'display' => 'sales'),
+		array('type' => 'reservations',        'display' => 'reservations'),
+		array('type' => 'credit card_support', 'display' => 'credit card support'),
+		array('type' => 'emergency',           'display' => 'emergency'),
+		array('type' => 'baggage tracking',    'display' => 'baggage tracking'),
+		array('type' => 'roadside assistance', 'display' => 'roadside assistance'),
+		array('type' => 'package tracking',    'display' => 'package tracking')
 	);
 	/** Social Profile */
 	private $social_array = array(
-		array("type" => "facebook",   "display" => "Facebook"),
-		array("type" => "twitter",    "display" => "Twitter"),
-		array("type" => "google",     "display" => "Google+"),
-		array("type" => "instagram",  "display" => "Instagram"),
-		array("type" => "youtube",    "display" => "Youtube"),
-		array("type" => "linkedin",   "display" => "LinkedIn"),
-		array("type" => "myspace",    "display" => "Myspace"),
-		array("type" => "pinterest",  "display" => "Pinterest"),
-		array("type" => "soundcloud", "display" => "SoundCloud"),
-		array("type" => "tumblr",     "display" => "Tumblr")
+		array('type' => 'facebook',   'display' => 'Facebook'),
+		array('type' => 'twitter',    'display' => 'Twitter'),
+		array('type' => 'google',     'display' => 'Google+'),
+		array('type' => 'instagram',  'display' => 'Instagram'),
+		array('type' => 'youtube',    'display' => 'Youtube'),
+		array('type' => 'linkedin',   'display' => 'LinkedIn'),
+		array('type' => 'myspace',    'display' => 'Myspace'),
+		array('type' => 'pinterest',  'display' => 'Pinterest'),
+		array('type' => 'soundcloud', 'display' => 'SoundCloud'),
+		array('type' => 'tumblr',     'display' => 'Tumblr')
 	);
 
 	/**
@@ -67,11 +84,18 @@ class Structuring_Markup_Type_Organization {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 4.5.3
+	 * @version 4.6.0
 	 * @since   1.0.0
 	 * @param   array $option
 	 */
 	private function page_render ( array $option ) {
+		/** Organization Type */
+		$html  = '<table class="schema-admin-table">';
+		$html .= '<caption>Organization</caption>';
+		$html .= $this->set_form_select( 'organization_type', 'Organization Type', $option['organization_type'] );
+		$html .= '</table>';
+		echo $html;
+
 		/** Logos */
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Logos</caption>';
@@ -166,19 +190,49 @@ class Structuring_Markup_Type_Organization {
 	}
 
 	/**
+	 * Return the form select
+	 *
+	 * @version 4.6.0
+	 * @since   4.6.0
+	 * @param   string  $id
+	 * @param   string  $display
+	 * @param   string  $value
+	 * @param   string  $note
+	 * @return  string  $html
+	 */
+	private function set_form_select ( $id, $display, $value = "", $note = "" ) {
+		$value = esc_attr( $value );
+
+		$format  = '<tr><th class="require"><label for=%s>%s :</label></th><td>';
+		$format .= '<select id="%s" name="option[%s]">';
+		foreach ( $this->organization_type_array as $args ) {
+			$format .= '<option value="' . $args['type'] . '"';
+			if ( $args['type'] === $value ) {
+				$format .= ' selected';
+			}
+			$format .= '>' . $args['display'] . '</option>';
+		}
+		$format .= '</select>';
+		$format .= '<small>%s</small></td></tr>';
+
+		return (string) sprintf( $format, $id, $display, $id, $id, $note );
+	}
+
+	/**
 	 * Return the default options array
 	 *
-	 * @version 4.1.3
+	 * @version 4.6.0
 	 * @since   1.0.0
 	 * @return  array $args
 	 */
 	private function get_default_options () {
+		$args['organization_type']  = 'Organization';
 		$args['name']               = '';
 		$args['url']                = '';
 		$args['logo']               = '';
 		$args['contact_point']      = '';
 		$args['telephone']          = '';
-		$args['contact_type']       = 'customer_service';
+		$args['contact_type']       = 'customer service';
 		$args['email']              = '';
 		$args['area_served']        = 'US';
 		$args['contact_option_1']   = '';
