@@ -3,7 +3,7 @@
  * Breadcrumb ShortCode Settings
  *
  * @author  Kazuya Takami
- * @version 4.5.1
+ * @version 4.6.0
  * @since   2.0.0
  */
 class Structuring_Markup_ShortCode_Breadcrumb {
@@ -70,7 +70,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	/**
 	 * Breadcrumb array setting.
 	 *
-	 * @version 4.2.2
+	 * @version 4.6.0
 	 * @since   2.0.0
 	 * @access  public
 	 * @param   array $options
@@ -81,7 +81,22 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 
 		/** item build */
 		$item_array  = array();
-		$current_url = esc_url( home_url() . $_SERVER['REQUEST_URI'] );
+
+		if ( isset( $options['home_url'] ) ) {
+			switch ( $options['home_url'] ) {
+				case 'home_url':
+					$current_url = esc_url( home_url() . $_SERVER['REQUEST_URI'] );
+					break;
+				case 'site_url':
+					$current_url = esc_url( site_url() . $_SERVER['REQUEST_URI'] );
+					break;
+				default:
+					$current_url = esc_url( home_url() . $_SERVER['REQUEST_URI'] );
+					break;
+			}
+		} else {
+			$current_url = esc_url( home_url() . $_SERVER['REQUEST_URI'] );
+		}
 
 		if ( get_option( 'show_on_front' ) === 'page' ) {
 			$front_page_id = get_option( 'page_on_front' );
