@@ -116,6 +116,7 @@ class Structuring_Markup_Display {
 							if ( isset( $row->options ) && $row->options ) {
 								require_once( plugin_dir_path( __FILE__ ) . 'meta/wp-structuring-meta-article.php' );
 								$obj = new Structuring_Markup_Meta_Article( $this->utility );
+								$obj = apply_filters( 'structuring_markup_meta_article', $obj );
 								$this->set_schema_json( $obj->set_meta( unserialize( $row->options ) ) );
 							}
 							break;
@@ -123,6 +124,7 @@ class Structuring_Markup_Display {
 							if ( isset( $row->options ) && $row->options ) {
 								require_once( plugin_dir_path( __FILE__ ) . 'meta/wp-structuring-meta-blog-posting.php' );
 								$obj = new Structuring_Markup_Meta_Blog_Posting( $this->utility );
+								$obj = apply_filters( 'structuring_markup_meta_blog_posting', $obj );
 								$this->set_schema_json( $obj->set_meta( unserialize( $row->options ) ) );
 							}
 							break;
@@ -131,12 +133,14 @@ class Structuring_Markup_Display {
 								require_once( plugin_dir_path( __FILE__ ) . 'meta/wp-structuring-meta-breadcrumb.php' );
 								require_once( plugin_dir_path( __FILE__ ) . 'wp-structuring-short-code-breadcrumb.php' );
 								$obj = new Structuring_Markup_Meta_Breadcrumb();
+								$obj = apply_filters( 'structuring_markup_meta_breadcrumb', $obj );
 								$this->set_schema_json( $obj->set_meta( unserialize( $row->options ) ) );
 							}
 							break;
 						case 'event':
 							require_once( plugin_dir_path( __FILE__ ) . 'meta/wp-structuring-meta-event.php' );
 							$obj = new Structuring_Markup_Meta_Event();
+							$obj = apply_filters( 'structuring_markup_meta_event', $obj );
 							$this->set_schema_json( $obj->set_meta() );
 							break;
 						case 'local_business':
@@ -144,6 +148,7 @@ class Structuring_Markup_Display {
 								require_once( plugin_dir_path( __FILE__ ) . 'meta/wp-structuring-meta-local-business.php' );
 								require_once( plugin_dir_path( __FILE__ ) . 'wp-structuring-opening-hours.php' );
 								$obj = new Structuring_Markup_Meta_LocalBusiness();
+								$obj = apply_filters( 'structuring_markup_meta_local_business', $obj );
 								$this->set_schema_json( $obj->set_meta( unserialize( $row->options ) ) );
 							}
 							break;
@@ -151,6 +156,7 @@ class Structuring_Markup_Display {
 							if ( isset( $row->options ) && $row->options ) {
 								require_once( plugin_dir_path( __FILE__ ) . 'meta/wp-structuring-meta-news-article.php' );
 								$obj = new Structuring_Markup_Meta_NewsArticle( $this->utility );
+								$obj = apply_filters( 'structuring_markup_meta_news_article', $obj );
 								$this->set_schema_json( $obj->set_meta( unserialize( $row->options ) ) );
 							}
 							break;
@@ -158,6 +164,7 @@ class Structuring_Markup_Display {
 							if ( isset( $row->options ) && $row->options ) {
 								require_once( plugin_dir_path( __FILE__ ) . 'meta/wp-structuring-meta-organization.php' );
 								$obj = new Structuring_Markup_Meta_Organization();
+								$obj = apply_filters( 'structuring_markup_meta_organization', $obj );
 								$this->set_schema_json( $obj->set_meta( unserialize( $row->options ) ) );
 							}
 							break;
@@ -165,6 +172,7 @@ class Structuring_Markup_Display {
 							if ( isset( $row->options ) && $row->options ) {
 								require_once( plugin_dir_path( __FILE__ ) . 'meta/wp-structuring-meta-person.php' );
 								$obj = new Structuring_Markup_Meta_Person();
+								$obj = apply_filters( 'structuring_markup_meta_person', $obj );
 								$this->set_schema_json( $obj->set_meta( unserialize( $row->options ) ) );
 							}
 							break;
@@ -172,18 +180,21 @@ class Structuring_Markup_Display {
 							if ( isset( $row->options ) && $row->options ) {
 								require_once( plugin_dir_path( __FILE__ ) . 'meta/wp-structuring-meta-site-navigation.php' );
 								$obj = new Structuring_Markup_Meta_Site_Navigation();
+								$obj = apply_filters( 'structuring_markup_meta_site_navigation', $obj );
 								$this->set_schema_json( $obj->set_meta( unserialize( $row->options ) ) );
 							}
 							break;
 						case 'video':
 							require_once( plugin_dir_path( __FILE__ ) . 'meta/wp-structuring-meta-video.php' );
 							$obj = new Structuring_Markup_Meta_Video( $this->utility );
+							$obj = apply_filters( 'structuring_markup_meta_video', $obj );
 							$this->set_schema_json( $obj->set_meta() );
 							break;
 						case 'website':
 							if ( isset( $row->options ) && $row->options ) {
 								require_once( plugin_dir_path( __FILE__ ) . 'meta/wp-structuring-meta-website.php' );
 								$obj = new Structuring_Markup_Meta_WebSite();
+								$obj = apply_filters( 'structuring_markup_meta_website', $obj );
 								$this->set_schema_json( $obj->set_meta( unserialize( $row->options ) ) );
 							}
 							break;
