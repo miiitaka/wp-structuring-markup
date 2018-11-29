@@ -211,16 +211,18 @@ class Structuring_Markup_Display {
 			}
 		} else {
 			if ( is_array( $args ) ) {
+				$output = '';
 				if ( isset( $this->options['compress'] ) && $this->options['compress'] === 'on' ) {
-					echo '<script type="application/ld+json">';
-					echo json_encode( $args, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
-					echo '</script>';
+					$output.= '<script type="application/ld+json">';
+					$output.= json_encode( $args, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
+					$output.= '</script>';
 				} else {
-					echo '<script type="application/ld+json">', PHP_EOL;
-					echo json_encode( $args, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ), PHP_EOL;
-					echo '</script>', PHP_EOL;
+					$output.= '<script type="application/ld+json">'.PHP_EOL;
+					$output.= json_encode( $args, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ).PHP_EOL;
+					$output.= '</script>'.PHP_EOL;
 				}
 			}
+			echo apply_filters( 'structuring_markup_output', $output );
 		}
 	}
 }
