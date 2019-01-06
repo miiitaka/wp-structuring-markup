@@ -2,8 +2,8 @@
 Contributors: miiitaka
 Tags: schema, schema.org, json, json-ld, seo, post, posts, google, shortcode, breadcrumb
 Requires at least: 4.3.1
-Tested up to: 4.9.8
-Stable tag: 4.6.1
+Tested up to: 5.0.2
+Stable tag: 4.6.2
 
 Allows you to include schema.org JSON-LD syntax markup on your website
 
@@ -54,6 +54,12 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 * Open 'Schema.org Setting' menu.
 
 == Changelog ==
+
+= 4.6.2 (2019-01-06) =
+* Checked : WordPress version 5.0.2 operation check.
+* Checked : WordPress version 5.0.1 operation check.
+* Checked : WordPress version 5.0.0 operation check.
+* Fixed : Version information missing at new registration.
 
 = 4.6.1 (2018-09-19) =
 * Fixed : Typo Error.

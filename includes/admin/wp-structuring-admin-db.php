@@ -3,7 +3,7 @@
  * Schema.org Admin DB Connection.
  *
  * @author  Kazuya Takami
- * @version 4.5.0
+ * @version 4.6.2
  * @since   1.0.0
  */
 class Structuring_Markup_Admin_Db {
@@ -127,7 +127,7 @@ class Structuring_Markup_Admin_Db {
 	/**
 	 * Create table execute
 	 *
-	 * @version 4.5.0
+	 * @version 4.6.2
 	 * @since   2.0.0
 	 * @param   string $charset_collate
 	 * @param   string $text_domain
@@ -151,6 +151,8 @@ class Structuring_Markup_Admin_Db {
 
 		if ( $options ) {
 			$options = array_merge( $options, $args );
+		} else {
+			$options = $args;
 		}
 		update_option( $text_domain, $options );
 	}
