@@ -45,6 +45,19 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 * Option : id="id_name" attribute additional ol element.
 * Option : class="class_name" attribute additional ol element.
 
+[ Schema Filters ]
+
+* Filter Name: structuring_markup_meta_article ( Article )
+* Filter Name: structuring_markup_meta_blog_posting ( Blog Posting )
+* Filter Name: structuring_markup_meta_breadcrumb ( Breadcrumb List )
+* Filter Name: structuring_markup_meta_event ( Event )
+* Filter Name: structuring_markup_meta_local_business ( Local Business )
+* Filter Name: structuring_markup_meta_news_article ( News Article )
+* Filter Name: structuring_markup_meta_organization ( Organization )
+* Filter Name: structuring_markup_meta_person ( Person )
+* Filter Name: structuring_markup_meta_site_navigation ( Site Navigation )
+* Filter Name: structuring_markup_meta_video ( Video )
+* Filter Name: structuring_markup_meta_website ( WebSite )
 
 == Installation ==
 
@@ -57,6 +70,7 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 = 4.6.3 (2019-02-02) =
 * Checked : WordPress version 5.0.3 operation check.
+* Updated : Filters for each schema.
 
 = 4.6.2 (2019-01-06) =
 * Checked : WordPress version 5.0.2 operation check.

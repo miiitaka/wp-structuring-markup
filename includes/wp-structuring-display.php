@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @author  Justin Frydman
- * @version 4.5.0
+ * @version 4.6.3
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -97,7 +97,7 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting JSON-LD Template
 	 *
-	 * @version 4.0.0
+	 * @version 4.6.3
 	 * @since   1.0.0
 	 * @param   string $output
 	 * @param   array  $structuring_markup_args
