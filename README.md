@@ -56,6 +56,10 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 4.6.4 (2019-02-26)
+- Checked : WordPress version 5.1.0 operation check.
+- Fixed : Notice Error.
+
 ### 4.6.3 (2019-02-02)
 - Checked : WordPress version 5.0.3 operation check.
 - Updated : Filters for each schema.
