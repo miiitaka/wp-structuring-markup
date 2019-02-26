@@ -4,7 +4,7 @@
  *
  * @author  Kazuya Takami
  * @author  Justin Frydman
- * @version 4.6.3
+ * @version 4.6.4
  * @since   1.0.0
  */
 class Structuring_Markup_Display {
@@ -218,7 +218,7 @@ class Structuring_Markup_Display {
 	/**
 	 * Setting JSON-LD Template
 	 *
-	 * @since 4.5.0
+	 * @since 4.6.4
 	 * @since 1.0.0
 	 * @param array   $args
 	 * @param boolean $error
@@ -232,16 +232,16 @@ class Structuring_Markup_Display {
 				}
 			}
 		} else {
+			$output = '';
 			if ( is_array( $args ) ) {
-				$output = '';
 				if ( isset( $this->options['compress'] ) && $this->options['compress'] === 'on' ) {
-					$output.= '<script type="application/ld+json">';
-					$output.= json_encode( $args, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
-					$output.= '</script>';
+					$output .= '<script type="application/ld+json">';
+					$output .= json_encode( $args, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES );
+					$output .= '</script>';
 				} else {
-					$output.= '<script type="application/ld+json">'.PHP_EOL;
-					$output.= json_encode( $args, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ).PHP_EOL;
-					$output.= '</script>'.PHP_EOL;
+					$output .= '<script type="application/ld+json">' . PHP_EOL;
+					$output .= json_encode( $args, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ) . PHP_EOL;
+					$output .= '</script>' . PHP_EOL;
 				}
 			}
 			echo apply_filters( 'structuring_markup_output', $output );
