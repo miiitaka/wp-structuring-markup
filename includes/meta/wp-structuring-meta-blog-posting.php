@@ -3,7 +3,7 @@
  * Schema.org Type BlogPosting
  *
  * @author  Kazuya Takami
- * @version 4.5.0
+ * @version 4.6.5
  * @since   4.0.0
  * @link    http://schema.org/BlogPosting
  * @link    https://developers.google.com/search/docs/data-types/articles
@@ -33,7 +33,7 @@ class Structuring_Markup_Meta_Blog_Posting {
 	/**
 	 * Setting schema.org BlogPosting
 	 *
-	 * @version 4.4.0
+	 * @version 4.6.5
 	 * @since   4.0.0
 	 * @param   array $options
 	 * @return  array $args
@@ -52,8 +52,7 @@ class Structuring_Markup_Meta_Blog_Posting {
 				"@id"   => get_permalink( $post->ID )
 			),
 			"headline"      => mb_substr( esc_html( $post->post_title ), 0, 110 ),
-			"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
-			"dateModified"  => get_post_modified_time(  DATE_ISO8601, __return_false(), $post->ID ),
+			"datePublished" => get_the_time( DATE_ISO8601, $post->ID ), "dateModified"  => get_the_modified_time( DATE_ISO8601, $post->ID ),
 			"author" => array(
 				"@type" => "Person",
 				"name"  => esc_html( get_the_author_meta( 'display_name', $post->post_author ) )
