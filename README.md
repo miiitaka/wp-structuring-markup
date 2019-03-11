@@ -56,6 +56,9 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 4.6.5 (2019-03-11)
+- Fixed : A bug where the modification date is fixed to GMT time.
+
 ### 4.6.4 (2019-02-26)
 - Checked : WordPress version 5.1.0 operation check.
 - Fixed : Notice Error.
