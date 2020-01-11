@@ -56,6 +56,20 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 4.7.0 (2020-01-11)
+- Checked : WordPress version 5.3.2 operation check.
+- Checked : WordPress version 5.3.1 operation check.
+- Checked : WordPress version 5.3.0 operation check.
+- Checked : WordPress version 5.2.5 operation check.
+- Checked : WordPress version 5.2.4 operation check.
+- Checked : WordPress version 5.2.3 operation check.
+- Checked : WordPress version 5.2.2 operation check.
+- Checked : WordPress version 5.2.1 operation check.
+- Checked : WordPress version 5.2.0 operation check.
+- Checked : WordPress version 5.1.3 operation check.
+- Checked : WordPress version 5.1.2 operation check.
+- Checked : WordPress version 5.1.1 operation check.
+
 ### 4.6.5 (2019-03-11)
 - Fixed : A bug where the modification date is fixed to GMT time.
 
