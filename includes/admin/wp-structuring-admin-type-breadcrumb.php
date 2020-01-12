@@ -3,7 +3,7 @@
  * Schema.org Type Breadcrumb
  *
  * @author  Kazuya Takami
- * @version 4.6.1
+ * @version 4.7.0
  * @since   2.0.0
  * @see     wp-structuring-admin-db.php
  * @link    https://schema.org/BreadcrumbList
@@ -32,7 +32,7 @@ class Structuring_Markup_Type_Breadcrumb {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 4.6.1
+	 * @version 4.7.0
 	 * @since   2.3.3
 	 * @param   array $option
 	 */
@@ -54,10 +54,6 @@ class Structuring_Markup_Type_Breadcrumb {
 		$html .= '<tr><th><label for="home_url">Home Url :</label></th><td>';
 
 		switch ( $option['home_url'] ) {
-			case 'home_url':
-				$checked['home_url'] = ' checked';
-				$checked['site_url'] = '';
-				break;
 			case 'site_url':
 				$checked['home_url'] = '';
 				$checked['site_url'] = ' checked';
