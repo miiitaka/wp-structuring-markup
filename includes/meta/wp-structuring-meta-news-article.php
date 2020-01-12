@@ -51,7 +51,7 @@ class Structuring_Markup_Meta_NewsArticle {
 				"@type" => "WebPage",
 				"@id"   => get_permalink( $post->ID )
 			),
-			"headline"      => mb_substr( esc_html( $post->post_title ), 0, 110 ),
+			"headline"      => mb_substr( $this->utility->escape_text( $post->post_title ), 0, 110 ),
 			"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
 			"dateModified"  => get_the_modified_time( DATE_ISO8601, $post->ID ),
 			"author" => array(
