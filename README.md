@@ -57,6 +57,7 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 ## Change Log
 
 ### 4.7.0 (2020-01-11)
+- Fixed : Schema Type: Article - bug: 1st image in content is always used if check is on, even if no image present.
 - Checked : WordPress version 5.3.2 operation check.
 - Checked : WordPress version 5.3.1 operation check.
 - Checked : WordPress version 5.3.0 operation check.
