@@ -68,7 +68,7 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 == Changelog ==
 
-= 4.7.0 (2020-01-11) =
+= 4.7.0 (2020-01-13) =
 * Updated : Added categories to videos and event types.
 * Fixed : HTML tags are removed when outputting breadcrumbs.
 * Fixed : Schema type Article: bug: 1st image in content is always used if check is on, even if no image present.
