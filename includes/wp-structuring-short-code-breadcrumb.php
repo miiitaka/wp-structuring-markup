@@ -3,7 +3,7 @@
  * Breadcrumb ShortCode Settings
  *
  * @author  Kazuya Takami
- * @version 4.6.0
+ * @version 4.7.0
  * @since   2.0.0
  */
 class Structuring_Markup_ShortCode_Breadcrumb {
@@ -11,7 +11,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	/**
 	 * ShortCode Display.
 	 *
-	 * @version 4.5.1
+	 * @version 4.7.0
 	 * @since   2.0.0
 	 * @access  public
 	 * @param   array  $options
@@ -51,10 +51,10 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 			foreach ( $item_array as $item ) {
 				$html .= '<li>';
 				if ( $count === $length && ( !isset( $options['current_link'] ) || $options['current_link'] !== 'on' ) ) {
-					$html .= esc_html( $item['name'] );
+					$html .= $item['name'];
 				} else {
 					$html .= '<a href="' . esc_url( $item['@id'] ) . '">';
-					$html .= esc_html( $item['name'] );
+					$html .= $item['name'];
 					$html .= '</a>';
 				}
 				$html .= '</li>' . PHP_EOL;
@@ -70,7 +70,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	/**
 	 * Breadcrumb array setting.
 	 *
-	 * @version 4.6.0
+	 * @version 4.7.0
 	 * @since   2.0.0
 	 * @access  public
 	 * @param   array $options
@@ -84,9 +84,6 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 
 		if ( isset( $options['home_url'] ) ) {
 			switch ( $options['home_url'] ) {
-				case 'home_url':
-					$current_url = esc_url( home_url() . $_SERVER['REQUEST_URI'] );
-					break;
 				case 'site_url':
 					$current_url = esc_url( site_url() . $_SERVER['REQUEST_URI'] );
 					break;
@@ -112,7 +109,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 					$item_array[] = $this->set_schema_breadcrumb_item( home_url(), get_bloginfo( 'name' ) );
 				} else {
 					$front_page   = get_post( $front_page_id );
-					$item_array[] = $this->set_schema_breadcrumb_item( home_url(), esc_html( $front_page->post_title ) );
+					$item_array[] = $this->set_schema_breadcrumb_item( home_url(), $front_page->post_title );
 				}
 			}
 		}
@@ -177,10 +174,10 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 					$ancestors = array_reverse( get_ancestors( $term->term_taxonomy_id, $tax_slug ) );
 					foreach( $ancestors as $ancestor ) {
 						$ancestor_term = get_term( $ancestor, $tax_slug );
-						$item_array[]  = $this->set_schema_breadcrumb_item( esc_url( get_term_link( $ancestor ) ), esc_html( $ancestor_term->name ) );
+						$item_array[]  = $this->set_schema_breadcrumb_item( get_term_link( $ancestor ), $ancestor_term->name );
 					}
 				}
-				$item_array[] = $this->set_schema_breadcrumb_item( get_term_link( $term_slug, $tax_slug ), esc_html( $term->name ) );
+				$item_array[] = $this->set_schema_breadcrumb_item( get_term_link( $term_slug, $tax_slug ), $term->name );
 			}
 		} elseif ( is_singular( 'post' ) ) {
 			$args = $this->set_taxonomy_item( $post->ID, 'category' );
@@ -212,7 +209,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	/**
 	 * taxonomy item settings
 	 *
-	 * @version 4.2.0
+	 * @version 4.7.0
 	 * @since   4.0.0
 	 * @param   int    $id
 	 * @param   string $taxonomy
@@ -244,7 +241,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 
 			foreach ( $ancestors as $ancestor ) {
 				$term   = get_term( $ancestor, $taxonomy );
-				$args[] = $this->set_schema_breadcrumb_item( esc_url( get_term_link( $ancestor ) ), esc_html( $term->name ) );
+				$args[] = $this->set_schema_breadcrumb_item( get_term_link( $ancestor ), $term->name );
 			}
 		}
 		return (array) $args;
@@ -253,7 +250,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	/**
 	 * Breadcrumb item settings
 	 *
-	 * @version 2.0.0
+	 * @version 4.7.0
 	 * @since   2.0.0
 	 * @param   string $id
 	 * @param   string $name
@@ -262,7 +259,7 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	private function set_schema_breadcrumb_item ( $id, $name ) {
 		$args = array(
 			"@id"  => esc_url( $id ),
-			"name" => esc_html( $name )
+			"name" => strip_tags( $name )
 		);
 		return (array) $args;
 	}

@@ -3,7 +3,7 @@
  * Schema.org Custom Post "Video"
  *
  * @author  Kazuya Takami
- * @version 4.1.1
+ * @version 4.7.0
  * @since   3.0.0
  * @link    https://schema.org/VideoObject
  * @link    https://developers.google.com/search/docs/data-types/videos
@@ -63,6 +63,30 @@ class Structuring_Markup_Custom_Post_Video {
 				'show_in_menu'    => $show_flag,
 				'show_ui'         => $show_flag,
 				'supports'        => array( 'title', 'editor', 'author', 'thumbnail' )
+			)
+		);
+
+		register_taxonomy(
+			$this->custom_type . '_cat',
+			$this->custom_type,
+			array(
+				'hierarchical'          => true,
+				'label'                 => esc_html__( 'Categories' ),
+				'public'                => true,
+				'show_ui'               => true,
+				'update_count_callback' => '_update_post_term_count'
+			)
+		);
+
+		register_taxonomy(
+			$this->custom_type . '_tag',
+			$this->custom_type,
+			array(
+				'hierarchical'          => false,
+				'label'                 => esc_html__( 'Tags' ),
+				'public'                => true,
+				'show_ui'               => true,
+				'update_count_callback' => '_update_post_term_count'
 			)
 		);
 

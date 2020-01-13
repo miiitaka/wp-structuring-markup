@@ -3,7 +3,7 @@
  * Schema.org Type News Article
  *
  * @author  Kazuya Takami
- * @version 4.6.5
+ * @version 4.7.0
  * @since   4.0.0
  * @link    http://schema.org/NewsArticle
  * @link    https://developers.google.com/search/docs/data-types/articles
@@ -33,7 +33,7 @@ class Structuring_Markup_Meta_NewsArticle {
 	/**
 	 * Setting schema.org NewsArticle
 	 *
-	 * @version 4.6.5
+	 * @version 4.7.0
 	 * @since   4.0.0
 	 * @param   array $options
 	 * @return  array $args
@@ -51,7 +51,7 @@ class Structuring_Markup_Meta_NewsArticle {
 				"@type" => "WebPage",
 				"@id"   => get_permalink( $post->ID )
 			),
-			"headline"      => mb_substr( esc_html( $post->post_title ), 0, 110 ),
+			"headline"      => mb_substr( $this->utility->escape_text( $post->post_title ), 0, 110 ),
 			"datePublished" => get_the_time( DATE_ISO8601, $post->ID ),
 			"dateModified"  => get_the_modified_time( DATE_ISO8601, $post->ID ),
 			"author" => array(
@@ -63,26 +63,22 @@ class Structuring_Markup_Meta_NewsArticle {
 
 		if ( has_post_thumbnail( $post->ID ) ) {
 			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
-
 			$images_args = array(
-				"image"    => array(
-					"@type"  => "ImageObject",
-					"url"    => $images[0],
-					"width"  => $images[1],
-					"height" => $images[2]
-				)
+					"image" => $this->set_image_object( $images[0], $images[1], $images[2] )
 			);
 			$args = array_merge( $args, $images_args );
 		} elseif ( isset( $options['content_image'] ) &&  $options['content_image'] === 'on' ) {
 			if ( $images = $this->utility->get_content_image( $post->post_content ) ) {
 				if ( $size = $this->utility->get_image_dimensions( $images ) ) {
 					$images_args = array(
-						"image" => array(
-							"@type"  => "ImageObject",
-							"url"    => $images,
-							"width"  => $size['width'],
-							"height" => $size['height']
-						)
+							"image" => $this->set_image_object( $images, $size['width'], $size['height'] )
+					);
+					$args = array_merge( $args, $images_args );
+				}
+			} elseif ( isset( $options['default_image'] ) ) {
+				if ($size = $this->utility->get_image_dimensions( $options['default_image'] ) ) {
+					$images_args = array(
+							"image" => $this->set_image_object( esc_html( $options['default_image'] ), $size['width'], $size['height'] )
 					);
 					$args = array_merge( $args, $images_args );
 				}
@@ -90,18 +86,13 @@ class Structuring_Markup_Meta_NewsArticle {
 		} elseif ( isset( $options['default_image'] ) ) {
 			if ( $size = $this->utility->get_image_dimensions( $options['default_image'] ) ) {
 				$images_args = array(
-					"image" => array(
-						"@type"  => "ImageObject",
-						"url"    => esc_html( $options['default_image'] ),
-						"width"  => $size['width'],
-						"height" => $size['height']
-					)
+						"image" => $this->set_image_object( esc_html( $options['default_image'] ), $size['width'], $size['height'] )
 				);
 				$args = array_merge( $args, $images_args );
 			}
 		}
 
-		if ( isset( $options['name'] ) ) {
+		if ( isset( $options['name'] ) && !empty( $options['name'] ) ) {
 			$publisher_args = array(
 				"publisher" => array(
 					"@type" => "Organization",
@@ -112,18 +103,12 @@ class Structuring_Markup_Meta_NewsArticle {
 			$options['logo'] = isset( $options['logo'] ) ? esc_html( $options['logo'] ) : "";
 
 			if ( $logo = $this->utility->get_image_dimensions( $options['logo'] ) ) {
-				$publisher_args['publisher']['logo'] = array(
-					"@type"  => "ImageObject",
-					"url"    => $options['logo'],
-					"width"  => $logo['width'],
-					"height" => $logo['height']
-				);
+				$publisher_args['publisher']['logo'] = $this->set_image_object( $options['logo'], $logo['width'], $logo['height'] );
 			} else if ( !empty( $options['logo'] ) ) {
-				$publisher_args['publisher']['logo'] = array(
-					"@type"  => "ImageObject",
-					"url"    => $options['logo'],
-					"width"  => isset( $options['logo-width'] )  ? (int) $options['logo-width']  : 0,
-					"height" => isset( $options['logo-height'] ) ? (int) $options['logo-height'] : 0
+				$publisher_args['publisher']['logo'] = $this->set_image_object(
+						$options['logo'],
+						isset( $options['logo-width'] )  ? ( int ) $options['logo-width']  : 0,
+						isset( $options['logo-height'] ) ? ( int ) $options['logo-height'] : 0
 				);
 			}
 			$args = array_merge( $args, $publisher_args );
@@ -144,6 +129,27 @@ class Structuring_Markup_Meta_NewsArticle {
 			}
 		}
 
-		return (array) $args;
+		return ( array ) $args;
+	}
+
+	/**
+	 * Setting ImageObject
+	 *
+	 * @version 4.7.0
+	 * @since   4.7.0
+	 * @param   string  $url
+	 * @param   integer $width
+	 * @param   integer $height
+	 * @return  array $args
+	 */
+	public function set_image_object ( $url, $width, $height ) {
+		$args = array(
+				"@type"  => "ImageObject",
+				"url"    => $url,
+				"width"  => $width,
+				"height" => $height
+		);
+
+		return ( array ) $args;
 	}
 }
