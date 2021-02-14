@@ -3,7 +3,7 @@
  * Schema.org openingHours
  *
  * @author  Justin Frydman
- * @version 2.4.0
+ * @version 4.8.0
  * @since   2.4.0
  * @see     wp-structuring-display.php
  * @link 	https://schema.org/openingHours
@@ -177,22 +177,28 @@ class Structuring_Markup_Opening_Hours {
 	/**
 	 * Sorts our days in the proper weekly hour
 	 *
-	 * @since  2.4.0
-	 * @param  array $consecutive_days
-	 * @return array
+	 * @version 4.8.0
+	 * @since   2.4.0
+	 * @param   array $consecutive_days
+	 * @return  array
 	 */
 	public function sort_by_day_of_the_week ( array $consecutive_days ) {
 		$days = $this->days;
 
-		arsort($consecutive_days);
+		arsort( $consecutive_days );
 
 		$sort_by_day_func = function( $a, $b ) use ( $days ) {
 			$aKey = array_search( $a['start'], $days );
 			$bKey = array_search( $b['start'], $days );
-			return $aKey === $bKey ? 1 : $aKey < $bKey ? -1 : 1;
+
+			if ( $aKey < $bKey ) {
+				return -1;
+			} else {
+				return 1;
+			}
 		};
 
-		usort($consecutive_days, $sort_by_day_func);
+		usort( $consecutive_days, $sort_by_day_func );
 
 		return (array) $consecutive_days;
 	}

@@ -2,8 +2,8 @@
 Contributors: miiitaka
 Tags: schema, schema.org, json, json-ld, seo, post, posts, google, shortcode, breadcrumb
 Requires at least: 4.3.1
-Tested up to: 5.3.2
-Stable tag: 4.7.0
+Tested up to: 5.6.1
+Stable tag: 4.8.0
 
 Allows you to include schema.org JSON-LD syntax markup on your website
 
@@ -14,12 +14,12 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 
 = Schema.org Type =
 
-* Article: http://schema.org/Article
-* BlogPosting: http://schema.org/BlogPosting
+* Article: https://schema.org/Article
+* BlogPosting: https://schema.org/BlogPosting
 * BreadcrumbList: https://schema.org/BreadcrumbList
 * Event: https://schema.org/Event
-* LocalBusiness : http://schema.org/LocalBusiness
-* NewsArticle: http://schema.org/NewsArticle
+* LocalBusiness : https://schema.org/LocalBusiness
+* NewsArticle: https://schema.org/NewsArticle
 * Organization: https://schema.org/Organization
 * Person: https://schema.org/Person
 * SiteNavigation: https://schema.org/SiteNavigationElement
@@ -67,6 +67,10 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 * Open 'Schema.org Setting' menu.
 
 == Changelog ==
+
+= 4.8.0 (2020-02-14) =
+* Fixed : Schema Type Local Business: Nesting of ternary operators.
+* Checked : WordPress version 5.6.1 operation check.
 
 = 4.7.0 (2020-01-13) =
 * Updated : Added categories to videos and event types.
