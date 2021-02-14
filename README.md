@@ -56,6 +56,9 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 4.8.0 (2020-02-14)
+- Fixed : Schema Type Local Business: Nesting of ternary operators.
+
 ### 4.7.0 (2020-01-13)
 - Updated : Added categories to videos and event types.
 - Fixed : HTML tags are removed when outputting breadcrumbs.
