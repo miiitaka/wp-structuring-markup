@@ -3,7 +3,7 @@
  * Schema.org openingHours
  *
  * @author  Justin Frydman
- * @version 2.4.0
+ * @version 4.8.0
  * @since   2.4.0
  * @see     wp-structuring-display.php
  * @link 	https://schema.org/openingHours

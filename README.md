@@ -8,11 +8,11 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 
 ## Schema.org Type
 
-- Article: http://schema.org/Article
-- BlogPosting: http://schema.org/BlogPosting
+- Article: https://schema.org/Article
+- BlogPosting: https://schema.org/BlogPosting
 - BreadcrumbList: https://schema.org/BreadcrumbList
 - Event: https://schema.org/Event
-- LocalBusiness: http://schema.org/LocalBusiness
+- LocalBusiness: https://schema.org/LocalBusiness
 - NewsArticle: http://schema.org/NewsArticle
 - Organization: https://schema.org/Organization
 - Person: https://schema.org/Person
@@ -58,6 +58,7 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ### 4.8.0 (2020-02-14)
 - Fixed : Schema Type Local Business: Nesting of ternary operators.
+- Checked : WordPress version 5.6.1 operation check.
 
 ### 4.7.0 (2020-01-13)
 - Updated : Added categories to videos and event types.
