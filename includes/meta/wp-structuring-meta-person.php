@@ -3,7 +3,7 @@
  * Schema.org Type Person
  *
  * @author  Kazuya Takami
- * @version 4.0.0
+ * @version 4.8.1
  * @since   4.0.0
  * @link    https://schema.org/Person
  * @link    https://developers.google.com/search/docs/data-types/social-profile-links
@@ -13,7 +13,7 @@ class Structuring_Markup_Meta_Person {
 	/**
 	 * Setting schema.org Person
 	 *
-	 * @version 4.0.0
+	 * @version 4.8.1
 	 * @since   4.0.0
 	 * @param   array $options
 	 * @return  array $args
@@ -21,7 +21,7 @@ class Structuring_Markup_Meta_Person {
 	public function set_meta ( array $options ) {
 		/** Logos */
 		$args = array(
-			"@context" => "http://schema.org",
+			"@context" => "https://schema.org",
 			"@type"    => "Person",
 			"name"     => isset( $options['name'] ) ? esc_html( $options['name'] ) : "",
 			"url"      => isset( $options['url'] )  ? esc_url( $options['url'] )   : ""

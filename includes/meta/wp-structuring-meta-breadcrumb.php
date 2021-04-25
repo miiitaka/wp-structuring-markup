@@ -3,7 +3,7 @@
  * Schema.org Type Breadcrumb
  *
  * @author  Kazuya Takami
- * @version 4.0.0
+ * @version 4.8.1
  * @since   4.0.0
  * @see     wp-structuring-short-code-breadcrumb.php
  * @link    https://schema.org/BreadcrumbList
@@ -14,7 +14,7 @@ class Structuring_Markup_Meta_Breadcrumb {
 	/**
 	 * Setting schema.org Breadcrumb
 	 *
-	 * @version 4.0.0
+	 * @version 4.8.1
 	 * @since   4.0.0
 	 * @param   array $options
 	 * @return  array $args
@@ -38,7 +38,7 @@ class Structuring_Markup_Meta_Breadcrumb {
 
 			/** Breadcrumb Schema build */
 			$args = array(
-				"@context"        => "http://schema.org",
+				"@context"        => "https://schema.org",
 				"@type"           => "BreadcrumbList",
 				"itemListElement" => $item_list_element
 			);

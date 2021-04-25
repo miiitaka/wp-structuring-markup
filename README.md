@@ -13,7 +13,7 @@ Base knowledge is "https://schema.org/" and "https://developers.google.com/struc
 - BreadcrumbList: https://schema.org/BreadcrumbList
 - Event: https://schema.org/Event
 - LocalBusiness: https://schema.org/LocalBusiness
-- NewsArticle: http://schema.org/NewsArticle
+- NewsArticle: https://schema.org/NewsArticle
 - Organization: https://schema.org/Organization
 - Person: https://schema.org/Person
 - SiteNavigation: https://schema.org/SiteNavigationElement

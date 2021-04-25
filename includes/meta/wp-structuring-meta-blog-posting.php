@@ -3,9 +3,9 @@
  * Schema.org Type BlogPosting
  *
  * @author  Kazuya Takami
- * @version 4.7.0
+ * @version 4.8.1
  * @since   4.0.0
- * @link    http://schema.org/BlogPosting
+ * @link    https://schema.org/BlogPosting
  * @link    https://developers.google.com/search/docs/data-types/articles
  * @link    https://developers.google.com/search/docs/data-types/speakable
  */
@@ -33,7 +33,7 @@ class Structuring_Markup_Meta_Blog_Posting {
 	/**
 	 * Setting schema.org BlogPosting
 	 *
-	 * @version 4.7.0
+	 * @version 4.8.1
 	 * @since   4.0.0
 	 * @param   array $options
 	 * @return  array $args
@@ -45,7 +45,7 @@ class Structuring_Markup_Meta_Blog_Posting {
 		$content = $excerpt === "" ? mb_substr( $this->utility->escape_text( $post->post_content ), 0, 110 ) : $excerpt;
 
 		$args = array(
-			"@context" => "http://schema.org",
+			"@context" => "https://schema.org",
 			"@type"    => "BlogPosting",
 			"mainEntityOfPage" => array(
 				"@type" => "WebPage",

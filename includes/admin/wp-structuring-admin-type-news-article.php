@@ -3,10 +3,10 @@
  * Schema.org Type News Article
  *
  * @author  Kazuya Takami
- * @version 4.5.3
+ * @version 4.8.1
  * @since   1.0.0
  * @see     wp-structuring-admin-db.php
- * @link    http://schema.org/NewsArticle
+ * @link    https://schema.org/NewsArticle
  * @link    https://developers.google.com/search/docs/data-types/articles
  * @link    https://developers.google.com/search/docs/data-types/speakable
  */
@@ -33,7 +33,7 @@ class Structuring_Markup_Type_NewsArticle {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 4.5.3
+	 * @version 4.8.1
 	 * @since   1.0.0
 	 * @param   array $option
 	 */
@@ -143,7 +143,7 @@ class Structuring_Markup_Type_NewsArticle {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Setting Knowledge</caption>';
 		$html .= '<tr><th>schema.org NewsArticle :</th>';
-		$html .= '<td><a href="http://schema.org/NewsArticle" target="_blank">http://schema.org/NewsArticle</a></td></tr>';
+		$html .= '<td><a href="https://schema.org/NewsArticle" target="_blank">https://schema.org/NewsArticle</a></td></tr>';
 		$html .= '<tr><th>pending.schema.org Speakable :</th>';
 		$html .= '<td><a href="https://pending.schema.org/speakable" target="_blank">https://pending.schema.org/speakable</a></td></tr>';
 		$html .= '<tr><th>Google Search Article :</th>';

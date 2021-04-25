@@ -3,12 +3,12 @@
  * Schema.org Type Event
  *
  * @author  Kazuya Takami
- * @version 4.5.3
+ * @version 4.8.1
  * @since   2.1.0
  * @see     wp-structuring-admin-db.php
- * @link    http://schema.org/Event
- * @link    http://schema.org/Place
- * @link    http://schema.org/Offer
+ * @link    https://schema.org/Event
+ * @link    https://schema.org/Place
+ * @link    https://schema.org/Offer
  * @link    https://developers.google.com/search/docs/data-types/events
  */
 class Structuring_Markup_Type_Event {
@@ -25,7 +25,7 @@ class Structuring_Markup_Type_Event {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 4.5.3
+	 * @version 4.8.1
 	 * @since   2.1.0
 	 */
 	private function page_render () {
@@ -71,11 +71,11 @@ class Structuring_Markup_Type_Event {
 		$html .= '<tr><th>Archive rewrite name :</th>';
 		$html .= '<td>events</td></tr>';
 		$html .= '<tr><th>schema.org Event :</th>';
-		$html .= '<td><a href="http://schema.org/Event" target="_blank">http://schema.org/Event</a></td></tr>';
+		$html .= '<td><a href="https://schema.org/Event" target="_blank">https://schema.org/Event</a></td></tr>';
 		$html .= '<tr><th>schema.org Place :</th>';
-		$html .= '<td><a href="http://schema.org/Place" target="_blank">http://schema.org/Place</a></td></tr>';
+		$html .= '<td><a href="https://schema.org/Place" target="_blank">https://schema.org/Place</a></td></tr>';
 		$html .= '<tr><th>schema.org Offer :</th>';
-		$html .= '<td><a href="http://schema.org/Offer" target="_blank">http://schema.org/Offer</a></td></tr>';
+		$html .= '<td><a href="https://schema.org/Offer" target="_blank">https://schema.org/Offer</a></td></tr>';
 		$html .= '<tr><th>Google Search Breadcrumb :</th>';
 		$html .= '<td><a href="https://developers.google.com/search/docs/data-types/events" target="_blank">https://developers.google.com/search/docs/data-types/events</a></td></tr>';
 		$html .= '</table>';

@@ -3,9 +3,9 @@
  * Schema.org Type News Article
  *
  * @author  Kazuya Takami
- * @version 4.7.0
+ * @version 4.8.1
  * @since   4.0.0
- * @link    http://schema.org/NewsArticle
+ * @link    https://schema.org/NewsArticle
  * @link    https://developers.google.com/search/docs/data-types/articles
  * @link    https://developers.google.com/search/docs/data-types/speakable
  */
@@ -45,7 +45,7 @@ class Structuring_Markup_Meta_NewsArticle {
 		$content = $excerpt === "" ? mb_substr( $this->utility->escape_text( $post->post_content ), 0, 110 ) : $excerpt;
 
 		$args = array(
-			"@context" => "http://schema.org",
+			"@context" => "https://schema.org",
 			"@type"    => "NewsArticle",
 			"mainEntityOfPage" => array(
 				"@type" => "WebPage",
