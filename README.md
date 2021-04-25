@@ -56,6 +56,11 @@ if ( shortcode_exists( 'wp-structuring-markup-breadcrumb' ) ) {
 
 ## Change Log
 
+### 4.8.1 (2020-04-26)
+- Fixed : http://schema.org/ -> https://schema.org/.
+- Checked : WordPress version 5.7.1 operation check.
+- Checked : WordPress version 5.7.0 operation check.
+
 ### 4.8.0 (2020-02-14)
 - Fixed : Schema Type Local Business: Nesting of ternary operators.
 - Checked : WordPress version 5.6.1 operation check.
