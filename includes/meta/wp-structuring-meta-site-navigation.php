@@ -3,7 +3,7 @@
  * Schema.org Site Navigation Element
  *
  * @author  Kazuya Takami
- * @version 4.0.0
+ * @version 4.8.1
  * @since   4.0.0
  * @link    https://schema.org/SiteNavigationElement
  */
@@ -12,7 +12,7 @@ class Structuring_Markup_Meta_Site_Navigation {
 	/**
 	 * Setting schema.org Site Navigation
 	 *
-	 * @version 4.0.0
+	 * @version 4.8.1
 	 * @since   4.0.0
 	 * @param   array $options
 	 * @return  array $args
@@ -30,7 +30,7 @@ class Structuring_Markup_Meta_Site_Navigation {
 
 			if ( count( $items_array ) > 0 ) {
 				$args = array(
-					"@context" => "http://schema.org",
+					"@context" => "https://schema.org",
 					"@type"    => "SiteNavigationElement",
 					"name"     => $name_array,
 					"url"      => $url_array

@@ -3,7 +3,7 @@
  * Schema.org Type Organization
  *
  * @author  Kazuya Takami
- * @version 4.6.0
+ * @version 4.8.1
  * @since   4.0.0
  * @link    https://schema.org/Organization
  * @link    https://developers.google.com/search/docs/guides/enhance-site
@@ -21,7 +21,7 @@ class Structuring_Markup_Meta_Organization {
 	public function set_meta ( array $options ) {
 		/** Logos */
 		$args = array(
-			'@context' => 'http://schema.org',
+			'@context' => 'https://schema.org',
 			'@type'    => isset( $options['organization_type'] ) ? esc_html( $options['organization_type'] ) : 'Organization',
 			'name'     => isset( $options['name'] )              ? esc_html( $options['name'] ) : '',
 			'url'      => isset( $options['url'] )               ? esc_url( $options['url'] ) : '',

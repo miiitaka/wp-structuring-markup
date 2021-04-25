@@ -3,7 +3,7 @@
  * Schema.org Type WebSite
  *
  * @author  Kazuya Takami
- * @version 4.5.0
+ * @version 4.8.1
  * @since   4.0.0
  * @link    https://schema.org/WebSite
  * @link    https://developers.google.com/search/docs/guides/enhance-site#add-a-sitelinks-searchbox-for-your-site
@@ -14,14 +14,14 @@ class Structuring_Markup_Meta_WebSite {
 	/**
 	 * Setting schema.org WebSite
 	 *
-	 * @version 4.5.0
+	 * @version 4.8.1
 	 * @since   4.0.0
 	 * @param   array $options
 	 * @return  array $args
 	 */
 	public function set_meta ( array $options ) {
 		$args = array(
-			"@context"      => "http://schema.org",
+			"@context"      => "https://schema.org",
 			"@type"         => "WebSite",
 			"name"          => isset( $options['name'] ) ? esc_html( $options['name'] ) : '',
 			"alternateName" => isset( $options['alternateName'] ) ? esc_html( $options['alternateName'] ) : '',

@@ -3,7 +3,7 @@
  * Schema.org Type Video
  *
  * @author  Kazuya Takami
- * @version 4.0.0
+ * @version 4.8.1
  * @since   4.0.0
  * @link    https://schema.org/VideoObject
  * @link    https://developers.google.com/search/docs/data-types/videos
@@ -32,7 +32,7 @@ class Structuring_Markup_Meta_Video {
 	/**
 	 * Setting schema.org Video
 	 *
-	 * @version 4.0.0
+	 * @version 4.8.1
 	 * @since   4.0.0
 	 * @return  array $args
 	 */
@@ -60,7 +60,7 @@ class Structuring_Markup_Meta_Video {
 			if ( !isset( $meta['schema_video_upload_time'] ) )   $meta['schema_video_upload_time'] = get_post_modified_time( 'H:i:s', __return_false(), $post->ID );
 
 			$args = array(
-				"@context"     => "http://schema.org",
+				"@context"     => "https://schema.org",
 				"@type"        => "VideoObject",
 				"name"         => esc_html( $meta['schema_video_name'] ),
 				"description"  => esc_html( $meta['schema_video_description'] ),

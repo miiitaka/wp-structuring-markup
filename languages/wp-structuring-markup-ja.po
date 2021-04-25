@@ -213,5 +213,5 @@ msgid "Kazuya Takami"
 msgstr "Kazuya Takami"
 
 #. Author URI of the plugin/theme
-msgid "http://programp.com/"
-msgstr "http://programp.com/"
+msgid "https://terakoya.work/"
+msgstr "https://terakoya.work/"

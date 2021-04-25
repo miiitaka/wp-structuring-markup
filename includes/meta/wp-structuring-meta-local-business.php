@@ -3,10 +3,10 @@
  * Schema.org Type LocalBusiness
  *
  * @author  Kazuya Takami
- * @version 4.6.0
+ * @version 4.8.1
  * @since   4.0.0
  * @see     wp-structuring-opening-hours.php
- * @link    http://schema.org/LocalBusiness
+ * @link    https://schema.org/LocalBusiness
  * @link    https://schema.org/GeoCircle
  * @link    https://developers.google.com/search/docs/data-types/local-businesses
  */
@@ -34,7 +34,7 @@ class Structuring_Markup_Meta_LocalBusiness {
 		);
 
 		$args = array(
-			'@context'  => 'http://schema.org',
+			'@context'  => 'https://schema.org',
 			'@type'     => isset( $options['business_type'] ) ? esc_html( $options['business_type'] ) : 'LocalBusiness',
 			'name'      => isset( $options['name'] )          ? esc_html( $options['name'] ) : '',
 			'image'     => isset( $options['image'] )         ? esc_html( $options['image'] ) : '',

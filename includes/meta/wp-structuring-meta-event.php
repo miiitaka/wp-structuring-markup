@@ -3,11 +3,11 @@
  * Schema.org Type Event
  *
  * @author  Kazuya Takami
- * @version 4.0.2
+ * @version 4.8.1
  * @since   4.0.0
- * @link    http://schema.org/Event
- * @link    http://schema.org/Place
- * @link    http://schema.org/Offer
+ * @link    https://schema.org/Event
+ * @link    https://schema.org/Place
+ * @link    https://schema.org/Offer
  * @link    https://developers.google.com/search/docs/data-types/events
  */
 class Structuring_Markup_Meta_Event {
@@ -15,7 +15,7 @@ class Structuring_Markup_Meta_Event {
 	/**
 	 * Setting schema.org Event
 	 *
-	 * @version 4.0.2
+	 * @version 4.8.1
 	 * @since   4.0.0
 	 * @return  array $args
 	 */
@@ -39,7 +39,7 @@ class Structuring_Markup_Meta_Event {
 			if ( !isset( $meta['schema_event_offers_currency'] ) ) $meta['schema_event_offers_currency'] = '';
 
 			$args = array(
-				"@context"  => "http://schema.org",
+				"@context"  => "https://schema.org",
 				"@type"     => esc_html( $meta['schema_event_type'] ),
 				"name"      => esc_html( $meta['schema_event_name'] ),
 				"startDate" => esc_html( $meta['schema_event_date'] ) . 'T' . esc_html( $meta['schema_event_time'] ),
@@ -73,7 +73,7 @@ class Structuring_Markup_Meta_Event {
 
 			// @type: Offer recommended items
 			if ( isset( $meta['schema_event_offers_availability'] ) && $meta['schema_event_offers_availability'] !== '' ) {
-				$offer['availability'] = "http://schema.org/" . esc_html( $meta['schema_event_offers_availability'] );
+				$offer['availability'] = "https://schema.org/" . esc_html( $meta['schema_event_offers_availability'] );
 			}
 			if ( isset( $meta['schema_event_offers_date'] ) && $meta['schema_event_offers_date'] !== '' && isset( $meta['schema_event_offers_time'] ) && $meta['schema_event_offers_time'] !== '' ) {
 				$offer['validFrom'] = esc_html( $meta['schema_event_offers_date'] ) . 'T' . esc_html( $meta['schema_event_offers_time'] );

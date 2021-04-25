@@ -3,10 +3,10 @@
  * Schema.org Type LocalBusiness
  *
  * @author  Kazuya Takami
- * @version 4.6.0
+ * @version 4.8.1
  * @since   2.3.3
  * @see     wp-structuring-admin-db.php
- * @link    http://schema.org/LocalBusiness
+ * @link    https://schema.org/LocalBusiness
  * @link    https://schema.org/GeoCircle
  * @link    https://developers.google.com/search/docs/data-types/local-businesses
  */
@@ -210,7 +210,7 @@ class Structuring_Markup_Type_LocalBusiness {
 	/**
 	 * Form Layout Render
 	 *
-	 * @version 4.5.3
+	 * @version 4.8.1
 	 * @since   2.3.3
 	 * @param   array $option
 	 */
@@ -318,7 +318,7 @@ class Structuring_Markup_Type_LocalBusiness {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>Setting Knowledge</caption>';
 		$html .= '<tr><th>schema.org LocalBusiness :</th>';
-		$html .= '<td><a href="http://schema.org/LocalBusiness" target="_blank">http://schema.org/LocalBusiness</a></td></tr>';
+		$html .= '<td><a href="https://schema.org/LocalBusiness" target="_blank">https://schema.org/LocalBusiness</a></td></tr>';
 		$html .= '<tr><th>schema.org GeoCircle :</th>';
 		$html .= '<td><a href="https://schema.org/GeoCircle" target="_blank">https://schema.org/GeoCircle</a></td></tr>';
 		$html .= '<tr><th>Google Search LocalBusiness :</th>';
