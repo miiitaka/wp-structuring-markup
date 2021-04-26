@@ -4,7 +4,7 @@ WordPress: Plug-in Schema.org JSON-LD
 https://wordpress.org/plugins/wp-structuring-markup/
 
 Allows you to include schema.org JSON-LD syntax markup on your website
-Base knowledge is "https://schema.org/" and "https://developers.google.com/structured-data/"
+Base knowledge is "https://schema.org/" and "https://developers.google.com/search/docs/guides/intro-structured-data"
 
 ## Schema.org Type
 
