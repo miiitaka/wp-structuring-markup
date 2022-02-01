@@ -79,8 +79,8 @@ class Structuring_Markup_Type_Article {
 		$html  = '<table class="schema-admin-table">';
 		$html .= '<caption>author</caption>';
 		$html .= '<tr><th>@type :</th><td><small>"Person"</small></td></tr>';
-		$html .= '<tr><th>name :</th><td><small>Default : get_the_author_meta( "display_name", author )</small>';
-		$html .= '</td></tr>';
+		$html .= '<tr><th>name :</th><td><small>Default : get_the_author_meta( "display_name", author )</small></td></tr>';
+		$html .= '<tr><th>url :</th><td><small>Default : get_the_author_meta( "url", author )</small></td></tr>';
 		$html .= '</table>';
 		echo $html;
 

@@ -44,21 +44,34 @@ class Structuring_Markup_Meta_Blog_Posting {
 		$excerpt = $this->utility->escape_text( $post->post_excerpt );
 		$content = $excerpt === "" ? mb_substr( $this->utility->escape_text( $post->post_content ), 0, 110 ) : $excerpt;
 
+		$author_args = 	array(
+			"@type" => "Person",
+			"name"  => esc_html( get_the_author_meta( 'display_name', $post->post_author ) ),
+		);
+
 		$args = array(
-			"@context" => "https://schema.org",
-			"@type"    => "BlogPosting",
+			"@context"         => "https://schema.org",
+			"@type"            => "BlogPosting",
 			"mainEntityOfPage" => array(
 				"@type" => "WebPage",
 				"@id"   => get_permalink( $post->ID )
 			),
-			"headline"      => mb_substr( $this->utility->escape_text( $post->post_title ), 0, 110 ),
-			"datePublished" => get_the_time( DATE_ISO8601, $post->ID ), "dateModified"  => get_the_modified_time( DATE_ISO8601, $post->ID ),
-			"author" => array(
-				"@type" => "Person",
-				"name"  => esc_html( get_the_author_meta( 'display_name', $post->post_author ) )
-			),
-			"description" => $content
+			"headline"         => mb_substr( $this->utility->escape_text( $post->post_title ),
+				0, 110 ),
+			"datePublished"    => get_the_time( DATE_ISO8601, $post->ID ),
+			"dateModified"     => get_the_modified_time( DATE_ISO8601,
+				$post->ID ),
+			"author"           => array( $author_args ),
+			"description"      => $content
 		);
+
+		if ( get_the_author_meta( 'url', $post->post_author ) ) {
+			$args = array_merge( $author_args, array(
+				"url" => esc_url( get_the_author_meta( 'url', $post->post_author ) )
+			) );
+		}
+
+		$args = array_merge( $args, $author_args );
 
 		if ( has_post_thumbnail( $post->ID ) ) {
 			$images = wp_get_attachment_image_src( get_post_thumbnail_id( $post->ID ), 'full' );
