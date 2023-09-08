@@ -19,15 +19,13 @@ class Structuring_Markup_ShortCode_Breadcrumb {
 	 * @return  string $html
 	 */
 	public function short_code_display ( array $options, $args ) {
-		extract( shortcode_atts( array (
-			'id'    => "",
-			'class' => ""
-		), $args ) );
-
-		$instance = array(
-			'id'    => esc_attr( $id ),
-			'class' => esc_attr( $class )
-		);
+		$attributes = shortcode_atts(array(
+		    'id'    => "",
+		    'class' => ""
+		), $args);
+		
+		$id    = esc_attr( sanitize_text_field($attributes['id']) );
+		$class = esc_attr( sanitize_text_field($attributes['class']) );
 
 		$item_array = $this->breadcrumb_array_setting( $options );
 		$html = '';
